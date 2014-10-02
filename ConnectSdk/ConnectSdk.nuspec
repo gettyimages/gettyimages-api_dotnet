@@ -11,6 +11,7 @@
     <description>$description$</description>
     <releaseNotes>Pre-release</releaseNotes>
     <copyright>Copyright 2014</copyright>
-    <tags></tags>
+    <licenseUrl>https://github.com/gettyimages/connect_sdk_csharp/blob/master/LICENSE</licenseUrl>
+    <tags>Getty Images Connect API SDK</tags>
   </metadata>
 </package>
