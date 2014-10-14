@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Connect.Handlers;
 
 namespace GettyImages.Connect
 {
@@ -20,7 +21,7 @@ namespace GettyImages.Connect
 
         internal async Task<dynamic> Get(IEnumerable<KeyValuePair<string, string>> queryParameters, string path)
         {
-            var client = HttpClientFactory.Create((await _credentials.GetHandlers()).ToArray());
+            var client = HttpClientFactory.Create(await GetHandlers());
             var uri = _baseAddress + path;
             var builder = new UriBuilder(uri)
             {
@@ -32,9 +33,17 @@ namespace GettyImages.Connect
             return await HandleResponse(httpResponse);
         }
 
+        private async Task<DelegatingHandler[]> GetHandlers()
+        {
+            var handlers = new List<DelegatingHandler>();
+            handlers.AddRange(await _credentials.GetHandlers());
+            handlers.Add(new UserAgentHandler());
+            return handlers.ToArray();
+        }
+
         internal async Task<dynamic> Get(string path)
         {
-            var client = HttpClientFactory.Create((await _credentials.GetHandlers()).ToArray());
+            var client = HttpClientFactory.Create(await GetHandlers());
             var uri = _baseAddress + path;
             var httpResponse = await client.GetAsync(uri);
             return await HandleResponse(httpResponse);
@@ -46,7 +55,11 @@ namespace GettyImages.Connect
             string path,
             IEnumerable<DelegatingHandler> handlers)
         {
-            using (var client = HttpClientFactory.Create(handlers == null ? null : handlers.ToArray()))
+            using (
+                var client =
+                    HttpClientFactory.Create(handlers == null
+                        ? new DelegatingHandler[] {new UserAgentHandler()}
+                        : handlers.ToArray()))
             {
                 var uri = _baseAddress + path;
                 var httpResponse =
@@ -59,13 +72,13 @@ namespace GettyImages.Connect
 
         internal async Task<dynamic> PostForm(IEnumerable<KeyValuePair<string, string>> formParameters, string path)
         {
-            var handlers = (await _credentials.GetHandlers()).ToArray();
+            var handlers = await GetHandlers();
             return PostForm(formParameters, path, handlers);
         }
 
         internal async Task<dynamic> PostQuery(IEnumerable<KeyValuePair<string, string>> queryParameters, string path)
         {
-            using (var client = HttpClientFactory.Create((await _credentials.GetHandlers()).ToArray()))
+            using (var client = HttpClientFactory.Create(await GetHandlers()))
             {
                 var uri = _baseAddress + path;
                 var httpResponse =
@@ -92,7 +105,7 @@ namespace GettyImages.Connect
         private static string BuildQuery(IEnumerable<KeyValuePair<string, string>> queryParameters)
         {
             var keyValuePairs = queryParameters as KeyValuePair<string, string>[] ??
-                                queryParameters.ToArray();
+                                                           queryParameters.ToArray();
             return string.Join("&",
                 keyValuePairs.Select(d => d.Key + "=" + WebUtility.UrlEncode(d.Value.ToString().ToLowerInvariant())));
         }
