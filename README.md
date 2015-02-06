@@ -1,6 +1,6 @@
-# Connect SDK - C&#35;
+# Getty Images API SDK - .NET
 ## Introduction
-This SDK makes using the Getty Images [Connect API](https://api.gettyimages.com) easy. It handles credential management, makes HTTP requests and is written with a fluent style in mind. The [Connect API Documentation](https://github.com/gettyimages/connect) is located on Github.
+This SDK makes using the Getty Images [API](https://developer.gettyimages.com) easy. It handles credential management, makes HTTP requests and is written with a fluent style in mind. The [API Documentation](https://github.com/gettyimages/gettyimages-api) is located on Github.
 
 ## Getting started
 ### Using the Nuget Package
@@ -35,7 +35,7 @@ foreach (var image in searchResult.images)
 }
 ````
 
-Results are returned as `dynamic`. Visit the [Connect API Interactive Documentation](https://connect.gettyimages.com/swagger) to learn more about available parameters and to see what the response object look like.
+Results are returned as `dynamic`. Visit the [API Interactive Documentation](https://api.gettyimages.com/swagger) to learn more about available parameters and to see what the response object look like.
 
 ### Building From Source Code
 _This is only necessary if you would like to contribute to the project. Otherwise, use the [Nuget Package](#using-the-nuget-package)_
@@ -48,7 +48,7 @@ _This is only necessary if you would like to contribute to the project. Otherwis
 + You have the [SpecFlow](http://specflow.org) extension installed in Visual Studio
 
 ## Tests
-The Connect team at Getty Images uses [Behavior Driven Development](http://en.wikipedia.org/wiki/Behavior-driven_development) (BDD). We think it's a great way to develop software and want to spread the word. The test project contains scenarios written in the [Gherkin language](https://github.com/cucumber/gherkin/wiki) which are bound to code using [SpecFlow](http://www.specflow.org/).
+The API team at Getty Images uses [Behavior Driven Development](http://en.wikipedia.org/wiki/Behavior-driven_development) (BDD). We think it's a great way to develop software and want to spread the word. The test project contains scenarios written in the [Gherkin language](https://github.com/cucumber/gherkin/wiki) which are bound to code using [SpecFlow](http://www.specflow.org/).
 
 #### Clone the repository
 The Git repository contains a submodule which requires some special handling to get setup properly. This is because we share our scenario files across all our SDKs. 
