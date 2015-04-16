@@ -144,5 +144,13 @@ namespace GettyImages.Connect.Tests
             ScenarioContext.Current.Get<SearchImages>("request")
                .WithProductType((ProductType) Enum.Parse(typeof (ProductType), producttype));
         }
+
+        [When(@"I specify a (.*) number of people in image")]
+        public void WhenISpecifyANoneNumberOfPeopleInImage(string peopleCount)
+        {
+            ScenarioContext.Current.Get<SearchImages>("request")
+                .WithNumberOfPeople((NumberOfPeople) Enum.Parse(typeof (NumberOfPeople), peopleCount));
+        }
+
     }
 }

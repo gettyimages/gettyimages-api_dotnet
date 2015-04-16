@@ -12,6 +12,7 @@ namespace GettyImages.Connect.Search
         private const string FieldsKey = "fields";
         private const string GraphicalStylesKey = "graphical_styles";
         private const string LicenseModelsKey = "license_models";
+        private const string NumberOfPeopleKey = "number_of_people";
         private const string OrientationsKey = "orientations";
         private const string PageKey = "page";
         private const string PageSizeKey = "page_size";
@@ -181,6 +182,22 @@ namespace GettyImages.Connect.Search
             else
             {
                 QueryParameters.Add(ProductTypesKey, value);
+            }
+
+            return this;
+        }
+
+        public SearchImages WithNumberOfPeople(NumberOfPeople value)
+        {
+            if (QueryParameters.ContainsKey(NumberOfPeopleKey))
+            {
+                QueryParameters[NumberOfPeopleKey] = value == NumberOfPeople.none
+                    ? value
+                    : (NumberOfPeople)QueryParameters[NumberOfPeopleKey] | value;
+            }
+            else
+            {
+                QueryParameters.Add(NumberOfPeopleKey, value);
             }
 
             return this;
