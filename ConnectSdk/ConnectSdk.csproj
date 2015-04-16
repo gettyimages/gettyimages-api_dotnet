@@ -55,6 +55,7 @@
     <Compile Include="Search\IImagesSearch.cs" />
     <Compile Include="Search\LicenseModel.cs" />
     <Compile Include="Search\Orientation.cs" />
+    <Compile Include="Search\ProductType.cs" />
     <Compile Include="Search\SearchImages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Search\Search.cs" />

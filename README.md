@@ -55,8 +55,8 @@ The Git repository contains a submodule which requires some special handling to 
 
 Open a console window (Command Prompt, PowerShell or Bash) and issue the following commands to clone the Git repository:
 	
-	git clone git@github.com:gettyimages/connect_sdk_csharp.git
-	pushd connect_sdk_csharp
+	git clone git@github.com:gettyimages/gettyimages-api_dotnet.git
+	pushd gettyimages-api_dotnet
 	git submodule update --init
 #### Build using Command Prompt or Powershell
 	.\build.cmd

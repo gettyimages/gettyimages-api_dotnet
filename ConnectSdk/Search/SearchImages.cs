@@ -16,6 +16,7 @@ namespace GettyImages.Connect.Search
         private const string PageKey = "page";
         private const string PageSizeKey = "page_size";
         private const string PhraseKey = "phrase";
+        private const string ProductTypesKey = "product_types";
         private const string SortOrderKey = "sort_order";
         private const string EmbedContentOnlyKey = "embed_content_only";
         private const string Excludenudity = "exclude_nudity";
@@ -164,6 +165,22 @@ namespace GettyImages.Connect.Search
             else
             {
                 QueryParameters.Add(OrientationsKey, value);
+            }
+
+            return this;
+        }
+
+        public SearchImages WithProductType(ProductType value)
+        {
+            if (QueryParameters.ContainsKey(ProductTypesKey))
+            {
+                QueryParameters[ProductTypesKey] = value == ProductType.None
+                    ? value
+                    : (ProductType)QueryParameters[ProductTypesKey] | value;
+            }
+            else
+            {
+                QueryParameters.Add(ProductTypesKey, value);
             }
 
             return this;

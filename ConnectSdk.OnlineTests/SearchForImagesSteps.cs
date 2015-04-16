@@ -137,5 +137,12 @@ namespace GettyImages.Connect.Tests
             ScenarioContext.Current.Get<SearchImages>("request")
                 .WithOrientation((Orientation) Enum.Parse(typeof (Orientation), orientation));
         }
+
+        [When(@"I specify a (.*) product type")]
+        public void WhenISpecifyAProductType(string producttype)
+        {
+            ScenarioContext.Current.Get<SearchImages>("request")
+               .WithProductType((ProductType) Enum.Parse(typeof (ProductType), producttype));
+        }
     }
 }
