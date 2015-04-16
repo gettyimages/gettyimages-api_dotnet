@@ -152,5 +152,10 @@ namespace GettyImages.Connect.Tests
                 .WithNumberOfPeople((NumberOfPeople) Enum.Parse(typeof (NumberOfPeople), peopleCount));
         }
 
+        [When(@"I specify a location of (.*)")]
+        public void WhenISpecifyALocationOfCalifornia(string location)
+        {
+            ScenarioContext.Current.Get<SearchImages>("request").WithLocation(location);
+        }
     }
 }

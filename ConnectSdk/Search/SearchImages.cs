@@ -12,6 +12,7 @@ namespace GettyImages.Connect.Search
         private const string FieldsKey = "fields";
         private const string GraphicalStylesKey = "graphical_styles";
         private const string LicenseModelsKey = "license_models";
+        private const string LocationKey = "specific_locations";
         private const string NumberOfPeopleKey = "number_of_people";
         private const string OrientationsKey = "orientations";
         private const string PageKey = "page";
@@ -200,6 +201,23 @@ namespace GettyImages.Connect.Search
                 QueryParameters.Add(NumberOfPeopleKey, value);
             }
 
+            return this;
+        }
+
+        public SearchImages WithLocation(string value)
+        {
+            if (!QueryParameters.ContainsKey(LocationKey))
+            {
+                QueryParameters.Add(LocationKey, new List<string> { value });
+            }
+            else
+            {
+                var fields = (IList<string>)QueryParameters[LocationKey];
+                if (!fields.Contains(value))
+                {
+                    fields.Add(value);
+                }
+            }
             return this;
         }
 
