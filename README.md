@@ -42,6 +42,7 @@ _This is only necessary if you would like to contribute to the project. Otherwis
 
 #### Assumptions
 + You have Visual Studio 2013 - this solution should work with 2012, but it has not been tested.
+	+ Note: build issues may occur if your Visual Studio 2013 installation has not been upgraded to Update 4. 
 + You have Git installed
 	+ [Git for Windows](http://msysgit.github.io/)
 	+ If you are using Cygwin, use the [Cygwin Package Installer](https://cygwin.com/install.html) to install Git
