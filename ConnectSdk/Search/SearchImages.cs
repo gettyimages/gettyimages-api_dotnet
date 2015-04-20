@@ -11,6 +11,7 @@ namespace GettyImages.Connect.Search
         private const string CreativeKey = "creative";
         private const string FieldsKey = "fields";
         private const string GraphicalStylesKey = "graphical_styles";
+        private const string KeywordIdsKey = "keyword_ids";
         private const string LicenseModelsKey = "license_models";
         private const string LocationKey = "specific_locations";
         private const string NumberOfPeopleKey = "number_of_people";
@@ -22,7 +23,6 @@ namespace GettyImages.Connect.Search
         private const string SortOrderKey = "sort_order";
         private const string EmbedContentOnlyKey = "embed_content_only";
         private const string Excludenudity = "exclude_nudity";
-        private const string PhraseIsRequired = "Phrase is required";
 
         protected readonly List<string> Fields = new List<string>();
         protected string AssetType;
@@ -53,12 +53,6 @@ namespace GettyImages.Connect.Search
 
         public override async Task<dynamic> ExecuteAsync()
         {
-            if (!QueryParameters.ContainsKey(PhraseKey) ||
-                string.IsNullOrWhiteSpace(QueryParameters[PhraseKey].ToString()))
-            {
-                throw new SdkException(PhraseIsRequired);
-            }
-
             Method = "GET";
             Path = string.IsNullOrEmpty(AssetType) ? V3SearchImagesPath : V3SearchImagesPath + "/" + AssetType;
 
@@ -218,6 +212,12 @@ namespace GettyImages.Connect.Search
                     fields.Add(value);
                 }
             }
+            return this;
+        }
+
+        public SearchImages WithKeywordId(int value)
+        {
+            AddQueryParameter(KeywordIdsKey, value);
             return this;
         }
 

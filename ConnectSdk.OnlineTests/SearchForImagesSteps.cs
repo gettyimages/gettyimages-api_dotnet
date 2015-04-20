@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using GettyImages.Connect.Search;
 using Newtonsoft.Json.Linq;
@@ -156,6 +157,14 @@ namespace GettyImages.Connect.Tests
         public void WhenISpecifyALocationOfCalifornia(string location)
         {
             ScenarioContext.Current.Get<SearchImages>("request").WithLocation(location);
+        }
+
+        [When(@"I specify a keyword id")]
+        public void WhenISpecifyAKeywordId()
+        {
+            var task =
+                  ScenarioContext.Current.Get<SearchImages>("request").WithKeywordId( 64284 ).ExecuteAsync();
+            ScenarioContext.Current.Add("task", task);
         }
     }
 }
