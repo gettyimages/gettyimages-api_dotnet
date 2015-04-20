@@ -37,18 +37,18 @@ namespace GettyImages.Connect
         }
 
         public static ConnectSdk GetConnectSdkWithClientCredentials(string apiKey, string apiSecret,
-            string baseUrl = "https://connect.gettyimages.com/v3")
+            string baseUrl = "https://api.gettyimages.com/v3")
         {
               return new ConnectSdk(apiKey, apiSecret, baseUrl);  
         }
         public static ConnectSdk GetConnectSdkWithResourceOwnerCredentials(string apiKey, string apiSecret, string userName, string userPassword,
-           string baseUrl = "https://connect.gettyimages.com/v3")
+           string baseUrl = "https://api.gettyimages.com/v3")
         {
             return new ConnectSdk(apiKey, apiSecret, userName, userPassword, baseUrl);
         }
 
         public static ConnectSdk GetConnectSdkWithRefreshToken(string apiKey, string apiSecret, string refreshToken,
-           string baseUrl = "https://connect.gettyimages.com/v3")
+           string baseUrl = "https://api.gettyimages.com/v3")
         {
             return new ConnectSdk(apiKey, apiSecret, refreshToken, baseUrl);
         }

@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
@@ -17,25 +19,37 @@ namespace GettyImages.Connect.Tests
             ScenarioContext.Current.Add("imageid", "452777084");
         }
 
+        [Given(@"I specify field (.*)")]
+        public void GivenISpecifyFieldCaption(string field)
+        {
+            ScenarioContext.Current.Get<Images>("request").WithResponseField(field);
+        }
+
+        [Given(@"I have a list of image ids I want details on")]
+        public void GivenIHaveMultipleImageIdsIWantDetailsOn()
+        {
+            var idList = new List<string> {"452777084", "139839264", "477174619"};
+            ScenarioContext.Current.Add("request",
+                ScenarioCredentialsHelper.GetCredentials().Images().WithIds(idList));
+            ScenarioContext.Current.Add("imageids", idList);
+
+            ScenarioContext.Current.Get<Images>("request").WithResponseField("title");
+        }
+
+        [When(@"I retrieve image details")]
+        [When(@"I retrieve details for the image")]
+        [When(@"I retrieve details for the images")]
+        public void WhenIRetrieveImageDetails()
+        {
+            ScenarioContext.Current.Add("task", ScenarioContext.Current.Get<Images>("request").ExecuteAsync());
+        }
+
         [Then(@"I get a response back that has my image details")]
         public void ThenIGetAResponseBackThatHasMyImageDetails()
         {
             var task = ScenarioContext.Current["task"] as Task<dynamic>;
             task.Wait();
             Assert.AreEqual((string) ScenarioContext.Current["imageid"], task.Result.images[0].id.ToString());
-        }
-
-
-        [When(@"I retrieve image details")]
-        public void WhenIRetrieveImageDetails()
-        {
-            ScenarioContext.Current.Add("task", ScenarioContext.Current.Get<Images>("request").ExecuteAsync());
-        }
-
-        [Given(@"I specify field (.*)")]
-        public void GivenISpecifyFieldCaption(string field)
-        {
-            ScenarioContext.Current.Get<Images>("request").WithResponseField(field);
         }
 
         [Then(@"the response contains (.*)")]
@@ -46,5 +60,29 @@ namespace GettyImages.Connect.Tests
 
             Assert.NotNull(((JObject) task.Result.images[0]).Property(field));
         }
+
+        [Then(@"I get a response back that has details for multiple images")]
+        public void ThenIGetAResponseBackWithTheMultipleImageDetailsRequested()
+        {
+            var task = ScenarioContext.Current.Get<Task<dynamic>>("task");
+            task.Wait();
+
+            var imagesResponse = (JArray)task.Result.images;
+            var idList = (List<string>)ScenarioContext.Current["imageids"];
+
+            Assert.AreEqual(3, imagesResponse.Count);
+
+            foreach (var item in imagesResponse.Children())
+            {
+                var properties = item.Children<JProperty>();
+                var element = properties.FirstOrDefault(x => x.Name == "id");
+                Assert.IsNotNull(element);
+
+                var id = element.Value.ToString();
+                Assert.AreEqual(true, idList.Contains(id));
+            }
+
+        }
+
     }
 }
