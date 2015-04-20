@@ -81,3 +81,4 @@ Once this is complete, you can open the solution in Visual Studio:
 1. Tests can be run using:
 	+ ReSharper Unit Test Explorer
 	+ NUnit - You may need to install the [NUnit Test Adapter](http://visualstudiogallery.msdn.microsoft.com/6ab922d0-21c0-4f06-ab5f-4ecd1fe7175d)
+	+ Note: Running all tests at once can occasionally result in the error "GettyImages.Connect.OverQpsException : Exception of type 'GettyImages.Connect.OverQpsException' was thrown.". Please run tests individually if you encounter this error and the tests should run properly.
