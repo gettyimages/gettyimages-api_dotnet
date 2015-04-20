@@ -9,7 +9,9 @@ namespace GettyImages.Connect
         private const string MustSpecifyAtLeastOneImageIdMessage = "Must specify at least one image id.";
         private const string Comma = ",";
         private const string FieldsKey = "fields";
-        private const string ImagesPath = "/images/{0}";
+        private const string IdsKey = "ids";
+        private const string ImagePath = "/images/{0}";
+        private const string ImageBatchPath = "/images";
         private readonly List<string> _fields = new List<string>();
         private readonly List<string> _imageIds = new List<string>();
 
@@ -56,6 +58,16 @@ namespace GettyImages.Connect
 
             var ids = string.Join(Comma, _imageIds);
 
+            if (_imageIds.Count > 1)
+            {
+                QueryParameters.Add(IdsKey, ids);
+                Path = ImageBatchPath;
+            }
+            else
+            {
+                Path = string.Format(ImagePath, ids);
+            }
+
             if (_fields.Any())
             {
                 if (QueryParameters.ContainsKey(FieldsKey))
@@ -68,7 +80,6 @@ namespace GettyImages.Connect
                 }
             }
 
-            Path = string.Format(ImagesPath, ids);
             return base.ExecuteAsync();
         }
     }

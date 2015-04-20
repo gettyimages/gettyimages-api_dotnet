@@ -67,7 +67,9 @@
     <Compile Include="After.cs" />
     <Compile Include="AuthorizationSteps.cs" />
     <Compile Include="DownloadsSteps.cs" />
-    <Compile Include="ImageDetailsSteps.cs" />
+    <Compile Include="ImageDetails\Given.cs" />
+    <Compile Include="ImageDetails\Then.cs" />
+    <Compile Include="ImageDetails\When.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScenarioCredentialsHelper.cs" />
     <Compile Include="Scenarios\authentication.feature.cs">
