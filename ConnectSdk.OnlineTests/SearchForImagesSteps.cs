@@ -171,5 +171,14 @@ namespace GettyImages.Connect.Tests
         {
             ScenarioContext.Current.Get<SearchImages>("request").WithFileType((FileType)Enum.Parse(typeof(FileType), fileType));
         }
+
+        [When(@"I specify a event id")]
+        public void WhenISpecifyAEventId()
+        {
+            var task =
+                ScenarioContext.Current.Get<SearchImages>("request").WithEventId(518451).ExecuteAsync();
+            ScenarioContext.Current.Add("task", task);
+
+        }
     }
 }

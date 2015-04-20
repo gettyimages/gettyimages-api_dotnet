@@ -9,6 +9,7 @@ namespace GettyImages.Connect.Search
         protected const string V3SearchImagesPath = "/search/images";
         private const string EditorialKey = "editorial";
         private const string CreativeKey = "creative";
+        private const string EventIdsKey = "event_ids";
         private const string FieldsKey = "fields";
         private const string FileTypeKey = "file_types";
         private const string GraphicalStylesKey = "graphical_styles";
@@ -234,6 +235,12 @@ namespace GettyImages.Connect.Search
             {
                 QueryParameters.Add(FileTypeKey, value);
             }
+            return this;
+        }
+
+        public SearchImages WithEventId(int value)
+        {
+            AddQueryParameter(EventIdsKey, value);
             return this;
         }
 
