@@ -11,6 +11,13 @@ namespace GettyImages.Connect.Search
         new IBlendedImagesSearch WithResponseField(string field);
         new IBlendedImagesSearch WithGraphicalStyle(GraphicalStyles value);
         new IBlendedImagesSearch WithOrientation(Orientation value);
+        new IBlendedImagesSearch WithEventId(int value);
+        new IBlendedImagesSearch WithFileType(FileType value);
+        new IBlendedImagesSearch WithKeywordId(int value);
+        new IBlendedImagesSearch WithNumberOfPeople(NumberOfPeople value);
+        new IBlendedImagesSearch WithPrestigeContentOnly(bool value = true);
+        new IBlendedImagesSearch WithProductType(ProductType value);
+        new IBlendedImagesSearch WithLocation(string value);
         IBlendedImagesSearch WithLicenseModel(LicenseModel value);
         ICreativeImagesSearch Creative();
         IEditorialImagesSearch Editorial();

@@ -11,6 +11,12 @@ namespace GettyImages.Connect.Search
         new IEditorialImagesSearch WithResponseField(string field);
         new IEditorialImagesSearch WithGraphicalStyle(GraphicalStyles value);
         new IEditorialImagesSearch WithOrientation(Orientation value);
+        new IEditorialImagesSearch WithEventId(int value);
+        new IEditorialImagesSearch WithFileType(FileType value);
+        new IEditorialImagesSearch WithKeywordId(int value);
+        new IEditorialImagesSearch WithNumberOfPeople(NumberOfPeople value);
+        new IEditorialImagesSearch WithProductType(ProductType value);
+        new IEditorialImagesSearch WithLocation(string value);
         IEditorialImagesSearch WithEditorialSegment(EditorialSegment segment);
     }
 }

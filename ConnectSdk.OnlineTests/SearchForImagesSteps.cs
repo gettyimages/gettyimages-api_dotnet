@@ -178,7 +178,12 @@ namespace GettyImages.Connect.Tests
             var task =
                 ScenarioContext.Current.Get<SearchImages>("request").WithEventId(518451).ExecuteAsync();
             ScenarioContext.Current.Add("task", task);
+        }
 
+        [When(@"I specify I want only prestige images")]
+        public void WhenISpecifyIWantOnlyPrestigeImages()
+        {
+            ScenarioContext.Current.Get<SearchImages>("request").WithPrestigeContentOnly();
         }
     }
 }

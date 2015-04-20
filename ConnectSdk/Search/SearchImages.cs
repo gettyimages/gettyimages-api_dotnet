@@ -21,6 +21,7 @@ namespace GettyImages.Connect.Search
         private const string PageKey = "page";
         private const string PageSizeKey = "page_size";
         private const string PhraseKey = "phrase";
+        private const string PrestigeContentOnlyKey = "prestige_content_only";
         private const string ProductTypesKey = "product_types";
         private const string SortOrderKey = "sort_order";
         private const string EmbedContentOnlyKey = "embed_content_only";
@@ -244,6 +245,12 @@ namespace GettyImages.Connect.Search
             return this;
         }
 
+        public SearchImages WithPrestigeContentOnly(bool value = true)
+        {
+            AddQueryParameter(PrestigeContentOnlyKey, value);
+            return this;
+        }
+
         IBlendedImagesSearch IBlendedImagesSearch.WithPage(int value)
         {
             return WithPage(value);
@@ -274,6 +281,11 @@ namespace GettyImages.Connect.Search
             return WithExcludeNudity(value);
         }
 
+        IBlendedImagesSearch IBlendedImagesSearch.WithEventId(int value)
+        {
+            return WithEventId(value);
+        }
+
         IBlendedImagesSearch IBlendedImagesSearch.WithResponseField(string value)
         {
             return WithResponseField(value);
@@ -294,6 +306,36 @@ namespace GettyImages.Connect.Search
             return WithLicenseModel(value);
         }
 
+        IBlendedImagesSearch IBlendedImagesSearch.WithFileType(FileType value)
+        {
+            return WithFileType(value);
+        }
+
+        IBlendedImagesSearch IBlendedImagesSearch.WithKeywordId(int value)
+        {
+            return WithKeywordId(value);
+        }
+
+        IBlendedImagesSearch IBlendedImagesSearch.WithNumberOfPeople(NumberOfPeople value)
+        {
+            return WithNumberOfPeople(value);
+        }
+
+        IBlendedImagesSearch IBlendedImagesSearch.WithPrestigeContentOnly(bool value)
+        {
+            return WithPrestigeContentOnly(value);
+        }
+
+        IBlendedImagesSearch IBlendedImagesSearch.WithProductType(ProductType value)
+        {
+            return WithProductType(value);
+        }
+
+        IBlendedImagesSearch IBlendedImagesSearch.WithLocation(string value)
+        {
+            return WithLocation(value);
+        }
+        
         ICreativeImagesSearch ICreativeImagesSearch.WithPage(int value)
         {
             return WithPage(value);
@@ -342,6 +384,36 @@ namespace GettyImages.Connect.Search
         ICreativeImagesSearch ICreativeImagesSearch.WithLicenseModel(LicenseModel value)
         {
             return WithLicenseModel(value);
+        }
+
+        ICreativeImagesSearch ICreativeImagesSearch.WithFileType(FileType value)
+        {
+            return WithFileType(value);
+        }
+
+        ICreativeImagesSearch ICreativeImagesSearch.WithKeywordId(int value)
+        {
+            return WithKeywordId(value);
+        }
+
+        ICreativeImagesSearch ICreativeImagesSearch.WithNumberOfPeople(NumberOfPeople value)
+        {
+            return WithNumberOfPeople(value);
+        }
+
+        ICreativeImagesSearch ICreativeImagesSearch.WithPrestigeContentOnly(bool value)
+        {
+            return WithPrestigeContentOnly(value);
+        }
+
+        ICreativeImagesSearch ICreativeImagesSearch.WithProductType(ProductType value)
+        {
+            return WithProductType(value);
+        }
+
+        ICreativeImagesSearch ICreativeImagesSearch.WithLocation(string value)
+        {
+            return WithLocation(value);
         }
 
         IEditorialImagesSearch IEditorialImagesSearch.WithEditorialSegment(EditorialSegment segment)
@@ -393,6 +465,36 @@ namespace GettyImages.Connect.Search
         IEditorialImagesSearch IEditorialImagesSearch.WithOrientation(Orientation value)
         {
             return WithOrientation(value);
+        }
+
+        IEditorialImagesSearch IEditorialImagesSearch.WithEventId(int value)
+        {
+            return WithEventId(value);
+        }
+
+        IEditorialImagesSearch IEditorialImagesSearch.WithFileType(FileType value)
+        {
+            return WithFileType(value);
+        }
+
+        IEditorialImagesSearch IEditorialImagesSearch.WithKeywordId(int value)
+        {
+            return WithKeywordId(value);
+        }
+
+        IEditorialImagesSearch IEditorialImagesSearch.WithNumberOfPeople(NumberOfPeople value)
+        {
+            return WithNumberOfPeople(value);
+        }
+
+        IEditorialImagesSearch IEditorialImagesSearch.WithProductType(ProductType value)
+        {
+            return WithProductType(value);
+        }
+
+        IEditorialImagesSearch IEditorialImagesSearch.WithLocation(string value)
+        {
+            return WithLocation(value);
         }
 
         private void AddQueryParameter(string key, object value)

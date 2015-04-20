@@ -16,5 +16,12 @@ namespace GettyImages.Connect.Search
         SearchImages WithResponseFields(IList<string> value);
         SearchImages WithGraphicalStyle(GraphicalStyles value);
         SearchImages WithOrientation(Orientation value);
+        SearchImages WithEventId(int value);
+        SearchImages WithFileType(FileType value);
+        SearchImages WithKeywordId(int value);
+        SearchImages WithNumberOfPeople(NumberOfPeople value);
+        SearchImages WithPrestigeContentOnly(bool value = true);
+        SearchImages WithProductType(ProductType value);
+        SearchImages WithLocation(string value);
     }
 }
