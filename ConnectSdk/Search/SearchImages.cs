@@ -10,6 +10,7 @@ namespace GettyImages.Connect.Search
         private const string EditorialKey = "editorial";
         private const string CreativeKey = "creative";
         private const string FieldsKey = "fields";
+        private const string FileTypeKey = "file_types";
         private const string GraphicalStylesKey = "graphical_styles";
         private const string KeywordIdsKey = "keyword_ids";
         private const string LicenseModelsKey = "license_models";
@@ -218,6 +219,21 @@ namespace GettyImages.Connect.Search
         public SearchImages WithKeywordId(int value)
         {
             AddQueryParameter(KeywordIdsKey, value);
+            return this;
+        }
+
+        public SearchImages WithFileType(FileType value)
+        {
+            if (QueryParameters.ContainsKey(FileTypeKey))
+            {
+                QueryParameters[FileTypeKey] = value == FileType.none
+                    ? value
+                    : (FileType)QueryParameters[FileTypeKey] | value;
+            }
+            else
+            {
+                QueryParameters.Add(FileTypeKey, value);
+            }
             return this;
         }
 

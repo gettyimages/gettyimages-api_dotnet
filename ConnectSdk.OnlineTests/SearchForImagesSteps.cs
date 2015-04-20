@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using GettyImages.Connect.Search;
 using Newtonsoft.Json.Linq;
@@ -165,6 +164,12 @@ namespace GettyImages.Connect.Tests
             var task =
                   ScenarioContext.Current.Get<SearchImages>("request").WithKeywordId( 64284 ).ExecuteAsync();
             ScenarioContext.Current.Add("task", task);
+        }
+
+        [When(@"I specify a (.*) file type")]
+        public void WhenISpecifyAEpsFileType(string fileType)
+        {
+            ScenarioContext.Current.Get<SearchImages>("request").WithFileType((FileType)Enum.Parse(typeof(FileType), fileType));
         }
     }
 }

@@ -48,6 +48,7 @@
     <Compile Include="SdkException.cs" />
     <Compile Include="ApiRequest.cs" />
     <Compile Include="Search\EditorialSegment.cs" />
+    <Compile Include="Search\FileType.cs" />
     <Compile Include="Search\GraphicalStyles.cs" />
     <Compile Include="Search\IBlendedImagesSearch.cs" />
     <Compile Include="Search\ICreativeImagesSearch.cs" />
