@@ -18,6 +18,7 @@ namespace GettyImages.Connect.Search
         new IBlendedImagesSearch WithPrestigeContentOnly(bool value = true);
         new IBlendedImagesSearch WithProductType(ProductType value);
         new IBlendedImagesSearch WithLocation(string value);
+        new IBlendedImagesSearch WithAgeOfPeople(AgeOfPeople value);
         IBlendedImagesSearch WithLicenseModel(LicenseModel value);
         ICreativeImagesSearch Creative();
         IEditorialImagesSearch Editorial();

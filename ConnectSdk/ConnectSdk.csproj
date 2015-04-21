@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CredentialType.cs" />
+    <Compile Include="DescriptionAttribute.cs" />
     <Compile Include="Handlers\ApiKeyHandler.cs" />
     <Compile Include="Handlers\BearerTokenHandler.cs" />
     <Compile Include="ConnectSdk.cs" />
@@ -47,6 +48,7 @@
     <Compile Include="OverQpsException.cs" />
     <Compile Include="SdkException.cs" />
     <Compile Include="ApiRequest.cs" />
+    <Compile Include="Search\AgeOfPeople.cs" />
     <Compile Include="Search\EditorialSegment.cs" />
     <Compile Include="Search\FileType.cs" />
     <Compile Include="Search\GraphicalStyles.cs" />

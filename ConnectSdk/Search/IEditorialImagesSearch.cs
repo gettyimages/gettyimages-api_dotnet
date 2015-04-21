@@ -17,6 +17,7 @@ namespace GettyImages.Connect.Search
         new IEditorialImagesSearch WithNumberOfPeople(NumberOfPeople value);
         new IEditorialImagesSearch WithProductType(ProductType value);
         new IEditorialImagesSearch WithLocation(string value);
+        new IEditorialImagesSearch WithAgeOfPeople(AgeOfPeople value);
         IEditorialImagesSearch WithEditorialSegment(EditorialSegment segment);
     }
 }

@@ -17,6 +17,7 @@ namespace GettyImages.Connect.Search
         new ICreativeImagesSearch WithPrestigeContentOnly(bool value = true);
         new ICreativeImagesSearch WithProductType(ProductType value);
         new ICreativeImagesSearch WithLocation(string value);
+        new ICreativeImagesSearch WithAgeOfPeople(AgeOfPeople value);
         ICreativeImagesSearch WithLicenseModel(LicenseModel value);
     }
 }

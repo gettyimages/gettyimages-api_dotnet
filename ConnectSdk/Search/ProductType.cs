@@ -10,6 +10,6 @@ namespace GettyImages.Connect.Search
         premiumaccess = 4,
         easyaccess = 8,
         royaltyfreesubscription = 16,
-        imagepack =32
+        imagepack = 32
     }
 }

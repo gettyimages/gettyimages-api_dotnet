@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace GettyImages.Connect
@@ -49,12 +50,39 @@ namespace GettyImages.Connect
                     .Select(
                         d =>
                             new KeyValuePair<string, string>(d.Key,
-                                d.Value.ToString().ToLowerInvariant().Replace(SpaceString, string.Empty))))
+                                BuildEnumString((Enum) d.Value))))
                 .Union(keyValuePairs
                     .Where(v => v.Value is IEnumerable<string>)
                     .Select(
                         d => new KeyValuePair<string, string>(d.Key, string.Join(",", (IEnumerable<string>) d.Value))))
                 .AsEnumerable();
+        }
+
+        private static string BuildEnumString(Enum value)
+        {
+            return
+                value.GetType().GetTypeInfo().CustomAttributes.Where(a => a.AttributeType == typeof(FlagsAttribute)) !=
+                null
+                    ? string.Join(",", GetFlags(value).Select(GetEnumDescription).ToArray())
+                    : value.ToString().ToLowerInvariant().Replace(SpaceString, string.Empty);
+        }
+
+        private static string GetEnumDescription(Enum value)
+        {
+            var fi = value.GetType().GetRuntimeFields().FirstOrDefault(f => f.Name == value.ToString());
+            if (fi != null)
+            {
+                var attributes =
+                    (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+                if (attributes != null && attributes.Length > 0) return attributes[0].Description;
+            }
+
+            return value.ToString();
+        }
+
+        private static IEnumerable<Enum> GetFlags(Enum input)
+        {
+            return Enum.GetValues(input.GetType()).Cast<Enum>().Where(input.HasFlag).Where(v => Convert.ToInt64(v) != 0);
         }
     }
 }

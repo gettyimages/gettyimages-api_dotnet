@@ -7,6 +7,7 @@ namespace GettyImages.Connect.Search
     public class SearchImages : ApiRequest, IBlendedImagesSearch, ICreativeImagesSearch, IEditorialImagesSearch
     {
         protected const string V3SearchImagesPath = "/search/images";
+        private const string AgeOfPeopleKey = "age_of_people";
         private const string EditorialKey = "editorial";
         private const string CreativeKey = "creative";
         private const string EventIdsKey = "event_ids";
@@ -228,7 +229,7 @@ namespace GettyImages.Connect.Search
         {
             if (QueryParameters.ContainsKey(FileTypeKey))
             {
-                QueryParameters[FileTypeKey] = value == FileType.none
+                QueryParameters[FileTypeKey] = value == FileType.None
                     ? value
                     : (FileType)QueryParameters[FileTypeKey] | value;
             }
@@ -248,6 +249,22 @@ namespace GettyImages.Connect.Search
         public SearchImages WithPrestigeContentOnly(bool value = true)
         {
             AddQueryParameter(PrestigeContentOnlyKey, value);
+            return this;
+        }
+
+        public SearchImages WithAgeOfPeople(AgeOfPeople value)
+        {
+            if (QueryParameters.ContainsKey(AgeOfPeopleKey))
+            {
+                QueryParameters[AgeOfPeopleKey] = value == AgeOfPeople.None
+                    ? value
+                    : (AgeOfPeople)QueryParameters[AgeOfPeopleKey] | value;
+            }
+            else
+            {
+                QueryParameters.Add(AgeOfPeopleKey, value);
+            }
+           
             return this;
         }
 
@@ -335,7 +352,12 @@ namespace GettyImages.Connect.Search
         {
             return WithLocation(value);
         }
-        
+
+        IBlendedImagesSearch IBlendedImagesSearch.WithAgeOfPeople(AgeOfPeople value)
+        {
+            return WithAgeOfPeople(value);
+        }
+
         ICreativeImagesSearch ICreativeImagesSearch.WithPage(int value)
         {
             return WithPage(value);
@@ -414,6 +436,11 @@ namespace GettyImages.Connect.Search
         ICreativeImagesSearch ICreativeImagesSearch.WithLocation(string value)
         {
             return WithLocation(value);
+        }
+
+        ICreativeImagesSearch ICreativeImagesSearch.WithAgeOfPeople(AgeOfPeople value)
+        {
+            return WithAgeOfPeople(value);
         }
 
         IEditorialImagesSearch IEditorialImagesSearch.WithEditorialSegment(EditorialSegment segment)
@@ -495,6 +522,11 @@ namespace GettyImages.Connect.Search
         IEditorialImagesSearch IEditorialImagesSearch.WithLocation(string value)
         {
             return WithLocation(value);
+        }
+
+        IEditorialImagesSearch IEditorialImagesSearch.WithAgeOfPeople(AgeOfPeople value)
+        {
+            return WithAgeOfPeople(value);
         }
 
         private void AddQueryParameter(string key, object value)

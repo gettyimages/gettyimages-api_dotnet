@@ -185,5 +185,12 @@ namespace GettyImages.Connect.Tests
         {
             ScenarioContext.Current.Get<SearchImages>("request").WithPrestigeContentOnly();
         }
+
+        [When(@"I specify a (.*) age of people")]
+        public void WhenISpecifyAnAgeOfPeople(string ageOfPeople)
+        {
+            var aop = EnumEx.GetValueFromDescription<AgeOfPeople>(ageOfPeople);
+            ScenarioContext.Current.Get<SearchImages>("request").WithAgeOfPeople((AgeOfPeople)Enum.Parse(typeof(AgeOfPeople), aop.ToString()));
+        }
     }
 }
