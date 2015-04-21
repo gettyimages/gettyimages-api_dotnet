@@ -25,5 +25,6 @@ namespace GettyImages.Connect.Search
         SearchImages WithLocation(string value);
         SearchImages WithAgeOfPeople(AgeOfPeople value);
         SearchImages WithComposition(Composition value);
+        SearchImages WithArtist(string value);
     }
 }

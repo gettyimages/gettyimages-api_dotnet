@@ -20,6 +20,7 @@ namespace GettyImages.Connect.Search
         new IBlendedImagesSearch WithLocation(string value);
         new IBlendedImagesSearch WithAgeOfPeople(AgeOfPeople value);
         new IBlendedImagesSearch WithComposition(Composition value);
+        new IBlendedImagesSearch WithArtist(string value);
         IBlendedImagesSearch WithLicenseModel(LicenseModel value);
         ICreativeImagesSearch Creative();
         IEditorialImagesSearch Editorial();

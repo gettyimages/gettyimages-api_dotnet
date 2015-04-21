@@ -19,6 +19,7 @@ namespace GettyImages.Connect.Search
         new ICreativeImagesSearch WithLocation(string value);
         new ICreativeImagesSearch WithAgeOfPeople(AgeOfPeople value);
         new ICreativeImagesSearch WithComposition(Composition value);
+        new ICreativeImagesSearch WithArtist(string value);
         ICreativeImagesSearch WithLicenseModel(LicenseModel value);
     }
 }

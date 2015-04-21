@@ -204,5 +204,10 @@ namespace GettyImages.Connect.Tests
             ScenarioContext.Current.Get<SearchImages>("request").WithComposition((Composition)Enum.Parse(typeof(Composition), compositionEnum.ToString()));
         }
 
+        [When(@"I specify an artist")]
+        public void WhenISpecifyAnArtist()
+        {
+            ScenarioContext.Current.Get<SearchImages>("request").WithArtist("roman makhmutov");
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace GettyImages.Connect.Search
     {
         protected const string V3SearchImagesPath = "/search/images";
         private const string AgeOfPeopleKey = "age_of_people";
+        private const string ArtistKey = "artists";
         private const string EditorialKey = "editorial";
         private const string CreativeKey = "creative";
         private const string CompositionKey = "compositions";
@@ -285,6 +286,23 @@ namespace GettyImages.Connect.Search
             return this;
         }
 
+        public SearchImages WithArtist(string value)
+        {
+            if (!QueryParameters.ContainsKey(ArtistKey))
+            {
+                QueryParameters.Add(ArtistKey, new List<string> { value });
+            }
+            else
+            {
+                var fields = (IList<string>)QueryParameters[ArtistKey];
+                if (!fields.Contains(value))
+                {
+                    fields.Add(value);
+                }
+            }
+            return this;
+        }
+
         IBlendedImagesSearch IBlendedImagesSearch.WithPage(int value)
         {
             return WithPage(value);
@@ -380,6 +398,11 @@ namespace GettyImages.Connect.Search
             return WithComposition(value);
         }
 
+        IBlendedImagesSearch IBlendedImagesSearch.WithArtist(string value)
+        {
+            return WithArtist(value);
+        }
+
         ICreativeImagesSearch ICreativeImagesSearch.WithPage(int value)
         {
             return WithPage(value);
@@ -468,6 +491,11 @@ namespace GettyImages.Connect.Search
         ICreativeImagesSearch ICreativeImagesSearch.WithComposition(Composition value)
         {
             return WithComposition(value);
+        }
+
+        ICreativeImagesSearch ICreativeImagesSearch.WithArtist(string value)
+        {
+            return WithArtist(value);
         }
 
         IEditorialImagesSearch IEditorialImagesSearch.WithEditorialSegment(EditorialSegment segment)
@@ -559,6 +587,11 @@ namespace GettyImages.Connect.Search
         IEditorialImagesSearch IEditorialImagesSearch.WithComposition(Composition value)
         {
             return WithComposition(value);
+        }
+
+        IEditorialImagesSearch IEditorialImagesSearch.WithArtist(string value)
+        {
+            return WithArtist(value);
         }
 
         private void AddQueryParameter(string key, object value)

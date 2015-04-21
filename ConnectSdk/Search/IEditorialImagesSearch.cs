@@ -19,6 +19,7 @@ namespace GettyImages.Connect.Search
         new IEditorialImagesSearch WithLocation(string value);
         new IEditorialImagesSearch WithAgeOfPeople(AgeOfPeople value);
         new IEditorialImagesSearch WithComposition(Composition value);
+        new IEditorialImagesSearch WithArtist(string value);
         IEditorialImagesSearch WithEditorialSegment(EditorialSegment segment);
     }
 }
