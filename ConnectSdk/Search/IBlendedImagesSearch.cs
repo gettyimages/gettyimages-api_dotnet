@@ -23,6 +23,7 @@ namespace GettyImages.Connect.Search
         new IBlendedImagesSearch WithArtist(string value);
         new IBlendedImagesSearch WithEthnicity(Ethnicity value);
         new IBlendedImagesSearch WithCollectionCode(string value);
+        new IBlendedImagesSearch WithDateTo(string value);
         IBlendedImagesSearch WithLicenseModel(LicenseModel value);
         ICreativeImagesSearch Creative();
         IEditorialImagesSearch Editorial();

@@ -13,6 +13,7 @@ namespace GettyImages.Connect.Search
         private const string CreativeKey = "creative";
         private const string CollectionCodeKey = "collection_codes";
         private const string CompositionKey = "compositions";
+        private const string DateToKey = "date_to";
         private const string EthnicityKey = "ethnicity";
         private const string EventIdsKey = "event_ids";
         private const string FieldsKey = "fields";
@@ -338,6 +339,13 @@ namespace GettyImages.Connect.Search
             return this;
         }
 
+        public SearchImages WithDateTo(string value)
+        {
+            AddQueryParameter(DateToKey, value);
+            return this;
+
+        }
+
         IBlendedImagesSearch IBlendedImagesSearch.WithPage(int value)
         {
             return WithPage(value);
@@ -446,6 +454,11 @@ namespace GettyImages.Connect.Search
         IBlendedImagesSearch IBlendedImagesSearch.WithCollectionCode(string value)
         {
             return WithCollectionCode(value);
+        }
+
+        IBlendedImagesSearch IBlendedImagesSearch.WithDateTo(string value)
+        {
+            return WithDateTo(value);
         }
 
         ICreativeImagesSearch ICreativeImagesSearch.WithPage(int value)
@@ -657,6 +670,11 @@ namespace GettyImages.Connect.Search
         IEditorialImagesSearch IEditorialImagesSearch.WithCollectionCode(string value)
         {
             return WithCollectionCode(value);
+        }
+
+        IEditorialImagesSearch IEditorialImagesSearch.WithDateTo(string value)
+        {
+            return WithDateTo(value);
         }
 
         private void AddQueryParameter(string key, object value)

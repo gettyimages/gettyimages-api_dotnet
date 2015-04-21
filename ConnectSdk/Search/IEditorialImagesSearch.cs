@@ -22,6 +22,7 @@ namespace GettyImages.Connect.Search
         new IEditorialImagesSearch WithArtist(string value);
         new IEditorialImagesSearch WithEthnicity(Ethnicity value);
         new IEditorialImagesSearch WithCollectionCode(string value);
+        new IEditorialImagesSearch WithDateTo(string value);
         IEditorialImagesSearch WithEditorialSegment(EditorialSegment segment);
     }
 }

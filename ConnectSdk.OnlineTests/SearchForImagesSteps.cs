@@ -222,5 +222,11 @@ namespace GettyImages.Connect.Tests
         {
             ScenarioContext.Current.Get<SearchImages>("request").WithCollectionCode("WRI").WithCollectionCode("ARF");
         }
+
+        [When(@"I specify an end date")]
+        public void WhenISpecifyAnEndDate()
+        {
+            ScenarioContext.Current.Get<SearchImages>("request").WithDateTo("2015-04-01");
+        }
     }
 }
