@@ -21,6 +21,7 @@ namespace GettyImages.Connect.Search
         new IBlendedImagesSearch WithAgeOfPeople(AgeOfPeople value);
         new IBlendedImagesSearch WithComposition(Composition value);
         new IBlendedImagesSearch WithArtist(string value);
+        new IBlendedImagesSearch WithEthnicity(Ethnicity value);
         IBlendedImagesSearch WithLicenseModel(LicenseModel value);
         ICreativeImagesSearch Creative();
         IEditorialImagesSearch Editorial();

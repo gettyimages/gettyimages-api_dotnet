@@ -12,6 +12,7 @@ namespace GettyImages.Connect.Search
         private const string EditorialKey = "editorial";
         private const string CreativeKey = "creative";
         private const string CompositionKey = "compositions";
+        private const string EthnicityKey = "ethnicity";
         private const string EventIdsKey = "event_ids";
         private const string FieldsKey = "fields";
         private const string FileTypeKey = "file_types";
@@ -303,6 +304,22 @@ namespace GettyImages.Connect.Search
             return this;
         }
 
+        public SearchImages WithEthnicity(Ethnicity value)
+        {
+            if (QueryParameters.ContainsKey(EthnicityKey))
+            {
+                QueryParameters[EthnicityKey] = value == Ethnicity.None
+                    ? value
+                    : (Ethnicity)QueryParameters[EthnicityKey] | value;
+            }
+            else
+            {
+                QueryParameters.Add(EthnicityKey, value);
+            }
+
+            return this;
+        }
+
         IBlendedImagesSearch IBlendedImagesSearch.WithPage(int value)
         {
             return WithPage(value);
@@ -396,6 +413,11 @@ namespace GettyImages.Connect.Search
         IBlendedImagesSearch IBlendedImagesSearch.WithComposition(Composition value)
         {
             return WithComposition(value);
+        }
+
+        IBlendedImagesSearch IBlendedImagesSearch.WithEthnicity(Ethnicity value)
+        {
+            return WithEthnicity(value);
         }
 
         IBlendedImagesSearch IBlendedImagesSearch.WithArtist(string value)
@@ -498,6 +520,11 @@ namespace GettyImages.Connect.Search
             return WithArtist(value);
         }
 
+        ICreativeImagesSearch ICreativeImagesSearch.WithEthnicity(Ethnicity value)
+        {
+            return WithEthnicity(value);
+        }
+
         IEditorialImagesSearch IEditorialImagesSearch.WithEditorialSegment(EditorialSegment segment)
         {
             EditorialSegments = EditorialSegments | segment;
@@ -592,6 +619,11 @@ namespace GettyImages.Connect.Search
         IEditorialImagesSearch IEditorialImagesSearch.WithArtist(string value)
         {
             return WithArtist(value);
+        }
+
+        IEditorialImagesSearch IEditorialImagesSearch.WithEthnicity(Ethnicity value)
+        {
+            return WithEthnicity(value);
         }
 
         private void AddQueryParameter(string key, object value)

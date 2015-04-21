@@ -209,5 +209,12 @@ namespace GettyImages.Connect.Tests
         {
             ScenarioContext.Current.Get<SearchImages>("request").WithArtist("roman makhmutov");
         }
+
+        [When(@"I specify an (.*) ethnicity")]
+        public void WhenISpecifyAnEthnicity(string ethnicity)
+        {
+            var ethnicityEnum = EnumEx.GetValueFromDescription<Ethnicity>(ethnicity);
+            ScenarioContext.Current.Get<SearchImages>("request").WithEthnicity((Ethnicity)Enum.Parse(typeof(Ethnicity), ethnicityEnum.ToString()));
+        }
     }
 }
