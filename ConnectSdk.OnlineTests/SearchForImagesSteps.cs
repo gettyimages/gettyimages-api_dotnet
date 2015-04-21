@@ -108,8 +108,9 @@ namespace GettyImages.Connect.Tests
         [When(@"I specify a graphical (.*)")]
         public void WhenISpecifyIaGraphicalStyle(string style)
         {
+            var styleEnum = EnumEx.GetValueFromDescription<GraphicalStyles>(style);
             ScenarioContext.Current.Get<SearchImages>("request")
-                .WithGraphicalStyle((GraphicalStyles) Enum.Parse(typeof (GraphicalStyles), style));
+                .WithGraphicalStyle((GraphicalStyles)Enum.Parse(typeof(GraphicalStyles), styleEnum.ToString()));
         }
 
         [When(@"I specify I want only embeddable images")]
@@ -141,15 +142,17 @@ namespace GettyImages.Connect.Tests
         [When(@"I specify a (.*) product type")]
         public void WhenISpecifyAProductType(string producttype)
         {
+            var productType = EnumEx.GetValueFromDescription<ProductType>(producttype);
             ScenarioContext.Current.Get<SearchImages>("request")
-               .WithProductType((ProductType) Enum.Parse(typeof (ProductType), producttype));
+               .WithProductType((ProductType)Enum.Parse(typeof(ProductType), productType.ToString()));
         }
 
         [When(@"I specify a (.*) number of people in image")]
         public void WhenISpecifyANoneNumberOfPeopleInImage(string peopleCount)
         {
+            var peoplecount = EnumEx.GetValueFromDescription<NumberOfPeople>(peopleCount);
             ScenarioContext.Current.Get<SearchImages>("request")
-                .WithNumberOfPeople((NumberOfPeople) Enum.Parse(typeof (NumberOfPeople), peopleCount));
+                .WithNumberOfPeople((NumberOfPeople)Enum.Parse(typeof(NumberOfPeople), peoplecount.ToString()));
         }
 
         [When(@"I specify a location of (.*)")]
@@ -169,7 +172,8 @@ namespace GettyImages.Connect.Tests
         [When(@"I specify a (.*) file type")]
         public void WhenISpecifyAEpsFileType(string fileType)
         {
-            ScenarioContext.Current.Get<SearchImages>("request").WithFileType((FileType)Enum.Parse(typeof(FileType), fileType));
+            var filetype = EnumEx.GetValueFromDescription<FileType>(fileType);
+            ScenarioContext.Current.Get<SearchImages>("request").WithFileType((FileType)Enum.Parse(typeof(FileType), filetype.ToString()));
         }
 
         [When(@"I specify a event id")]
@@ -192,5 +196,13 @@ namespace GettyImages.Connect.Tests
             var aop = EnumEx.GetValueFromDescription<AgeOfPeople>(ageOfPeople);
             ScenarioContext.Current.Get<SearchImages>("request").WithAgeOfPeople((AgeOfPeople)Enum.Parse(typeof(AgeOfPeople), aop.ToString()));
         }
+
+        [When(@"I specify a (.*) composition")]
+        public void WhenISpecifyAAbstractComposition(string composition)
+        {
+            var compositionEnum = EnumEx.GetValueFromDescription<Composition>(composition);
+            ScenarioContext.Current.Get<SearchImages>("request").WithComposition((Composition)Enum.Parse(typeof(Composition), compositionEnum.ToString()));
+        }
+
     }
 }

@@ -6,10 +6,10 @@ namespace GettyImages.Connect.Search
     public enum ProductType
     {
         None =0,
-        editorialsubscription =2,
-        premiumaccess = 4,
-        easyaccess = 8,
-        royaltyfreesubscription = 16,
-        imagepack = 32
+        [Description("editorialsubscription")] Editorialsubscription = 2,
+        [Description("premiumaccess")] Premiumaccess = 4,
+        [Description("easyaccess")] Easyaccess = 8,
+        [Description("royaltyfreesubscription")] Royaltyfreesubscription = 16,
+        [Description("imagepack")] Imagepack = 32
     }
 }

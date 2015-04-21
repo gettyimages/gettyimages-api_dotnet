@@ -6,7 +6,7 @@ namespace GettyImages.Connect.Search
     public enum LicenseModel
     {
         None = 0,
-        Rights_Managed = 1,
-        Royalty_Free = 2
+        RightsManaged = 1,
+        RoyaltyFree = 2
     }
 }

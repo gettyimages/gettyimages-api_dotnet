@@ -6,9 +6,9 @@ namespace GettyImages.Connect.Search
     public enum FileType
     {
         None = 0,
-        eps = 1,
-        gif = 2,
-        jpg = 4,
-        png = 8
+        [Description("eps")] Eps = 1,
+        [Description("gif")] Gif = 2,
+        [Description("jpg")] Jpg = 4,
+        [Description("png")] Png = 8
     }
 }

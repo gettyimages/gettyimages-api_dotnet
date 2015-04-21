@@ -5,9 +5,9 @@ namespace GettyImages.Connect.Search
     [Flags]
     public enum NumberOfPeople
     {
-        none = 0,
-        one = 2,
-        two = 4,
-        group = 8
+        [Description("none")] None = 0,
+        [Description("one")] One = 2,
+        [Description("two")] Two = 4,
+        [Description("group")] Group = 8
     }
 }

@@ -10,6 +10,7 @@ namespace GettyImages.Connect.Search
         private const string AgeOfPeopleKey = "age_of_people";
         private const string EditorialKey = "editorial";
         private const string CreativeKey = "creative";
+        private const string CompositionKey = "compositions";
         private const string EventIdsKey = "event_ids";
         private const string FieldsKey = "fields";
         private const string FileTypeKey = "file_types";
@@ -190,7 +191,7 @@ namespace GettyImages.Connect.Search
         {
             if (QueryParameters.ContainsKey(NumberOfPeopleKey))
             {
-                QueryParameters[NumberOfPeopleKey] = value == NumberOfPeople.none
+                QueryParameters[NumberOfPeopleKey] = value == NumberOfPeople.None
                     ? value
                     : (NumberOfPeople)QueryParameters[NumberOfPeopleKey] | value;
             }
@@ -265,6 +266,22 @@ namespace GettyImages.Connect.Search
                 QueryParameters.Add(AgeOfPeopleKey, value);
             }
            
+            return this;
+        }
+
+        public SearchImages WithComposition(Composition value)
+        {
+            if (QueryParameters.ContainsKey(CompositionKey))
+            {
+                QueryParameters[CompositionKey] = value == Composition.None
+                    ? value
+                    : (Composition)QueryParameters[CompositionKey] | value;
+            }
+            else
+            {
+                QueryParameters.Add(CompositionKey, value);
+            }
+
             return this;
         }
 
@@ -358,6 +375,11 @@ namespace GettyImages.Connect.Search
             return WithAgeOfPeople(value);
         }
 
+        IBlendedImagesSearch IBlendedImagesSearch.WithComposition(Composition value)
+        {
+            return WithComposition(value);
+        }
+
         ICreativeImagesSearch ICreativeImagesSearch.WithPage(int value)
         {
             return WithPage(value);
@@ -441,6 +463,11 @@ namespace GettyImages.Connect.Search
         ICreativeImagesSearch ICreativeImagesSearch.WithAgeOfPeople(AgeOfPeople value)
         {
             return WithAgeOfPeople(value);
+        }
+
+        ICreativeImagesSearch ICreativeImagesSearch.WithComposition(Composition value)
+        {
+            return WithComposition(value);
         }
 
         IEditorialImagesSearch IEditorialImagesSearch.WithEditorialSegment(EditorialSegment segment)
@@ -529,6 +556,11 @@ namespace GettyImages.Connect.Search
             return WithAgeOfPeople(value);
         }
 
+        IEditorialImagesSearch IEditorialImagesSearch.WithComposition(Composition value)
+        {
+            return WithComposition(value);
+        }
+
         private void AddQueryParameter(string key, object value)
         {
             if (QueryParameters.ContainsKey(key))
@@ -561,5 +593,6 @@ namespace GettyImages.Connect.Search
         {
             return new SearchImages(credentials, baseUrl);
         }
+
     }
 }

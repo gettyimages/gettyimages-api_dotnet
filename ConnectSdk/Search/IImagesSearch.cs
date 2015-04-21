@@ -24,5 +24,6 @@ namespace GettyImages.Connect.Search
         SearchImages WithProductType(ProductType value);
         SearchImages WithLocation(string value);
         SearchImages WithAgeOfPeople(AgeOfPeople value);
+        SearchImages WithComposition(Composition value);
     }
 }
