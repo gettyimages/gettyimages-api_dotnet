@@ -12,6 +12,7 @@ namespace GettyImages.Connect.Search
         private const string EditorialKey = "editorial";
         private const string CreativeKey = "creative";
         private const string CollectionCodeKey = "collection_codes";
+        private const string CollectionFilterKey = "collections_filter_type";
         private const string CompositionKey = "compositions";
         private const string DateToKey = "date_to";
         private const string DateFromKey = "date_from"; 
@@ -352,6 +353,22 @@ namespace GettyImages.Connect.Search
             return this;
         }
 
+        public SearchImages WithCollectionFilterType(CollectionFilter value)
+        {
+            if (QueryParameters.ContainsKey(CollectionFilterKey))
+            {
+                QueryParameters[CollectionFilterKey] = value == CollectionFilter.None
+                    ? value
+                    : (CollectionFilter)QueryParameters[CollectionFilterKey] | value;
+            }
+            else
+            {
+                QueryParameters.Add(CollectionFilterKey, value);
+            }
+
+            return this;
+        }
+
         IBlendedImagesSearch IBlendedImagesSearch.WithPage(int value)
         {
             return WithPage(value);
@@ -472,6 +489,11 @@ namespace GettyImages.Connect.Search
             return WithDateFrom(value);
         }
 
+        IBlendedImagesSearch IBlendedImagesSearch.WithCollectionFilterType(CollectionFilter value)
+        {
+            return WithCollectionFilterType(value);
+        }
+
         ICreativeImagesSearch ICreativeImagesSearch.WithPage(int value)
         {
             return WithPage(value);
@@ -575,6 +597,11 @@ namespace GettyImages.Connect.Search
         ICreativeImagesSearch ICreativeImagesSearch.WithCollectionCode(string value)
         {
             return WithCollectionCode(value);
+        }
+
+        ICreativeImagesSearch ICreativeImagesSearch.WithCollectionFilterType(CollectionFilter value)
+        {
+            return WithCollectionFilterType(value);
         }
 
         IEditorialImagesSearch IEditorialImagesSearch.WithEditorialSegment(EditorialSegment segment)
@@ -693,6 +720,11 @@ namespace GettyImages.Connect.Search
             return WithDateFrom(value);
         }
 
+        IEditorialImagesSearch IEditorialImagesSearch.WithCollectionFilterType(CollectionFilter value)
+        {
+            return WithCollectionFilterType(value);
+        }
+
         private void AddQueryParameter(string key, object value)
         {
             if (QueryParameters.ContainsKey(key))
@@ -726,5 +758,5 @@ namespace GettyImages.Connect.Search
             return new SearchImages(credentials, baseUrl);
         }
 
-    }
+     }
 }

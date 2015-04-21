@@ -30,5 +30,6 @@ namespace GettyImages.Connect.Search
         SearchImages WithCollectionCode(string value);
         SearchImages WithDateTo(string value);
         SearchImages WithDateFrom(string value);
+        SearchImages WithCollectionFilterType(CollectionFilter value);
     }
 }

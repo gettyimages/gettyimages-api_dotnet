@@ -25,6 +25,7 @@ namespace GettyImages.Connect.Search
         new IBlendedImagesSearch WithCollectionCode(string value);
         new IBlendedImagesSearch WithDateTo(string value);
         new IBlendedImagesSearch WithDateFrom(string value);
+        new IBlendedImagesSearch WithCollectionFilterType(CollectionFilter value);
         IBlendedImagesSearch WithLicenseModel(LicenseModel value);
         ICreativeImagesSearch Creative();
         IEditorialImagesSearch Editorial();

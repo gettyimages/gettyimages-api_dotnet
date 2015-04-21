@@ -234,5 +234,18 @@ namespace GettyImages.Connect.Tests
         {
             ScenarioContext.Current.Get<SearchImages>("request").WithDateFrom("2015-04-01");
         }
+
+        [When(@"I specify a (.*) collection code")]
+        public void WhenISpecifyAwriCollectionCode(string code)
+        {
+            ScenarioContext.Current.Get<SearchImages>("request").WithCollectionCode(code);
+        }
+
+        [When(@"I specify a (.*) collection filter type")]
+        public void WhenISpecifyAIncludeCollectionFilterType(string filter)
+        {
+            var filterEnum = EnumEx.GetValueFromDescription<CollectionFilter>(filter);
+            ScenarioContext.Current.Get<SearchImages>("request").WithCollectionFilterType((CollectionFilter)Enum.Parse(typeof(CollectionFilter), filterEnum.ToString()));
+        }
     }
 }
