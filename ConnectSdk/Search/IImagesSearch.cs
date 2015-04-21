@@ -29,5 +29,6 @@ namespace GettyImages.Connect.Search
         SearchImages WithEthnicity(Ethnicity value);
         SearchImages WithCollectionCode(string value);
         SearchImages WithDateTo(string value);
+        SearchImages WithDateFrom(string value);
     }
 }

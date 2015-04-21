@@ -228,5 +228,11 @@ namespace GettyImages.Connect.Tests
         {
             ScenarioContext.Current.Get<SearchImages>("request").WithDateTo("2015-04-01");
         }
+
+        [When(@"I specify an start date")]
+        public void WhenISpecifyAnStartDate()
+        {
+            ScenarioContext.Current.Get<SearchImages>("request").WithDateFrom("2015-04-01");
+        }
     }
 }
