@@ -216,5 +216,11 @@ namespace GettyImages.Connect.Tests
             var ethnicityEnum = EnumEx.GetValueFromDescription<Ethnicity>(ethnicity);
             ScenarioContext.Current.Get<SearchImages>("request").WithEthnicity((Ethnicity)Enum.Parse(typeof(Ethnicity), ethnicityEnum.ToString()));
         }
+
+        [When(@"I specify a collection code")]
+        public void WhenISpecifyACollectionCode()
+        {
+            ScenarioContext.Current.Get<SearchImages>("request").WithCollectionCode("WRI").WithCollectionCode("ARF");
+        }
     }
 }

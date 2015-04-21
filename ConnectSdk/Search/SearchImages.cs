@@ -11,6 +11,7 @@ namespace GettyImages.Connect.Search
         private const string ArtistKey = "artists";
         private const string EditorialKey = "editorial";
         private const string CreativeKey = "creative";
+        private const string CollectionCodeKey = "collection_codes";
         private const string CompositionKey = "compositions";
         private const string EthnicityKey = "ethnicity";
         private const string EventIdsKey = "event_ids";
@@ -320,6 +321,23 @@ namespace GettyImages.Connect.Search
             return this;
         }
 
+        public SearchImages WithCollectionCode(string value)
+        {
+            if (!QueryParameters.ContainsKey(CollectionCodeKey))
+            {
+                QueryParameters.Add(CollectionCodeKey, new List<string> { value });
+            }
+            else
+            {
+                var fields = (IList<string>)QueryParameters[CollectionCodeKey];
+                if (!fields.Contains(value))
+                {
+                    fields.Add(value);
+                }
+            }
+            return this;
+        }
+
         IBlendedImagesSearch IBlendedImagesSearch.WithPage(int value)
         {
             return WithPage(value);
@@ -425,6 +443,11 @@ namespace GettyImages.Connect.Search
             return WithArtist(value);
         }
 
+        IBlendedImagesSearch IBlendedImagesSearch.WithCollectionCode(string value)
+        {
+            return WithCollectionCode(value);
+        }
+
         ICreativeImagesSearch ICreativeImagesSearch.WithPage(int value)
         {
             return WithPage(value);
@@ -523,6 +546,11 @@ namespace GettyImages.Connect.Search
         ICreativeImagesSearch ICreativeImagesSearch.WithEthnicity(Ethnicity value)
         {
             return WithEthnicity(value);
+        }
+
+        ICreativeImagesSearch ICreativeImagesSearch.WithCollectionCode(string value)
+        {
+            return WithCollectionCode(value);
         }
 
         IEditorialImagesSearch IEditorialImagesSearch.WithEditorialSegment(EditorialSegment segment)
@@ -624,6 +652,11 @@ namespace GettyImages.Connect.Search
         IEditorialImagesSearch IEditorialImagesSearch.WithEthnicity(Ethnicity value)
         {
             return WithEthnicity(value);
+        }
+
+        IEditorialImagesSearch IEditorialImagesSearch.WithCollectionCode(string value)
+        {
+            return WithCollectionCode(value);
         }
 
         private void AddQueryParameter(string key, object value)

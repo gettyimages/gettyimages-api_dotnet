@@ -21,6 +21,7 @@ namespace GettyImages.Connect.Search
         new ICreativeImagesSearch WithComposition(Composition value);
         new ICreativeImagesSearch WithArtist(string value);
         new ICreativeImagesSearch WithEthnicity(Ethnicity value);
+        new ICreativeImagesSearch WithCollectionCode(string value);
         ICreativeImagesSearch WithLicenseModel(LicenseModel value);
     }
 }
