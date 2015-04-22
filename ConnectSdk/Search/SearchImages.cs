@@ -357,17 +357,7 @@ namespace GettyImages.Connect.Search
 
         public SearchImages WithCollectionFilterType(CollectionFilter value)
         {
-            if (QueryParameters.ContainsKey(CollectionFilterKey))
-            {
-                QueryParameters[CollectionFilterKey] = value == CollectionFilter.None
-                    ? value
-                    : (CollectionFilter)QueryParameters[CollectionFilterKey] | value;
-            }
-            else
-            {
-                QueryParameters.Add(CollectionFilterKey, value);
-            }
-
+            AddQueryParameter(CollectionFilterKey, value);
             return this;
         }
 
@@ -379,10 +369,10 @@ namespace GettyImages.Connect.Search
             }
             else
             {
-                var peoples = (IList<string>)QueryParameters[SpecificPeopleKey];
-                if (!peoples.Contains(value))
+                var people = (IList<string>)QueryParameters[SpecificPeopleKey];
+                if (!people.Contains(value))
                 {
-                    peoples.Add(value);
+                    people.Add(value);
                 }
             }
             return this;

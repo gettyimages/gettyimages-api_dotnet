@@ -1,8 +1,5 @@
-﻿using System;
-
-namespace GettyImages.Connect.Search.Entity
+﻿namespace GettyImages.Connect.Search.Entity
 {
-    [Flags]
     public enum CollectionFilter
     {
         None = 0,
