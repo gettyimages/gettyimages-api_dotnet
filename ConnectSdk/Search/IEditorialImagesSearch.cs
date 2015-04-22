@@ -25,6 +25,7 @@ namespace GettyImages.Connect.Search
         new IEditorialImagesSearch WithDateTo(string value);
         new IEditorialImagesSearch WithDateFrom(string value);
         new IEditorialImagesSearch WithCollectionFilterType(CollectionFilter value);
+        new IEditorialImagesSearch WithSpecificPeople(string value);
         IEditorialImagesSearch WithEditorialSegment(EditorialSegment segment);
     }
 }

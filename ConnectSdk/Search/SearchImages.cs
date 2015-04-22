@@ -32,6 +32,7 @@ namespace GettyImages.Connect.Search
         private const string PrestigeContentOnlyKey = "prestige_content_only";
         private const string ProductTypesKey = "product_types";
         private const string SortOrderKey = "sort_order";
+        private const string SpecificPeopleKey = "specific_people";
         private const string EmbedContentOnlyKey = "embed_content_only";
         private const string Excludenudity = "exclude_nudity";
 
@@ -217,10 +218,10 @@ namespace GettyImages.Connect.Search
             }
             else
             {
-                var fields = (IList<string>)QueryParameters[LocationKey];
-                if (!fields.Contains(value))
+                var locations = (IList<string>)QueryParameters[LocationKey];
+                if (!locations.Contains(value))
                 {
-                    fields.Add(value);
+                    locations.Add(value);
                 }
             }
             return this;
@@ -299,10 +300,10 @@ namespace GettyImages.Connect.Search
             }
             else
             {
-                var fields = (IList<string>)QueryParameters[ArtistKey];
-                if (!fields.Contains(value))
+                var artists = (IList<string>)QueryParameters[ArtistKey];
+                if (!artists.Contains(value))
                 {
-                    fields.Add(value);
+                    artists.Add(value);
                 }
             }
             return this;
@@ -332,10 +333,10 @@ namespace GettyImages.Connect.Search
             }
             else
             {
-                var fields = (IList<string>)QueryParameters[CollectionCodeKey];
-                if (!fields.Contains(value))
+                var collectionCodes = (IList<string>)QueryParameters[CollectionCodeKey];
+                if (!collectionCodes.Contains(value))
                 {
-                    fields.Add(value);
+                    collectionCodes.Add(value);
                 }
             }
             return this;
@@ -366,6 +367,23 @@ namespace GettyImages.Connect.Search
                 QueryParameters.Add(CollectionFilterKey, value);
             }
 
+            return this;
+        }
+
+        public SearchImages WithSpecificPeople(string value)
+        {
+            if (!QueryParameters.ContainsKey(SpecificPeopleKey))
+            {
+                QueryParameters.Add(SpecificPeopleKey, new List<string> { value });
+            }
+            else
+            {
+                var peoples = (IList<string>)QueryParameters[SpecificPeopleKey];
+                if (!peoples.Contains(value))
+                {
+                    peoples.Add(value);
+                }
+            }
             return this;
         }
 
@@ -492,6 +510,11 @@ namespace GettyImages.Connect.Search
         IBlendedImagesSearch IBlendedImagesSearch.WithCollectionFilterType(CollectionFilter value)
         {
             return WithCollectionFilterType(value);
+        }
+
+        IBlendedImagesSearch IBlendedImagesSearch.WithSpecificPeople(string value)
+        {
+            return WithSpecificPeople(value);
         }
 
         ICreativeImagesSearch ICreativeImagesSearch.WithPage(int value)
@@ -725,6 +748,11 @@ namespace GettyImages.Connect.Search
             return WithCollectionFilterType(value);
         }
 
+        IEditorialImagesSearch IEditorialImagesSearch.WithSpecificPeople(string value)
+        {
+            return WithSpecificPeople(value);
+        }
+
         private void AddQueryParameter(string key, object value)
         {
             if (QueryParameters.ContainsKey(key))
@@ -758,5 +786,5 @@ namespace GettyImages.Connect.Search
             return new SearchImages(credentials, baseUrl);
         }
 
-     }
+    }
 }

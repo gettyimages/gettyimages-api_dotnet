@@ -247,5 +247,11 @@ namespace GettyImages.Connect.Tests
             var filterEnum = EnumEx.GetValueFromDescription<CollectionFilter>(filter);
             ScenarioContext.Current.Get<SearchImages>("request").WithCollectionFilterType((CollectionFilter)Enum.Parse(typeof(CollectionFilter), filterEnum.ToString()));
         }
+
+        [When(@"I specify a specific person")]
+        public void WhenISpecifyASpecificPerson()
+        {
+            ScenarioContext.Current.Get<SearchImages>("request").WithSpecificPeople("Reggie Jackson");
+        }
     }
 }
