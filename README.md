@@ -41,7 +41,7 @@ Results are returned as `dynamic`. Visit the [API Interactive Documentation](htt
 _This is only necessary if you would like to contribute to the project. Otherwise, use the [Nuget Package](#using-the-nuget-package)_
 
 #### Assumptions
-+ You have Visual Studio 2013 - this solution should work with 2012, but it has not been tested.
++ You have Visual Studio 2013 Update 4
 + You have Git installed
 	+ [Git for Windows](http://msysgit.github.io/)
 	+ If you are using Cygwin, use the [Cygwin Package Installer](https://cygwin.com/install.html) to install Git
@@ -81,3 +81,4 @@ Once this is complete, you can open the solution in Visual Studio:
 1. Tests can be run using:
 	+ ReSharper Unit Test Explorer
 	+ NUnit - You may need to install the [NUnit Test Adapter](http://visualstudiogallery.msdn.microsoft.com/6ab922d0-21c0-4f06-ab5f-4ecd1fe7175d)
+	+ Note: Running all tests at once can occasionally result in the error "GettyImages.Connect.OverQpsException : Exception of type 'GettyImages.Connect.OverQpsException' was thrown.". Please run tests individually if you encounter this error and the tests should run properly.
