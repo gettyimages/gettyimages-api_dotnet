@@ -48,21 +48,24 @@
     <Compile Include="OverQpsException.cs" />
     <Compile Include="SdkException.cs" />
     <Compile Include="ApiRequest.cs" />
-    <Compile Include="Search\AgeOfPeople.cs" />
-    <Compile Include="Search\CollectionFilter.cs" />
-    <Compile Include="Search\Composition.cs" />
-    <Compile Include="Search\EditorialSegment.cs" />
-    <Compile Include="Search\Ethnicity.cs" />
-    <Compile Include="Search\FileType.cs" />
-    <Compile Include="Search\GraphicalStyles.cs" />
+    <Compile Include="Search\BlendedSearchImages.cs" />
+    <Compile Include="Search\CreativeSearchImages.cs" />
+    <Compile Include="Search\EditorialSearchImages.cs" />
+    <Compile Include="Search\Entity\AgeOfPeople.cs" />
+    <Compile Include="Search\Entity\CollectionFilter.cs" />
+    <Compile Include="Search\Entity\Composition.cs" />
+    <Compile Include="Search\Entity\EditorialSegment.cs" />
+    <Compile Include="Search\Entity\Ethnicity.cs" />
+    <Compile Include="Search\Entity\FileType.cs" />
+    <Compile Include="Search\Entity\GraphicalStyles.cs" />
     <Compile Include="Search\IBlendedImagesSearch.cs" />
     <Compile Include="Search\ICreativeImagesSearch.cs" />
     <Compile Include="Search\IEditorialImagesSearch.cs" />
     <Compile Include="Search\IImagesSearch.cs" />
-    <Compile Include="Search\LicenseModel.cs" />
-    <Compile Include="Search\NumberOfPeople.cs" />
-    <Compile Include="Search\Orientation.cs" />
-    <Compile Include="Search\ProductType.cs" />
+    <Compile Include="Search\Entity\LicenseModel.cs" />
+    <Compile Include="Search\Entity\NumberOfPeople.cs" />
+    <Compile Include="Search\Entity\Orientation.cs" />
+    <Compile Include="Search\Entity\ProductType.cs" />
     <Compile Include="Search\SearchImages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Search\Search.cs" />
@@ -93,6 +96,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">

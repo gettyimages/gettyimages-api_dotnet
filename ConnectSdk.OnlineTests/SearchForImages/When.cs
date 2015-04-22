@@ -1,65 +1,14 @@
 ﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
 using GettyImages.Connect.Search;
-using Newtonsoft.Json.Linq;
-using NUnit.Framework;
+using GettyImages.Connect.Search.Entity;
 using TechTalk.SpecFlow;
 
-namespace GettyImages.Connect.Tests
+namespace GettyImages.Connect.Tests.SearchForImages
 {
-    /// <summary>
-    /// </summary>
     [Binding]
     [Scope(Feature = "Search for Images")]
-    public class SearchForImagesSteps
+    public class When
     {
-        [Then(@"I get a response back that has my images")]
-        public void ThenIGetAResponseBackThatHasMyImages()
-        {
-            var task = ScenarioContext.Current["task"] as Task<dynamic>;
-            try
-            {
-                task.Wait();
-                Assert.That(task.Result.images.Count > 0);
-            }
-            catch (AggregateException ex)
-            {
-                if (ex.InnerExceptions.Any(e => e.GetType() == typeof (OverQpsException)))
-                {
-                    Assert.Inconclusive("Over QPS");
-                }
-                else
-                {
-                    throw;
-                }
-            }
-        }
-
-
-        [Then(@"only required return fields plus (.*) are returned")]
-        public void ThenOnlyRequiredReturnFieldsPlusRequestedFieldAreReturned(string field)
-        {
-            var task = ScenarioContext.Current["task"] as Task<dynamic>;
-            try
-            {
-                task.Wait();
-                Assert.NotNull(((JObject) task.Result.images[0]).Property(field));
-            }
-            catch (AggregateException ex)
-            {
-                if (ex.InnerExceptions.Any(e => e.GetType() == typeof (OverQpsException)))
-                {
-                    Assert.Inconclusive("Over QPS");
-                }
-                else
-                {
-                    throw;
-                }
-            }
-        }
-
-
         [When(@"I configure my search for creative images")]
         public void WhenIConfigureMySearchForCreativeImages()
         {
@@ -102,7 +51,7 @@ namespace GettyImages.Connect.Tests
             var request = ScenarioContext.Current.Get<IEditorialImagesSearch>("request");
             request.WithEditorialSegment(
                 (EditorialSegment)
-                    Enum.Parse(typeof (EditorialSegment), segment));
+                    Enum.Parse(typeof(EditorialSegment), segment));
         }
 
         [When(@"I specify a graphical (.*)")]
@@ -129,14 +78,14 @@ namespace GettyImages.Connect.Tests
         public void WhenISpecifyALicenseModel(string licenseModel)
         {
             ScenarioContext.Current.Get<SearchImages>("request")
-                .WithLicenseModel((LicenseModel) Enum.Parse(typeof (LicenseModel), licenseModel));
+                .WithLicenseModel((LicenseModel)Enum.Parse(typeof(LicenseModel), licenseModel));
         }
 
         [When(@"I specify an orientation (.*)")]
         public void WhenISpecifyAnOrientation(string orientation)
         {
             ScenarioContext.Current.Get<SearchImages>("request")
-                .WithOrientation((Orientation) Enum.Parse(typeof (Orientation), orientation));
+                .WithOrientation((Orientation)Enum.Parse(typeof(Orientation), orientation));
         }
 
         [When(@"I specify a (.*) product type")]
@@ -165,7 +114,7 @@ namespace GettyImages.Connect.Tests
         public void WhenISpecifyAKeywordId()
         {
             var task =
-                  ScenarioContext.Current.Get<SearchImages>("request").WithKeywordId( 64284 ).ExecuteAsync();
+                  ScenarioContext.Current.Get<SearchImages>("request").WithKeywordId(64284).ExecuteAsync();
             ScenarioContext.Current.Add("task", task);
         }
 

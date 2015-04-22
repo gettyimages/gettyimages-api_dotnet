@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GettyImages.Connect.Search
+namespace GettyImages.Connect.Search.Entity
 {
     [Flags]
     public enum ProductType

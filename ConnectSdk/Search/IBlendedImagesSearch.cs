@@ -1,3 +1,5 @@
+using GettyImages.Connect.Search.Entity;
+
 namespace GettyImages.Connect.Search
 {
     public interface IBlendedImagesSearch : IImagesSearch

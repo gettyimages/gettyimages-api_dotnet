@@ -98,7 +98,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SearchPaging.feature</DependentUpon>
     </Compile>
-    <Compile Include="SearchForImagesSteps.cs" />
+    <Compile Include="SearchForImages\Then.cs" />
+    <Compile Include="SearchForImages\When.cs" />
     <Compile Include="SearchResultsPagingSteps.cs" />
     <Compile Include="SharedGiven.cs" />
   </ItemGroup>
