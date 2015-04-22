@@ -1,25 +1,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GettyImages.Connect.Search.Entity;
 
 namespace GettyImages.Connect.Search
 {
-    public class SearchImages : ApiRequest, IBlendedImagesSearch, ICreativeImagesSearch, IEditorialImagesSearch
+    public partial class SearchImages : ApiRequest, IBlendedImagesSearch, ICreativeImagesSearch, IEditorialImagesSearch
     {
         protected const string V3SearchImagesPath = "/search/images";
+        private const string AgeOfPeopleKey = "age_of_people";
+        private const string ArtistKey = "artists";
         private const string EditorialKey = "editorial";
         private const string CreativeKey = "creative";
+        private const string CollectionCodeKey = "collection_codes";
+        private const string CollectionFilterKey = "collections_filter_type";
+        private const string CompositionKey = "compositions";
+        private const string DateToKey = "date_to";
+        private const string DateFromKey = "date_from"; 
+        private const string EthnicityKey = "ethnicity";
+        private const string EventIdsKey = "event_ids";
         private const string FieldsKey = "fields";
+        private const string FileTypeKey = "file_types";
         private const string GraphicalStylesKey = "graphical_styles";
+        private const string KeywordIdsKey = "keyword_ids";
         private const string LicenseModelsKey = "license_models";
+        private const string LocationKey = "specific_locations";
+        private const string NumberOfPeopleKey = "number_of_people";
         private const string OrientationsKey = "orientations";
         private const string PageKey = "page";
         private const string PageSizeKey = "page_size";
         private const string PhraseKey = "phrase";
+        private const string PrestigeContentOnlyKey = "prestige_content_only";
+        private const string ProductTypesKey = "product_types";
         private const string SortOrderKey = "sort_order";
+        private const string SpecificPeopleKey = "specific_people";
         private const string EmbedContentOnlyKey = "embed_content_only";
         private const string Excludenudity = "exclude_nudity";
-        private const string PhraseIsRequired = "Phrase is required";
 
         protected readonly List<string> Fields = new List<string>();
         protected string AssetType;
@@ -50,12 +66,6 @@ namespace GettyImages.Connect.Search
 
         public override async Task<dynamic> ExecuteAsync()
         {
-            if (!QueryParameters.ContainsKey(PhraseKey) ||
-                string.IsNullOrWhiteSpace(QueryParameters[PhraseKey].ToString()))
-            {
-                throw new SdkException(PhraseIsRequired);
-            }
-
             Method = "GET";
             Path = string.IsNullOrEmpty(AssetType) ? V3SearchImagesPath : V3SearchImagesPath + "/" + AssetType;
 
@@ -169,155 +179,203 @@ namespace GettyImages.Connect.Search
             return this;
         }
 
-        IBlendedImagesSearch IBlendedImagesSearch.WithPage(int value)
+        public SearchImages WithProductType(ProductType value)
         {
-            return WithPage(value);
-        }
+            if (QueryParameters.ContainsKey(ProductTypesKey))
+            {
+                QueryParameters[ProductTypesKey] = value == ProductType.None
+                    ? value
+                    : (ProductType)QueryParameters[ProductTypesKey] | value;
+            }
+            else
+            {
+                QueryParameters.Add(ProductTypesKey, value);
+            }
 
-        IBlendedImagesSearch IBlendedImagesSearch.WithPageSize(int value)
-        {
-            return WithPageSize(value);
-        }
-
-        IBlendedImagesSearch IBlendedImagesSearch.WithPhrase(string value)
-        {
-            return WithPhrase(value);
-        }
-
-        IBlendedImagesSearch IBlendedImagesSearch.WithSortOrder(string value)
-        {
-            return WithSortOrder(value);
-        }
-
-        IBlendedImagesSearch IBlendedImagesSearch.WithEmbedContentOnly(bool value)
-        {
-            return WithEmbedContentOnly(value);
-        }
-
-        IBlendedImagesSearch IBlendedImagesSearch.WithExcludeNudity(bool value)
-        {
-            return WithExcludeNudity(value);
-        }
-
-        IBlendedImagesSearch IBlendedImagesSearch.WithResponseField(string value)
-        {
-            return WithResponseField(value);
-        }
-
-        IBlendedImagesSearch IBlendedImagesSearch.WithGraphicalStyle(GraphicalStyles value)
-        {
-            return WithGraphicalStyle(value);
-        }
-
-        IBlendedImagesSearch IBlendedImagesSearch.WithOrientation(Orientation value)
-        {
-            return WithOrientation(value);
-        }
-
-        IBlendedImagesSearch IBlendedImagesSearch.WithLicenseModel(LicenseModel value)
-        {
-            return WithLicenseModel(value);
-        }
-
-        ICreativeImagesSearch ICreativeImagesSearch.WithPage(int value)
-        {
-            return WithPage(value);
-        }
-
-        ICreativeImagesSearch ICreativeImagesSearch.WithPageSize(int value)
-        {
-            return WithPageSize(value);
-        }
-
-        ICreativeImagesSearch ICreativeImagesSearch.WithPhrase(string value)
-        {
-            return WithPhrase(value);
-        }
-
-        ICreativeImagesSearch ICreativeImagesSearch.WithSortOrder(string value)
-        {
-            return WithSortOrder(value);
-        }
-
-        ICreativeImagesSearch ICreativeImagesSearch.WithEmbedContentOnly(bool value)
-        {
-            return WithEmbedContentOnly(value);
-        }
-
-        ICreativeImagesSearch ICreativeImagesSearch.WithExcludeNudity(bool value)
-        {
-            return WithExcludeNudity(value);
-        }
-
-        ICreativeImagesSearch ICreativeImagesSearch.WithResponseField(string value)
-        {
-            return WithResponseField(value);
-        }
-
-        ICreativeImagesSearch ICreativeImagesSearch.WithGraphicalStyle(GraphicalStyles value)
-        {
-            return WithGraphicalStyle(value);
-        }
-
-        ICreativeImagesSearch ICreativeImagesSearch.WithOrientation(Orientation value)
-        {
-            return WithOrientation(value);
-        }
-
-        ICreativeImagesSearch ICreativeImagesSearch.WithLicenseModel(LicenseModel value)
-        {
-            return WithLicenseModel(value);
-        }
-
-        IEditorialImagesSearch IEditorialImagesSearch.WithEditorialSegment(EditorialSegment segment)
-        {
-            EditorialSegments = EditorialSegments | segment;
             return this;
         }
 
-        IEditorialImagesSearch IEditorialImagesSearch.WithPage(int value)
+        public SearchImages WithNumberOfPeople(NumberOfPeople value)
         {
-            return WithPage(value);
+            if (QueryParameters.ContainsKey(NumberOfPeopleKey))
+            {
+                QueryParameters[NumberOfPeopleKey] = value == NumberOfPeople.None
+                    ? value
+                    : (NumberOfPeople)QueryParameters[NumberOfPeopleKey] | value;
+            }
+            else
+            {
+                QueryParameters.Add(NumberOfPeopleKey, value);
+            }
+
+            return this;
         }
 
-        IEditorialImagesSearch IEditorialImagesSearch.WithPageSize(int value)
+        public SearchImages WithLocation(string value)
         {
-            return WithPageSize(value);
+            if (!QueryParameters.ContainsKey(LocationKey))
+            {
+                QueryParameters.Add(LocationKey, new List<string> { value });
+            }
+            else
+            {
+                var locations = (IList<string>)QueryParameters[LocationKey];
+                if (!locations.Contains(value))
+                {
+                    locations.Add(value);
+                }
+            }
+            return this;
         }
 
-        IEditorialImagesSearch IEditorialImagesSearch.WithPhrase(string value)
+        public SearchImages WithKeywordId(int value)
         {
-            return WithPhrase(value);
+            AddQueryParameter(KeywordIdsKey, value);
+            return this;
         }
 
-        IEditorialImagesSearch IEditorialImagesSearch.WithSortOrder(string value)
+        public SearchImages WithFileType(FileType value)
         {
-            return WithSortOrder(value);
+            if (QueryParameters.ContainsKey(FileTypeKey))
+            {
+                QueryParameters[FileTypeKey] = value == FileType.None
+                    ? value
+                    : (FileType)QueryParameters[FileTypeKey] | value;
+            }
+            else
+            {
+                QueryParameters.Add(FileTypeKey, value);
+            }
+            return this;
         }
 
-        IEditorialImagesSearch IEditorialImagesSearch.WithEmbedContentOnly(bool value)
+        public SearchImages WithEventId(int value)
         {
-            return WithEmbedContentOnly(value);
+            AddQueryParameter(EventIdsKey, value);
+            return this;
         }
 
-        IEditorialImagesSearch IEditorialImagesSearch.WithExcludeNudity(bool value)
+        public SearchImages WithPrestigeContentOnly(bool value = true)
         {
-            return WithExcludeNudity(value);
+            AddQueryParameter(PrestigeContentOnlyKey, value);
+            return this;
         }
 
-        IEditorialImagesSearch IEditorialImagesSearch.WithResponseField(string value)
+        public SearchImages WithAgeOfPeople(AgeOfPeople value)
         {
-            return WithResponseField(value);
+            if (QueryParameters.ContainsKey(AgeOfPeopleKey))
+            {
+                QueryParameters[AgeOfPeopleKey] = value == AgeOfPeople.None
+                    ? value
+                    : (AgeOfPeople)QueryParameters[AgeOfPeopleKey] | value;
+            }
+            else
+            {
+                QueryParameters.Add(AgeOfPeopleKey, value);
+            }
+           
+            return this;
         }
 
-        IEditorialImagesSearch IEditorialImagesSearch.WithGraphicalStyle(GraphicalStyles value)
+        public SearchImages WithComposition(Composition value)
         {
-            return WithGraphicalStyle(value);
+            if (QueryParameters.ContainsKey(CompositionKey))
+            {
+                QueryParameters[CompositionKey] = value == Composition.None
+                    ? value
+                    : (Composition)QueryParameters[CompositionKey] | value;
+            }
+            else
+            {
+                QueryParameters.Add(CompositionKey, value);
+            }
+
+            return this;
         }
 
-        IEditorialImagesSearch IEditorialImagesSearch.WithOrientation(Orientation value)
+        public SearchImages WithArtist(string value)
         {
-            return WithOrientation(value);
+            if (!QueryParameters.ContainsKey(ArtistKey))
+            {
+                QueryParameters.Add(ArtistKey, new List<string> { value });
+            }
+            else
+            {
+                var artists = (IList<string>)QueryParameters[ArtistKey];
+                if (!artists.Contains(value))
+                {
+                    artists.Add(value);
+                }
+            }
+            return this;
+        }
+
+        public SearchImages WithEthnicity(Ethnicity value)
+        {
+            if (QueryParameters.ContainsKey(EthnicityKey))
+            {
+                QueryParameters[EthnicityKey] = value == Ethnicity.None
+                    ? value
+                    : (Ethnicity)QueryParameters[EthnicityKey] | value;
+            }
+            else
+            {
+                QueryParameters.Add(EthnicityKey, value);
+            }
+
+            return this;
+        }
+
+        public SearchImages WithCollectionCode(string value)
+        {
+            if (!QueryParameters.ContainsKey(CollectionCodeKey))
+            {
+                QueryParameters.Add(CollectionCodeKey, new List<string> { value });
+            }
+            else
+            {
+                var collectionCodes = (IList<string>)QueryParameters[CollectionCodeKey];
+                if (!collectionCodes.Contains(value))
+                {
+                    collectionCodes.Add(value);
+                }
+            }
+            return this;
+        }
+
+        public SearchImages WithDateTo(string value)
+        {
+            AddQueryParameter(DateToKey, value);
+            return this;
+        }
+
+        public SearchImages WithDateFrom(string value)
+        {
+            AddQueryParameter(DateFromKey, value);
+            return this;
+        }
+
+        public SearchImages WithCollectionFilterType(CollectionFilter value)
+        {
+            AddQueryParameter(CollectionFilterKey, value);
+            return this;
+        }
+
+        public SearchImages WithSpecificPeople(string value)
+        {
+            if (!QueryParameters.ContainsKey(SpecificPeopleKey))
+            {
+                QueryParameters.Add(SpecificPeopleKey, new List<string> { value });
+            }
+            else
+            {
+                var people = (IList<string>)QueryParameters[SpecificPeopleKey];
+                if (!people.Contains(value))
+                {
+                    people.Add(value);
+                }
+            }
+            return this;
         }
 
         private void AddQueryParameter(string key, object value)
@@ -352,5 +410,6 @@ namespace GettyImages.Connect.Search
         {
             return new SearchImages(credentials, baseUrl);
         }
+
     }
 }

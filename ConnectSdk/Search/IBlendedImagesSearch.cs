@@ -1,3 +1,5 @@
+using GettyImages.Connect.Search.Entity;
+
 namespace GettyImages.Connect.Search
 {
     public interface IBlendedImagesSearch : IImagesSearch
@@ -11,6 +13,22 @@ namespace GettyImages.Connect.Search
         new IBlendedImagesSearch WithResponseField(string field);
         new IBlendedImagesSearch WithGraphicalStyle(GraphicalStyles value);
         new IBlendedImagesSearch WithOrientation(Orientation value);
+        new IBlendedImagesSearch WithEventId(int value);
+        new IBlendedImagesSearch WithFileType(FileType value);
+        new IBlendedImagesSearch WithKeywordId(int value);
+        new IBlendedImagesSearch WithNumberOfPeople(NumberOfPeople value);
+        new IBlendedImagesSearch WithPrestigeContentOnly(bool value = true);
+        new IBlendedImagesSearch WithProductType(ProductType value);
+        new IBlendedImagesSearch WithLocation(string value);
+        new IBlendedImagesSearch WithAgeOfPeople(AgeOfPeople value);
+        new IBlendedImagesSearch WithComposition(Composition value);
+        new IBlendedImagesSearch WithArtist(string value);
+        new IBlendedImagesSearch WithEthnicity(Ethnicity value);
+        new IBlendedImagesSearch WithCollectionCode(string value);
+        new IBlendedImagesSearch WithDateTo(string value);
+        new IBlendedImagesSearch WithDateFrom(string value);
+        new IBlendedImagesSearch WithCollectionFilterType(CollectionFilter value);
+        new IBlendedImagesSearch WithSpecificPeople(string value);
         IBlendedImagesSearch WithLicenseModel(LicenseModel value);
         ICreativeImagesSearch Creative();
         IEditorialImagesSearch Editorial();

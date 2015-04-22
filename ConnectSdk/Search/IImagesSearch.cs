@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using GettyImages.Connect.Search.Entity;
 
 namespace GettyImages.Connect.Search
 {
@@ -16,5 +17,21 @@ namespace GettyImages.Connect.Search
         SearchImages WithResponseFields(IList<string> value);
         SearchImages WithGraphicalStyle(GraphicalStyles value);
         SearchImages WithOrientation(Orientation value);
+        SearchImages WithEventId(int value);
+        SearchImages WithFileType(FileType value);
+        SearchImages WithKeywordId(int value);
+        SearchImages WithNumberOfPeople(NumberOfPeople value);
+        SearchImages WithPrestigeContentOnly(bool value = true);
+        SearchImages WithProductType(ProductType value);
+        SearchImages WithLocation(string value);
+        SearchImages WithAgeOfPeople(AgeOfPeople value);
+        SearchImages WithComposition(Composition value);
+        SearchImages WithArtist(string value);
+        SearchImages WithEthnicity(Ethnicity value);
+        SearchImages WithCollectionCode(string value);
+        SearchImages WithDateTo(string value);
+        SearchImages WithDateFrom(string value);
+        SearchImages WithCollectionFilterType(CollectionFilter value);
+        SearchImages WithSpecificPeople(string value);
     }
 }

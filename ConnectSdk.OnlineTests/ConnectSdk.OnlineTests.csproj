@@ -67,6 +67,7 @@
     <Compile Include="After.cs" />
     <Compile Include="AuthorizationSteps.cs" />
     <Compile Include="DownloadsSteps.cs" />
+    <Compile Include="EnumEx.cs" />
     <Compile Include="ImageDetails\Given.cs" />
     <Compile Include="ImageDetails\Then.cs" />
     <Compile Include="ImageDetails\When.cs" />
@@ -97,7 +98,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SearchPaging.feature</DependentUpon>
     </Compile>
-    <Compile Include="SearchForImagesSteps.cs" />
+    <Compile Include="SearchForImages\Then.cs" />
+    <Compile Include="SearchForImages\When.cs" />
     <Compile Include="SearchResultsPagingSteps.cs" />
     <Compile Include="SharedGiven.cs" />
   </ItemGroup>
