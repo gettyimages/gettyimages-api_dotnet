@@ -1,12 +1,15 @@
 ﻿using System.Threading.Tasks;
+using GettyImages.Connect.Search.Entity;
 
 namespace GettyImages.Connect
 {
     public class Download : ApiRequest
     {
-        private const string AutoDownloadString = "auto_download";
+        private const string AutoDownloadKey = "auto_download";
         private const string DownloadsPathString = "/downloads/{0}";
         private const string IdIsRequired = "Id is required.";
+        private const string FileTypeKey = "file_type";
+        private const string HeightKey = "height";
         private string _assetId;
 
         private Download(Credentials credentials, string baseUrl)
@@ -34,10 +37,36 @@ namespace GettyImages.Connect
                 throw new SdkException(IdIsRequired);
             }
 
-            QueryParameters.Clear();
-            QueryParameters.Add(AutoDownloadString, false);
+            //QueryParameters.Clear();
             Path = string.Format(DownloadsPathString, _assetId);
             return base.ExecuteAsync();
+        }
+
+        public Download WithFileType(FileType value)
+        {
+            if (QueryParameters.ContainsKey(FileTypeKey))
+            {
+                QueryParameters[FileTypeKey] = value == FileType.None
+                    ? value
+                    : (FileType)QueryParameters[FileTypeKey] | value;
+            }
+            else
+            {
+                QueryParameters.Add(FileTypeKey, value);
+            }
+            return this;
+        }
+
+        public Download WithAutoDownload(bool value = false)
+        {
+            QueryParameters.Add(AutoDownloadKey, value);
+            return this;
+        }
+
+        public Download WithHeight(int height)
+        {
+            QueryParameters.Add(HeightKey, height);
+            return this;
         }
     }
 }
