@@ -37,7 +37,6 @@ namespace GettyImages.Connect
                 throw new SdkException(IdIsRequired);
             }
 
-            //QueryParameters.Clear();
             Path = string.Format(DownloadsPathString, _assetId);
             return base.ExecuteAsync();
         }
@@ -59,7 +58,7 @@ namespace GettyImages.Connect
 
         public Download WithAutoDownload(bool value = false)
         {
-            QueryParameters.Add(AutoDownloadKey, value);
+            QueryParameters.Add(AutoDownloadKey, false);
             return this;
         }
 
