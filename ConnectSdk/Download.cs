@@ -6,7 +6,7 @@ namespace GettyImages.Connect
     public class Download : ApiRequest
     {
         private const string AutoDownloadKey = "auto_download";
-        private const string DownloadsPathString = "/downloads/{0}";
+        private const string DownloadsPathString = "/downloads/images/{0}";
         private const string IdIsRequired = "Id is required.";
         private const string FileTypeKey = "file_type";
         private const string HeightKey = "height";

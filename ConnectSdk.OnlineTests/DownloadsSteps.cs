@@ -20,27 +20,12 @@ namespace GettyImages.Connect.Tests
             ScenarioContext.Current.Pending();
         }
 
-        /// <summary>
-        /// </summary>
-        [Then(@"the url for the image is returned")]
-        public void ThenTheUrlForTheImageIsReturned()
-        {
-            var task = ScenarioContext.Current.Get<Task<dynamic>>();
-            task.Wait();
-            Assert.IsNotNull(task.Result);
-            Assert.IsNotNullOrEmpty(task.Result.uri.ToString());
-            ScenarioContext.Current.Set(task.Result, "result");
-            Uri downloadUri;
-            Assert.IsTrue(Uri.TryCreate(task.Result.uri.ToString(), UriKind.Absolute, out downloadUri),
-                string.Format("String returned was not a valid URI: {0}", task.Result.uri.ToString()));
-        }
-
         [When(@"I request for any image to be downloaded")]
         public void WhenIRequestForAnyImageToBeDownloaded()
         {
             var client = ScenarioCredentialsHelper.GetCredentials();
 
-            var request = client.Download().WithId("453126548");
+            var request = client.Download().WithId("464423888");
             
             FileType filetype;
             ScenarioContext.Current.TryGetValue("filetype", out filetype); 
@@ -68,7 +53,15 @@ namespace GettyImages.Connect.Tests
         public void WhenISpecifyAEpsFileType(string fileType)
         {
             var filetype = EnumEx.GetValueFromDescription<FileType>(fileType);
-            ScenarioContext.Current.Set( filetype, "filetype");
+            ScenarioContext.Current.Set(filetype, "filetype");
+            if (filetype.Equals(FileType.Eps))
+            {
+                ScenarioContext.Current.Set(4071, "height");
+            }
+            else if (filetype.Equals(FileType.Jpg))
+            {
+                ScenarioContext.Current.Set(1733, "height");
+            }
         }
 
         [Given(@"I specify to auto download")]
@@ -80,7 +73,7 @@ namespace GettyImages.Connect.Tests
         [Given(@"a pixel height")]
         public void GivenAPixelHeight()
         {
-            ScenarioContext.Current.Set(396, "height");
+            ScenarioContext.Current.Set(592, "height");
         }
 
         [Then(@"I receive an error")]
@@ -93,10 +86,12 @@ namespace GettyImages.Connect.Tests
             });
         }
 
-        [Then(@"the url has the file type")]
-        public void ThenTheUrlHasTheFileType()
+        [Then(@"the url has a (.*) file type")]
+        public void ThenTheUrlHasTheFileType(string fileType)
         {
-            ScenarioContext.Current.Pending();
+            var result = ScenarioContext.Current.Get<dynamic>("result");
+            string uri = result.uri;
+            Assert.IsTrue(uri.Contains(fileType), "wrong file_type is returned.");
         }
 
         [Then(@"the url will return the largest image")]
@@ -106,15 +101,30 @@ namespace GettyImages.Connect.Tests
             Uri downloadUri;
             Assert.IsTrue(Uri.TryCreate(result.uri.ToString(), UriKind.Absolute, out downloadUri),
                 string.Format("String returned was not a valid URI: {0}", result.uri.ToString()));
+        }
 
-            string uri = result.uri;
-            Assert.IsTrue(uri.Contains("&b=N0U="), "wrong size is returned.");
+        /// <summary>
+        /// </summary>
+        [Then(@"the url for the image is returned")]
+        public void ThenTheUrlForTheImageIsReturned()
+        {
+            var task = ScenarioContext.Current.Get<Task<dynamic>>();
+            task.Wait();
+            Assert.IsNotNull(task.Result);
+            Assert.IsNotNullOrEmpty(task.Result.uri.ToString());
+            ScenarioContext.Current.Set(task.Result, "result");
+            Uri downloadUri;
+            Assert.IsTrue(Uri.TryCreate(task.Result.uri.ToString(), UriKind.Absolute, out downloadUri),
+                string.Format("String returned was not a valid URI: {0}", task.Result.uri.ToString()));
         }
 
         [Then(@"an image is returned")]
         public void ThenAnImageIsReturned()
         {
-            ScenarioContext.Current.Pending();
+            var task = ScenarioContext.Current.Get<Task<dynamic>>();
+            task.Wait();
+            //Assert.IsNotNull(task.Result);
+            //ScenarioContext.Current.Pending();
         }
 
         [Then(@"the url has the correct height")]
@@ -125,7 +135,7 @@ namespace GettyImages.Connect.Tests
             Assert.IsTrue(Uri.TryCreate(result.uri.ToString(), UriKind.Absolute, out downloadUri),
                 string.Format("String returned was not a valid URI: {0}", result.uri.ToString()));
             string uri = result.uri;
-            Assert.IsTrue(uri.Contains( "&b=Q0Q="), "wrong size is returned.");
+            Assert.IsTrue(uri.Contains( "&b=RA=="), "wrong size is returned.");
         }
     }
 }
