@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using GettyImages.Connect.Search;
 using GettyImages.Connect.Search.Entity;
 using TechTalk.SpecFlow;
@@ -113,10 +114,17 @@ namespace GettyImages.Connect.Tests.SearchForImages
         [When(@"I specify a keyword id")]
         public void WhenISpecifyAKeywordId()
         {
-            var task =
-                  ScenarioContext.Current.Get<SearchImages>("request").WithKeywordId(64284).ExecuteAsync();
+            ScenarioContext.Current.Get<SearchImages>("request").WithKeywordId(64284);
+        }
+
+        [When(@"I search")]
+        public void WhenISearch()
+        {
+            var request = ScenarioContext.Current.Get<SearchImages>("request");
+            var task = request.ExecuteAsync();
             ScenarioContext.Current.Add("task", task);
         }
+
 
         [When(@"I specify a (.*) file type")]
         public void WhenISpecifyAEpsFileType(string fileType)
@@ -128,9 +136,7 @@ namespace GettyImages.Connect.Tests.SearchForImages
         [When(@"I specify a event id")]
         public void WhenISpecifyAEventId()
         {
-            var task =
-                ScenarioContext.Current.Get<SearchImages>("request").WithEventId(518451).ExecuteAsync();
-            ScenarioContext.Current.Add("task", task);
+            ScenarioContext.Current.Get<SearchImages>("request").WithEventId(518451);
         }
 
         [When(@"I specify I want only prestige images")]
