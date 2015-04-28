@@ -1,4 +1,4 @@
 [submodule "ConnectSdk.OnlineTests/Scenarios"]
 	path = ConnectSdk.OnlineTests/Scenarios
-	url = https://github.com/gettyimages/connect_sdk_bdd.git
+	url = https://github.com/gettyimages/gettyimages-api_bdd.git
 	ignore = dirty
