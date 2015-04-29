@@ -6,11 +6,11 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <projectUrl>http://developers.gettyimages.com</projectUrl>
+    <projectUrl>http://github.com/gettyimages/gettyimages-api_dotnet</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes></releaseNotes>
-    <copyright>Copyright 2014</copyright>
+    <copyright>Copyright 2015</copyright>
     <licenseUrl>https://github.com/gettyimages/gettyimages-api_dotnet/blob/master/LICENSE</licenseUrl>
     <tags>Getty Images API SDK</tags>
   </metadata>
