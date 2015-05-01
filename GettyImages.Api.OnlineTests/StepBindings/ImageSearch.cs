@@ -1,13 +1,18 @@
 ﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using GettyImages.Api.Search;
 using GettyImages.Api.Search.Entity;
+using GettyImages.Api.Tests;
+using Newtonsoft.Json.Linq;
+using NUnit.Framework;
 using TechTalk.SpecFlow;
 
-namespace GettyImages.Api.Tests.SearchForImages
+namespace GettyImages.Api.OnlineTests.StepBindings
 {
     [Binding]
     [Scope(Feature = "Search for Images")]
-    public class When
+    public class ImageSearch
     {
         [When(@"I configure my search for creative images")]
         public void WhenIConfigureMySearchForCreativeImages()
@@ -212,6 +217,51 @@ namespace GettyImages.Api.Tests.SearchForImages
         public void WhenISpecifyASpecificPerson()
         {
             ScenarioContext.Current.Get<SearchImages>("request").WithSpecificPeople("Reggie Jackson");
+        }
+
+        [Then(@"I get a response back that has my images")]
+        public void ThenIGetAResponseBackThatHasMyImages()
+        {
+            var task = ScenarioContext.Current["task"] as Task<dynamic>;
+            try
+            {
+                task.Wait();
+                Assert.That(task.Result.images.Count > 0);
+            }
+            catch (AggregateException ex)
+            {
+                if (ex.InnerExceptions.Any(e => e.GetType() == typeof (OverQpsException)))
+                {
+                    Assert.Inconclusive("Over QPS");
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        }
+
+
+        [Then(@"only required return fields plus (.*) are returned")]
+        public void ThenOnlyRequiredReturnFieldsPlusRequestedFieldAreReturned(string field)
+        {
+            var task = ScenarioContext.Current["task"] as Task<dynamic>;
+            try
+            {
+                task.Wait();
+                Assert.NotNull(((JObject) task.Result.images[0]).Property(field));
+            }
+            catch (AggregateException ex)
+            {
+                if (ex.InnerExceptions.Any(e => e.GetType() == typeof (OverQpsException)))
+                {
+                    Assert.Inconclusive("Over QPS");
+                }
+                else
+                {
+                    throw;
+                }
+            }
         }
     }
 }

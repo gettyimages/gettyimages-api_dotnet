@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using GettyImages.Api.Tests;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
-namespace GettyImages.Api.Tests
+namespace GettyImages.Api.OnlineTests.StepBindings
 {
     [Binding]
     [Scope(Feature = "Authorization")]
-    public class AuthorizationSteps
+    public class Authorization
     {
         [Given(@"a refresh token")]
         public void GivenARefreshToken()
