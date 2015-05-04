@@ -165,4 +165,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="..\packages\SpecFlow.1.9.0\tools\TechTalk.SpecFlow.targets" Condition="Exists('..\packages\SpecFlow.1.9.0\tools\TechTalk.SpecFlow.targets')" />
 </Project>
