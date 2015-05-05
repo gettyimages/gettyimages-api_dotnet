@@ -74,36 +74,6 @@
     <Compile Include="StepBindings\ImageDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScenarioCredentialsHelper.cs" />
-    <Compile Include="Scenarios\authentication.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>authentication.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Scenarios\downloads.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>downloads.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Scenarios\images.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>images.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Scenarios\ImageSearch.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ImageSearch.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Scenarios\SearchPaging.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SearchPaging.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Scenarios\video-search.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>video-search.feature</DependentUpon>
-    </Compile>
     <Compile Include="StepBindings\ImageSearch.cs" />
     <Compile Include="SearchResultsPagingSteps.cs" />
     <Compile Include="StepBindings\SharedGiven.cs" />
@@ -113,28 +83,16 @@
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Scenarios\authentication.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>authentication.feature.cs</LastGenOutput>
     </None>
     <None Include="Scenarios\downloads.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>downloads.feature.cs</LastGenOutput>
     </None>
     <None Include="Scenarios\images.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>images.feature.cs</LastGenOutput>
     </None>
     <None Include="Scenarios\ImageSearch.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>ImageSearch.feature.cs</LastGenOutput>
     </None>
     <None Include="Scenarios\SearchPaging.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>SearchPaging.feature.cs</LastGenOutput>
     </None>
     <None Include="Scenarios\video-search.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>video-search.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
