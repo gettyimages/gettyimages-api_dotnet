@@ -82,18 +82,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="Scenarios\authentication.feature">
-    </None>
-    <None Include="Scenarios\downloads.feature">
-    </None>
-    <None Include="Scenarios\images.feature">
-    </None>
-    <None Include="Scenarios\ImageSearch.feature">
-    </None>
-    <None Include="Scenarios\SearchPaging.feature">
-    </None>
-    <None Include="Scenarios\video-search.feature">
-    </None>
+    <None Include="Scenarios\authentication.feature" />
+    <None Include="Scenarios\downloads.feature" />
+    <None Include="Scenarios\images.feature" />
+    <None Include="Scenarios\ImageSearch.feature" />
+    <None Include="Scenarios\SearchPaging.feature" />
+    <None Include="Scenarios\video-search.feature" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GettyImages.Api\GettyImages.Api.csproj">
@@ -101,9 +95,20 @@
       <Name>GettyImages.Api</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <VerboseOutput>true</VerboseOutput>
+  </PropertyGroup>
+  <Import Project="..\packages\SpecFlow.1.9.0\tools\TechTalk.SpecFlow.targets" Condition="Exists('..\packages\SpecFlow.1.9.0\tools\TechTalk.SpecFlow.targets')" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Target Name="GenerateSpecflowTests" BeforeTargets="PrepareForBuild" DependsOnTargets="EnsureNuGetPackageBuildImports">
+    <ItemGroup>
+    <!-- include the generated test classes -->
+      <Compile Include="Scenarios\**\*.cs">
+        <Visible>false</Visible> <!-- the generated files can be hidden in Visual Studio -->
+      </Compile>
+    </ItemGroup>
+  </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
@@ -123,5 +128,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\packages\SpecFlow.1.9.0\tools\TechTalk.SpecFlow.targets" Condition="Exists('..\packages\SpecFlow.1.9.0\tools\TechTalk.SpecFlow.targets')" />
 </Project>
