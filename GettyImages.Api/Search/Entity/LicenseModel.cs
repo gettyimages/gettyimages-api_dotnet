@@ -7,6 +7,7 @@ namespace GettyImages.Api.Search.Entity
     {
         None = 0,
         RightsManaged = 1,
-        RoyaltyFree = 2
+        RoyaltyFree = 2,
+        RightsReady = 4
     }
 }

@@ -84,5 +84,17 @@ namespace GettyImages.Api
         {
             return Enum.GetValues(input.GetType()).Cast<Enum>().Where(input.HasFlag).Where(v => Convert.ToInt64(v) != 0);
         }
+
+        protected void AddQueryParameter(string key, object value)
+        {
+            if (QueryParameters.ContainsKey(key))
+            {
+                QueryParameters[key] = value;
+            }
+            else
+            {
+                QueryParameters.Add(key, value);
+            }
+        }
     }
 }

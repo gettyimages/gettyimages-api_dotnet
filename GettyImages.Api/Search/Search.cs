@@ -20,5 +20,10 @@
         {
             return SearchImages.GetInstance(_credentials, _baseUrl);
         }
+
+        public IBlendedVideosSearch Videos()
+        {
+            return SearchVideos.GetInstance(_credentials, _baseUrl);
+        }
     }
 }

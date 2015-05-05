@@ -34,6 +34,8 @@ namespace GettyImages.Api.Search
             return WithExcludeNudity(value);
         }
 
+      
+
         IBlendedImagesSearch IBlendedImagesSearch.WithEventId(int value)
         {
             return WithEventId(value);

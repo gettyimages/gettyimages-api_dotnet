@@ -5,39 +5,11 @@ using GettyImages.Api.Search.Entity;
 
 namespace GettyImages.Api.Search
 {
-    public partial class SearchImages : ApiRequest, IBlendedImagesSearch, ICreativeImagesSearch, IEditorialImagesSearch
+    public partial class SearchImages : AssetSearch, IBlendedImagesSearch, ICreativeImagesSearch, IEditorialImagesSearch
     {
         protected const string V3SearchImagesPath = "/search/images";
-        private const string AgeOfPeopleKey = "age_of_people";
-        private const string ArtistKey = "artists";
-        private const string EditorialKey = "editorial";
-        private const string CreativeKey = "creative";
-        private const string CollectionCodeKey = "collection_codes";
-        private const string CollectionFilterKey = "collections_filter_type";
-        private const string CompositionKey = "compositions";
-        private const string DateToKey = "date_to";
-        private const string DateFromKey = "date_from";
-        private const string EthnicityKey = "ethnicity";
-        private const string EventIdsKey = "event_ids";
-        private const string FieldsKey = "fields";
-        private const string FileTypeKey = "file_types";
-        private const string GraphicalStylesKey = "graphical_styles";
-        private const string KeywordIdsKey = "keyword_ids";
-        private const string LicenseModelsKey = "license_models";
-        private const string LocationKey = "specific_locations";
-        private const string NumberOfPeopleKey = "number_of_people";
-        private const string OrientationsKey = "orientations";
-        private const string PageKey = "page";
-        private const string PageSizeKey = "page_size";
-        private const string PhraseKey = "phrase";
-        private const string PrestigeContentOnlyKey = "prestige_content_only";
-        private const string ProductTypesKey = "product_types";
-        private const string SortOrderKey = "sort_order";
-        private const string SpecificPeopleKey = "specific_people";
-        private const string EmbedContentOnlyKey = "embed_content_only";
-        private const string Excludenudity = "exclude_nudity";
 
-        protected readonly List<string> Fields = new List<string>();
+        
         protected string AssetType;
         protected EditorialSegment EditorialSegments;
         protected GraphicalStyles GraphicalStyles;
@@ -54,13 +26,13 @@ namespace GettyImages.Api.Search
 
         public ICreativeImagesSearch Creative()
         {
-            AssetType = CreativeKey;
+            AssetType = Constants.CreativeKey;
             return this;
         }
 
         public IEditorialImagesSearch Editorial()
         {
-            AssetType = EditorialKey;
+            AssetType = Constants.EditorialKey;
             return this;
         }
 
@@ -71,7 +43,7 @@ namespace GettyImages.Api.Search
 
             if (Fields.Any())
             {
-                AddQueryParameter(FieldsKey, Fields);
+                AddQueryParameter(Constants.FieldsKey, Fields);
             }
 
             return await base.ExecuteAsync();
@@ -79,85 +51,63 @@ namespace GettyImages.Api.Search
 
         public SearchImages WithPage(int value)
         {
-            AddQueryParameter(PageKey, value);
+            AddPage(value);
             return this;
         }
 
         public SearchImages WithPageSize(int value)
         {
-            AddQueryParameter(PageSizeKey, value);
+            AddPageSize(value);
             return this;
         }
 
         public SearchImages WithPhrase(string value)
         {
-            AddQueryParameter(PhraseKey, value);
+            AddPhrase(value);
             return this;
         }
 
         public SearchImages WithSortOrder(string value)
         {
-            AddQueryParameter(SortOrderKey, value);
+            AddSortOrder(value);
             return this;
         }
 
         public SearchImages WithEmbedContentOnly(bool value = true)
         {
-            AddQueryParameter(EmbedContentOnlyKey, value);
+            AddQueryParameter(Constants.EmbedContentOnlyKey, value);
             return this;
         }
 
         public SearchImages WithExcludeNudity(bool value = true)
         {
-            AddQueryParameter(Excludenudity, value);
+            AddExcludeNudity(value);
             return this;
         }
 
         public SearchImages WithResponseField(string value)
         {
-            if (!QueryParameters.ContainsKey(FieldsKey))
-            {
-                QueryParameters.Add(FieldsKey, new List<string> {value});
-            }
-            else
-            {
-                var fields = (IList<string>) QueryParameters[FieldsKey];
-                if (!fields.Contains(value))
-                {
-                    fields.Add(value);
-                }
-            }
-
+            AddResponseField(value);
             return this;
         }
 
         public SearchImages WithResponseFields(IList<string> value)
         {
-            if (!QueryParameters.ContainsKey(FieldsKey))
-            {
-                QueryParameters.Add(FieldsKey, value);
-            }
-            else
-            {
-                var fields = QueryParameters[FieldsKey] as IEnumerable<string>;
-                fields = fields.Union(value).Distinct();
-                QueryParameters[FieldsKey] = fields.ToList();
-            }
-
+            AddResponseFieldRange(value);
             return this;
         }
 
         public SearchImages WithGraphicalStyle(GraphicalStyles value)
         {
-            if (QueryParameters.ContainsKey(GraphicalStylesKey))
+            if (QueryParameters.ContainsKey(Constants.GraphicalStylesKey))
             {
-                QueryParameters[GraphicalStylesKey] = value == GraphicalStyles.None
+                QueryParameters[Constants.GraphicalStylesKey] = value == GraphicalStyles.None
                     ? value
-                    : (GraphicalStyles) QueryParameters[GraphicalStylesKey] | value;
+                    : (GraphicalStyles) QueryParameters[Constants.GraphicalStylesKey] | value;
             }
             else
             {
-                QueryParameters.Add(GraphicalStylesKey, value);
+                QueryParameters.Add(Constants.GraphicalStylesKey, value);
             }
 
             return this;
@@ -165,15 +115,15 @@ namespace GettyImages.Api.Search
 
         public SearchImages WithOrientation(Orientation value)
         {
-            if (QueryParameters.ContainsKey(OrientationsKey))
+            if (QueryParameters.ContainsKey(Constants.OrientationsKey))
             {
-                QueryParameters[OrientationsKey] = value == Orientation.None
+                QueryParameters[Constants.OrientationsKey] = value == Orientation.None
                     ? value
-                    : (Orientation) QueryParameters[OrientationsKey] | value;
+                    : (Orientation) QueryParameters[Constants.OrientationsKey] | value;
             }
             else
             {
-                QueryParameters.Add(OrientationsKey, value);
+                QueryParameters.Add(Constants.OrientationsKey, value);
             }
 
             return this;
@@ -181,31 +131,21 @@ namespace GettyImages.Api.Search
 
         public SearchImages WithProductType(ProductType value)
         {
-            if (QueryParameters.ContainsKey(ProductTypesKey))
-            {
-                QueryParameters[ProductTypesKey] = value == ProductType.None
-                    ? value
-                    : (ProductType) QueryParameters[ProductTypesKey] | value;
-            }
-            else
-            {
-                QueryParameters.Add(ProductTypesKey, value);
-            }
-
+            AddProductType(value);
             return this;
         }
 
         public SearchImages WithNumberOfPeople(NumberOfPeople value)
         {
-            if (QueryParameters.ContainsKey(NumberOfPeopleKey))
+            if (QueryParameters.ContainsKey(Constants.NumberOfPeopleKey))
             {
-                QueryParameters[NumberOfPeopleKey] = value == NumberOfPeople.None
+                QueryParameters[Constants.NumberOfPeopleKey] = value == NumberOfPeople.None
                     ? value
-                    : (NumberOfPeople) QueryParameters[NumberOfPeopleKey] | value;
+                    : (NumberOfPeople) QueryParameters[Constants.NumberOfPeopleKey] | value;
             }
             else
             {
-                QueryParameters.Add(NumberOfPeopleKey, value);
+                QueryParameters.Add(Constants.NumberOfPeopleKey, value);
             }
 
             return this;
@@ -213,13 +153,13 @@ namespace GettyImages.Api.Search
 
         public SearchImages WithLocation(string value)
         {
-            if (!QueryParameters.ContainsKey(LocationKey))
+            if (!QueryParameters.ContainsKey(Constants.LocationKey))
             {
-                QueryParameters.Add(LocationKey, new List<string> {value});
+                QueryParameters.Add(Constants.LocationKey, new List<string> {value});
             }
             else
             {
-                var locations = (IList<string>) QueryParameters[LocationKey];
+                var locations = (IList<string>) QueryParameters[Constants.LocationKey];
                 if (!locations.Contains(value))
                 {
                     locations.Add(value);
@@ -230,64 +170,54 @@ namespace GettyImages.Api.Search
 
         public SearchImages WithKeywordId(int value)
         {
-            AddQueryParameter(KeywordIdsKey, value);
+            AddQueryParameter(Constants.KeywordIdsKey, value);
             return this;
         }
 
         public SearchImages WithFileType(FileType value)
         {
-            if (QueryParameters.ContainsKey(FileTypeKey))
+            if (QueryParameters.ContainsKey(Constants.FileTypeKey))
             {
-                QueryParameters[FileTypeKey] = value == FileType.None
+                QueryParameters[Constants.FileTypeKey] = value == FileType.None
                     ? value
-                    : (FileType) QueryParameters[FileTypeKey] | value;
+                    : (FileType) QueryParameters[Constants.FileTypeKey] | value;
             }
             else
             {
-                QueryParameters.Add(FileTypeKey, value);
+                QueryParameters.Add(Constants.FileTypeKey, value);
             }
             return this;
         }
 
         public SearchImages WithEventId(int value)
         {
-            AddQueryParameter(EventIdsKey, value);
+            AddQueryParameter(Constants.EventIdsKey, value);
             return this;
         }
 
         public SearchImages WithPrestigeContentOnly(bool value = true)
         {
-            AddQueryParameter(PrestigeContentOnlyKey, value);
+            AddQueryParameter(Constants.PrestigeContentOnlyKey, value);
             return this;
         }
 
         public SearchImages WithAgeOfPeople(AgeOfPeople value)
         {
-            if (QueryParameters.ContainsKey(AgeOfPeopleKey))
-            {
-                QueryParameters[AgeOfPeopleKey] = value == AgeOfPeople.None
-                    ? value
-                    : (AgeOfPeople) QueryParameters[AgeOfPeopleKey] | value;
-            }
-            else
-            {
-                QueryParameters.Add(AgeOfPeopleKey, value);
-            }
-
+            AddAgeOfPeopleFilter(value);
             return this;
         }
 
         public SearchImages WithComposition(Composition value)
         {
-            if (QueryParameters.ContainsKey(CompositionKey))
+            if (QueryParameters.ContainsKey(Constants.CompositionKey))
             {
-                QueryParameters[CompositionKey] = value == Composition.None
+                QueryParameters[Constants.CompositionKey] = value == Composition.None
                     ? value
-                    : (Composition) QueryParameters[CompositionKey] | value;
+                    : (Composition) QueryParameters[Constants.CompositionKey] | value;
             }
             else
             {
-                QueryParameters.Add(CompositionKey, value);
+                QueryParameters.Add(Constants.CompositionKey, value);
             }
 
             return this;
@@ -295,13 +225,13 @@ namespace GettyImages.Api.Search
 
         public SearchImages WithArtist(string value)
         {
-            if (!QueryParameters.ContainsKey(ArtistKey))
+            if (!QueryParameters.ContainsKey(Constants.ArtistKey))
             {
-                QueryParameters.Add(ArtistKey, new List<string> {value});
+                QueryParameters.Add(Constants.ArtistKey, new List<string> {value});
             }
             else
             {
-                var artists = (IList<string>) QueryParameters[ArtistKey];
+                var artists = (IList<string>) QueryParameters[Constants.ArtistKey];
                 if (!artists.Contains(value))
                 {
                     artists.Add(value);
@@ -312,15 +242,15 @@ namespace GettyImages.Api.Search
 
         public SearchImages WithEthnicity(Ethnicity value)
         {
-            if (QueryParameters.ContainsKey(EthnicityKey))
+            if (QueryParameters.ContainsKey(Constants.EthnicityKey))
             {
-                QueryParameters[EthnicityKey] = value == Ethnicity.None
+                QueryParameters[Constants.EthnicityKey] = value == Ethnicity.None
                     ? value
-                    : (Ethnicity) QueryParameters[EthnicityKey] | value;
+                    : (Ethnicity) QueryParameters[Constants.EthnicityKey] | value;
             }
             else
             {
-                QueryParameters.Add(EthnicityKey, value);
+                QueryParameters.Add(Constants.EthnicityKey, value);
             }
 
             return this;
@@ -328,81 +258,37 @@ namespace GettyImages.Api.Search
 
         public SearchImages WithCollectionCode(string value)
         {
-            if (!QueryParameters.ContainsKey(CollectionCodeKey))
-            {
-                QueryParameters.Add(CollectionCodeKey, new List<string> {value});
-            }
-            else
-            {
-                var collectionCodes = (IList<string>) QueryParameters[CollectionCodeKey];
-                if (!collectionCodes.Contains(value))
-                {
-                    collectionCodes.Add(value);
-                }
-            }
+            AddCollectionCode(value);
             return this;
         }
 
         public SearchImages WithDateTo(string value)
         {
-            AddQueryParameter(DateToKey, value);
+            AddQueryParameter(Constants.DateToKey, value);
             return this;
         }
 
         public SearchImages WithDateFrom(string value)
         {
-            AddQueryParameter(DateFromKey, value);
+            AddQueryParameter(Constants.DateFromKey, value);
             return this;
         }
 
         public SearchImages WithCollectionFilterType(CollectionFilter value)
         {
-            AddQueryParameter(CollectionFilterKey, value);
+            AddCollectionFilterType(value);
             return this;
         }
 
         public SearchImages WithSpecificPeople(string value)
         {
-            if (!QueryParameters.ContainsKey(SpecificPeopleKey))
-            {
-                QueryParameters.Add(SpecificPeopleKey, new List<string> {value});
-            }
-            else
-            {
-                var people = (IList<string>) QueryParameters[SpecificPeopleKey];
-                if (!people.Contains(value))
-                {
-                    people.Add(value);
-                }
-            }
+            AddSpecificPeople(value);
             return this;
-        }
-
-        private void AddQueryParameter(string key, object value)
-        {
-            if (QueryParameters.ContainsKey(key))
-            {
-                QueryParameters[key] = value;
-            }
-            else
-            {
-                QueryParameters.Add(key, value);
-            }
         }
 
         public virtual SearchImages WithLicenseModel(LicenseModel value)
         {
-            if (QueryParameters.ContainsKey(LicenseModelsKey))
-            {
-                QueryParameters[LicenseModelsKey] = value == LicenseModel.None
-                    ? value
-                    : (LicenseModel) QueryParameters[LicenseModelsKey] | value;
-            }
-            else
-            {
-                QueryParameters.Add(LicenseModelsKey, value);
-            }
-
+            AddLicenseModel(value);
             return this;
         }
 

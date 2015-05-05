@@ -7,11 +7,13 @@
     <ProjectGuid>{CF358A39-BB0C-43E9-B93F-7D607E15FCD2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GettyImages.Api.Tests</RootNamespace>
-    <AssemblyName>GettyImages.Api.Tests</AssemblyName>
+    <RootNamespace>GettyImages.Api.OnlineTests</RootNamespace>
+    <AssemblyName>GettyImages.Api.OnlineTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>f1e7ba69</NuGetPackageImportStamp>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -66,74 +68,37 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="After.cs" />
-    <Compile Include="AuthorizationSteps.cs" />
-    <Compile Include="Download\Given.cs" />
-    <Compile Include="Download\Then.cs" />
-    <Compile Include="Download\When.cs" />
+    <Compile Include="StepBindings\Authorization.cs" />
+    <Compile Include="StepBindings\ImageDownload.cs" />
     <Compile Include="EnumEx.cs" />
-    <Compile Include="ImageDetails\Given.cs" />
-    <Compile Include="ImageDetails\Then.cs" />
-    <Compile Include="ImageDetails\When.cs" />
+    <Compile Include="StepBindings\ImageDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScenarioCredentialsHelper.cs" />
-    <Compile Include="Scenarios\authentication.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>authentication.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Scenarios\downloads.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>downloads.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Scenarios\images.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>images.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Scenarios\ImageSearch.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ImageSearch.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Scenarios\SearchPaging.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SearchPaging.feature</DependentUpon>
-    </Compile>
-    <Compile Include="SearchForImages\Then.cs" />
-    <Compile Include="SearchForImages\When.cs" />
+    <Compile Include="StepBindings\ImageSearch.cs" />
     <Compile Include="SearchResultsPagingSteps.cs" />
-    <Compile Include="SharedGiven.cs" />
+    <Compile Include="StepBindings\SharedGiven.cs" />
+    <Compile Include="StepBindings\VideoSearch.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Scenarios\authentication.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>authentication.feature.cs</LastGenOutput>
     </None>
     <None Include="Scenarios\downloads.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>downloads.feature.cs</LastGenOutput>
     </None>
     <None Include="Scenarios\images.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>images.feature.cs</LastGenOutput>
     </None>
     <None Include="Scenarios\ImageSearch.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>ImageSearch.feature.cs</LastGenOutput>
     </None>
     <None Include="Scenarios\SearchPaging.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>SearchPaging.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Scenarios\video-search.feature">
     </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GettyImages.Api\GettyImages.Api.csproj">
       <Project>{CBCD516C-2170-4855-AA0B-B8F3C3A9B919}</Project>
-      <Name>ConnectSdk</Name>
+      <Name>GettyImages.Api</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
@@ -144,12 +109,19 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="..\packages\SpecFlow.1.9.0\tools\TechTalk.SpecFlow.targets" Condition="Exists('..\packages\SpecFlow.1.9.0\tools\TechTalk.SpecFlow.targets')" />
 </Project>
