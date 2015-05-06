@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using GettyImages.Api.Search;
 using GettyImages.Api.Search.Entity;
@@ -12,28 +11,18 @@ using TechTalk.SpecFlow;
 namespace GettyImages.Api.OnlineTests.StepBindings
 {
     [Binding]
-    public class VideoSearch
+    [Scope(Feature = "SDK client can search for videos")]
+    public class VideoSearch : StepDefinitionsBase
     {
-       
+        private static SearchVideos VideosSearch
+        {
+            get { return ScenarioContext.Current.Get<SearchVideos>("videosearch"); }
+        }
 
         [Given(@"a (.*) video search")]
         public void GivenA(string searchtype)
         {
-            ApiClient client;
-            if (ScenarioContext.Current.ContainsKey("username"))
-            {
-                client =
-                    ApiClient.GetApiClientWithResourceOwnerCredentials(ScenarioContext.Current.Get<string>("apikey"),
-                        ScenarioContext.Current.Get<string>("apisecret"),
-                        ScenarioContext.Current.Get<string>("username"),
-                        ScenarioContext.Current.Get<string>("userpassword"));
-            }
-            else
-            {
-                client = ApiClient.GetApiClientWithClientCredentials(ScenarioContext.Current.Get<string>("apikey"),
-                    ScenarioContext.Current.Get<string>("apisecret"));
-            }
-
+            var client = GetApiClient();
             IVideosSearch search;
             switch (searchtype)
             {
@@ -75,12 +64,6 @@ namespace GettyImages.Api.OnlineTests.StepBindings
         {
             VideosSearch.WithCollectionCode("ONE");
             VideosSearch.WithCollectionFilterType(CollectionFilter.Include);
-
-        }
-
-        private static SearchVideos VideosSearch
-        {
-            get { return ScenarioContext.Current.Get<SearchVideos>("videosearch"); }
         }
 
         [Given(@"exclude nudity filter is specified")]
@@ -138,14 +121,6 @@ namespace GettyImages.Api.OnlineTests.StepBindings
             ScenarioContext.Current.Add("task", task);
         }
 
-
-        [Then(@"the status is success")]
-        public void ThenTheStatusIsSuccess()
-        {
-           var task = ScenarioContext.Current["task"] as Task<dynamic>;
-           Assert.DoesNotThrow(() => task.Wait());
-        }
-
         [Then(@"video search results are returned")]
         public void ThenVideoSearchResultsAreReturned()
         {
@@ -157,7 +132,7 @@ namespace GettyImages.Api.OnlineTests.StepBindings
             }
             catch (AggregateException ex)
             {
-                if (ex.InnerExceptions.Any(e => e.GetType() == typeof(OverQpsException)))
+                if (ex.InnerExceptions.Any(e => e.GetType() == typeof (OverQpsException)))
                 {
                     Assert.Inconclusive("Over QPS");
                 }
@@ -173,7 +148,8 @@ namespace GettyImages.Api.OnlineTests.StepBindings
         {
             var task = ScenarioContext.Current["task"] as Task<dynamic>;
             task.Wait();
-            Assert.IsTrue(((IDictionary<string, JToken>)((JObject) task.Result)["videos"][0]).ContainsKey("largest_downloads"));
+            Assert.IsTrue(
+                ((IDictionary<string, JToken>) ((JObject) task.Result)["videos"][0]).ContainsKey("largest_downloads"));
         }
     }
 }

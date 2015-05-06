@@ -47,6 +47,7 @@
     <Compile Include="Credentials.cs" />
     <Compile Include="Download.cs" />
     <Compile Include="Handlers\UserAgentHandler.cs" />
+    <Compile Include="Videos.cs" />
     <Compile Include="Images.cs" />
     <Compile Include="OverQpsException.cs" />
     <Compile Include="SdkException.cs" />

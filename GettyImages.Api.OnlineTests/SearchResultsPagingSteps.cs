@@ -5,7 +5,7 @@ using GettyImages.Api.Search;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
-namespace GettyImages.Api.Tests
+namespace GettyImages.Api.OnlineTests
 {
     [Binding]
     [Scope(Feature = "Search Results Paging")]
