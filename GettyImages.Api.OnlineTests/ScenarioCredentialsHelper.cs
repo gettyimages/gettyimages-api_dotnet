@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using TechTalk.SpecFlow;
 
-namespace GettyImages.Api.Tests
+namespace GettyImages.Api.OnlineTests
 {
     internal class ScenarioCredentialsHelper
     {

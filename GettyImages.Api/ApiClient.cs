@@ -100,6 +100,17 @@ namespace GettyImages.Api
             return await _credentials.GetAccessToken();
         }
 
+        /// <summary>
+        ///     Begin a request for video metadata.
+        /// </summary>
+        /// <returns>
+        ///     The <see cref="Api.Videos" />.
+        /// </returns>
+        public Videos Videos()
+        {
+            return Api.Videos.GetInstance(_credentials, _baseUrl);
+        }
+
         private void NormalizeAndSetBaseUrl(string baseUrl)
         {
             _baseUrl = baseUrl.EndsWith(Slash) ? baseUrl.Remove(baseUrl.Length - 1) : baseUrl;

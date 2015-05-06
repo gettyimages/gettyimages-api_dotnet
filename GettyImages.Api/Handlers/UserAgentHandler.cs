@@ -12,7 +12,7 @@ namespace GettyImages.Api.Handlers
 
         static UserAgentHandler()
         {
-            UserAgentString = "GettyImagesApiSdk" +
+            UserAgentString = "GettyImagesApiSdk/" +
                               Assembly.Load(new AssemblyName("GettyImages.Api"))
                                   .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
                                   .InformationalVersion +

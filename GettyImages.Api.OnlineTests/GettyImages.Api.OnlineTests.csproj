@@ -68,6 +68,41 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="After.cs" />
+    <Compile Include="Scenarios\authentication.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>authentication.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Scenarios\downloads.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>downloads.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Scenarios\images.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>images.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Scenarios\ImageSearch.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ImageSearch.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Scenarios\SearchPaging.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SearchPaging.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Scenarios\video-search.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>video-search.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Scenarios\videos.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>videos.feature</DependentUpon>
+    </Compile>
     <Compile Include="StepBindings\Authorization.cs" />
     <Compile Include="StepBindings\ImageDownload.cs" />
     <Compile Include="EnumEx.cs" />
@@ -76,18 +111,42 @@
     <Compile Include="ScenarioCredentialsHelper.cs" />
     <Compile Include="StepBindings\ImageSearch.cs" />
     <Compile Include="SearchResultsPagingSteps.cs" />
-    <Compile Include="StepBindings\SharedGiven.cs" />
+    <Compile Include="StepBindings\SharedSteps.cs" />
+    <Compile Include="StepBindings\StepDefinitionsBase.cs" />
+    <Compile Include="StepBindings\VideoMetadata.cs" />
     <Compile Include="StepBindings\VideoSearch.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="Scenarios\authentication.feature" />
-    <None Include="Scenarios\downloads.feature" />
-    <None Include="Scenarios\images.feature" />
-    <None Include="Scenarios\ImageSearch.feature" />
-    <None Include="Scenarios\SearchPaging.feature" />
-    <None Include="Scenarios\video-search.feature" />
+    <None Include="Scenarios\authentication.feature">
+      <Generator>SpecflowSingleFileGenerator</Generator>
+      <LastGenOutput>authentication.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Scenarios\downloads.feature">
+      <Generator>SpecflowSingleFileGenerator</Generator>
+      <LastGenOutput>downloads.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Scenarios\images.feature">
+      <Generator>SpecflowSingleFileGenerator</Generator>
+      <LastGenOutput>images.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Scenarios\ImageSearch.feature">
+      <Generator>SpecflowSingleFileGenerator</Generator>
+      <LastGenOutput>ImageSearch.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Scenarios\SearchPaging.feature">
+      <Generator>SpecflowSingleFileGenerator</Generator>
+      <LastGenOutput>SearchPaging.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Scenarios\video-search.feature">
+      <Generator>SpecflowSingleFileGenerator</Generator>
+      <LastGenOutput>video-search.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Scenarios\videos.feature">
+      <LastGenOutput>videos.feature.cs</LastGenOutput>
+      <Generator>SpecflowSingleFileGenerator</Generator>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GettyImages.Api\GettyImages.Api.csproj">
@@ -101,14 +160,6 @@
   </PropertyGroup>
   <Import Project="..\packages\SpecFlow.1.9.0\tools\TechTalk.SpecFlow.targets" Condition="Exists('..\packages\SpecFlow.1.9.0\tools\TechTalk.SpecFlow.targets')" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
-  <Target Name="GenerateSpecflowTests" BeforeTargets="PrepareForBuild" DependsOnTargets="EnsureNuGetPackageBuildImports">
-    <ItemGroup>
-    <!-- include the generated test classes -->
-      <Compile Include="Scenarios\**\*.cs">
-        <Visible>false</Visible> <!-- the generated files can be hidden in Visual Studio -->
-      </Compile>
-    </ItemGroup>
-  </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
