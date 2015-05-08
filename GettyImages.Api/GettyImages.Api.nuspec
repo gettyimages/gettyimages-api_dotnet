@@ -12,6 +12,6 @@
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2015</copyright>
     <licenseUrl>https://github.com/gettyimages/gettyimages-api_dotnet/blob/master/LICENSE</licenseUrl>
-    <tags>Getty Images API SDK</tags>
+    <tags>Getty Images Videos API SDK GettyImages Photo Photos Search Creative Editorial Artist Embed</tags>
   </metadata>
 </package>

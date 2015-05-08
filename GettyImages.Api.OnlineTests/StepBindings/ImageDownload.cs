@@ -8,7 +8,7 @@ using TechTalk.SpecFlow;
 namespace GettyImages.Api.OnlineTests.StepBindings
 {
     [Binding]
-    [Scope(Feature = "Downloads")]
+    [Scope(Feature = "Image Download")]
     public class ImageDownload
     {
         [Given(@"I have sandbox user credentials")]
@@ -18,7 +18,7 @@ namespace GettyImages.Api.OnlineTests.StepBindings
         }
 
         [Given(@"I specify (.*) file type")]
-        public void WhenISpecifyAEpsFileType(string fileType)
+        public void GivenISpecifyAEpsFileType(string fileType)
         {
             var filetype = EnumEx.GetValueFromDescription<FileType>(fileType);
             ScenarioContext.Current.Set(filetype, "filetype");
@@ -43,7 +43,7 @@ namespace GettyImages.Api.OnlineTests.StepBindings
         {
             var client = ScenarioCredentialsHelper.GetCredentials();
 
-            var request = client.Download().WithId("464423888");
+            var request = client.Download().Image().WithId("464423888");
 
             FileType filetype;
             ScenarioContext.Current.TryGetValue("filetype", out filetype);

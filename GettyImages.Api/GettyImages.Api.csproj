@@ -41,11 +41,13 @@
   <ItemGroup>
     <Compile Include="CredentialType.cs" />
     <Compile Include="DescriptionAttribute.cs" />
+    <Compile Include="Download\AssetDownload.cs" />
+    <Compile Include="Download\DownloadVideo.cs" />
     <Compile Include="Handlers\ApiKeyHandler.cs" />
     <Compile Include="Handlers\BearerTokenHandler.cs" />
     <Compile Include="ApiClient.cs" />
     <Compile Include="Credentials.cs" />
-    <Compile Include="Download.cs" />
+    <Compile Include="Download\Download.cs" />
     <Compile Include="Handlers\UserAgentHandler.cs" />
     <Compile Include="Videos.cs" />
     <Compile Include="Images.cs" />

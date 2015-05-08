@@ -9,7 +9,7 @@ namespace GettyImages.Api.OnlineTests.StepBindings
 {
     public class StepDefinitionsBase
     {
-        protected static ApiClient GetApiClient()
+        protected ApiClient GetApiClient()
         {
             ApiClient client;
             if (ScenarioContext.Current.ContainsKey("username"))

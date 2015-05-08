@@ -11,7 +11,7 @@ using TechTalk.SpecFlow;
 namespace GettyImages.Api.OnlineTests.StepBindings
 {
     [Binding]
-    [Scope(Feature = "SDK client can get video metadata")]
+    [Scope(Feature = "Video Metadata")]
     public class VideoMetadata : StepDefinitionsBase
     {
         private const string FirstVideoId = "543827485";
