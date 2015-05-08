@@ -11,7 +11,7 @@ using TechTalk.SpecFlow;
 namespace GettyImages.Api.OnlineTests.StepBindings
 {
     [Binding]
-    [Scope(Feature = "SDK client can search for videos")]
+    [Scope(Feature = "Search for Videos")]
     public class VideoSearch : StepDefinitionsBase
     {
         private static SearchVideos VideosSearch

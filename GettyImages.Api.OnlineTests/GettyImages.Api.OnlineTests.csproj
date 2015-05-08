@@ -73,10 +73,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>authentication.feature</DependentUpon>
     </Compile>
-    <Compile Include="Scenarios\downloads.feature.cs">
+    <Compile Include="Scenarios\image-download.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>downloads.feature</DependentUpon>
+      <DependentUpon>image-download.feature</DependentUpon>
     </Compile>
     <Compile Include="Scenarios\images.feature.cs">
       <AutoGen>True</AutoGen>
@@ -92,6 +92,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SearchPaging.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Scenarios\video-download.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>video-download.feature</DependentUpon>
     </Compile>
     <Compile Include="Scenarios\video-search.feature.cs">
       <AutoGen>True</AutoGen>
@@ -113,6 +118,7 @@
     <Compile Include="SearchResultsPagingSteps.cs" />
     <Compile Include="StepBindings\SharedSteps.cs" />
     <Compile Include="StepBindings\StepDefinitionsBase.cs" />
+    <Compile Include="StepBindings\VideoDownload.cs" />
     <Compile Include="StepBindings\VideoMetadata.cs" />
     <Compile Include="StepBindings\VideoSearch.cs" />
   </ItemGroup>
@@ -123,9 +129,9 @@
       <Generator>SpecflowSingleFileGenerator</Generator>
       <LastGenOutput>authentication.feature.cs</LastGenOutput>
     </None>
-    <None Include="Scenarios\downloads.feature">
-      <Generator>SpecflowSingleFileGenerator</Generator>
-      <LastGenOutput>downloads.feature.cs</LastGenOutput>
+    <None Include="Scenarios\image-download.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>image-download.feature.cs</LastGenOutput>
     </None>
     <None Include="Scenarios\images.feature">
       <Generator>SpecflowSingleFileGenerator</Generator>
@@ -138,6 +144,10 @@
     <None Include="Scenarios\SearchPaging.feature">
       <Generator>SpecflowSingleFileGenerator</Generator>
       <LastGenOutput>SearchPaging.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Scenarios\video-download.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>video-download.feature.cs</LastGenOutput>
     </None>
     <None Include="Scenarios\video-search.feature">
       <Generator>SpecflowSingleFileGenerator</Generator>
