@@ -14,18 +14,7 @@ namespace GettyImages.Api.Search
 
         protected void AddResponseField(string value)
         {
-            if (!QueryParameters.ContainsKey(Constants.FieldsKey))
-            {
-                QueryParameters.Add(Constants.FieldsKey, new List<string> {value});
-            }
-            else
-            {
-                var fields = (IList<string>) QueryParameters[Constants.FieldsKey];
-                if (!fields.Contains(value))
-                {
-                    fields.Add(value);
-                }
-            }
+            AppendMultiValuedQueryParameter(Constants.FieldsKey,value);
         }
 
         protected void AddResponseFieldRange(IList<string> value)
@@ -58,18 +47,7 @@ namespace GettyImages.Api.Search
 
         protected void AddCollectionCode(string value)
         {
-            if (!QueryParameters.ContainsKey(Constants.CollectionCodeKey))
-            {
-                QueryParameters.Add(Constants.CollectionCodeKey, new List<string> {value});
-            }
-            else
-            {
-                var collectionCodes = (IList<string>) QueryParameters[Constants.CollectionCodeKey];
-                if (!collectionCodes.Contains(value))
-                {
-                    collectionCodes.Add(value);
-                }
-            }
+            AppendMultiValuedQueryParameter(Constants.CollectionCodeKey,value);
         }
 
         protected void AddCollectionFilterType(CollectionFilter value)
@@ -127,18 +105,7 @@ namespace GettyImages.Api.Search
 
         protected void AddSpecificPeople(string value)
         {
-            if (!QueryParameters.ContainsKey(Constants.SpecificPeopleKey))
-            {
-                QueryParameters.Add(Constants.SpecificPeopleKey, new List<string> {value});
-            }
-            else
-            {
-                var people = (IList<string>) QueryParameters[Constants.SpecificPeopleKey];
-                if (!people.Contains(value))
-                {
-                    people.Add(value);
-                }
-            }
+            AppendMultiValuedQueryParameter(Constants.SpecificPeopleKey,value);
         }
 
         protected void AppendMultiValuedQueryParameter(string key, string value)
@@ -154,14 +121,6 @@ namespace GettyImages.Api.Search
                 {
                     values.Add(value);
                 }
-            }
-        }
-
-        protected void AddEditorialSegment(EditorialSegment segment)
-        {
-            if (!QueryParameters.ContainsKey(Constants.EditorialKey))
-            {
-                
             }
         }
 
