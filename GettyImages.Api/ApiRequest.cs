@@ -13,7 +13,7 @@ namespace GettyImages.Api
         protected Credentials Credentials;
         protected string Method;
         protected string Path;
-        protected IDictionary<string, object> QueryParameters;
+        protected internal IDictionary<string, object> QueryParameters;
 
         public ApiRequest()
         {

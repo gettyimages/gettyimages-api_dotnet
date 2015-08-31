@@ -141,6 +141,30 @@ namespace GettyImages.Api.Search
             }
         }
 
+        protected void AppendMultiValuedQueryParameter(string key, string value)
+        {
+            if (!QueryParameters.ContainsKey(key))
+            {
+                QueryParameters.Add(key,new List<string> { value });
+            }
+            else
+            {
+                var values = ((List<string>) QueryParameters[key]);
+                if (!values.Contains(value))
+                {
+                    values.Add(value);
+                }
+            }
+        }
+
+        protected void AddEditorialSegment(EditorialSegment segment)
+        {
+            if (!QueryParameters.ContainsKey(Constants.EditorialKey))
+            {
+                
+            }
+        }
+
         protected void AddPhrase(string value)
         {
             AddQueryParameter(Constants.PhraseKey, value);
