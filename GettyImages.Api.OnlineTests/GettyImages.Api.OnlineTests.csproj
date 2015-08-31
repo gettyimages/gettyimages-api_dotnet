@@ -118,6 +118,7 @@
     <Compile Include="SearchResultsPagingSteps.cs" />
     <Compile Include="StepBindings\SharedSteps.cs" />
     <Compile Include="StepBindings\StepDefinitionsBase.cs" />
+    <Compile Include="StepBindings\TestModels\TestVideoMetaData.cs" />
     <Compile Include="StepBindings\VideoDownload.cs" />
     <Compile Include="StepBindings\VideoMetadata.cs" />
     <Compile Include="StepBindings\VideoSearch.cs" />
