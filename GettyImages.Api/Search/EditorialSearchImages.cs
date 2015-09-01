@@ -7,6 +7,12 @@ namespace GettyImages.Api.Search
         IEditorialImagesSearch IEditorialImagesSearch.WithEditorialSegment(EditorialSegment segment)
         {
             EditorialSegments = EditorialSegments | segment;
+            return WithEditorialSegment(segment);
+        }
+
+        private IEditorialImagesSearch WithEditorialSegment(EditorialSegment segment)
+        {
+            AppendMultiValuedQueryParameter(Constants.EditorialSegmentKey,segment.ToString());
             return this;
         }
 

@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Resources;
+using System.Runtime.CompilerServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
@@ -27,3 +28,4 @@ using System.Resources;
 [assembly: AssemblyVersion("2.2.0.0")]
 [assembly: AssemblyFileVersion("2.2.0.0")]
 [assembly: AssemblyInformationalVersion("2.2.0")]
+[assembly: InternalsVisibleTo("UnitTests")]

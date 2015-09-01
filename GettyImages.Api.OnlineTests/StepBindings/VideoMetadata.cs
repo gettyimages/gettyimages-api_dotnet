@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using GettyImages.Api.OnlineTests.StepBindings.TestModels;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
@@ -14,12 +15,19 @@ namespace GettyImages.Api.OnlineTests.StepBindings
     [Scope(Feature = "Video Metadata")]
     public class VideoMetadata : StepDefinitionsBase
     {
-        private const string FirstVideoId = "543827485";
-        private const string SecondVideoId = "470984852";
-        private const string ThirdVideoId = "538808613";
+        private string FirstVideoId = "543827485";
+        private string SecondVideoId = "470984852";
+        private string ThirdVideoId = "538808613";
 
         public VideoMetadata()
         {
+            var videoSearch = GetApiClient().Search().Videos().WithPhrase("cat").ExecuteAsync().Result;
+            var videos = ((JArray) videoSearch.videos).ToObject<List<TestVideoMetaData>>();
+            
+            FirstVideoId = videos.First().Id;
+            SecondVideoId = videos.Skip(1).Take(1).First().Id;
+            ThirdVideoId = videos.Skip(2).Take(1).First().Id;
+
             var request = GetApiClient().Videos();
             ScenarioContext.Current.Add("request", request);
         }

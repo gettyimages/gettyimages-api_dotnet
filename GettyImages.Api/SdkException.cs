@@ -30,12 +30,21 @@ namespace GettyImages.Api
         {
             if (string.IsNullOrEmpty(message))
             {
-                var response = JObject.Parse(httpResponse.Content.ReadAsStringAsync().Result);
-                JToken errorMessage;
-                if (response.TryGetValue(ErrorMessageProperty1, out errorMessage) ||
-                    response.TryGetValue(ErorMessageProperty2, out errorMessage))
+                var resultContentAsString = httpResponse.Content.ReadAsStringAsync().Result;
+
+                if (httpResponse.Content.Headers != null && httpResponse.Content.Headers.ContentType != null && httpResponse.Content.Headers.ContentType.MediaType == "application/json")
+                {   
+                    var response = JObject.Parse(resultContentAsString);
+                    JToken errorMessage;
+                    if (response.TryGetValue(ErrorMessageProperty1, out errorMessage) ||
+                        response.TryGetValue(ErorMessageProperty2, out errorMessage))
+                    {
+                        message = errorMessage.Value<string>();
+                    }
+                }
+                else
                 {
-                    message = errorMessage.Value<string>();
+                    message = resultContentAsString;
                 }
             }
             switch (httpResponse.StatusCode)

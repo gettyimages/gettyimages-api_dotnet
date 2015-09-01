@@ -5,6 +5,7 @@ namespace GettyImages.Api.Search
         public const string AgeOfPeopleKey = "age_of_people";
         public const string ArtistKey = "artists";
         public const string EditorialKey = "editorial";
+        public const string EditorialSegmentKey = "editorial_segments";
         public const string CreativeKey = "creative";
         public const string CollectionCodeKey = "collection_codes";
         public const string CollectionFilterKey = "collections_filter_type";
