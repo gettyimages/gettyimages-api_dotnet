@@ -16,8 +16,8 @@ namespace GettyImages.Api.OnlineTests.StepBindings
         public void GivenIHaveAnImageIdIWantDetailsOn()
         {
             ScenarioContext.Current.Add("request",
-                ScenarioCredentialsHelper.GetCredentials().Images().WithId("452777084"));
-            ScenarioContext.Current.Add("imageid", "452777084");
+                ScenarioCredentialsHelper.GetCredentials().Images().WithId("BA19430"));
+            ScenarioContext.Current.Add("imageid", "BA19430");
         }
 
         [Given(@"I specify field (.*)")]
@@ -29,7 +29,7 @@ namespace GettyImages.Api.OnlineTests.StepBindings
         [Given(@"I have a list of image ids I want details on")]
         public void GivenIHaveAListOfImageIdsIWantDetailsOn()
         {
-            var idList = new List<string> {"452777084", "139839264", "477174619"};
+            var idList = new List<string> {"452777084", "139839264", "477174619", "BA19430" };
             ScenarioContext.Current.Add("request",
                 ScenarioCredentialsHelper.GetCredentials().Images().WithIds(idList));
             ScenarioContext.Current.Add("imageids", idList);
@@ -71,7 +71,7 @@ namespace GettyImages.Api.OnlineTests.StepBindings
             var imagesResponse = (JArray)task.Result.images;
             var idList = (List<string>)ScenarioContext.Current["imageids"];
 
-            Assert.AreEqual(3, imagesResponse.Count);
+            Assert.AreEqual(4, imagesResponse.Count);
 
             foreach (var item in imagesResponse.Children())
             {

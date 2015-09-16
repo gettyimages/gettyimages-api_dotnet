@@ -24,7 +24,6 @@ namespace GettyImages.Api.Tests
                 }
             }
             throw new ArgumentException("Not found.", "description");
-            // or return default(T);
         }
     }
 }

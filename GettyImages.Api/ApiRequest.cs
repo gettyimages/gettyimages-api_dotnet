@@ -44,7 +44,7 @@ namespace GettyImages.Api
                 .Select(
                     d =>
                         new KeyValuePair<string, string>(d.Key,
-                            d.Value.ToString().ToLowerInvariant()))
+                            d.Value.ToString()))
                 .Union(keyValuePairs
                     .Where(v => v.Value is Enum)
                     .Select(
@@ -64,7 +64,7 @@ namespace GettyImages.Api
                 value.GetType().GetTypeInfo().CustomAttributes.Where(a => a.AttributeType == typeof (FlagsAttribute)) !=
                 null
                     ? string.Join(",", GetFlags(value).Select(GetEnumDescription).ToArray())
-                    : value.ToString().ToLowerInvariant().Replace(SpaceString, string.Empty);
+                    : GetEnumDescription(value).ToLowerInvariant().Replace(SpaceString, string.Empty);
         }
 
         private static string GetEnumDescription(Enum value)
@@ -77,7 +77,7 @@ namespace GettyImages.Api
                 if (attributes != null && attributes.Length > 0) return attributes[0].Description;
             }
 
-            return value.ToString();
+            return value.ToString().ToLowerInvariant();
         }
 
         private static IEnumerable<Enum> GetFlags(Enum input)
@@ -87,6 +87,11 @@ namespace GettyImages.Api
 
         protected void AddQueryParameter(string key, object value)
         {
+            if (!key.Equals("ids") && value is string)
+            {
+                value = value.ToString().ToLowerInvariant();
+            }
+
             if (QueryParameters.ContainsKey(key))
             {
                 QueryParameters[key] = value;

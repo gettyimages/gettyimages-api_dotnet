@@ -6,8 +6,8 @@ namespace GettyImages.Api.Search.Entity
     public enum GraphicalStyles
     {
         None = 0,
-        [Description("Fine_Art")] FineArt = 1,
-        [Description("Photography")] Photography = 2,
-        [Description("Illustration")] Illustration = 4
+        [Description("fine_art")] FineArt = 1,
+        [Description("photography")] Photography = 2,
+        [Description("illustration")] Illustration = 4
     }
 }

@@ -10,12 +10,6 @@ namespace GettyImages.Api.Search
             return WithEditorialSegment(segment);
         }
 
-        private IEditorialImagesSearch WithEditorialSegment(EditorialSegment segment)
-        {
-            AppendMultiValuedQueryParameter(Constants.EditorialSegmentKey,segment.ToString());
-            return this;
-        }
-
         IEditorialImagesSearch IEditorialImagesSearch.WithPage(int value)
         {
             return WithPage(value);

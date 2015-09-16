@@ -62,7 +62,7 @@ namespace GettyImages.Api.OnlineTests.StepBindings
         [When(@"I specify a graphical (.*)")]
         public void WhenISpecifyIaGraphicalStyle(string style)
         {
-            var styleEnum = EnumEx.GetValueFromDescription<GraphicalStyles>(style);
+            var styleEnum = EnumEx.GetValueFromDescription<GraphicalStyles>(style.ToLowerInvariant());
             ScenarioContext.Current.Get<SearchImages>("request")
                 .WithGraphicalStyle((GraphicalStyles) Enum.Parse(typeof (GraphicalStyles), styleEnum.ToString()));
         }

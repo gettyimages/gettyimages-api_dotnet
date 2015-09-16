@@ -107,7 +107,7 @@ namespace GettyImages.Api
             var keyValuePairs = queryParameters as KeyValuePair<string, string>[] ??
                                 queryParameters.ToArray();
             return string.Join("&",
-                keyValuePairs.Select(d => d.Key + "=" + WebUtility.UrlEncode(d.Value.ToString().ToLowerInvariant())));
+                keyValuePairs.Select(d => d.Key + "=" + WebUtility.UrlEncode(d.Value.ToString())));
         }
     }
 }

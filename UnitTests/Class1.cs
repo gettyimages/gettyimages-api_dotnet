@@ -18,9 +18,11 @@ namespace UnitTests
             var searchImages = SearchImages.GetInstance(null, "");
 
             searchImages.Editorial().WithEditorialSegment(EditorialSegment.Archival);
+            searchImages.Editorial().WithEditorialSegment(EditorialSegment.Publicity);
 
             Assert.Contains(Constants.EditorialSegmentKey, searchImages.QueryParameters.Keys.ToArray());
-            Assert.Contains(EditorialSegment.Archival.ToString(),((List<string>)searchImages.QueryParameters[Constants.EditorialSegmentKey]));
+            Assert.IsTrue((((EditorialSegment)searchImages.QueryParameters[Constants.EditorialSegmentKey]) & EditorialSegment.Archival) == EditorialSegment.Archival);
+            Assert.IsTrue((((EditorialSegment)searchImages.QueryParameters[Constants.EditorialSegmentKey]) & EditorialSegment.Publicity) == EditorialSegment.Publicity);
         }
 
     }

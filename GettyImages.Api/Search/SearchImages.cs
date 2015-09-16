@@ -97,6 +97,22 @@ namespace GettyImages.Api.Search
             return this;
         }
 
+        public SearchImages WithEditorialSegment(EditorialSegment value)
+        {
+            if (QueryParameters.ContainsKey(Constants.EditorialSegmentKey))
+            {
+                QueryParameters[Constants.EditorialSegmentKey] = value == EditorialSegment.None
+                    ? value
+                    : (EditorialSegment)QueryParameters[Constants.EditorialSegmentKey] | value;
+            }
+            else
+            {
+                QueryParameters.Add(Constants.EditorialSegmentKey, value);
+            }
+
+            return this;
+        }
+
         public SearchImages WithGraphicalStyle(GraphicalStyles value)
         {
             if (QueryParameters.ContainsKey(Constants.GraphicalStylesKey))
