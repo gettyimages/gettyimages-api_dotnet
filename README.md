@@ -20,7 +20,7 @@ The SDK currently supports:
 The SDK supports async operations, however it can also be used synchonously, such as when running in a console application:
 
 ```csharp
-var client = ApiClient.GetApiClientSdkWithClientCredentials("my_api_key", "my_api_secret");
+var client = ApiClient.GetApiClientWithClientCredentials("my_api_key", "my_api_secret");
 var searchResult = client.Search()
     .Images()
     .Editorial()
@@ -61,8 +61,6 @@ Open a console window (Command Prompt, PowerShell or Bash) and issue the followi
 	git submodule update --init
 #### Build using Command Prompt or Powershell
 	.\build.cmd
-#### Build using Bash
-	./build.sh
 
 ### Opening the code in Visual Studio and running tests
 #### Setup environment variables
