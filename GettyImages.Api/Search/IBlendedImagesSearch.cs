@@ -32,5 +32,6 @@ namespace GettyImages.Api.Search
         IBlendedImagesSearch WithLicenseModel(LicenseModel value);
         ICreativeImagesSearch Creative();
         IEditorialImagesSearch Editorial();
+        IBlendedImagesSearch WithAcceptLanguage(string value);
     }
 }

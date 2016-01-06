@@ -135,5 +135,10 @@ namespace GettyImages.Api.Search
         {
             return WithSpecificPeople(value);
         }
+
+        IBlendedImagesSearch IBlendedImagesSearch.WithAcceptLanguage(string value)
+        {
+            return WithAcceptLanguage(value);
+        }
     }
 }

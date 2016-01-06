@@ -128,5 +128,10 @@ namespace GettyImages.Api.Search
         {
             AddQueryParameter(Constants.PhraseKey, value);
         }
+
+        protected void AddAcceptLanguage(string value)
+        {
+            AddHeaderParameter(Constants.AcceptLanguage, value);
+        }
     }
 }

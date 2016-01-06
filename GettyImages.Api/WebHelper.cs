@@ -19,25 +19,28 @@ namespace GettyImages.Api
             _baseAddress = baseAddress;
         }
 
-        internal async Task<dynamic> Get(IEnumerable<KeyValuePair<string, string>> queryParameters, string path)
+        internal async Task<dynamic> Get(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
+            IEnumerable<KeyValuePair<string, string>> headerParameters = null)
         {
-            var client = HttpClientFactory.Create(await GetHandlers());
+            var client = HttpClientFactory.Create(await GetHandlers(headerParameters));
             var uri = _baseAddress + path;
             var builder = new UriBuilder(uri)
             {
                 Query =
                     BuildQuery(queryParameters)
             };
-
+            
             var httpResponse = await client.GetAsync(builder.Uri);
             return await HandleResponse(httpResponse);
         }
 
-        private async Task<DelegatingHandler[]> GetHandlers()
+        private async Task<DelegatingHandler[]> GetHandlers(IEnumerable<KeyValuePair<string, string>> headerParameters = null)
         {
             var handlers = new List<DelegatingHandler>();
             handlers.AddRange(await _credentials.GetHandlers());
             handlers.Add(new UserAgentHandler());
+            handlers.Add(new HeadersHandler(headerParameters));
+
             return handlers.ToArray();
         }
 
@@ -76,9 +79,10 @@ namespace GettyImages.Api
             return PostForm(formParameters, path, handlers);
         }
 
-        internal async Task<dynamic> PostQuery(IEnumerable<KeyValuePair<string, string>> queryParameters, string path)
+        internal async Task<dynamic> PostQuery(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
+            IEnumerable<KeyValuePair<string, string>> headerParameters = null)
         {
-            using (var client = HttpClientFactory.Create(await GetHandlers()))
+            using (var client = HttpClientFactory.Create(await GetHandlers(headerParameters)))
             {
                 var uri = _baseAddress + path;
                 var httpResponse =

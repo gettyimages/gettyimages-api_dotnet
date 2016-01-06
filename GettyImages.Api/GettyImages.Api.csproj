@@ -48,6 +48,7 @@
     <Compile Include="ApiClient.cs" />
     <Compile Include="Credentials.cs" />
     <Compile Include="Download\Download.cs" />
+    <Compile Include="Handlers\HeadersHandler.cs" />
     <Compile Include="Handlers\UserAgentHandler.cs" />
     <Compile Include="Videos.cs" />
     <Compile Include="Images.cs" />

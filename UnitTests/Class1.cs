@@ -15,7 +15,7 @@ namespace UnitTests
         [Test]
         public void EditorialSegments()
         {
-            var searchImages = SearchImages.GetInstance(null, "");
+            var searchImages = SearchImages.GetInstance(null,"");
 
             searchImages.Editorial().WithEditorialSegment(EditorialSegment.Archival);
             searchImages.Editorial().WithEditorialSegment(EditorialSegment.Publicity);
@@ -25,5 +25,14 @@ namespace UnitTests
             Assert.IsTrue((((EditorialSegment)searchImages.QueryParameters[Constants.EditorialSegmentKey]) & EditorialSegment.Publicity) == EditorialSegment.Publicity);
         }
 
+        [Test]
+        public async void SearchImages_WithAcceptLanguage()
+        {
+            var searchImages = SearchImages.GetInstance(null, "");
+            searchImages.WithAcceptLanguage("de");
+
+            Assert.AreEqual(1, searchImages.HeaderParameters.Count, 1);
+            Assert.AreEqual(searchImages.HeaderParameters["Accept-Language"], "de");
+        }
     }
 }
