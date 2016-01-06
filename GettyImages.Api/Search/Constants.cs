@@ -32,5 +32,6 @@ namespace GettyImages.Api.Search
         public const string ProductTypesKey = "product_types";
         public const string SortOrderKey = "sort_order";
         public const string SpecificPeopleKey = "specific_people";
+        public const string AcceptLanguage = "Accept-Language";
     }
 }

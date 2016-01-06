@@ -307,6 +307,11 @@ namespace GettyImages.Api.Search
             AddLicenseModel(value);
             return this;
         }
+        public SearchImages WithAcceptLanguage(string value)
+        {
+            AddAcceptLanguage(value);
+            return this;
+        }
 
         internal static SearchImages GetInstance(Credentials credentials, string baseUrl)
         {
