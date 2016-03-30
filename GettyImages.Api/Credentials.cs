@@ -130,7 +130,7 @@ namespace GettyImages.Api
             }
 
             var helper = new WebHelper(this, _baseUrl);
-            var response = await helper.PostForm(GetCredentialsDictionary(), Oauth2TokenPath, null);
+            var response = await helper.PostForm(GetCredentialsDictionary(), Oauth2TokenPath, null, null, false);
             _accessToken = new Token
             {
                 AccessToken = response.access_token.ToString(),
@@ -140,6 +140,11 @@ namespace GettyImages.Api
             };
 
             return _accessToken;
+        }
+
+        internal void ResetAccessToken()
+        {
+            _accessToken = null;
         }
 
         public static Credentials GetInstance(string apiKey, string apiSecret, string baseUrl)
