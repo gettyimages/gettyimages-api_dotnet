@@ -17,6 +17,8 @@ The SDK currently supports:
 + Searching for images
 + Getting image metadata
 + Creating download URLs
+ 
+_Note; if you are using the SDK in MVC, be sure to use the async keyword on your controller's action method._
 
 ### Code
 The SDK supports async operations, however it can also be used synchonously, such as when running in a console application:
