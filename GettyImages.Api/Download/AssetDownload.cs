@@ -13,12 +13,13 @@ namespace GettyImages.Api
         protected abstract string AssetType { get; set; }
         private const string DownloadsPathString = "/downloads/{0}/{1}";
         private const string IdIsRequired = "Id is required.";
-
+        private const string AutoDownloadKey = "auto_download";
 
         internal AssetDownload(Credentials credentials, string baseUrl)
         {
             Credentials = credentials;
             BaseUrl = baseUrl;
+            QueryParameters.Add(AutoDownloadKey, false);
         }
 
         public override Task<dynamic> ExecuteAsync()

@@ -234,6 +234,10 @@ namespace GettyImages.Api.OnlineTests.StepBindings
                 {
                     Assert.Inconclusive("Over QPS");
                 }
+                else if (ex.InnerException != null && ex.InnerException.Message.Contains("NoAccessToProductType"))
+                {
+                    Assert.Pass("User does not have the correct agreement, but API responded properly");
+                }
                 else
                 {
                     throw;

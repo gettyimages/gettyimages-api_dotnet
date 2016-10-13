@@ -42,7 +42,23 @@ namespace GettyImages.Api.OnlineTests.StepBindings
         public void ThenTheStatusIsSuccess()
         {
             var task = ScenarioContext.Current["task"] as Task<dynamic>;
-            Assert.DoesNotThrow(() => task.Wait());
+
+            try
+            {
+                task.Wait();
+            }
+            catch (AggregateException ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.Message.Contains("NoAccessToProductType"))
+                {
+                    Assert.Pass("User does not have the correct agreement, but API responded properly");
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            Assert.Pass();
         }
     }
 }

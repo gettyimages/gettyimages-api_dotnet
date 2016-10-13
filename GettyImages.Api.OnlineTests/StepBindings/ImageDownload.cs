@@ -51,10 +51,6 @@ namespace GettyImages.Api.OnlineTests.StepBindings
             if (!filetype.Equals(FileType.None))
                 request = request.WithFileType(filetype);
 
-            bool autoDownload;
-            ScenarioContext.Current.TryGetValue("auto_download", out autoDownload);
-            request = request.WithAutoDownload(autoDownload);
-
             int height;
             ScenarioContext.Current.TryGetValue("height", out height);
             if (height > 0)

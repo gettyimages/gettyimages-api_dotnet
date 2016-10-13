@@ -50,7 +50,7 @@ namespace GettyImages.Api
             switch (httpResponse.StatusCode)
             {
                 case HttpStatusCode.Forbidden:
-                    if (
+                    if (httpResponse.Headers.Contains(XMasheryErrorCodeHeaderKey) &&
                         httpResponse.Headers.GetValues(XMasheryErrorCodeHeaderKey)
                             .Any(v => v == ErrDeveloperOverQpsValue))
                     {

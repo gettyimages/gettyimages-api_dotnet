@@ -42,6 +42,7 @@
     <Compile Include="CredentialType.cs" />
     <Compile Include="DescriptionAttribute.cs" />
     <Compile Include="Download\AssetDownload.cs" />
+    <Compile Include="Download\DownloadImage.cs" />
     <Compile Include="Download\DownloadVideo.cs" />
     <Compile Include="Handlers\ApiKeyHandler.cs" />
     <Compile Include="Handlers\BearerTokenHandler.cs" />
