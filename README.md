@@ -2,7 +2,11 @@
 
 # Deprecated
 
-**The SDK's have been deprecated and are no longer being maintained as of November 2016.**
+We have decided to stop development work on platform-specific SDKs as of November 2016. The API is still alive and under active feature development. Current documentation can be found at [developers.gettyimages.com/api/docs/](http://developers.gettyimages.com/api/docs/)
+
+SDK source code remains open source, providing a technology example of interaction with the Getty Images API. We will no longer take pull requests for these repositories.
+
+---
 
 ## Introduction
 This SDK makes using the Getty Images [API](http://developers.gettyimages.com) easy. It handles credential management, makes HTTP requests and is written with a fluent style in mind. The [API Documentation](https://github.com/gettyimages/gettyimages-api) is located on Github.
