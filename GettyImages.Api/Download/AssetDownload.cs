@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ namespace GettyImages.Api
         private const string IdIsRequired = "Id is required.";
         private const string AutoDownloadKey = "auto_download";
 
-        internal AssetDownload(Credentials credentials, string baseUrl)
+        internal AssetDownload(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
         {
             Credentials = credentials;
             BaseUrl = baseUrl;

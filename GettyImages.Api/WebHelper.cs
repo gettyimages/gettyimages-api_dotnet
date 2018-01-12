@@ -5,24 +5,27 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using GettyImages.Api.Handlers;
+using Newtonsoft.Json;
 
 namespace GettyImages.Api
 {
     internal class WebHelper
     {
         private readonly string _baseAddress;
+        private readonly DelegatingHandler _customHandler;
         private readonly Credentials _credentials;
 
-        internal WebHelper(Credentials credentials, string baseAddress)
+        internal WebHelper(Credentials credentials, string baseAddress, DelegatingHandler customHandler)
         {
             _credentials = credentials;
             _baseAddress = baseAddress;
+            _customHandler = customHandler;
         }
 
         internal async Task<dynamic> Get(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
             IEnumerable<KeyValuePair<string, string>> headerParameters = null)
         {
-            using (var client = HttpClientFactory.Create(await GetHandlers(headerParameters)))
+            using (var client = new HttpClient(await GetHandlers(headerParameters)))
             {
                 var uri = _baseAddress + path;
                 var builder = new UriBuilder(uri)
@@ -40,7 +43,7 @@ namespace GettyImages.Api
                 catch (UnauthorizedException)
                 {
                     _credentials.ResetAccessToken();
-                    using (var retryClient = HttpClientFactory.Create(await GetHandlers(headerParameters)))
+                    using (var retryClient = new HttpClient(await GetHandlers(headerParameters)))
                     {
                         httpResponse = await retryClient.GetAsync(builder.Uri);
                         return await HandleResponse(httpResponse);
@@ -49,14 +52,25 @@ namespace GettyImages.Api
             }
         }
 
-        private async Task<DelegatingHandler[]> GetHandlers(IEnumerable<KeyValuePair<string, string>> headerParameters = null)
+        private async Task<DelegatingHandler> GetHandlers(
+            IEnumerable<KeyValuePair<string, string>> headerParameters = null)
         {
-            var handlers = new List<DelegatingHandler>();
-            handlers.AddRange(await _credentials.GetHandlers());
-            handlers.Add(new UserAgentHandler());
-            handlers.Add(new HeadersHandler(headerParameters));
+            if (_customHandler != null)
+            {
+                return _customHandler;
+            }
 
-            return handlers.ToArray();
+            var mainHandler = await _credentials.GetHandlers();
+            var headersHandler = new HeadersHandler(headerParameters);
+            var userAgentHandler = new UserAgentHandler();
+            headersHandler.InnerHandler = userAgentHandler;
+            if (mainHandler.InnerHandler != null)
+            {
+                userAgentHandler.InnerHandler = mainHandler.InnerHandler;
+            }
+
+            mainHandler.InnerHandler = headersHandler;
+            return mainHandler;
         }
 
         internal async Task<dynamic> PostForm(IEnumerable<KeyValuePair<string, string>> formParameters, string path)
@@ -67,11 +81,11 @@ namespace GettyImages.Api
 
         internal async Task<dynamic> PostForm(
             IEnumerable<KeyValuePair<string, string>> formParameters,
-            string path, DelegatingHandler[] handlers, IEnumerable<KeyValuePair<string, string>> headerParameters = null, bool shouldRetry = true)
+            string path, DelegatingHandler handlers, IEnumerable<KeyValuePair<string, string>> headerParameters = null, bool shouldRetry = true)
         {
-            using (var client = HttpClientFactory.Create(handlers == null
-                        ? new DelegatingHandler[] { new UserAgentHandler() }
-                        : handlers.ToArray()))
+            using (var client = new HttpClient(handlers == null
+                        ? new UserAgentHandler()
+                        : handlers))
             {
                 var uri = _baseAddress + path;
                 var httpResponse =
@@ -86,11 +100,11 @@ namespace GettyImages.Api
                     if (shouldRetry)
                     {
                         _credentials.ResetAccessToken();
-                        using (var retryClient = HttpClientFactory.Create(await GetHandlers(headerParameters)))
+                        using (var retryClient = new HttpClient(await GetHandlers(headerParameters)))
                         {
                             httpResponse = await retryClient.PostAsync(uri, new FormUrlEncodedContent(formParameters));
                             return await HandleResponse(httpResponse);
-                        } 
+                        }
                     }
                     throw;
                 }
@@ -100,7 +114,7 @@ namespace GettyImages.Api
         internal async Task<dynamic> PostQuery(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
             IEnumerable<KeyValuePair<string, string>> headerParameters = null)
         {
-            using (var client = HttpClientFactory.Create(await GetHandlers(headerParameters)))
+            using (var client = new HttpClient(await GetHandlers(headerParameters)))
             {
                 var uri = _baseAddress + path;
                 var httpResponse =
@@ -115,7 +129,7 @@ namespace GettyImages.Api
                 catch (UnauthorizedException)
                 {
                     _credentials.ResetAccessToken();
-                    using (var retryClient = HttpClientFactory.Create(await GetHandlers(headerParameters)))
+                    using (var retryClient = new HttpClient(await GetHandlers(headerParameters)))
                     {
                         httpResponse = await retryClient.PostAsync(uri, new FormUrlEncodedContent(queryParameters));
                         return await HandleResponse(httpResponse);
@@ -124,12 +138,12 @@ namespace GettyImages.Api
             }
         }
 
-        private static Task<dynamic> HandleResponse(HttpResponseMessage httpResponse)
+        private static async Task<dynamic> HandleResponse(HttpResponseMessage httpResponse)
         {
             switch (httpResponse.StatusCode)
             {
                 case HttpStatusCode.OK:
-                    return httpResponse.Content.ReadAsAsync<dynamic>();
+                    return JsonConvert.DeserializeObject<dynamic>(await httpResponse.Content.ReadAsStringAsync());
                 default:
                     SdkException.GenerateSdkException(httpResponse);
                     return null;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,14 +9,14 @@ namespace GettyImages.Api
 {
     public class DownloadVideo :AssetDownload
     {
-        private DownloadVideo(Credentials credentials, string baseUrl) : base(credentials, baseUrl)
+        private DownloadVideo(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(credentials, baseUrl, customHandler)
         {
             AssetType = "videos";
         }
 
-        internal static DownloadVideo GetInstance(Credentials credentials, string baseUrl)
+        internal static DownloadVideo GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
         {
-            return new DownloadVideo(credentials, baseUrl);
+            return new DownloadVideo(credentials, baseUrl, customHandler);
         }
 
         protected override sealed string AssetType { get; set; }

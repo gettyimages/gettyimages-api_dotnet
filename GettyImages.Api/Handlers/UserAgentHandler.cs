@@ -57,7 +57,12 @@ namespace GettyImages.Api.Handlers
             CancellationToken cancellationToken)
         {
             request.Headers.Add("User-Agent", UserAgentString);
+            if (InnerHandler == null)
+            {
+                InnerHandler = new HttpClientHandler();
+            }
             return base.SendAsync(request, cancellationToken);
         }
+
     }
 }

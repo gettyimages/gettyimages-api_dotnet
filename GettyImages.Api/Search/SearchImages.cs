@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using GettyImages.Api.Search.Entity;
 
@@ -7,6 +8,7 @@ namespace GettyImages.Api.Search
 {
     public partial class SearchImages : AssetSearch, IBlendedImagesSearch, ICreativeImagesSearch, IEditorialImagesSearch
     {
+        private readonly DelegatingHandler _customHandler;
         protected const string V3SearchImagesPath = "/search/images";
 
         
@@ -16,8 +18,9 @@ namespace GettyImages.Api.Search
         protected Orientation Orientations;
         protected string SortOrder;
 
-        private SearchImages(Credentials credentials, string baseUrl)
+        private SearchImages(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
         {
+            _customHandler = customHandler;
             Credentials = credentials;
             BaseUrl = baseUrl;
         }
@@ -313,9 +316,9 @@ namespace GettyImages.Api.Search
             return this;
         }
 
-        internal static SearchImages GetInstance(Credentials credentials, string baseUrl)
+        internal static SearchImages GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
         {
-            return new SearchImages(credentials, baseUrl);
+            return new SearchImages(credentials, baseUrl, customHandler);
         }
     }
 }

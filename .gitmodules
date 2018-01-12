@@ -1,3 +1,0 @@
-[submodule "GettyImages.Api.OnlineTests/Scenarios"]
-	path = GettyImages.Api.OnlineTests/Scenarios
-	url = https://github.com/gettyimages/gettyimages-api_bdd.git

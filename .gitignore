@@ -42,3 +42,4 @@ _ReSharper*
 *.DotSettings
 *.feature.cs
 *~
+.vs/

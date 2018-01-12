@@ -1,4 +1,5 @@
-﻿using GettyImages.Api.Search.Entity;
+﻿using System.Net.Http;
+using GettyImages.Api.Search.Entity;
 
 namespace GettyImages.Api
 {
@@ -6,15 +7,15 @@ namespace GettyImages.Api
     {
         private const string FileTypeKey = "file_type";
         private const string HeightKey = "height";
-        private DownloadImage(Credentials credentials, string baseUrl)
-            : base(credentials, baseUrl)
+        private DownloadImage(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
+            : base(credentials, baseUrl, customHandler)
         {
             AssetType = "images";
         }
 
-        internal static DownloadImage GetInstance(Credentials credentials, string baseUrl)
+        internal static DownloadImage GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
         {
-            return new DownloadImage(credentials, baseUrl);
+            return new DownloadImage(credentials, baseUrl, customHandler);
         }
 
         protected override sealed string AssetType { get; set; }

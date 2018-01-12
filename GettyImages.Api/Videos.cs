@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace GettyImages.Api
@@ -15,16 +16,16 @@ namespace GettyImages.Api
         private readonly List<string> _fields = new List<string>();
         private readonly List<string> _videoIds = new List<string>();
 
-        private Videos(Credentials credentials, string baseUrl)
+        private Videos(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
         {
             Credentials = credentials;
             BaseUrl = baseUrl;
             Method = "GET";
         }
 
-        internal static Videos GetInstance(Credentials credentials, string baseUrl)
+        internal static Videos GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
         {
-            return new Videos(credentials, baseUrl);
+            return new Videos(credentials, baseUrl, customHandler);
         }
 
         public Videos WithId(string val)

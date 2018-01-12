@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using GettyImages.Api.Search.Entity;
 
@@ -10,7 +11,7 @@ namespace GettyImages.Api.Search
     {
         private const string V3SearchVideosPath = "/search/videos";
 
-        private SearchVideos(Credentials credentials, string baseUrl)
+        private SearchVideos(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
         {
             Credentials = credentials;
             BaseUrl = baseUrl;
@@ -114,9 +115,9 @@ namespace GettyImages.Api.Search
             return this;
         }
 
-        internal static SearchVideos GetInstance(Credentials credentials, string baseUrl)
+        internal static SearchVideos GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
         {
-            return new SearchVideos(credentials, baseUrl);
+            return new SearchVideos(credentials, baseUrl, customHandler);
         }
 
         public SearchVideos WithAvailableFormat(string value)
