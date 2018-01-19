@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace GettyImages.Api
@@ -8,51 +9,94 @@ namespace GettyImages.Api
     /// </summary>
     public class ApiClient
     {
+        private readonly DelegatingHandler _customHandler;
         private const string Slash = "/";
+        private const string DefaultApiUri = "https://api.gettyimages.com/v3";
         private readonly Credentials _credentials;
         private string _baseUrl;
 
-        private ApiClient(string baseUrl)
+        private ApiClient(string baseUrl, DelegatingHandler customHandler)
         {
+            _customHandler = customHandler;
             NormalizeAndSetBaseUrl(baseUrl);
         }
 
         private ApiClient(string apiKey, string apiSecret, string refreshToken,
-            string baseUrl) : this(baseUrl)
+            string baseUrl, DelegatingHandler customHandler) : this(baseUrl, customHandler)
         {
+            _customHandler = customHandler;
             _credentials = Credentials.GetInstance(apiKey, apiSecret, refreshToken, GetOAuthBaseUrl());
         }
 
-        private ApiClient(string apiKey, string apiSecret, string baseUrl)
-            : this(baseUrl)
+        private ApiClient(string apiKey, string apiSecret, string baseUrl, DelegatingHandler customHandler)
+            : this(baseUrl, customHandler)
         {
+            _customHandler = customHandler;
             _credentials = Credentials.GetInstance(apiKey, apiSecret, GetOAuthBaseUrl());
         }
 
         private ApiClient(string apiKey, string apiSecret, string userName, string userPassword,
-            string baseUrl)
-            : this(baseUrl)
+            string baseUrl, DelegatingHandler customHandler)
+            : this(baseUrl, customHandler)
         {
+            _customHandler = customHandler;
             _credentials = Credentials.GetInstance(apiKey, apiSecret, userName, userPassword, GetOAuthBaseUrl());
         }
 
-        public static ApiClient GetApiClientWithClientCredentials(string apiKey, string apiSecret,
-            string baseUrl = "https://api.gettyimages.com/v3")
+        public static ApiClient GetApiClientWithClientCredentials(string apiKey, string apiSecret)
         {
-            return new ApiClient(apiKey, apiSecret, baseUrl);
+            return new ApiClient(apiKey, apiSecret, DefaultApiUri, null);
+        }
+
+        public static ApiClient GetApiClientWithResourceOwnerCredentials(string apiKey, string apiSecret,
+            string userName, string userPassword)
+        {
+            return new ApiClient(apiKey, apiSecret, userName, userPassword, DefaultApiUri, null);
+        }
+
+        public static ApiClient GetApiClientWithRefreshToken(string apiKey, string apiSecret, string refreshToken)
+        {
+            return new ApiClient(apiKey, apiSecret, refreshToken, DefaultApiUri, null);
+        }
+
+
+
+
+
+        public static ApiClient GetApiClientWithClientCredentials(string apiKey, string apiSecret,
+            string baseUrl)
+        {
+            return new ApiClient(apiKey, apiSecret, baseUrl, null);
         }
 
         public static ApiClient GetApiClientWithResourceOwnerCredentials(string apiKey, string apiSecret,
             string userName, string userPassword,
-            string baseUrl = "https://api.gettyimages.com/v3")
+            string baseUrl)
         {
-            return new ApiClient(apiKey, apiSecret, userName, userPassword, baseUrl);
+            return new ApiClient(apiKey, apiSecret, userName, userPassword, baseUrl, null);
         }
 
         public static ApiClient GetApiClientWithRefreshToken(string apiKey, string apiSecret, string refreshToken,
-            string baseUrl = "https://api.gettyimages.com/v3")
+            string baseUrl)
         {
-            return new ApiClient(apiKey, apiSecret, refreshToken, baseUrl);
+            return new ApiClient(apiKey, apiSecret, refreshToken, baseUrl, null);
+        }
+
+
+        public static ApiClient GetApiClientWithClientCredentials(string apiKey, string apiSecret, DelegatingHandler customHandler)
+        {
+            return new ApiClient(apiKey, apiSecret, DefaultApiUri, customHandler);
+        }
+
+        public static ApiClient GetApiClientWithResourceOwnerCredentials(string apiKey, string apiSecret,
+            string userName, string userPassword, DelegatingHandler customHandler)
+        {
+            return new ApiClient(apiKey, apiSecret, userName, userPassword, DefaultApiUri, customHandler);
+        }
+
+        public static ApiClient GetApiClientWithRefreshToken(string apiKey, string apiSecret, string refreshToken, DelegatingHandler customHandler)
+        {
+            return new ApiClient(apiKey, apiSecret, refreshToken, DefaultApiUri, customHandler);
         }
 
 
@@ -64,7 +108,7 @@ namespace GettyImages.Api
         /// </returns>
         public Download Download()
         {
-            return Api.Download.GetInstance(_credentials, _baseUrl);
+            return Api.Download.GetInstance(_credentials, _baseUrl, _customHandler);
         }
 
         /// <summary>
@@ -75,7 +119,7 @@ namespace GettyImages.Api
         /// </returns>
         public Images Images()
         {
-            return Api.Images.GetInstance(_credentials, _baseUrl);
+            return Api.Images.GetInstance(_credentials, _baseUrl, _customHandler);
         }
 
         /// <summary>
@@ -86,7 +130,7 @@ namespace GettyImages.Api
         /// </returns>
         public Search.Search Search()
         {
-            return Api.Search.Search.GetInstance(_credentials, _baseUrl);
+            return Api.Search.Search.GetInstance(_credentials, _baseUrl, _customHandler);
         }
 
         /// <summary>
@@ -108,7 +152,7 @@ namespace GettyImages.Api
         /// </returns>
         public Videos Videos()
         {
-            return Api.Videos.GetInstance(_credentials, _baseUrl);
+            return Api.Videos.GetInstance(_credentials, _baseUrl, _customHandler);
         }
 
         private void NormalizeAndSetBaseUrl(string baseUrl)

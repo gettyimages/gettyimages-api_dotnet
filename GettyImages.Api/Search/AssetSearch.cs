@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using GettyImages.Api.Search.Entity;
@@ -12,6 +13,10 @@ namespace GettyImages.Api.Search
         protected readonly List<string> Fields = new List<string>();
         protected string AssetFamily;
 
+        protected AssetSearch(DelegatingHandler customHandler) : base(customHandler)
+        {
+            
+        }
         protected void AddResponseField(string value)
         {
             AppendMultiValuedQueryParameter(Constants.FieldsKey,value);

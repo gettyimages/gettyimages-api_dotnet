@@ -98,25 +98,28 @@ namespace GettyImages.Api
             return dict;
         }
 
-        internal async Task<IEnumerable<DelegatingHandler>> GetHandlers()
+        internal async Task<DelegatingHandler> GetHandlers()
         {
-            var handlers = new Collection<DelegatingHandler>();
+            DelegatingHandler handler = null;
             switch (CredentialType)
             {
                 case CredentialType.None:
                     break;
                 case CredentialType.ApiKey:
-                    handlers.Add(new ApiKeyHandler(ApiKey));
+                    handler = new ApiKeyHandler(ApiKey);
+                    handler.InnerHandler = new HttpClientHandler();
                     break;
                 case CredentialType.ClientCredentials:
                 case CredentialType.ResourceOwner:
                 case CredentialType.RefreshToken:
-                    handlers.Add(new ApiKeyHandler(ApiKey));
-                    handlers.Add(new BearerTokenHandler(await GetAccessToken()));
+                    handler = new ApiKeyHandler(ApiKey);
+                    var bearerTokenHandler = new BearerTokenHandler(await GetAccessToken());
+                    bearerTokenHandler.InnerHandler = new HttpClientHandler();
+                    handler.InnerHandler = bearerTokenHandler;
                     break;
             }
 
-            return handlers;
+            return handler;
         }
 
         internal async Task<Token> GetAccessToken()
@@ -129,7 +132,7 @@ namespace GettyImages.Api
                 return _accessToken;
             }
 
-            var helper = new WebHelper(this, _baseUrl);
+            var helper = new WebHelper(this, _baseUrl, null);
             var response = await helper.PostForm(GetCredentialsDictionary(), Oauth2TokenPath, null, null, false);
             _accessToken = new Token
             {

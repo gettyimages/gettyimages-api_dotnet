@@ -1,20 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GettyImages.Api", "GettyImages.Api\GettyImages.Api.csproj", "{CBCD516C-2170-4855-AA0B-B8F3C3A9B919}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GettyImages.Api", "GettyImages.Api\GettyImages.Api.csproj", "{55C35278-5DFB-4311-81E3-60D7E56BA687}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GettyImages.Api.OnlineTests", "GettyImages.Api.OnlineTests\GettyImages.Api.OnlineTests.csproj", "{CF358A39-BB0C-43E9-B93F-7D607E15FCD2}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{52E56089-2644-4882-9BB3-24BA44F665DD}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{45D4EEFB-9D14-4391-9903-29E150BC5F45}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{43AAE394-9CC3-4639-96B6-B1B82E2D1F63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,20 +13,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CBCD516C-2170-4855-AA0B-B8F3C3A9B919}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CBCD516C-2170-4855-AA0B-B8F3C3A9B919}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CBCD516C-2170-4855-AA0B-B8F3C3A9B919}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CBCD516C-2170-4855-AA0B-B8F3C3A9B919}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CF358A39-BB0C-43E9-B93F-7D607E15FCD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CF358A39-BB0C-43E9-B93F-7D607E15FCD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CF358A39-BB0C-43E9-B93F-7D607E15FCD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CF358A39-BB0C-43E9-B93F-7D607E15FCD2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{45D4EEFB-9D14-4391-9903-29E150BC5F45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{45D4EEFB-9D14-4391-9903-29E150BC5F45}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{45D4EEFB-9D14-4391-9903-29E150BC5F45}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{45D4EEFB-9D14-4391-9903-29E150BC5F45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55C35278-5DFB-4311-81E3-60D7E56BA687}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55C35278-5DFB-4311-81E3-60D7E56BA687}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55C35278-5DFB-4311-81E3-60D7E56BA687}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55C35278-5DFB-4311-81E3-60D7E56BA687}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43AAE394-9CC3-4639-96B6-B1B82E2D1F63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43AAE394-9CC3-4639-96B6-B1B82E2D1F63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43AAE394-9CC3-4639-96B6-B1B82E2D1F63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43AAE394-9CC3-4639-96B6-B1B82E2D1F63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3E88B1EC-034C-47D1-A396-2D3B627442AD}
 	EndGlobalSection
 EndGlobal

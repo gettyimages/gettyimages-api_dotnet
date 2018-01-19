@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace GettyImages.Api
 {
     public class ApiRequest
     {
+        private readonly DelegatingHandler _customHandler;
         private const string SpaceString = " ";
         protected string BaseUrl;
         protected Credentials Credentials;
@@ -18,8 +20,9 @@ namespace GettyImages.Api
         protected internal IDictionary<string, object> QueryParameters;
         protected internal IDictionary<string, object> HeaderParameters;
 
-        public ApiRequest()
+        public ApiRequest(DelegatingHandler customHandler)
         {
+            _customHandler = customHandler;
             QueryParameters = new Dictionary<string, object>();
             HeaderParameters = new Dictionary<string, object>();
 
@@ -27,7 +30,7 @@ namespace GettyImages.Api
 
         public virtual Task<dynamic> ExecuteAsync()
         {
-            var helper = new WebHelper(Credentials, BaseUrl);
+            var helper = new WebHelper(Credentials, BaseUrl, _customHandler);
             switch (Method)
             {
                 case "GET":
