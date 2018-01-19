@@ -1,5 +1,3 @@
-using System;
-using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -12,6 +10,7 @@ namespace UnitTests
     public class TestHandler : DelegatingHandler
     {
         private readonly HttpResponseMessage _httpResponseMessage;
+        public int NumberOfCallsSendAsync = 0;
 
         public TestHandler(object testResponse)
         {
@@ -28,6 +27,7 @@ namespace UnitTests
         public HttpRequestMessage Request { get; private set; }
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
+            NumberOfCallsSendAsync += 1;
             Request = request;
             return Task.FromResult(_httpResponseMessage);
         }

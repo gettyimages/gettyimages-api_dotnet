@@ -36,6 +36,12 @@ namespace GettyImages.Api
 
                 var httpResponse = await client.GetAsync(builder.Uri);
 
+                if ((int)httpResponse.StatusCode >= 500)
+                {
+                    System.Threading.Thread.Sleep(1000);
+                    httpResponse = await client.GetAsync(builder.Uri);
+                }
+
                 try
                 {
                     return await HandleResponse(httpResponse);
@@ -46,6 +52,145 @@ namespace GettyImages.Api
                     using (var retryClient = new HttpClient(await GetHandlers(headerParameters)))
                     {
                         httpResponse = await retryClient.GetAsync(builder.Uri);
+                        return await HandleResponse(httpResponse);
+                    }
+                }
+            }
+        }
+
+        internal async Task<dynamic> PostForm(
+            IEnumerable<KeyValuePair<string, string>> formParameters,
+            string path, DelegatingHandler handlers, IEnumerable<KeyValuePair<string, string>> headerParameters = null, bool shouldRetry = true)
+        {
+            using (var client = new HttpClient(handlers == null
+                        ? new UserAgentHandler()
+                        : handlers))
+            {
+                var uri = _baseAddress + path;
+                var formContent = new FormUrlEncodedContent(formParameters);
+
+                var httpResponse = await client.PostAsync(uri, formContent);
+
+                if ((int)httpResponse.StatusCode >= 500)
+                {
+                    System.Threading.Thread.Sleep(1000);
+                    httpResponse = await client.PostAsync(uri, formContent);
+                }
+
+                try
+                {
+                    return await HandleResponse(httpResponse);
+                }
+                catch (UnauthorizedException)
+                {
+                    if (shouldRetry)
+                    {
+                        _credentials.ResetAccessToken();
+                        using (var retryClient = new HttpClient(await GetHandlers(headerParameters)))
+                        {
+                            httpResponse = await retryClient.PostAsync(uri, new FormUrlEncodedContent(formParameters));
+                            return await HandleResponse(httpResponse);
+                        }
+                    }
+                    throw;
+                }
+            }
+        }
+
+        internal async Task<dynamic> PostQuery(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
+            IEnumerable<KeyValuePair<string, string>> headerParameters, HttpContent bodyParameter)
+        {
+            using (var client = new HttpClient(await GetHandlers(headerParameters)))
+            {
+                var uri = _baseAddress + path;
+                var requestUri = new UriBuilder(uri) {Query = BuildQuery(queryParameters)}.Uri;
+
+                var httpResponse = await client.PostAsync(requestUri, bodyParameter);
+
+                if ((int)httpResponse.StatusCode >= 500)
+                {
+                    System.Threading.Thread.Sleep(1000);
+                    httpResponse = await client.PostAsync(requestUri, bodyParameter);
+                }
+
+                try
+                {
+                    return await HandleResponse(httpResponse);
+                }
+                catch (UnauthorizedException)
+                {
+                    _credentials.ResetAccessToken();
+                    using (var retryClient = new HttpClient(await GetHandlers(headerParameters)))
+                    {
+                        httpResponse = await retryClient.PostAsync(uri, new FormUrlEncodedContent(queryParameters));
+                        return await HandleResponse(httpResponse);
+                    }
+                }
+            }
+        }
+
+        internal async Task<dynamic> PutQuery(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
+            IEnumerable<KeyValuePair<string, string>> headerParameters, HttpContent bodyParameter)
+        {
+            using (var client = new HttpClient(await GetHandlers(headerParameters)))
+            {
+                var uri = _baseAddress + path;
+                var requestUri = new UriBuilder(uri) { Query = BuildQuery(queryParameters) }.Uri;
+
+                var httpResponse = await client.PutAsync(requestUri, bodyParameter);
+
+                if ((int)httpResponse.StatusCode >= 500)
+                {
+                    System.Threading.Thread.Sleep(1000);
+                    httpResponse = await client.PostAsync(requestUri, bodyParameter);
+                }
+
+                try
+                {
+                    return await HandleResponse(httpResponse);
+                }
+                catch (UnauthorizedException)
+                {
+                    _credentials.ResetAccessToken();
+                    using (var retryClient = new HttpClient(await GetHandlers(headerParameters)))
+                    {
+                        httpResponse = await retryClient.PutAsync(uri, new FormUrlEncodedContent(queryParameters));
+                        return await HandleResponse(httpResponse);
+                    }
+                }
+            }
+        }
+
+        internal async Task<dynamic> DeleteQuery(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
+            IEnumerable<KeyValuePair<string, string>> headerParameters = null)
+        {
+            using (var client = new HttpClient(await GetHandlers(headerParameters)))
+            {
+                var uri = _baseAddress + path;
+                var builder = new UriBuilder(uri)
+                {
+                    Query =
+                        BuildQuery(queryParameters)
+                };
+
+                var httpResponse = await client.DeleteAsync(builder.Uri);
+
+                if ((int)httpResponse.StatusCode >= 500)
+                {
+                    System.Threading.Thread.Sleep(1000);
+                    httpResponse = await client.DeleteAsync(builder.Uri);
+                }
+
+                try
+                {
+                    return await HandleResponse(httpResponse);
+                }
+                catch (UnauthorizedException)
+                {
+                    _credentials.ResetAccessToken();
+                    using (var retryClient = new HttpClient(await GetHandlers(headerParameters)))
+                    {
+                        httpResponse = await retryClient.DeleteAsync(builder.Uri);
                         return await HandleResponse(httpResponse);
                     }
                 }
@@ -79,74 +224,16 @@ namespace GettyImages.Api
             return PostForm(formParameters, path, handlers);
         }
 
-        internal async Task<dynamic> PostForm(
-            IEnumerable<KeyValuePair<string, string>> formParameters,
-            string path, DelegatingHandler handlers, IEnumerable<KeyValuePair<string, string>> headerParameters = null, bool shouldRetry = true)
-        {
-            using (var client = new HttpClient(handlers == null
-                        ? new UserAgentHandler()
-                        : handlers))
-            {
-                var uri = _baseAddress + path;
-                var httpResponse =
-                    await client.PostAsync(uri, new FormUrlEncodedContent(formParameters));
-
-                try
-                {
-                    return await HandleResponse(httpResponse);
-                }
-                catch (UnauthorizedException)
-                {
-                    if (shouldRetry)
-                    {
-                        _credentials.ResetAccessToken();
-                        using (var retryClient = new HttpClient(await GetHandlers(headerParameters)))
-                        {
-                            httpResponse = await retryClient.PostAsync(uri, new FormUrlEncodedContent(formParameters));
-                            return await HandleResponse(httpResponse);
-                        }
-                    }
-                    throw;
-                }
-            }
-        }
-
-        internal async Task<dynamic> PostQuery(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
-            IEnumerable<KeyValuePair<string, string>> headerParameters = null)
-        {
-            using (var client = new HttpClient(await GetHandlers(headerParameters)))
-            {
-                var uri = _baseAddress + path;
-                var httpResponse =
-                    await
-                        client.PostAsync(
-                            new UriBuilder(uri) {Query = BuildQuery(queryParameters)}.Uri, null);
-
-                try
-                {
-                    return await HandleResponse(httpResponse);
-                }
-                catch (UnauthorizedException)
-                {
-                    _credentials.ResetAccessToken();
-                    using (var retryClient = new HttpClient(await GetHandlers(headerParameters)))
-                    {
-                        httpResponse = await retryClient.PostAsync(uri, new FormUrlEncodedContent(queryParameters));
-                        return await HandleResponse(httpResponse);
-                    }
-                }
-            }
-        }
-
         private static async Task<dynamic> HandleResponse(HttpResponseMessage httpResponse)
         {
-            switch (httpResponse.StatusCode)
+            if (httpResponse.IsSuccessStatusCode)
             {
-                case HttpStatusCode.OK:
-                    return JsonConvert.DeserializeObject<dynamic>(await httpResponse.Content.ReadAsStringAsync());
-                default:
-                    SdkException.GenerateSdkException(httpResponse);
-                    return null;
+                return JsonConvert.DeserializeObject<dynamic>(await httpResponse.Content.ReadAsStringAsync());
+            }
+            else
+            {
+                SdkException.GenerateSdkException(httpResponse);
+                return null;
             }
         }
 
