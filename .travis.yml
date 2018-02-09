@@ -1,2 +1,8 @@
 language: csharp
 solution: GettyImages.Api.sln
+mono: none
+dotnet: 2.0
+script:
+  - dotnet restore
+  - dotnet build -c Release
+  - dotnet test UnitTests/
