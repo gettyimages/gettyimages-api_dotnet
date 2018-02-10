@@ -3,6 +3,12 @@ solution: GettyImages.Api.sln
 mono: none
 dotnet: 2.1.4
 script:
-  - dotnet restore
-  - dotnet build -c Release
-  - dotnet test UnitTests/
+- dotnet restore
+- dotnet build -c Release
+- dotnet test UnitTests/
+notifications:
+  slack:
+    rooms:
+      secure: KlOsQLT3r+QnUiDq2ywpc1mchnhvYZTIsfD8JkorHLmBPF6PyMAS+OFSLUqiaKQK/rQmMupbMimxEW8gTkk0gEuc2vXOHDZaDov7cUzjhVwJg1olRD2a4ecAbT9Pta/DSHxioc7wjduWl2pIOki/bZhZcREv34pvGQugtXD0zj4LOvzSrC1ox8VahgZ+yEXMwDM3hVSFbliwGxMToEMNSYinyRpNKbXqa8LvBJiUx4dh05ZEGhVTKOgCE1BhFVt4SHALxGpgW197P80U6xybz5NBy0UqYh+8g6YdImVbfELhOzfb8WZO/XLTRz7ir6s2qnQ7wrOvAscxNw7jQdwiTrD6MhcTGr3BEKWIaMIEdE68GwSH1ZZzn1m/gF/Q/IYecvYMm8a3d++CclNsobACN0D35JVzTfba44/QTOsZaSucmv+RHuKduImk9Vz8NXMAb6hiNYoMHsBKBZBrIgKbpgBCE/qPgi7HIXcrYMt7Jj8Qyl+31f/4ZZc7SDIuIl2UG2d4fetVLogIJoppnj/81LuSl78fkZqMmq8ehg5UWwBh//fHjO8IVjBNc7gDYNTbbkt8Iqz8DXO+onvh8zwMyjlTvKXlCARzdnMNd0VZOeCf+Iei+iuHBlBtBLez1pgc1ZKs1diuDDHYU24JaFt/kQlTxT8M9XgodxxqQYWBB8c=
+    on_success: always
+    
