@@ -1,9 +1,14 @@
 language: csharp
 solution: GettyImages.Api.sln
+env:
+  global:
+    secure: gwdo4xsGfNWmIlKCxuyFqcnAySsnhkiCMlPRliH+7KumWlJPTelkXWK9PqVpsiPGjgBaL/XtYeAosQzDYPew+0WYxfxWCcQMl5LCPUgDegkxk5V8p0dVygOrwHDs9Z86zScNTS4/a1isdqp7zEY+AdIU6rPbCB6UmO+jyVqfjX31dlQI+eKTS1bXDX50fDMsDpgvTKvomQBO7mqPYZRijpHI//rjFnup1jv4DibTb8GvGstwQ2Ro8fFbu5kBWLJlnk6pxBIdHgfeeH4Kya87feYNIQZK7TqhqabfWvdhFJfXjSfprwarWUcZmhtGOeWgi8t1v7qJRLFvc23OzSaDrMz/Fbv/m8Jw5eQ/XGgbMdjrVCa9m7FGMjXdw22u1yKvhj0sMWCsHWJROGX4cI8dOrye+xWaVBemuDkEQgDk18tB1MwkwZqX5RFE2ipw/DdAuenHxfN6s3cJ8IH4WVJ1fRLStkdqLw8V8VCfDcoH1p1RbWUwy7D5l8xCgIMZT2B3/ZROVZVrRQzPQgYmo7t11qmfznqTsrDH61r3wOjpl19mjrQsvcNxZuWCWXov4DktRa3Y2waLtT3mmHQMeNdKCtdlvmIdoLS/9KPgGoXPJPlUv+4v0xK5D1Xowx4xQtLPuol8Y0XRTswWxhRIQ7teAUb3Qf5unJUhSWRiFKUqztw=
+  PACKAGE_VERSION: 4.0.0-pre  
 mono: none
 dotnet: 2.1.4
 script:
 - dotnet restore
+- sed -i -e "s/>0.0.0</>$PACKAGE_VERSION</" GettyImages.Api/GettyImages.Api.csproj
 - dotnet build -c Release
 - dotnet test UnitTests/
 notifications:
@@ -11,3 +16,6 @@ notifications:
     rooms:
       secure: SmSNslDyIqfgCwV46mwmD+XlgQnwDym3I0uZIuH8tMM9YFWJO6Kx2htG/9f5nP/pBoFkM7kV5jPxWno0xCopZtXf0gRs/q8StvFqM7N1DVgHdjpZ8BSEPgGtV1nrpU3yNKJzWHVCNBjwAFVjgr95U7NbeP7ZHrGfcK6Kt85k1JrFlZuiI9J5mXZcJ62ePV2PmupIEfBRJdCvidGZ66PIoy/R+FKf2Z9q6f7rBNZESacFLdS8BqvVbV0BUKcu04OotU6EDjQu6r7d7vT9Oj8fMJRlzNwGM+5DxdOBimqDT7rFkcBreR4UrkJRrINN/8qbt+qDRnnzXTv92qkM/cRJI8fjVEGP/nvul7DKX3dboJGjkqwgKJAYRD70AQgslGm59JrRhNYKlbL+0vdCKpewFBTxu1+smcJMtUOBm1MQ82KgcYzO3twouUngmWdKlr8rpEWvlXmdmfqWrGPT866iEY8UKCqP/RbdLgz7USqaq3XEsxGxGnqe1ZpHIKUx7xecEHYYz2GLaBVaSW+pEBZsMjyEHOdwL96IyF58IMAFwGgZtm75lxfPXtz+aK09W/uljrFuielqSmEM3x0xkWA5siuX69fcvBbV0bwmYtqR/qobjSM3IqXNTx5wPTJxl/Z0isMiHBbWd1pcE3rleQa4Do7pUwiXRYC48dagwyLMUxk=
     on_success: always
+
+after_success:
+  #- dotnet nuget push -k $NUGET_API_KEY ./GettyImages.Api/bin/Release/GettyImages.Api.$PACKAGE_VERSION.nupkg
