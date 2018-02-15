@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GettyImages.Api.Search.Entity;
+using GettyImages.Api.Entity;
 
 namespace GettyImages.Api.Search
 {
-    public partial class SearchVideos : AssetSearch, IBlendedVideosSearch, ICreativeVideosSearch, IEditorialVideosSearch
+    public class SearchVideos : ApiRequest
     {
-        private const string V3SearchVideosPath = "/search/videos";
+        protected const string V3SearchVideosPath = "/search/videos";
 
         private SearchVideos(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
         {
@@ -17,77 +16,22 @@ namespace GettyImages.Api.Search
             BaseUrl = baseUrl;
         }
 
+        internal static SearchVideos GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
+        {
+            return new SearchVideos(credentials, baseUrl, customHandler);
+        }
+
         public override async Task<dynamic> ExecuteAsync()
         {
             Method = "GET";
-            Path = string.IsNullOrEmpty(AssetFamily) ? V3SearchVideosPath : V3SearchVideosPath + "/" + AssetFamily;
-
-            if (Fields.Any())
-            {
-                AddQueryParameter(Constants.FieldsKey, Fields);
-            }
+            Path = V3SearchVideosPath;
 
             return await base.ExecuteAsync();
         }
 
-
-        public SearchVideos WithPage(int value)
+        public SearchVideos WithAcceptLanguage(string value)
         {
-            AddPage(value);
-            return this;
-        }
-
-        public ICreativeVideosSearch Creative()
-        {
-            AssetFamily = "creative";
-            return this;
-        }
-
-        public IEditorialVideosSearch Editorial()
-        {
-            AssetFamily = "editorial";
-            return this;
-        }
-
-        public SearchVideos WithPageSize(int value)
-        {
-            AddPageSize(value);
-            return this;
-        }
-
-        public SearchVideos WithPhrase(string value)
-        {
-            AddPhrase(value);
-            return this;
-        }
-
-        public SearchVideos WithSortOrder(string value)
-        {
-            AddSortOrder(value);
-            return this;
-        }
-
-        public SearchVideos WithExcludeNudity(bool value = true)
-        {
-            AddExcludeNudity(value);
-            return this;
-        }
-
-        public SearchVideos WithResponseField(string value)
-        {
-            AddResponseField(value);
-            return this;
-        }
-
-        public SearchVideos WithResponseFields(IList<string> value)
-        {
-            AddResponseFieldRange(value);
-            return this;
-        }
-
-        public SearchVideos WithProductType(ProductType value)
-        {
-            AddProductType(value);
+            AddHeaderParameter(Constants.AcceptLanguage, value);
             return this;
         }
 
@@ -97,27 +41,34 @@ namespace GettyImages.Api.Search
             return this;
         }
 
-        public SearchVideos WithCollectionCode(string value)
+        public SearchVideos WithCollectionCodes(IEnumerable<string> values)
         {
-            AddCollectionCode(value);
+            AddCollectionCodes(values);
             return this;
         }
 
         public SearchVideos WithCollectionFilterType(CollectionFilter value)
         {
-            AddCollectionFilterType(value);
+            AddQueryParameter(Constants.CollectionFilterKey, value);
             return this;
         }
 
-        public SearchVideos WithSpecificPeople(string value)
+        public SearchVideos WithEditorialVideoType(EditorialVideo value)
         {
-            AddSpecificPeople(value);
+            AddEditorialVideoType(value);
             return this;
         }
 
-        internal static SearchVideos GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
+        public SearchVideos WithExcludeNudity(bool value = true)
         {
-            return new SearchVideos(credentials, baseUrl, customHandler);
+            AddQueryParameter(Constants.Excludenudity, value);
+            return this;
+        }
+
+        public SearchVideos WithResponseFields(IEnumerable<string> values)
+        {
+            AddResponseFields(values);
+            return this;
         }
 
         public SearchVideos WithAvailableFormat(string value)
@@ -126,14 +77,57 @@ namespace GettyImages.Api.Search
             return this;
         }
 
-        public SearchVideos WithLicenseModel(LicenseModel value)
+        public SearchVideos WithFrameRate(FrameRate value)
         {
-            if ((value & LicenseModel.RightsManaged) == LicenseModel.RightsManaged)
-            {
-                throw new SdkException(LicenseModel.RightsManaged + " is not a valid License Model for video searches.");
-            }
+            AddFrameRate(value);
+            return this;
+        }
 
+        public SearchVideos WithKeywordIds(IEnumerable<int> values)
+        {
+            AddKeywordIds(values);
+            return this;
+        }
+
+        public virtual SearchVideos WithLicenseModel(LicenseModel value)
+        {
             AddLicenseModel(value);
+            return this;
+        }
+
+        public SearchVideos WithPage(int value)
+        {
+            AddQueryParameter(Constants.PageKey, value);
+            return this;
+        }
+
+        public SearchVideos WithPageSize(int value)
+        {
+            AddQueryParameter(Constants.PageSizeKey, value);
+            return this;
+        }
+
+        public SearchVideos WithPhrase(string value)
+        {
+            AddQueryParameter(Constants.PhraseKey, value);
+            return this;
+        }
+
+        public SearchVideos WithProductType(ProductType value)
+        {
+            AddProductTypes(value);
+            return this;
+        }
+
+        public SearchVideos WithSortOrder(SortOrder value)
+        {
+            AddQueryParameter(Constants.SortOrderKey, value);
+            return this;
+        }
+
+        public SearchVideos WithSpecificPeople(IEnumerable<string> values)
+        {
+            AddSpecificPeople(values);
             return this;
         }
     }
