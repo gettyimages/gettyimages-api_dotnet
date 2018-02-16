@@ -8,8 +8,8 @@ env:
 mono: none
 dotnet: 2.1.4
 script:
-# If this is not a pull request and is a master build and the commit is tagged, set the package version to the git tag
-- if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ] && [ -n "$TRAVIS_TAG" ]; then PACKAGE_VERSION=$TRAVIS_TAG; fi
+# If this is not a pull request and the commit is tagged, set the package version to the git tag
+- if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ -n "$TRAVIS_TAG" ]; then PACKAGE_VERSION=$TRAVIS_TAG; fi
 - printenv | grep TRAVIS | sort
 - dotnet restore
 - sed -i -e "s/>0.0.0</>$PACKAGE_VERSION</" ./GettyImages.Api/GettyImages.Api.csproj
@@ -22,7 +22,6 @@ notifications:
       secure: SmSNslDyIqfgCwV46mwmD+XlgQnwDym3I0uZIuH8tMM9YFWJO6Kx2htG/9f5nP/pBoFkM7kV5jPxWno0xCopZtXf0gRs/q8StvFqM7N1DVgHdjpZ8BSEPgGtV1nrpU3yNKJzWHVCNBjwAFVjgr95U7NbeP7ZHrGfcK6Kt85k1JrFlZuiI9J5mXZcJ62ePV2PmupIEfBRJdCvidGZ66PIoy/R+FKf2Z9q6f7rBNZESacFLdS8BqvVbV0BUKcu04OotU6EDjQu6r7d7vT9Oj8fMJRlzNwGM+5DxdOBimqDT7rFkcBreR4UrkJRrINN/8qbt+qDRnnzXTv92qkM/cRJI8fjVEGP/nvul7DKX3dboJGjkqwgKJAYRD70AQgslGm59JrRhNYKlbL+0vdCKpewFBTxu1+smcJMtUOBm1MQ82KgcYzO3twouUngmWdKlr8rpEWvlXmdmfqWrGPT866iEY8UKCqP/RbdLgz7USqaq3XEsxGxGnqe1ZpHIKUx7xecEHYYz2GLaBVaSW+pEBZsMjyEHOdwL96IyF58IMAFwGgZtm75lxfPXtz+aK09W/uljrFuielqSmEM3x0xkWA5siuX69fcvBbV0bwmYtqR/qobjSM3IqXNTx5wPTJxl/Z0isMiHBbWd1pcE3rleQa4Do7pUwiXRYC48dagwyLMUxk=
     on_success: always
 after_success:
-  - if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ] && [ -n "$TRAVIS_TAG" ]; then dotnet nuget push -s https://nuget.org -k "$NUGET_API_KEY" ./GettyImages.Api/bin/Release/GettyImages.Api.$PACKAGE_VERSION.nupkg; fi
+  - if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ -n "$TRAVIS_TAG" ]; then dotnet nuget push -s https://nuget.org -k "$NUGET_API_KEY" ./GettyImages.Api/bin/Release/GettyImages.Api.$PACKAGE_VERSION.nupkg; fi
   - if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ] && [ -z "$TRAVIS_TAG" ]; then dotnet nuget push -s https://staging.nuget.org -k "$NUGET_STAGING_API_KEY" ./GettyImages.Api/bin/Release/GettyImages.Api.$PACKAGE_VERSION.nupkg; fi
   - if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" != "master" ]; then dotnet nuget push -s https://staging.nuget.org -k "$NUGET_STAGING_API_KEY" ./GettyImages.Api/bin/Release/GettyImages.Api.$PACKAGE_VERSION.nupkg; fi
-  # - dotnet nuget push -s https://staging.nuget.org -k "$NUGET_STAGING_API_KEY" ./GettyImages.Api/bin/Release/GettyImages.Api.$PACKAGE_VERSION.nupkg
