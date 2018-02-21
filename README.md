@@ -13,9 +13,20 @@ Open the package manager and add the package to your project:
 
 ## Usage
 The SDK currently supports:
-+ Searching for images
-+ Getting image metadata
-+ Creating download URLs
++ Artists
++ Asset changes
++ Asset registration
++ Boards
++ Collections
++ Countries
++ Downloads
++ Events
++ Images
++ Products
++ Purchases
++ Search
++ Usage
++ Videos
  
 _Note; if you are using the SDK in MVC, be sure to use the async keyword on your controller's action method._
 
@@ -24,12 +35,10 @@ The SDK supports async operations, however it can also be used synchonously, suc
 
 ```csharp
 var client = ApiClient.GetApiClientWithClientCredentials("my_api_key", "my_api_secret");
-var searchResult = client.Search()
-    .Images()
-    .Editorial()
+var searchResult = client.SearchImagesEditorial()
     .WithEditorialSegment(EditorialSegment.News)
     .WithPhrase("all vocabulary")
-    .WithSortOrder("newest")
+    .WithSortOrder(SortOrder.Newest)
     .ExecuteAsync()
     .Result;
 
