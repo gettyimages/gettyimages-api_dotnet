@@ -9,7 +9,7 @@ This SDK makes using the Getty Images [API](http://developers.gettyimages.com) e
 The SDK is published to the public [Nuget](https://www.nuget.org/packages/GettyImages.Api/) package repository.
 
 Open the package manager and add the package to your project:
-![Add nuget package reference](nuget-add-ref.png)
+![Add nuget package reference](https://raw.githubusercontent.com/gettyimages/gettyimages-api_dotnet/master/nuget-add-ref.png)
 
 ## Usage
 The SDK currently supports:
