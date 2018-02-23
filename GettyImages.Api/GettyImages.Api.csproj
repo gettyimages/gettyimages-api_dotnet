@@ -13,7 +13,7 @@
     <PackageTags>Getty Images Videos API SDK GettyImages Photo Photos Search Creative Editorial Artist Embed</PackageTags>
     <PackageLicenseUrl>https://github.com/gettyimages/gettyimages-api_dotnet/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/gettyimages/gettyimages-api_dotnet</PackageProjectUrl>
-    <PackageIconUrl>https://github.com/gettyimages/gettyimages-api_dotnet/blob/master/package-icon.jpg</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/gettyimages/gettyimages-api_dotnet/master/package-icon.jpg</PackageIconUrl>
     <RepositoryUrl>https://github.com/gettyimages/gettyimages-api_dotnet</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
   </PropertyGroup>
