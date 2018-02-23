@@ -7,11 +7,16 @@
     <Authors>Getty Images</Authors>
     <Company>Getty Images</Company>
     <Product>Getty Images API SDK</Product>
+    <Title>Getty Images API SDK</Title>
     <Description>Allows easy integration with the Getty Images API.</Description>
     <Copyright>Copyright © 2014 - 2018 Getty Images</Copyright>
     <PackageTags>Getty Images Videos API SDK GettyImages Photo Photos Search Creative Editorial Artist Embed</PackageTags>
+    <PackageLicenseUrl>https://github.com/gettyimages/gettyimages-api_dotnet/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/gettyimages/gettyimages-api_dotnet</PackageProjectUrl>
+    <PackageIconUrl>https://github.com/gettyimages/gettyimages-api_dotnet/blob/master/package-icon.jpg</PackageIconUrl>
+    <RepositoryUrl>https://github.com/gettyimages/gettyimages-api_dotnet</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
