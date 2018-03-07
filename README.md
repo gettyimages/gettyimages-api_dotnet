@@ -28,10 +28,23 @@ The SDK currently supports:
 + Usage
 + Videos
  
-_Note; if you are using the SDK in MVC, be sure to use the async keyword on your controller's action method._
 
 ### Code
-The SDK supports async operations, however it can also be used synchonously, such as when running in a console application:
+The SDK supports async operations.
+```csharp
+var client = ApiClient.GetApiClientWithClientCredentials("my_api_key", "my_api_secret");
+var searchResult = await client.SearchImagesEditorial()
+    .WithEditorialSegment(EditorialSegment.News)
+    .WithPhrase("all vocabulary")
+    .WithSortOrder(SortOrder.Newest)
+    .ExecuteAsync();
+
+foreach (var image in searchResult.images)
+{
+    Console.WriteLine("Title: {0} \r\nId: {1}", image.title, image.id);
+}
+````
+The SDK can also be used synchonously, such as when running in a console application:
 
 ```csharp
 var client = ApiClient.GetApiClientWithClientCredentials("my_api_key", "my_api_secret");
