@@ -4,7 +4,7 @@ using Xunit;
 
 namespace UnitTests.Boards
 {
-    class DeleteAssetsByIdTests
+    public class DeleteAssetsByIdTests
     {
         [Fact]
         public void DeleteAssetsByIdBasic()

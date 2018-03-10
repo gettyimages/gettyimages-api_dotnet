@@ -38,7 +38,7 @@ namespace GettyImages.Api
 
                 if ((int)httpResponse.StatusCode >= 500)
                 {
-                    System.Threading.Thread.Sleep(1000);
+                    Task.Delay(1000).Wait();
                     httpResponse = await client.GetAsync(builder.Uri);
                 }
 
@@ -73,7 +73,7 @@ namespace GettyImages.Api
 
                 if ((int)httpResponse.StatusCode >= 500)
                 {
-                    System.Threading.Thread.Sleep(1000);
+                    Task.Delay(1000).Wait();
                     httpResponse = await client.PostAsync(uri, formContent);
                 }
 
@@ -109,7 +109,7 @@ namespace GettyImages.Api
 
                 if ((int)httpResponse.StatusCode >= 500)
                 {
-                    System.Threading.Thread.Sleep(1000);
+                    Task.Delay(1000).Wait();
                     httpResponse = await client.PostAsync(requestUri, bodyParameter);
                 }
 
@@ -141,7 +141,7 @@ namespace GettyImages.Api
 
                 if ((int)httpResponse.StatusCode >= 500)
                 {
-                    System.Threading.Thread.Sleep(1000);
+                    Task.Delay(1000).Wait();
                     httpResponse = await client.PostAsync(requestUri, bodyParameter);
                 }
 
@@ -177,7 +177,7 @@ namespace GettyImages.Api
 
                 if ((int)httpResponse.StatusCode >= 500)
                 {
-                    System.Threading.Thread.Sleep(1000);
+                    Task.Delay(1000).Wait();
                     httpResponse = await client.DeleteAsync(builder.Uri);
                 }
 
