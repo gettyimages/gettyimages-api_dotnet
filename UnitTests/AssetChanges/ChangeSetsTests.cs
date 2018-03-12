@@ -4,7 +4,7 @@ using Xunit;
 
 namespace UnitTests.AssetChanges
 {
-    class ChangeSetsTests
+    public class ChangeSetsTests
     {
         [Fact]
         public void ChangeSetsBasic()
