@@ -1,6 +1,9 @@
 # Getty Images API SDK - .NET
 [![build status](https://travis-ci.org/gettyimages/gettyimages-api_dotnet.svg?branch=master)](https://travis-ci.org/gettyimages/gettyimages-api_dotnet)
 [![NuGet version](https://badge.fury.io/nu/gettyimages.api.svg)](https://badge.fury.io/nu/gettyimages.api)
+[![NuGet](https://img.shields.io/nuget/dt/GettyImages.Api.svg?style=flat-square)](https://www.nuget.org/packages/gettyimages.api)
+[![Open Hub](https://img.shields.io/badge/Open-Hub-0185CA.svg)](https://www.openhub.net/p/gettyimages-api_dotnet)
+
 
 ## Introduction
 This SDK makes using the Getty Images [API](http://developers.gettyimages.com) easy. It handles credential management, makes HTTP requests and is written with a fluent style in mind. The [API Documentation](https://github.com/gettyimages/gettyimages-api) is located on Github.
