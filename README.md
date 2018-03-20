@@ -75,12 +75,11 @@ _This is only necessary if you would like to contribute to the project. Otherwis
 + You have [Git](https://git-scm.com/downloads) installed
 
 #### Clone the repository
-The Git repository contains a submodule which requires some special handling to get setup properly. This is because we share our scenario files across all our SDKs.
-
 Open a console window (Command Prompt, PowerShell or Bash) and issue the following commands to clone the Git repository:
-
-	git clone git@github.com:gettyimages/gettyimages-api_dotnet.git
-	cd gettyimages-api_dotnet
+```sh
+git clone git@github.com:gettyimages/gettyimages-api_dotnet.git
+cd gettyimages-api_dotnet
+```
 
 #### Build
 
