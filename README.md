@@ -6,7 +6,7 @@
 
 
 ## Introduction
-This SDK makes using the Getty Images [API](http://developers.gettyimages.com) easy. It handles credential management, makes HTTP requests and is written with a fluent style in mind. The [API Documentation](https://github.com/gettyimages/gettyimages-api) is located on Github.
+This SDK makes using the Getty Images [API](http://developers.gettyimages.com) easy. It handles credential management, makes HTTP requests and is written with a fluent style in mind. For more info about the API, see the [Documentation](https://developers.gettyimages.com/api/).
 
 ## Getting started
 ### Using the Nuget Package
@@ -15,25 +15,7 @@ The SDK is published to the public [Nuget](https://www.nuget.org/packages/GettyI
 Open the package manager and add the package to your project:
 ![Add nuget package reference](https://raw.githubusercontent.com/gettyimages/gettyimages-api_dotnet/master/nuget-add-ref.png)
 
-## Usage
-The SDK currently supports:
-+ Artists
-+ Asset changes
-+ Asset registration
-+ Boards
-+ Collections
-+ Countries
-+ Downloads
-+ Events
-+ Images
-+ Products
-+ Purchases
-+ Search
-+ Usage
-+ Videos
- 
-
-### Code
+### Examples
 The SDK supports async operations.
 ```csharp
 var client = ApiClient.GetApiClientWithClientCredentials("my_api_key", "my_api_secret");
