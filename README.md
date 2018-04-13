@@ -8,6 +8,14 @@
 ## Introduction
 This SDK makes using the Getty Images [API](http://developers.gettyimages.com) easy. It handles credential management, makes HTTP requests and is written with a fluent style in mind. For more info about the API, see the [Documentation](https://developers.gettyimages.com/api/).
 
+* Functionality for all endpoints.
+
+## Help & Support
+
+* [Getty Images API](http://developers.gettyimages.com/)
+* [Contact Developer Support](mailto:developersupport@gettyimages.com)
+* [Issue Tracker](https://github.com/gettyimages/gettyimages-api_dotnet/issues)
+
 ## Getting started
 ### Using the Nuget Package
 The SDK is published to the public [Nuget](https://www.nuget.org/packages/GettyImages.Api/) package repository.
