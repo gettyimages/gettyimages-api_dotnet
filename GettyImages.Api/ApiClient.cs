@@ -562,5 +562,16 @@ namespace GettyImages.Api
         {
             return Boards.DeleteCommentsById.GetInstance(_credentials, _baseUrl, _customHandler);
         }
+
+        /// <summary>
+        ///     Get order metadata
+        /// </summary>
+        /// <returns>
+        ///     The <see cref="Orders.Orders" />.
+        /// </returns>
+        public Orders.Orders Orders()
+        {
+            return Api.Orders.Orders.GetInstance(_credentials, _baseUrl, _customHandler);
+        }
     }
 }
