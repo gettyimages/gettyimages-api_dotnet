@@ -141,6 +141,19 @@ namespace UnitTests.Search
         }
 
         [Fact]
+        public void SearchForCreativeImagesWithWithExcludeEditorialUseOnly()
+        {
+            var testHandler = TestUtil.CreateTestHandler();
+
+            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesCreative()
+                .WithPhrase("cat").WithExcludeEditorialUseOnly().ExecuteAsync().Result;
+
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/creative");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("exclude_editorial_use_only=True");
+        }
+
+        [Fact]
         public void SearchForCreativeImagesWithResponseFields()
         {
             var testHandler = TestUtil.CreateTestHandler();

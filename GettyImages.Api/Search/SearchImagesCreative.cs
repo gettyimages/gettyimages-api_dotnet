@@ -87,6 +87,13 @@ namespace GettyImages.Api.Search
             AddQueryParameter(Constants.Excludenudity, value);
             return this;
         }
+        
+        public SearchImagesCreative WithExcludeEditorialUseOnly(bool value = true)
+        {
+            AddQueryParameter(Constants.ExcludeEditorialUseOnly, value);
+            return this;
+        }
+
 
         public SearchImagesCreative WithResponseFields(IEnumerable<string> values)
         {
