@@ -4,7 +4,6 @@
     {
         None = 0,
         [Description("release_not_important")] ReleaseNotImportant = 1,
-        [Description("fully_released")] FullyReleased = 2,
-        [Description("partially_released")] PartiallRreleased = 3
+        [Description("fully_released")] FullyReleased = 2
     }
 }
