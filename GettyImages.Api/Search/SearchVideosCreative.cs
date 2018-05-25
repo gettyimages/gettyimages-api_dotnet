@@ -117,5 +117,11 @@ namespace GettyImages.Api.Search
             AddQueryParameter(Constants.SortOrderKey, value);
             return this;
         }
+
+        public SearchVideosCreative WithReleaseStatus(ReleaseStatus value)
+        {
+            AddQueryParameter(Constants.ReleaseStatus, value);
+            return this;
+        }
     }
 }
