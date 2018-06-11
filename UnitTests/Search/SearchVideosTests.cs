@@ -222,5 +222,18 @@ namespace UnitTests.Search
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("specific_people=Reggie+Jackson");
         }
+
+        [Fact]
+        public void SearchForVideosWithReleaseStatus()
+        {
+            var testHandler = TestUtil.CreateTestHandler();
+
+            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideos()
+                .WithPhrase("cat").WithReleaseStatus(ReleaseStatus.FullyReleased).ExecuteAsync().Result;
+
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("release_status=fully_released");
+        }
     }
 }

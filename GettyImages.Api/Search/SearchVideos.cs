@@ -130,5 +130,11 @@ namespace GettyImages.Api.Search
             AddSpecificPeople(values);
             return this;
         }
+
+        public SearchVideos WithReleaseStatus(ReleaseStatus value)
+        {
+            AddQueryParameter(Constants.ReleaseStatus, value);
+            return this;
+        }
     }
 }
