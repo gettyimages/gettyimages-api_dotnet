@@ -193,5 +193,18 @@ namespace UnitTests.Search
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("sort_order=best_match");
         }
+
+        [Fact]
+        public void SearchForCreativeVideosWithReleaseStatus()
+        {
+            var testHandler = TestUtil.CreateTestHandler();
+
+            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+                .WithPhrase("cat").WithReleaseStatus(ReleaseStatus.ReleaseNotImportant).ExecuteAsync().Result;
+
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("release_status=release_not_important");
+        }
     }
 }
