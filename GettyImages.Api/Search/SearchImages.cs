@@ -116,6 +116,12 @@ namespace GettyImages.Api.Search
             return this;
         }
 
+        public SearchImages WithGraphicalStyleFilterType(GraphicalStyleFilter value)
+        {
+            AddQueryParameter(Constants.GraphicalStyleFilterKey, value);
+            return this;
+        }
+
         public SearchImages WithKeywordIds(IEnumerable<int> values)
         {
             AddKeywordIds(values);
