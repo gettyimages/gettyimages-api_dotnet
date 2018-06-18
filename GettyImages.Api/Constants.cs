@@ -33,6 +33,7 @@ namespace GettyImages.Api
         public const string FormatAvailableKey = "format_available";
         public const string FrameRatesKey = "frame_rates";
         public const string GraphicalStylesKey = "graphical_styles";
+        public const string GraphicalStyleFilterKey = "graphical_styles_filter_type";
         public const string HeightKey = "height";
         public const string ImageFingerprintKey = "image_fingerprint";
         public const string ImageUrlKey = "image_url";
