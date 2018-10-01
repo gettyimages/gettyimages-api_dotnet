@@ -120,8 +120,8 @@ namespace GettyImages.Api
         private static string BuildEnumString(Enum value)
         {
             return
-                value.GetType().GetTypeInfo().CustomAttributes.Where(a => a.AttributeType == typeof (FlagsAttribute)) !=
-                null
+                value.GetType().GetTypeInfo().CustomAttributes.Where(a => a.AttributeType == typeof (FlagsAttribute)).Count() !=
+                0
                     ? string.Join(",", GetFlags(value).Select(GetEnumDescription).ToArray())
                     : GetEnumDescription(value).ToLowerInvariant().Replace(SpaceString, string.Empty);
         }

@@ -1,5 +1,9 @@
-﻿namespace GettyImages.Api.Entity
+﻿using System;
+
+namespace GettyImages.Api.Entity
 {
+    [Flags]
+
     public enum FrameRate
     {
         None = 0,
