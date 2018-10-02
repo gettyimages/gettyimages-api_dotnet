@@ -306,11 +306,11 @@ namespace UnitTests.Search
             var testHandler = TestUtil.CreateTestHandler();
 
             var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImages()
-                .WithPhrase("cat").WithMinimumSize(MinimumSize.Small).ExecuteAsync().Result;
+                .WithPhrase("cat").WithMinimumSize(MinimumSize.Xlarge).ExecuteAsync().Result;
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("minimum_size=small");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("minimum_size=x_large");
         }
 
         [Fact]
@@ -397,12 +397,14 @@ namespace UnitTests.Search
         {
             var testHandler = TestUtil.CreateTestHandler();
 
+            var x = SortOrder.Newest;
+
             var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImages()
-                .WithPhrase("cat").WithSortOrder(SortOrder.BestMatch).ExecuteAsync().Result;
+                .WithPhrase("cat").WithSortOrder(SortOrder.Newest).ExecuteAsync().Result;
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("sort_order=best_match");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("sort_order=newest");
         }
 
         [Fact]

@@ -6,6 +6,6 @@
         [Description("best_match")] BestMatch,
         [Description("most_popular")] MostPopular,
         [Description("newest")] Newest,
-        [Description("oldest")] Oldest,
+        [Description("oldest")] Oldest
     }
 }
