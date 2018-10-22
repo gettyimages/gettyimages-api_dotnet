@@ -33,6 +33,12 @@ namespace GettyImages.Api.AssetLicensing
             return this;
         }
 
+        public AcquireExtendedLicense WithExtendedLicenses(string value)
+        {
+            BodyParameter = value;
+            return this;
+        }
+
         public AcquireExtendedLicense WithAcceptLanguage(string value)
         {
             AddHeaderParameter(Constants.AcceptLanguage, value);
