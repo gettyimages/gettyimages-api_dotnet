@@ -27,7 +27,7 @@ namespace GettyImages.Api.AssetLicensing
             return await base.ExecuteAsync();
         }
 
-        public AcquireExtendedLicense WithId(string value)
+        public AcquireExtendedLicense WithAssetId(string value)
         {
             AssetId = value;
             return this;
