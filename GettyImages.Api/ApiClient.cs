@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using GettyImages.Api.Download;
+using GettyImages.Api.Orders;
 using GettyImages.Api.Search;
 
 namespace GettyImages.Api
@@ -567,11 +568,22 @@ namespace GettyImages.Api
         ///     Get order metadata
         /// </summary>
         /// <returns>
-        ///     The <see cref="Orders.Orders" />.
+        ///     The <see cref="Api.Orders.Orders" />.
         /// </returns>
         public Orders.Orders Orders()
         {
             return Api.Orders.Orders.GetInstance(_credentials, _baseUrl, _customHandler);
+        }
+
+        /// <summary>
+        ///     Acquire extended licenses with iStock credits for an asset.
+        /// </summary>
+        /// <returns>
+        ///     The <see cref="AssetLicensing.AcquireExtendedLicense" />.
+        /// </returns>
+        public AssetLicensing.AcquireExtendedLicense AcquireExtendedLicense()
+        {
+            return AssetLicensing.AcquireExtendedLicense.GetInstance(_credentials, _baseUrl,  _customHandler);
         }
     }
 }
