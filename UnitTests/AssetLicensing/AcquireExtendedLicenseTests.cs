@@ -11,9 +11,10 @@ namespace UnitTests.AssetLicensing
         {
             var testHandler = TestUtil.CreateTestHandler();
             var requestBody = @"{
-                                        ['Multiseat', 'Indemnification'], 
-                                        'UseTeamCredits': true
-                                    }";
+                                 'LicenseTypes':['Indemnification','Multiseat'],
+                                 'UseTeamCredits':false
+                                }";
+
             var assetId = "123";
             var response = ApiClient.GetApiClientWithResourceOwnerCredentials("apiKey", "apiSecret", "userName", "userPassword",  testHandler)
                 .AcquireExtendedLicense()
