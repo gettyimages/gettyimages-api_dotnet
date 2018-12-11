@@ -14,7 +14,7 @@ namespace GettyImages.Api
     {
         private readonly DelegatingHandler _customHandler;
         private const string Slash = "/";
-        private const string DefaultApiUri = "https://api.gettyimages.com/v3";
+        private const string DefaultApiUri = "https://localservices.seattle.gettyimages.com/Public/v3";
         private readonly Credentials _credentials;
         private string _baseUrl;
 

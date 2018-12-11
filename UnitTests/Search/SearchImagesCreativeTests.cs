@@ -340,5 +340,24 @@ namespace UnitTests.Search
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("sort_order=best_match");
         }
+
+        [Fact]
+        public void SearchForCreativeImagesWithFacets()
+        {
+            var testHandler = TestUtil.CreateTestHandler();
+
+            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+                .SearchImagesCreative()
+                .WithIncludeFacets()
+                .WithFacetMaxCount(200)
+                .WithFacetFields(new List<string>(){ "artists", "locations" })
+                .ExecuteAsync()
+                .Result;
+
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/creative");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("include_facets=True");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("facet_fields=artists%2Clocations");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("facet_max_count=200");
+        }
     }
 }
