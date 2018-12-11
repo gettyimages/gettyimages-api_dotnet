@@ -184,5 +184,21 @@ namespace GettyImages.Api.Search
             AddQueryParameter(Constants.SortOrderKey, value);
             return this;
         }
+        public SearchImagesCreative WithIncludeFacets(bool value = true)
+        {
+            AddQueryParameter(Constants.IncludeFacetsKey, value);
+            return this;
+        }
+
+        public SearchImagesCreative WithFacetFields(IEnumerable<string> values)
+        {
+            AddFacetResponseFields(values);
+            return this;
+        }
+        public SearchImagesCreative WithFacetMaxCount(int value)
+        {
+            AddQueryParameter(Constants.FacetMaxCountKey, value);
+            return this;
+        }
     }
 }

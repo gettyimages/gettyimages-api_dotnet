@@ -123,5 +123,22 @@ namespace GettyImages.Api.Search
             AddQueryParameter(Constants.ReleaseStatus, value);
             return this;
         }
+
+        public SearchVideosCreative WithIncludeFacets(bool value = true)
+        {
+            AddQueryParameter(Constants.IncludeFacetsKey, value);
+            return this;
+        }
+
+        public SearchVideosCreative WithFacetFields(IEnumerable<string> values)
+        {
+            AddFacetResponseFields(values);
+            return this;
+        }
+        public SearchVideosCreative WithFacetMaxCount(int value)
+        {
+            AddQueryParameter(Constants.FacetMaxCountKey, value);
+            return this;
+        }
     }
 }

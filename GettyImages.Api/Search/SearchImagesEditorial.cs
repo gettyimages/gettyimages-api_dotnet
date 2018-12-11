@@ -201,5 +201,22 @@ namespace GettyImages.Api.Search
             AddQueryParameter(Constants.StartDateKey, value);
             return this;
         }
+
+        public SearchImagesEditorial WithIncludeFacets(bool value = true)
+        {
+            AddQueryParameter(Constants.IncludeFacetsKey, value);
+            return this;
+        }
+
+        public SearchImagesEditorial WithFacetFields(IEnumerable<string> values)
+        {
+            AddFacetResponseFields(values);
+            return this;
+        }
+        public SearchImagesEditorial WithFacetMaxCount(int value)
+        {
+            AddQueryParameter(Constants.FacetMaxCountKey, value);
+            return this;
+        }
     }
 }
