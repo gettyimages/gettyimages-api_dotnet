@@ -357,7 +357,7 @@ namespace UnitTests.Search
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/creative");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("include_facets=True");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("facet_fields=artists%2Clocations");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("facet_max_count=200");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("maxcount=200");
         }
     }
 }

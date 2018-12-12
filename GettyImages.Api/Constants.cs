@@ -28,7 +28,7 @@ namespace GettyImages.Api
         public const string Excludenudity = "exclude_nudity";
         public const string ExcludeEditorialUseOnly = "exclude_editorial_use_only";
         public const string FacetFieldsKey = "facet_fields";
-        public const string FacetMaxCountKey = "facet_max_count";
+        public const string FacetMaxCountKey = "maxcount";
         public const string FieldsKey = "fields";
         public const string FileTypeKey = "file_type";
         public const string FileTypesKey = "file_types";
