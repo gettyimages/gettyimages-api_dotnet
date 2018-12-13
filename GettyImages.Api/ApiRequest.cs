@@ -468,5 +468,19 @@ namespace GettyImages.Api
                 QueryParameters[Constants.SpecificPeopleKey] = assets.ToList();
             }
         }
+
+        protected void AddFacetResponseFields(IEnumerable<string> values)
+        {
+            if (!QueryParameters.ContainsKey(Constants.FacetFieldsKey))
+            {
+                QueryParameters.Add(Constants.FacetFieldsKey, values);
+            }
+            else
+            {
+                var assets = QueryParameters[Constants.FacetFieldsKey] as IEnumerable<string>;
+                assets = assets.Union(values).Distinct();
+                QueryParameters[Constants.FacetFieldsKey] = assets.ToList();
+            }
+        }
     }
 }

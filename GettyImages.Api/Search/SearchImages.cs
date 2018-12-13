@@ -98,6 +98,23 @@ namespace GettyImages.Api.Search
             return this;
         }
 
+        public SearchImages WithIncludeFacets(bool value = true)
+        {
+            AddQueryParameter(Constants.IncludeFacetsKey, value);
+            return this;
+        }
+
+        public SearchImages WithFacetFields(IEnumerable<string> values)
+        {
+            AddFacetResponseFields(values);
+            return this;
+        }
+        public SearchImages WithFacetMaxCount(int value)
+        {
+            AddQueryParameter(Constants.FacetMaxCountKey, value);
+            return this;
+        }
+
         public SearchImages WithResponseFields(IEnumerable<string> values)
         {
             AddResponseFields(values);

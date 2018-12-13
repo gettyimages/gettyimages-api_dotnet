@@ -27,6 +27,8 @@ namespace GettyImages.Api
         public const string EventIdsKey = "event_ids";
         public const string Excludenudity = "exclude_nudity";
         public const string ExcludeEditorialUseOnly = "exclude_editorial_use_only";
+        public const string FacetFieldsKey = "facet_fields";
+        public const string FacetMaxCountKey = "maxcount";
         public const string FieldsKey = "fields";
         public const string FileTypeKey = "file_type";
         public const string FileTypesKey = "file_types";
@@ -37,6 +39,7 @@ namespace GettyImages.Api
         public const string HeightKey = "height";
         public const string ImageFingerprintKey = "image_fingerprint";
         public const string ImageUrlKey = "image_url";
+        public const string IncludeFacetsKey = "include_facets";
         public const string KeywordIdsKey = "keyword_ids";
         public const string LicenseModelsKey = "license_models";
         public const string MinimumQualityKey = "minimum_quality_rank";
