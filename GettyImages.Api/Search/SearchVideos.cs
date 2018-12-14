@@ -136,22 +136,5 @@ namespace GettyImages.Api.Search
             AddQueryParameter(Constants.ReleaseStatus, value);
             return this;
         }
-
-        public SearchVideos WithIncludeFacets(bool value = true)
-        {
-            AddQueryParameter(Constants.IncludeFacetsKey, value);
-            return this;
-        }
-
-        public SearchVideos WithFacetFields(IEnumerable<string> values)
-        {
-            AddFacetResponseFields(values);
-            return this;
-        }
-        public SearchVideos WithFacetMaxCount(int value)
-        {
-            AddQueryParameter(Constants.FacetMaxCountKey, value);
-            return this;
-        }
     }
 }
