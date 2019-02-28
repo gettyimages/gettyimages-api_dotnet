@@ -2,7 +2,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using GettyImages.Api.Download;
-using GettyImages.Api.Orders;
 using GettyImages.Api.Search;
 
 namespace GettyImages.Api
@@ -584,6 +583,17 @@ namespace GettyImages.Api
         public AssetLicensing.AcquireExtendedLicense AcquireExtendedLicense()
         {
             return AssetLicensing.AcquireExtendedLicense.GetInstance(_credentials, _baseUrl,  _customHandler);
+        }
+
+        /// <summary>
+        ///     Returns information about the current user
+        /// </summary>
+        /// <returns>
+        ///     The <see cref="Api.Customers.Customers" />.
+        /// </returns>
+        public Customers.Customers Customers()
+        {
+            return Api.Customers.Customers.GetInstance(_credentials, _baseUrl, _customHandler);
         }
     }
 }
