@@ -238,5 +238,45 @@ namespace UnitTests.Search
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("release_status=fully_released");
         }
+
+        [Fact]
+        public void SearchForEditorialVideosWithMinimumDuration()
+        {
+            var testHandler = TestUtil.CreateTestHandler();
+
+            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosEditorial()
+               .WithPhrase("cat").WithMinimumDuration(20).ExecuteAsync().Result;
+
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("minimum_duration=20");
+        }
+
+        [Fact]
+        public void SearchForEditorialVideosWithMaximumDuration()
+        {
+            var testHandler = TestUtil.CreateTestHandler();
+
+            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosEditorial()
+               .WithPhrase("cat").WithMaximumDuration(200).ExecuteAsync().Result;
+
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("maximum_duration=200");
+        }
+
+        [Fact]
+        public void SearchForEditorialVideosWithMinimumAndMaximumDuration()
+        {
+            var testHandler = TestUtil.CreateTestHandler();
+
+            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosEditorial()
+               .WithPhrase("cat").WithMinimumDuration(20).WithMaximumDuration(200).ExecuteAsync().Result;
+
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("minimum_duration=20");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("maximum_duration=200");
+        }
     }
 }
