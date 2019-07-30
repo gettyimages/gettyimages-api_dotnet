@@ -413,20 +413,20 @@ namespace GettyImages.Api
             }
         }
 
-        protected void AddMinimumDuration(int value)
+        protected void AddMinimumVideoClipLength(int value)
         {
-            if (QueryParameters.ContainsKey(Constants.MinimumVideoDurationKey))
-                QueryParameters[Constants.MinimumVideoDurationKey] = value;
+            if (QueryParameters.ContainsKey(Constants.MinimumVideoClipLengthKey))
+                QueryParameters[Constants.MinimumVideoClipLengthKey] = value;
             else
-                QueryParameters.Add(Constants.MinimumVideoDurationKey, value);
+                QueryParameters.Add(Constants.MinimumVideoClipLengthKey, value);
         }
 
-        protected void AddMaximumDuration(int value)
+        protected void AddMaximumVideoClipLength(int value)
         {
-            if (QueryParameters.ContainsKey(Constants.MaximumVideoDurationKey))
-                QueryParameters[Constants.MaximumVideoDurationKey] = value;
+            if (QueryParameters.ContainsKey(Constants.MaximumVideoClipLengthKey))
+                QueryParameters[Constants.MaximumVideoClipLengthKey] = value;
             else
-                QueryParameters.Add(Constants.MaximumVideoDurationKey, value);
+                QueryParameters.Add(Constants.MaximumVideoClipLengthKey, value);
         }
 
         protected void AddNumberOfPeople(NumberOfPeople value)

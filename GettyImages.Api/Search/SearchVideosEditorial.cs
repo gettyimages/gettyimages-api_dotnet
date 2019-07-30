@@ -94,15 +94,15 @@ namespace GettyImages.Api.Search
             return this;
         }
 
-        public SearchVideosEditorial WithMinimumDuration(int value)
+        public SearchVideosEditorial WithMinimumVideoClipLength(int value)
         {
-            AddMinimumDuration(value);
+            AddMinimumVideoClipLength(value);
             return this;
         }
 
-        public SearchVideosEditorial WithMaximumDuration(int value)
+        public SearchVideosEditorial WithMaximumVideoClipLength(int value)
         {
-            AddMaximumDuration(value);
+            AddMaximumVideoClipLength(value);
             return this;
         }
 

@@ -208,43 +208,43 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForCreativeVideosWithMinimumDuration()
+        public void SearchForCreativeVideosWithMinimumClipLength()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
             var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-               .WithPhrase("cat").WithMinimumDuration(20).ExecuteAsync().Result;
+               .WithPhrase("cat").WithMinimumVideoClipLength(20).ExecuteAsync().Result;
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("minimum_duration=20");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("min_clip_length=20");
         }
 
         [Fact]
-        public void SearchForCreativeVideosWithMaximumDuration()
+        public void SearchForCreativeVideosWithMaximumClipLength()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
             var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-               .WithPhrase("cat").WithMaximumDuration(200).ExecuteAsync().Result;
+               .WithPhrase("cat").WithMaximumVideoClipLength(200).ExecuteAsync().Result;
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("maximum_duration=200");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("max_clip_length=200");
         }
 
         [Fact]
-        public void SearchForCreativeVideosWithMinimumAndMaximumDuration()
+        public void SearchForCreativeVideosWithMinimumAndMaximumClipLength()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
             var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-               .WithPhrase("cat").WithMinimumDuration(20).WithMaximumDuration(200).ExecuteAsync().Result;
+               .WithPhrase("cat").WithMinimumVideoClipLength(20).WithMaximumVideoClipLength(200).ExecuteAsync().Result;
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("minimum_duration=20");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("maximum_duration=200");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("min_clip_length=20");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("max_clip_length=200");
         }
     }
 }
