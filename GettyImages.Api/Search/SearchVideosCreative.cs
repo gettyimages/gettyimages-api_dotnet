@@ -88,6 +88,18 @@ namespace GettyImages.Api.Search
             return this;
         }
 
+        public SearchVideosCreative WithMinimumDuration(int value)
+        {
+            AddMinimumDuration(value);
+            return this;
+        }
+
+        public SearchVideosCreative WithMaximumDuration(int value)
+        {
+            AddMaximumDuration(value);
+            return this;
+        }
+
         public SearchVideosCreative WithPage(int value)
         {
             AddQueryParameter(Constants.PageKey, value);

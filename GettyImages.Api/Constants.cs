@@ -44,6 +44,8 @@ namespace GettyImages.Api
         public const string LicenseModelsKey = "license_models";
         public const string MinimumQualityKey = "minimum_quality_rank";
         public const string MinimumSizeKey = "minimum_size";
+        public const string MinimumVideoDurationKey = "minimum_duration";
+        public const string MaximumVideoDurationKey = "maximum_duration";
         public const string NumberOfPeopleKey = "number_of_people";
         public const string OrientationsKey = "orientations";
         public const string PageKey = "page";

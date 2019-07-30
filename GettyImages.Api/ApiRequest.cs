@@ -413,6 +413,22 @@ namespace GettyImages.Api
             }
         }
 
+        protected void AddMinimumDuration(int value)
+        {
+            if (QueryParameters.ContainsKey(Constants.MinimumVideoDurationKey))
+                QueryParameters[Constants.MinimumVideoDurationKey] = value;
+            else
+                QueryParameters.Add(Constants.MinimumVideoDurationKey, value);
+        }
+
+        protected void AddMaximumDuration(int value)
+        {
+            if (QueryParameters.ContainsKey(Constants.MaximumVideoDurationKey))
+                QueryParameters[Constants.MaximumVideoDurationKey] = value;
+            else
+                QueryParameters.Add(Constants.MaximumVideoDurationKey, value);
+        }
+
         protected void AddNumberOfPeople(NumberOfPeople value)
         {
             if (QueryParameters.ContainsKey(Constants.NumberOfPeopleKey))
