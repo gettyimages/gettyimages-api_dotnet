@@ -259,6 +259,14 @@ namespace GettyImages.Api
             }
         }
 
+        protected void AddDownloadProduct(ProductType value)
+        {
+            if (QueryParameters.ContainsKey(Constants.DownloadProductKey))
+                QueryParameters[Constants.DownloadProductKey] = value;
+            else
+                QueryParameters.Add(Constants.DownloadProductKey, value);
+        }
+
         protected void AddEditorialSegment(EditorialSegment value)
         {
             if (QueryParameters.ContainsKey(Constants.EditorialSegmentKey))

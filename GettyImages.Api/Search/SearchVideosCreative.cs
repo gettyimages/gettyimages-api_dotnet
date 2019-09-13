@@ -52,6 +52,12 @@ namespace GettyImages.Api.Search
             return this;
         }
 
+        public SearchVideosCreative WithDownloadProduct(ProductType value)
+        {
+            AddDownloadProduct(value);
+            return this;
+        }
+
         public SearchVideosCreative WithExcludeNudity(bool value = true)
         {
             AddQueryParameter(Constants.Excludenudity, value);

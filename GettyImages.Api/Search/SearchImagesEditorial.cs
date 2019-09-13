@@ -64,6 +64,12 @@ namespace GettyImages.Api.Search
             return this;
         }
 
+        public SearchImagesEditorial WithDownloadProduct(ProductType value)
+        {
+            AddDownloadProduct(value);
+            return this;
+        }
+
         public SearchImagesEditorial WithEditorialSegment(EditorialSegment value)
         {
             AddEditorialSegment(value);
