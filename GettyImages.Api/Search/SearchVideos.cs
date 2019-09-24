@@ -53,6 +53,12 @@ namespace GettyImages.Api.Search
             return this;
         }
 
+        public SearchVideos WithDownloadProduct(ProductType value)
+        {
+            AddDownloadProduct(value);
+            return this;
+        }
+
         public SearchVideos WithEditorialVideoType(EditorialVideo value)
         {
             AddEditorialVideoType(value);

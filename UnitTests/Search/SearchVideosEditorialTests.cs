@@ -61,6 +61,19 @@ namespace UnitTests.Search
         }
 
         [Fact]
+        public void SearchForEditorialVideosWithDownloadProduct()
+        {
+            var testHandler = TestUtil.CreateTestHandler();
+
+            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosEditorial()
+               .WithPhrase("cat").WithDownloadProduct(ProductType.Easyaccess).ExecuteAsync().Result;
+
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/editorial");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("download_product=easyaccess");
+        }
+
+        [Fact]
         public void SearchForEditorialVideosWithEditorialVideoType()
         {
             var testHandler = TestUtil.CreateTestHandler();

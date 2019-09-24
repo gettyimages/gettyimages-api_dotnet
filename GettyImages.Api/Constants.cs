@@ -18,6 +18,7 @@ namespace GettyImages.Api
         public const string CompositionKey = "compositions";
         public const string DateToKey = "date_to";
         public const string DateFromKey = "date_from";
+        public const string DownloadProductKey = "download_product";
         public const string EditorialSegmentKey = "editorial_segments";
         public const string EditorialVideoKey = "editorial_video_types";
         public const string EmbedContentOnlyKey = "embed_content_only";
