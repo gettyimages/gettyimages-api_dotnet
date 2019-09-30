@@ -74,6 +74,12 @@ namespace GettyImages.Api.Search
             return this;
         }
 
+        public SearchImages WithDownloadProduct(ProductType value)
+        {
+            AddDownloadProduct(value);
+            return this;
+        }
+
         public SearchImages WithEmbedContentOnly(bool value = true)
         {
             AddQueryParameter(Constants.EmbedContentOnlyKey, value);

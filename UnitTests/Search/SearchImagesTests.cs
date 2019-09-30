@@ -102,6 +102,19 @@ namespace UnitTests.Search
         }
 
         [Fact]
+        public void SearchForBlendedImagesWithDownloadProduct()
+        {
+            var testHandler = TestUtil.CreateTestHandler();
+
+            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImages()
+               .WithPhrase("cat").WithDownloadProduct(ProductType.Easyaccess).ExecuteAsync().Result;
+
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("download_product=easyaccess");
+        }
+
+        [Fact]
         public void SearchForBlendedImagesWithEmbedContentOnly()
         {
             var testHandler = TestUtil.CreateTestHandler();
