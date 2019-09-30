@@ -68,5 +68,11 @@ namespace GettyImages.Api.Download
             AddQueryParameter(Constants.StartDateKey, value);
             return this;
         }
+
+        public Downloads WithUseTime(string value)
+        {
+            AddQueryParameter(Constants.UseTimeKey, value);
+            return this;
+        }
     }
 }

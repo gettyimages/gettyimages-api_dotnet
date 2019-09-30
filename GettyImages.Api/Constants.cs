@@ -62,5 +62,6 @@ namespace GettyImages.Api
         public const string SpecificPeopleKey = "specific_people";
         public const string StartDateKey = "start_date";
         public const string ReleaseStatus = "release_status";
+        public const string UseTimeKey = "use_time";
     }
 }
