@@ -87,5 +87,18 @@ namespace UnitTests.Downloads
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("downloads");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("start_date=2015-04-01");
         }
+
+        [Fact]
+        public void DownloadsWithStartDateAndUseTime()
+        {
+            var testHandler = TestUtil.CreateTestHandler();
+
+            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).Downloads()
+               .WithStartDate("2015-04-01").WithUseTime("true").ExecuteAsync().Result;
+
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("downloads");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("start_date=2015-04-01");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("use_time=true");
+        }
     }
 } 
