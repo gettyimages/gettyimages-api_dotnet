@@ -134,12 +134,6 @@ namespace GettyImages.Api.Search
             return this;
         }
 
-        public virtual SearchImages WithLicenseModel(LicenseModel value)
-        {
-            AddLicenseModel(value);
-            return this;
-        }
-
         public SearchImages WithMinimumSize(MinimumSize value)
         {
             AddQueryParameter(Constants.MinimumSizeKey, value);
