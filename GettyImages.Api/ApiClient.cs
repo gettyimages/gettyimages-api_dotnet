@@ -333,6 +333,17 @@ namespace GettyImages.Api
         }
 
         /// <summary>
+        ///     Get download history for single image
+        /// </summary>
+        /// <returns>
+        ///     The <see cref="Api.Images.ImageDownloadHistory" />.
+        /// </returns>
+        public Images.ImageDownloadHistory ImageDownloadHistory()
+        {
+            return Api.Images.ImageDownloadHistory.GetInstance(_credentials, _baseUrl, _customHandler);
+        }
+
+        /// <summary>
         ///     Get metadata for videos
         /// </summary>
         /// <returns>
@@ -352,6 +363,17 @@ namespace GettyImages.Api
         public Videos.VideosSimilar VideosSimilar()
         {
             return Api.Videos.VideosSimilar.GetInstance(_credentials, _baseUrl, _customHandler);
+        }
+
+        /// <summary>
+        ///     Get download history for a single video
+        /// </summary>
+        /// <returns>
+        ///     The <see cref="Api.Videos.VideoDownloadHistory" />.
+        /// </returns>
+        public Videos.VideoDownloadHistory VideoDownloadHistory()
+        {
+            return Api.Videos.VideoDownloadHistory.GetInstance(_credentials, _baseUrl, _customHandler);
         }
 
         /// <summary>
