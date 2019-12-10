@@ -237,19 +237,6 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForCreativeImagesWithLicenseModel()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
-
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesCreative()
-                .WithPhrase("cat").WithLicenseModel(LicenseModel.RightsManaged | LicenseModel.RoyaltyFree).ExecuteAsync().Result;
-
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/creative");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("license_models=rightsmanaged%2Croyaltyfree");
-        }
-
-        [Fact]
         public void SearchForCreativeImagesWithMinimumSize()
         {
             var testHandler = TestUtil.CreateTestHandler();
