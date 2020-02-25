@@ -8,10 +8,17 @@ env:
   - secure: eCV8oUcxQeRF51JhMjTQ83ikmqCVBBGSbYb3Np7sOvECGfWftVy0m4RB9Swidko45qCV5QPCWJsKXdgZqlBV6sNW7CW3q6zdeSVpSl9RS4a+CC3qpd68xHQqQ8bGppxy67RTkdRL4AkyE24rGdie4VVZCAaIZp4L98BntZYK5Iy9SebVF9QxbL2KKKjKrSpy/SsqjuR2EQlL7T60oCtpbU5dbA1kPijPEFD7BF6zpsQMHCKjZU64AZqJmYFtWc7Y0Bi3kex/XuiO/PYfMDioIgoUnsLMqgx2/koexOkRj4jUoG/rzamRfMSqFLZO8LJkjVjfu9T1gw/nmmRbEjiTsAUh84ixv/o9hft+ngu+qKi6/Jud9DMuEDDeb+ErCWykXuXxfhOyBAuIefCgTuMKZlbNUkgErmJ8psD1kWCYLvLkzlyQ0Pf7R+wuhcbkJcOh2AdXnia+u5vQ1o4n7eKiNmjL7Roqzq/33fWf3ZZu9RK0ZWRbqbM9hNuRu/6y3HlZoGKvp1gZVLC5pJ56uaxdmllzF95+KFnEhOqnu47yF6wgmPMLUPIIsKdwaV71AOwpXT/yTd3DpMTpCJ10yxGtjB6lwOjgCcxKl3JesLKaT61CKLvr8XlJR64VZVfkVEfZdHAjxyyHEUnottKjQlmSSdSfpLBm8JOA+W1AnfIP10M=
   - secure: pgQ5TUQQXzHGCEweNP14I4z6/XI7n3muOQLHsecKF9NQHAUv88eyUDGuyVSretr0rbyBzuxr1lDxTu902fkBrrBqcTXwloSqBfJfnhEbhU02eRXohg1D1LVbnbn4P+Mj73Iv31DCXeM/soHMNgwcczCSIDoZHMAcT8q8Yk/uMLf4QzDBjJCytEb3KuWEUJ30VxPhryBv3wUi+PHa7pZIbAUtkXA9YEBsZbzbIify+/j110cbPyqstYExuYCVdAPAWSyXLmUgonLQKxg6NTwCDySMTMj4oOckHy99YbaBKt3douNevHeNvJ88ZSZ9aQjp0yu/2Pp6DCmCbbIkjFoOH2af2jYaBlTi4faXC3YVmzVXW3xI+cjCPKvXRcf9Eg4F66lURtCwXAJkqRqLC7+ZxPs1q0kb//NAvVPS7caS7k1smzOLLbO/kWFmCaZqprO5v3zccoobv/HNg43LYvj9r0912rsgyEMRV7k76waQD4RAsZlvRyNHthepktptT1TKFW+AVusV4qZVAulBU6b+OHrWGZ489gTTz7YAAirjjEU/qFmNYwfv8i1WWDDzUlUPRlUndf/ylDvFEfCE+P+uOcuGPexYaRjDfi8BQ4HIb2nSwXAaxF2sbPzZuL4xNB9nAVyJhq3GhckHUkHflnvQme5bYBfSKDCDwk9IJCACB/k=
 mono: none
-dotnet: # Test against LTS versions. Version numbers are for SDK
+# Test against multiple SDKs
+# We want to make sure we're working with all LTS versions.
+# In the unit test project we use the TargetFrameworks (note the S) moniker to target multiple frameworks
+# In Travis we need to have all the target frameworks installed, and explicitly include each framework in the test runs.
+# dotnet: * include one of the frameworks
+# before_install: * explicitly install other targeted SDKs side by side
+# script: * explicitly identify the framework when invoking the tests
+dotnet: # Include one of the frameworks
   - 2.1.804 # EOL for 2.1: 2021.08.21
-  #- 3.1.102 # EOL for 3.1: 2022.12.03
 before_install:
+  # explicitly install other targeted SDKs side by side
   - sudo apt-get install dotnet-sdk-3.1
 script:
 # If this is not a pull request and the commit is tagged, set the package version to the git tag
@@ -21,6 +28,7 @@ script:
 - sed -i -e "s/>0.0.0</>$PACKAGE_VERSION</" ./GettyImages.Api/GettyImages.Api.csproj
 - cat ./GettyImages.Api/GettyImages.Api.csproj
 - dotnet build -c Release
+#  explicitly identify the framework when invoking the tests
 - dotnet test UnitTests/UnitTests.csproj -f netcoreapp2.1
 - dotnet test UnitTests/UnitTests.csproj -f netcoreapp3.1
 notifications:
