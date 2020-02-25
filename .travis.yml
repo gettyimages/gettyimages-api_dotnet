@@ -10,7 +10,9 @@ env:
 mono: none
 dotnet: # Test against LTS versions. Version numbers are for SDK
   - 2.1.804 # EOL for 2.1: 2021.08.21
-  - 3.1.102 # EOL for 3.1: 2022.12.03
+  #- 3.1.102 # EOL for 3.1: 2022.12.03
+before_install:
+  - sudo apt-get install dotnet-sdk-3.1
 script:
 # If this is not a pull request and the commit is tagged, set the package version to the git tag
 - if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ -n "$TRAVIS_TAG" ]; then PACKAGE_VERSION=$TRAVIS_TAG; fi
