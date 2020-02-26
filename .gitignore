@@ -43,3 +43,4 @@ _ReSharper*
 *.feature.cs
 *~
 .vs/
+.vscode/

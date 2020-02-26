@@ -31,7 +31,7 @@ namespace UnitTests.HeaderAndBody
             {
                 await headerHandler.SendAsync(request, new CancellationToken());
             }
-            catch (System.InvalidOperationException e)
+            catch (System.InvalidOperationException)
             {
                 //No inner handler being assigned to HeadersHandler for test so catch needed for expected exception.
             }

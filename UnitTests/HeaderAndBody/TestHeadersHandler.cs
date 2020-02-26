@@ -13,7 +13,7 @@ namespace UnitTests.HeaderAndBody
         {
         }
    
-        public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        public new async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             return await base.SendAsync(request, cancellationToken);
         }

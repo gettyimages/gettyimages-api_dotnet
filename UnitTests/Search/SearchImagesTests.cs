@@ -397,8 +397,6 @@ namespace UnitTests.Search
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var x = SortOrder.Newest;
-
             var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImages()
                 .WithPhrase("cat").WithSortOrder(SortOrder.Newest).ExecuteAsync().Result;
 
