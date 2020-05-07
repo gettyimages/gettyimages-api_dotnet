@@ -39,7 +39,7 @@ foreach (var image in searchResult.images)
 }
 ````
 
-The SDK can also be used synchonously, such as when running in a console application:
+The SDK can also be used synchronously, such as when running in a console application:
 
 ```csharp
 var client = ApiClient.GetApiClientWithClientCredentials("my_api_key", "my_api_secret");
