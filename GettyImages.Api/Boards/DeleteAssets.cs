@@ -6,7 +6,6 @@ namespace GettyImages.Api.Boards
 {
     public class DeleteAssets : ApiRequest
     {
-
         protected const string V3DeleteAssetsPath = "/boards/{0}/assets";
         protected string BoardId { get; set; }
 

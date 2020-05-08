@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using FluentAssertions;
 using GettyImages.Api;
 using GettyImages.Api.Entity;
@@ -9,23 +10,28 @@ namespace UnitTests.Search
     public class SearchEventTests
     {
         [Fact]
-        public void SearchForEventsWithPhrase()
+        public async Task SearchForEventsWithPhrase()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchEvents()
-                .WithPhrase("cat").ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+                .SearchEvents()
+                .WithPhrase("cat")
+                .ExecuteAsync();
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
         }
 
         [Fact]
-        public void SearchForEventsWithDateFrom()
+        public async Task SearchForEventsWithDateFrom()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchEvents()
-                .WithPhrase("cat").WithDateFrom("2015-04-01").ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+                .SearchEvents()
+                .WithPhrase("cat")
+                .WithDateFrom("2015-04-01")
+                .ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -33,12 +39,15 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForEventsWithDateTo()
+        public async Task SearchForEventsWithDateTo()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchEvents()
-                .WithPhrase("cat").WithDateTo("2015-04-01").ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+                .SearchEvents()
+                .WithPhrase("cat")
+                .WithDateTo("2015-04-01")
+                .ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -46,12 +55,15 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForEventsWithEditorialSegment()
+        public async Task SearchForEventsWithEditorialSegment()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchEvents()
-                .WithPhrase("cat").WithEditorialSegment(EditorialSegment.Archival).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+                .SearchEvents()
+                .WithPhrase("cat")
+                .WithEditorialSegment(EditorialSegment.Archival)
+                .ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -59,14 +71,14 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForEventsWithReponseFields()
+        public async Task SearchForEventsWithResponseFields()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
             var fields = new List<string>() { "id", "keywords" };
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchEvents()
-                .WithPhrase("cat").WithResponseFields(fields).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchEvents()
+                .WithPhrase("cat").WithResponseFields(fields).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -74,12 +86,12 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForEventsWithPage()
+        public async Task SearchForEventsWithPage()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchEvents()
-                .WithPhrase("cat").WithPage(2).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchEvents()
+                .WithPhrase("cat").WithPage(2).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -87,12 +99,12 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForEventsWithPageSize()
+        public async Task SearchForEventsWithPageSize()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchEvents()
-                .WithPhrase("cat").WithPageSize(50).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchEvents()
+                .WithPhrase("cat").WithPageSize(50).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");

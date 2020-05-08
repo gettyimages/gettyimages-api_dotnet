@@ -5,7 +5,6 @@ namespace GettyImages.Api.Entity
     [Flags]
     public enum EditorialSegment
     {
-        
         None = 0,
         Archival = 1,
         Entertainment = 2,

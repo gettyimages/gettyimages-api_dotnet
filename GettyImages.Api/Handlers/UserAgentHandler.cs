@@ -63,6 +63,5 @@ namespace GettyImages.Api.Handlers
             }
             return base.SendAsync(request, cancellationToken);
         }
-
     }
 }

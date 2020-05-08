@@ -1,4 +1,5 @@
-﻿using GettyImages.Api;
+﻿using System.Threading.Tasks;
+using GettyImages.Api;
 using GettyImages.Api.Boards;
 using Xunit;
 
@@ -25,7 +26,7 @@ namespace UnitTests.HeaderAndBody
         }
 
         [Fact]
-        public void BodyBuilderTest()
+        public async Task BodyBuilderTest()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
@@ -35,8 +36,8 @@ namespace UnitTests.HeaderAndBody
              }
              ]";
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .PutAssets().WithBoardId("15345").WithBoardAssets(assets).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+                .PutAssets().WithBoardId("15345").WithBoardAssets(assets).ExecuteAsync();
 
             Assert.Equal("application/json", testHandler.Request.Content.Headers.ContentType.ToString());
         }

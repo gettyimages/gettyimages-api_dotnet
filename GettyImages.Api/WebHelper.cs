@@ -218,12 +218,6 @@ namespace GettyImages.Api
             return mainHandler;
         }
 
-        internal async Task<dynamic> PostForm(IEnumerable<KeyValuePair<string, string>> formParameters, string path)
-        {
-            var handlers = await GetHandlers();
-            return PostForm(formParameters, path, handlers);
-        }
-
         private static async Task<dynamic> HandleResponse(HttpResponseMessage httpResponse)
         {
             if (httpResponse.IsSuccessStatusCode)
@@ -232,7 +226,7 @@ namespace GettyImages.Api
             }
             else
             {
-                SdkException.GenerateSdkException(httpResponse);
+                await SdkException.GenerateSdkException(httpResponse);
                 return null;
             }
         }

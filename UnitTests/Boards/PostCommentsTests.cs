@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Threading.Tasks;
+using FluentAssertions;
 using GettyImages.Api;
 using Xunit;
 
@@ -7,7 +8,7 @@ namespace UnitTests.Boards
     public class PostCommentsTests
     {
         [Fact]
-        public void PostCommentsBasic()
+        public async Task PostCommentsBasic()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
@@ -15,8 +16,8 @@ namespace UnitTests.Boards
                 'text': 'string'
              }";
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .PostComments().WithBoardId("15345").WithComment(comment).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+                .PostComments().WithBoardId("15345").WithComment(comment).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards/15345/comments");
         }

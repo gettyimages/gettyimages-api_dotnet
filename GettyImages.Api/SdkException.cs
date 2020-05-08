@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
 namespace GettyImages.Api
@@ -26,11 +27,11 @@ namespace GettyImages.Api
 
         public HttpStatusCode? StatusCode { get; set; }
 
-        internal static void GenerateSdkException(HttpResponseMessage httpResponse, string message = null)
+        internal static async Task GenerateSdkException(HttpResponseMessage httpResponse, string message = null)
         {
             if (string.IsNullOrEmpty(message))
             {
-                var resultContentAsString = httpResponse.Content.ReadAsStringAsync().Result;
+                var resultContentAsString = await httpResponse.Content.ReadAsStringAsync();
 
                 if (httpResponse.Content.Headers != null && httpResponse.Content.Headers.ContentType != null && httpResponse.Content.Headers.ContentType.MediaType == "application/json")
                 {   

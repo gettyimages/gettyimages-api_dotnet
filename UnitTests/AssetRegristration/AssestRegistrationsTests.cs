@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
 using GettyImages.Api;
 using Xunit;
@@ -8,7 +8,7 @@ namespace UnitTests.AssetRegristration
     public class AssestRegistrationsTests
     {
         [Fact]
-        public void AssetRegistrationsBasic()
+        public async Task AssetRegistrationsBasic()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
@@ -18,9 +18,8 @@ namespace UnitTests.AssetRegristration
                 ]
             }";
 
-            List<string> ids = new List<string>();
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .AssetRegistrations().WithRequest(request).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+                .AssetRegistrations().WithRequest(request).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("asset-registrations");
         }

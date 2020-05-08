@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using FluentAssertions;
 using GettyImages.Api;
 using GettyImages.Api.Entity;
@@ -9,23 +10,23 @@ namespace UnitTests.Search
     public class SearchVideosCreativeTests
     {
         [Fact]
-        public void SearchForCreativeVideosWithPhrase()
+        public async Task SearchForCreativeVideosWithPhrase()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-                .WithPhrase("cat").ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+                .WithPhrase("cat").ExecuteAsync();
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
         }
 
         [Fact]
-        public void SearchForCreativeVideosWithAgeOfPeople()
+        public async Task SearchForCreativeVideosWithAgeOfPeople()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-                .WithPhrase("cat").WithAgeOfPeople(AgeOfPeople.Months6To11 | AgeOfPeople.Adult).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+                .WithPhrase("cat").WithAgeOfPeople(AgeOfPeople.Months6To11 | AgeOfPeople.Adult).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -33,14 +34,14 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForCreativeVideosWithCollectionCodes()
+        public async Task SearchForCreativeVideosWithCollectionCodes()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
             var codes = new List<string>() { "WRI", "ARF" };
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-                .WithPhrase("cat").WithCollectionCodes(codes).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+                .WithPhrase("cat").WithCollectionCodes(codes).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -48,12 +49,12 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForCreativeVideosWithCollectionFilterType()
+        public async Task SearchForCreativeVideosWithCollectionFilterType()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-                .WithPhrase("cat").WithCollectionFilterType(CollectionFilter.Exclude).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+                .WithPhrase("cat").WithCollectionFilterType(CollectionFilter.Exclude).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -61,12 +62,12 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForCreativeVideosWithDownloadProduct()
+        public async Task SearchForCreativeVideosWithDownloadProduct()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-               .WithPhrase("cat").WithDownloadProduct(ProductType.Easyaccess).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+               .WithPhrase("cat").WithDownloadProduct(ProductType.Easyaccess).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/creative");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -74,12 +75,12 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForCreativeVideosWithExcludeNudity()
+        public async Task SearchForCreativeVideosWithExcludeNudity()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-                .WithPhrase("cat").WithExcludeNudity().ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+                .WithPhrase("cat").WithExcludeNudity().ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -87,14 +88,14 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForCreativeVideosWithResponseFields()
+        public async Task SearchForCreativeVideosWithResponseFields()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
             var fields = new List<string>() { "asset_family", "id" };
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-                .WithPhrase("cat").WithResponseFields(fields).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+                .WithPhrase("cat").WithResponseFields(fields).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -102,12 +103,12 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForCreativeVideosWithFormatFilter()
+        public async Task SearchForCreativeVideosWithFormatFilter()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-                .WithPhrase("cat").WithAvailableFormat("HD").ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+                .WithPhrase("cat").WithAvailableFormat("HD").ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -115,12 +116,12 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForCreativeVideosWithFrameRates()
+        public async Task SearchForCreativeVideosWithFrameRates()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-                .WithPhrase("cat").WithFrameRate(FrameRate.FrameRate24 | FrameRate.FrameRate29).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+                .WithPhrase("cat").WithFrameRate(FrameRate.FrameRate24 | FrameRate.FrameRate29).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -128,14 +129,14 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForCreativeVideosWithKeywordId()
+        public async Task SearchForCreativeVideosWithKeywordId()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
             var ids = new List<int>() { 64284, 67255 };
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-                .WithPhrase("cat").WithKeywordIds(ids).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+                .WithPhrase("cat").WithKeywordIds(ids).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -143,12 +144,12 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForCreativeVideosWithLicenseModel()
+        public async Task SearchForCreativeVideosWithLicenseModel()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-                .WithPhrase("cat").WithLicenseModel(LicenseModel.RightsReady | LicenseModel.RoyaltyFree).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+                .WithPhrase("cat").WithLicenseModel(LicenseModel.RightsReady | LicenseModel.RoyaltyFree).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -156,12 +157,12 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForCreativeVideosWithPage()
+        public async Task SearchForCreativeVideosWithPage()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-                .WithPhrase("cat").WithPage(2).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+                .WithPhrase("cat").WithPage(2).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -169,12 +170,12 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForCreativeVideosWithPageSize()
+        public async Task SearchForCreativeVideosWithPageSize()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-                .WithPhrase("cat").WithPageSize(50).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+                .WithPhrase("cat").WithPageSize(50).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -182,12 +183,12 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForCreativeVideosWithProductType()
+        public async Task SearchForCreativeVideosWithProductType()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-                .WithPhrase("cat").WithProductType(ProductType.Easyaccess | ProductType.Editorialsubscription).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+                .WithPhrase("cat").WithProductType(ProductType.Easyaccess | ProductType.Editorialsubscription).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -195,12 +196,12 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForCreativeVideosWithSortOrder()
+        public async Task SearchForCreativeVideosWithSortOrder()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-                .WithPhrase("cat").WithSortOrder(SortOrder.BestMatch).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+                .WithPhrase("cat").WithSortOrder(SortOrder.BestMatch).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -208,12 +209,12 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForCreativeVideosWithReleaseStatus()
+        public async Task SearchForCreativeVideosWithReleaseStatus()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-                .WithPhrase("cat").WithReleaseStatus(ReleaseStatus.ReleaseNotImportant).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+                .WithPhrase("cat").WithReleaseStatus(ReleaseStatus.ReleaseNotImportant).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -221,12 +222,12 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForCreativeVideosWithMinimumClipLength()
+        public async Task SearchForCreativeVideosWithMinimumClipLength()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-               .WithPhrase("cat").WithMinimumVideoClipLength(20).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+               .WithPhrase("cat").WithMinimumVideoClipLength(20).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -234,12 +235,12 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForCreativeVideosWithMaximumClipLength()
+        public async Task SearchForCreativeVideosWithMaximumClipLength()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-               .WithPhrase("cat").WithMaximumVideoClipLength(200).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+               .WithPhrase("cat").WithMaximumVideoClipLength(200).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -247,12 +248,12 @@ namespace UnitTests.Search
         }
 
         [Fact]
-        public void SearchForCreativeVideosWithMinimumAndMaximumClipLength()
+        public async Task SearchForCreativeVideosWithMinimumAndMaximumClipLength()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-               .WithPhrase("cat").WithMinimumVideoClipLength(20).WithMaximumVideoClipLength(200).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+               .WithPhrase("cat").WithMinimumVideoClipLength(20).WithMaximumVideoClipLength(200).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");

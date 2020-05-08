@@ -21,14 +21,11 @@ namespace GettyImages.Api
         protected internal IDictionary<string, object> HeaderParameters;
         protected internal string BodyParameter;
 
-        protected string AssetFamily;
-
-        public ApiRequest(DelegatingHandler customHandler)
+        protected ApiRequest(DelegatingHandler customHandler)
         {
             _customHandler = customHandler;
             QueryParameters = new Dictionary<string, object>();
             HeaderParameters = new Dictionary<string, object>();
-
         }
 
         public virtual Task<dynamic> ExecuteAsync()

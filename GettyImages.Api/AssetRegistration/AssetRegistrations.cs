@@ -26,7 +26,6 @@ namespace GettyImages.Api.AssetRegistration
             return await base.ExecuteAsync();
         }
 
-
         public AssetRegistrations WithRequest(string value)
         {
             BodyParameter = value;

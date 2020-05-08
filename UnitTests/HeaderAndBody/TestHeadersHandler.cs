@@ -8,7 +8,6 @@ namespace UnitTests.HeaderAndBody
 {
     internal class TestHeadersHandler : HeadersHandler
     {
-
         public  TestHeadersHandler(IEnumerable<KeyValuePair<string, string>> headerParameters) : base(headerParameters)
         {
         }
