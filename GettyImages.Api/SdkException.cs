@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -10,9 +9,7 @@ namespace GettyImages.Api
     public class SdkException : Exception
     {
         private const string ErrorMessageProperty1 = "ErrorMessage";
-        private const string ErorMessageProperty2 = "error_message";
-        private const string XMasheryErrorCodeHeaderKey = "X-Mashery-Error-Code";
-        private const string ErrDeveloperOverQpsValue = "ERR_403_DEVELOPER_OVER_QPS";
+        private const string ErrorMessageProperty2 = "error_message";
 
         internal SdkException(string message, HttpStatusCode? statusCode = null) : base(message)
         {
@@ -38,7 +35,7 @@ namespace GettyImages.Api
                     var response = JObject.Parse(resultContentAsString);
                     JToken errorMessage;
                     if (response.TryGetValue(ErrorMessageProperty1, out errorMessage) ||
-                        response.TryGetValue(ErorMessageProperty2, out errorMessage))
+                        response.TryGetValue(ErrorMessageProperty2, out errorMessage))
                     {
                         message = errorMessage.Value<string>();
                     }
@@ -50,15 +47,6 @@ namespace GettyImages.Api
             }
             switch (httpResponse.StatusCode)
             {
-                case HttpStatusCode.Forbidden:
-                    if (httpResponse.Headers.Contains(XMasheryErrorCodeHeaderKey) &&
-                        httpResponse.Headers.GetValues(XMasheryErrorCodeHeaderKey)
-                            .Any(v => v == ErrDeveloperOverQpsValue))
-                    {
-                        throw new OverQpsException(message);
-                    }
-
-                    throw new SdkException(message, httpResponse.StatusCode);
                 case HttpStatusCode.Unauthorized:
                     throw new UnauthorizedException(message);
                 default:
