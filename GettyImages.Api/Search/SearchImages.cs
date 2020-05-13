@@ -7,13 +7,10 @@ namespace GettyImages.Api.Search
 {
     public class SearchImages : ApiRequest
     {
-        private readonly DelegatingHandler _customHandler;
-        protected const string V3SearchImagesPath = "/search/images";
-
+        private const string V3SearchImagesPath = "/search/images";
 
         private SearchImages(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
         {
-            _customHandler = customHandler;
             Credentials = credentials;
             BaseUrl = baseUrl;
         }

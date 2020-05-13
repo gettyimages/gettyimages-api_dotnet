@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using FluentAssertions;
 using GettyImages.Api;
 using Xunit;
@@ -8,25 +9,25 @@ namespace UnitTests.Artists
     public class ArtistsImagesTests
     {
         [Fact]
-        public void SearchForImagesByArtistBasic()
+        public async Task SearchForImagesByArtistBasic()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).ArtistsImages().WithArtist("roman makhmutov").ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).ArtistsImages().WithArtist("roman makhmutov").ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artists/images");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artist_name=roman+makhmutov");
         }
 
         [Fact]
-        public void SearchForImagesByArtistWithFields()
+        public async Task SearchForImagesByArtistWithFields()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
             var fields = new List<string>() {"asset_family", "keywords"};
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).ArtistsImages()
-                .WithArtist("roman makhmutov").WithResponseFields(fields).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).ArtistsImages()
+                .WithArtist("roman makhmutov").WithResponseFields(fields).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artists/images");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artist_name=roman+makhmutov");
@@ -34,12 +35,12 @@ namespace UnitTests.Artists
         }
 
         [Fact]
-        public void SearchForImagesByArtistWithPage()
+        public async Task SearchForImagesByArtistWithPage()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).ArtistsImages()
-                .WithArtist("roman makhmutov").WithPage(3).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).ArtistsImages()
+                .WithArtist("roman makhmutov").WithPage(3).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artists/images");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artist_name=roman+makhmutov");
@@ -47,12 +48,12 @@ namespace UnitTests.Artists
         }
 
         [Fact]
-        public void SearchForImagesByArtistWithPageSize()
+        public async Task SearchForImagesByArtistWithPageSize()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).ArtistsImages()
-                .WithArtist("roman makhmutov").WithPageSize(50).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).ArtistsImages()
+                .WithArtist("roman makhmutov").WithPageSize(50).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artists/images");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artist_name=roman+makhmutov");

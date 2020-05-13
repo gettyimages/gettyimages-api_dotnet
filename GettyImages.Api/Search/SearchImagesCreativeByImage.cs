@@ -44,7 +44,7 @@ namespace GettyImages.Api.Search
         public SearchImagesCreativeByImage AddToBucketAndSearch(string imageFilepath)
         {
             var url = AddToBucket(imageFilepath);
-            this.WithImageUrl(url);
+            WithImageUrl(url);
             return this;
         }
 

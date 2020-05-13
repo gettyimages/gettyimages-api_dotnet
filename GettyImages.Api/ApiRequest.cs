@@ -21,14 +21,11 @@ namespace GettyImages.Api
         protected internal IDictionary<string, object> HeaderParameters;
         protected internal string BodyParameter;
 
-        protected string AssetFamily;
-
-        public ApiRequest(DelegatingHandler customHandler)
+        protected ApiRequest(DelegatingHandler customHandler)
         {
             _customHandler = customHandler;
             QueryParameters = new Dictionary<string, object>();
             HeaderParameters = new Dictionary<string, object>();
-
         }
 
         public virtual Task<dynamic> ExecuteAsync()
@@ -37,13 +34,13 @@ namespace GettyImages.Api
             switch (Method)
             {
                 case "GET":
-                    return helper.Get(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters));
+                    return helper.GetAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters));
                 case "POST":
-                    return helper.PostQuery(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters), BuildBody(BodyParameter));
+                    return helper.PostQueryAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters), BuildBody(BodyParameter));
                 case "PUT":
-                    return helper.PutQuery(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters), BuildBody(BodyParameter));
+                    return helper.PutQueryAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters), BuildBody(BodyParameter));
                 case "DELETE":
-                    return helper.DeleteQuery(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters));
+                    return helper.DeleteQueryAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters));
                 default:
                     throw new SdkException("No appropriate HTTP method found for this request.");
             }

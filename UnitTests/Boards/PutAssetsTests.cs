@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Threading.Tasks;
+using FluentAssertions;
 using GettyImages.Api;
 using Xunit;
 
@@ -7,7 +8,7 @@ namespace UnitTests.Boards
     public class PutAssetsTests
     {
         [Fact]
-        public void PutAssetsBasic()
+        public async Task PutAssetsBasic()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
@@ -16,8 +17,8 @@ namespace UnitTests.Boards
                 'asset_id': 'string'
              }
              ]";
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .PutAssets().WithBoardId("15345").WithBoardAssets(assets).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+                .PutAssets().WithBoardId("15345").WithBoardAssets(assets).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards/15345/assets");
         }

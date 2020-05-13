@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using FluentAssertions;
 using GettyImages.Api;
 using Xunit;
@@ -8,32 +9,32 @@ namespace UnitTests.Images
     public class ImagesTests
     {
         [Fact]
-        public void MultipleImagesBasic()
+        public async Task MultipleImagesBasic()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
             var ids = new List<string>() { "882449540", "629219532" };
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .Images().WithIds(ids).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+                .Images().WithIds(ids).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("images");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("ids=882449540%2C629219532");
         }
 
         [Fact]
-        public void SingleImageBasic()
+        public async Task SingleImageBasic()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .Images().WithId("882449540").ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+                .Images().WithId("882449540").ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("images/882449540");
         }
 
         [Fact]
-        public void MultileImagesWithResponseFields()
+        public async Task MultipleImagesWithResponseFields()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
@@ -41,8 +42,8 @@ namespace UnitTests.Images
 
             var fields = new List<string>() { "country", "id" };
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .Images().WithIds(ids).WithResponseFields(fields).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+                .Images().WithIds(ids).WithResponseFields(fields).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("images");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("ids=882449540%2C629219532");
@@ -50,14 +51,14 @@ namespace UnitTests.Images
         }
 
         [Fact]
-        public void SingleImageWithResponseFields()
+        public async Task SingleImageWithResponseFields()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
             var fields = new List<string>() { "country", "id" };
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .Images().WithId("882449540").WithResponseFields(fields).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+                .Images().WithId("882449540").WithResponseFields(fields).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("images/882449540");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("fields=country%2Cid");

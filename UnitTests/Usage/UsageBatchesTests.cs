@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Threading.Tasks;
 using FluentAssertions;
 using GettyImages.Api;
 using Xunit;
@@ -8,7 +9,7 @@ namespace UnitTests.Usage
     public class UsageBatchesTests
     {
         [Fact]
-        public void UsageBatchesBasic()
+        public async Task UsageBatchesBasic()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
@@ -21,8 +22,8 @@ namespace UnitTests.Usage
                 }
                 ]
             }";
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).UsageBatches()
-                .WithId("464423888").WithRequest(request).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).UsageBatches()
+                .WithId("464423888").WithRequest(request).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("usage-batches/464423888");
             testHandler.Request.Method.Should().Be(HttpMethod.Put);

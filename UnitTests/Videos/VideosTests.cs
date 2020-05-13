@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using FluentAssertions;
 using GettyImages.Api;
 using Xunit;
@@ -8,32 +9,32 @@ namespace UnitTests.Videos
     public class VideosTests
     {
         [Fact]
-        public void MultipleVideosBasic()
+        public async Task MultipleVideosBasic()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
             var ids = new List<string>() { "882449540", "629219532" };
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .Videos().WithIds(ids).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+                .Videos().WithIds(ids).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("ids=882449540%2C629219532");
         }
 
         [Fact]
-        public void SingleVideoBasic()
+        public async Task SingleVideoBasic()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .Videos().WithId("882449540").ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+                .Videos().WithId("882449540").ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("videos/882449540");
         }
 
         [Fact]
-        public void MultileVideosWithResponseFields()
+        public async Task MultipleVideosWithResponseFields()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
@@ -41,8 +42,8 @@ namespace UnitTests.Videos
 
             var fields = new List<string>() { "country", "id" };
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .Videos().WithIds(ids).WithResponseFields(fields).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+                .Videos().WithIds(ids).WithResponseFields(fields).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("videos");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("ids=882449540%2C629219532");
@@ -50,14 +51,14 @@ namespace UnitTests.Videos
         }
 
         [Fact]
-        public void SingleVideoWithResponseFields()
+        public async Task SingleVideoWithResponseFields()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
             var fields = new List<string>() { "country", "id" };
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .Videos().WithId("882449540").WithResponseFields(fields).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+                .Videos().WithId("882449540").WithResponseFields(fields).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("videos/882449540");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("fields=country%2Cid");

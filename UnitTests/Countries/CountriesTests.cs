@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Threading.Tasks;
+using FluentAssertions;
 using GettyImages.Api;
 using Xunit;
 
@@ -7,12 +8,13 @@ namespace UnitTests.Countries
     public class CollectionsTests
     {
         [Fact]
-        public void CountriesBasic()
+        public async Task CountriesBasic()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).Countries()
-                .ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+                .Countries()
+                .ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("countries");
         }

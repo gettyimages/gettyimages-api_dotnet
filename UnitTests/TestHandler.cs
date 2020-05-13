@@ -6,7 +6,6 @@ using Newtonsoft.Json;
 
 namespace UnitTests
 {
-
     public class TestHandler : DelegatingHandler
     {
         private readonly HttpResponseMessage _httpResponseMessage;

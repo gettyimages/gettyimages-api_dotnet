@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Threading.Tasks;
+using FluentAssertions;
 using GettyImages.Api;
 using Xunit;
 
@@ -7,12 +8,12 @@ namespace UnitTests.AssetChanges
     public class ChannelsTests
     {
         [Fact]
-        public void ChannelsBasic()
+        public async Task ChannelsBasic()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .Channels().ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+                .Channels().ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("asset-changes/channels");
         }

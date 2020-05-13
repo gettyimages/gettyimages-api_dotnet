@@ -100,7 +100,6 @@ namespace GettyImages.Api.Search
             return this;
         }
 
-
         public SearchImagesCreative WithResponseFields(IEnumerable<string> values)
         {
             AddResponseFields(values);

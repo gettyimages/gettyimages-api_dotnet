@@ -61,10 +61,6 @@ namespace GettyImages.Api
             return new ApiClient(apiKey, apiSecret, refreshToken, DefaultApiUri, null);
         }
 
-
-
-
-
         public static ApiClient GetApiClientWithClientCredentials(string apiKey, string apiSecret,
             string baseUrl)
         {
@@ -83,7 +79,6 @@ namespace GettyImages.Api
         {
             return new ApiClient(apiKey, apiSecret, refreshToken, baseUrl, null);
         }
-
 
         public static ApiClient GetApiClientWithClientCredentials(string apiKey, string apiSecret, DelegatingHandler customHandler)
         {

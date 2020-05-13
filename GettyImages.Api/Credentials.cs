@@ -19,7 +19,6 @@ namespace GettyImages.Api
         private readonly string _baseUrl;
         private Token _accessToken;
 
-
         internal Credentials(string apiKey, string apiSecret, string baseUrl)
         {
             _baseUrl = baseUrl;
@@ -123,16 +122,18 @@ namespace GettyImages.Api
 
         internal async Task<Token> GetAccessToken()
         {
-            if (CredentialType != CredentialType.ClientCredentials && CredentialType != CredentialType.ResourceOwner &&
-                CredentialType != CredentialType.RefreshToken
+            if ((CredentialType != CredentialType.ClientCredentials && 
+                CredentialType != CredentialType.ResourceOwner &&
+                CredentialType != CredentialType.RefreshToken)
                 ||
-                (_accessToken != null && _accessToken.Expiration >= DateTime.UtcNow.AddMinutes(-5)))
+                (_accessToken != null && 
+                 _accessToken.Expiration >= DateTime.UtcNow.AddMinutes(-5)))
             {
                 return _accessToken;
             }
 
             var helper = new WebHelper(this, _baseUrl, null);
-            var response = await helper.PostForm(GetCredentialsDictionary(), Oauth2TokenPath, null, null, false);
+            var response = await helper.PostFormAsync(GetCredentialsDictionary(), Oauth2TokenPath, null, null, false);
             _accessToken = new Token
             {
                 AccessToken = response.access_token.ToString(),

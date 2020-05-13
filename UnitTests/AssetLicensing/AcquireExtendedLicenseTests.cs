@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Threading.Tasks;
+using FluentAssertions;
 using GettyImages.Api;
 using Xunit;
 
@@ -7,7 +8,7 @@ namespace UnitTests.AssetLicensing
     public class AcquireExtendedLicenseTests
     {
         [Fact]
-        public void AcquireExtendedLicenseBasic()
+        public async Task AcquireExtendedLicenseBasic()
         {
             var testHandler = TestUtil.CreateTestHandler();
             var requestBody = @"{
@@ -16,15 +17,15 @@ namespace UnitTests.AssetLicensing
                                 }";
 
             var assetId = "123";
-            var response = ApiClient.GetApiClientWithResourceOwnerCredentials("apiKey", "apiSecret", "userName", "userPassword",  testHandler)
+            await ApiClient.GetApiClientWithResourceOwnerCredentials("apiKey", "apiSecret", "userName", "userPassword",  testHandler)
                 .AcquireExtendedLicense()
                 .WithAssetId(assetId)
                 .WithExtendedLicenses(requestBody)
-                .ExecuteAsync()
-                .Result;
+                .ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain(string.Format("/asset-licensing/{0}", assetId));
-            testHandler.Request.Content.ReadAsStringAsync().Result.Should().Contain(requestBody);
+            var content = await testHandler.Request.Content.ReadAsStringAsync();
+            content.Should().Contain(requestBody);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using FluentAssertions;
 using GettyImages.Api;
 using Xunit;
@@ -8,25 +9,25 @@ namespace UnitTests.Products
     public class CountriesTests
     {
         [Fact]
-        public void ProductsBasic()
+        public async Task ProductsBasic()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).Products()
-                .ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).Products()
+                .ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("products");
         }
 
         [Fact]
-        public void ProductsWithResponseField()
+        public async Task ProductsWithResponseField()
         {
             var testHandler = TestUtil.CreateTestHandler();
 
             var fields = new List<string>() { "download_requirements" };
 
-            var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).Products()
-                .WithResponseFields(fields).ExecuteAsync().Result;
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).Products()
+                .WithResponseFields(fields).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("products");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("fields=download_requirements");

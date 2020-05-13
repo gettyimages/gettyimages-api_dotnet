@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace GettyImages.Api.Orders
@@ -41,4 +40,3 @@ namespace GettyImages.Api.Orders
         }
     }
 }
-
