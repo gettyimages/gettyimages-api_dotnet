@@ -27,7 +27,7 @@ namespace GettyImages.Api
 
         public HttpStatusCode? StatusCode { get; set; }
 
-        internal static async Task GenerateSdkException(HttpResponseMessage httpResponse, string message = null)
+        internal static async Task GenerateSdkExceptionAsync(HttpResponseMessage httpResponse, string message = null)
         {
             if (string.IsNullOrEmpty(message))
             {

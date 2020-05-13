@@ -22,10 +22,10 @@ namespace GettyImages.Api
             _customHandler = customHandler;
         }
 
-        internal async Task<dynamic> Get(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
+        internal async Task<dynamic> GetAsync(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
             IEnumerable<KeyValuePair<string, string>> headerParameters = null)
         {
-            using (var client = new HttpClient(await GetHandlers(headerParameters)))
+            using (var client = new HttpClient(await GetHandlersAsync(headerParameters)))
             {
                 var uri = _baseAddress + path;
                 var builder = new UriBuilder(uri)
@@ -44,21 +44,21 @@ namespace GettyImages.Api
 
                 try
                 {
-                    return await HandleResponse(httpResponse);
+                    return await HandleResponseAsync(httpResponse);
                 }
                 catch (UnauthorizedException)
                 {
                     _credentials.ResetAccessToken();
-                    using (var retryClient = new HttpClient(await GetHandlers(headerParameters)))
+                    using (var retryClient = new HttpClient(await GetHandlersAsync(headerParameters)))
                     {
                         httpResponse = await retryClient.GetAsync(builder.Uri);
-                        return await HandleResponse(httpResponse);
+                        return await HandleResponseAsync(httpResponse);
                     }
                 }
             }
         }
 
-        internal async Task<dynamic> PostForm(
+        internal async Task<dynamic> PostFormAsync(
             IEnumerable<KeyValuePair<string, string>> formParameters,
             string path, DelegatingHandler handlers, IEnumerable<KeyValuePair<string, string>> headerParameters = null, bool shouldRetry = true)
         {
@@ -79,17 +79,17 @@ namespace GettyImages.Api
 
                 try
                 {
-                    return await HandleResponse(httpResponse);
+                    return await HandleResponseAsync(httpResponse);
                 }
                 catch (UnauthorizedException)
                 {
                     if (shouldRetry)
                     {
                         _credentials.ResetAccessToken();
-                        using (var retryClient = new HttpClient(await GetHandlers(headerParameters)))
+                        using (var retryClient = new HttpClient(await GetHandlersAsync(headerParameters)))
                         {
                             httpResponse = await retryClient.PostAsync(uri, new FormUrlEncodedContent(formParameters));
-                            return await HandleResponse(httpResponse);
+                            return await HandleResponseAsync(httpResponse);
                         }
                     }
                     throw;
@@ -97,10 +97,10 @@ namespace GettyImages.Api
             }
         }
 
-        internal async Task<dynamic> PostQuery(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
+        internal async Task<dynamic> PostQueryAsync(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
             IEnumerable<KeyValuePair<string, string>> headerParameters, HttpContent bodyParameter)
         {
-            using (var client = new HttpClient(await GetHandlers(headerParameters)))
+            using (var client = new HttpClient(await GetHandlersAsync(headerParameters)))
             {
                 var uri = _baseAddress + path;
                 var requestUri = new UriBuilder(uri) { Query = BuildQuery(queryParameters) }.Uri;
@@ -115,24 +115,24 @@ namespace GettyImages.Api
 
                 try
                 {
-                    return await HandleResponse(httpResponse);
+                    return await HandleResponseAsync(httpResponse);
                 }
                 catch (UnauthorizedException)
                 {
                     _credentials.ResetAccessToken();
-                    using (var retryClient = new HttpClient(await GetHandlers(headerParameters)))
+                    using (var retryClient = new HttpClient(await GetHandlersAsync(headerParameters)))
                     {
                         httpResponse = await retryClient.PostAsync(uri, new FormUrlEncodedContent(queryParameters));
-                        return await HandleResponse(httpResponse);
+                        return await HandleResponseAsync(httpResponse);
                     }
                 }
             }
         }
 
-        internal async Task<dynamic> PutQuery(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
+        internal async Task<dynamic> PutQueryAsync(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
             IEnumerable<KeyValuePair<string, string>> headerParameters, HttpContent bodyParameter)
         {
-            using (var client = new HttpClient(await GetHandlers(headerParameters)))
+            using (var client = new HttpClient(await GetHandlersAsync(headerParameters)))
             {
                 var uri = _baseAddress + path;
                 var requestUri = new UriBuilder(uri) { Query = BuildQuery(queryParameters) }.Uri;
@@ -147,24 +147,24 @@ namespace GettyImages.Api
 
                 try
                 {
-                    return await HandleResponse(httpResponse);
+                    return await HandleResponseAsync(httpResponse);
                 }
                 catch (UnauthorizedException)
                 {
                     _credentials.ResetAccessToken();
-                    using (var retryClient = new HttpClient(await GetHandlers(headerParameters)))
+                    using (var retryClient = new HttpClient(await GetHandlersAsync(headerParameters)))
                     {
                         httpResponse = await retryClient.PutAsync(uri, new FormUrlEncodedContent(queryParameters));
-                        return await HandleResponse(httpResponse);
+                        return await HandleResponseAsync(httpResponse);
                     }
                 }
             }
         }
 
-        internal async Task<dynamic> DeleteQuery(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
+        internal async Task<dynamic> DeleteQueryAsync(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
             IEnumerable<KeyValuePair<string, string>> headerParameters = null)
         {
-            using (var client = new HttpClient(await GetHandlers(headerParameters)))
+            using (var client = new HttpClient(await GetHandlersAsync(headerParameters)))
             {
                 var uri = _baseAddress + path;
                 var builder = new UriBuilder(uri)
@@ -183,21 +183,21 @@ namespace GettyImages.Api
 
                 try
                 {
-                    return await HandleResponse(httpResponse);
+                    return await HandleResponseAsync(httpResponse);
                 }
                 catch (UnauthorizedException)
                 {
                     _credentials.ResetAccessToken();
-                    using (var retryClient = new HttpClient(await GetHandlers(headerParameters)))
+                    using (var retryClient = new HttpClient(await GetHandlersAsync(headerParameters)))
                     {
                         httpResponse = await retryClient.DeleteAsync(builder.Uri);
-                        return await HandleResponse(httpResponse);
+                        return await HandleResponseAsync(httpResponse);
                     }
                 }
             }
         }
 
-        private async Task<DelegatingHandler> GetHandlers(
+        private async Task<DelegatingHandler> GetHandlersAsync(
             IEnumerable<KeyValuePair<string, string>> headerParameters = null)
         {
             if (_customHandler != null)
@@ -218,7 +218,7 @@ namespace GettyImages.Api
             return mainHandler;
         }
 
-        private static async Task<dynamic> HandleResponse(HttpResponseMessage httpResponse)
+        private static async Task<dynamic> HandleResponseAsync(HttpResponseMessage httpResponse)
         {
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -226,7 +226,7 @@ namespace GettyImages.Api
             }
             else
             {
-                await SdkException.GenerateSdkException(httpResponse);
+                await SdkException.GenerateSdkExceptionAsync(httpResponse);
                 return null;
             }
         }

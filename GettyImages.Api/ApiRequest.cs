@@ -34,13 +34,13 @@ namespace GettyImages.Api
             switch (Method)
             {
                 case "GET":
-                    return helper.Get(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters));
+                    return helper.GetAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters));
                 case "POST":
-                    return helper.PostQuery(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters), BuildBody(BodyParameter));
+                    return helper.PostQueryAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters), BuildBody(BodyParameter));
                 case "PUT":
-                    return helper.PutQuery(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters), BuildBody(BodyParameter));
+                    return helper.PutQueryAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters), BuildBody(BodyParameter));
                 case "DELETE":
-                    return helper.DeleteQuery(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters));
+                    return helper.DeleteQueryAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters));
                 default:
                     throw new SdkException("No appropriate HTTP method found for this request.");
             }

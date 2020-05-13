@@ -133,7 +133,7 @@ namespace GettyImages.Api
             }
 
             var helper = new WebHelper(this, _baseUrl, null);
-            var response = await helper.PostForm(GetCredentialsDictionary(), Oauth2TokenPath, null, null, false);
+            var response = await helper.PostFormAsync(GetCredentialsDictionary(), Oauth2TokenPath, null, null, false);
             _accessToken = new Token
             {
                 AccessToken = response.access_token.ToString(),
