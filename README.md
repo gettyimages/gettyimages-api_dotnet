@@ -13,7 +13,6 @@ This SDK makes using the Getty Images [API](http://developers.gettyimages.com) e
 ## Help & Support
 
 * [Getty Images API](http://developers.gettyimages.com/)
-* [Contact API Support](mailto:apisupport@gettyimages.com)
 * [Issue Tracker](https://github.com/gettyimages/gettyimages-api_dotnet/issues)
 
 ## Getting started
