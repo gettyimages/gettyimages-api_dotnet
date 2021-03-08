@@ -17,6 +17,10 @@ This SDK makes using the Getty Images [API](http://developers.gettyimages.com) e
 * [Issue Tracker](https://github.com/gettyimages/gettyimages-api_dotnet/issues)
 
 ## Getting started
+### Obtain an API Key
+
+If you don't already have an API key, fill out and submit the ["Get started with our API" form](http://engage.gettyimages.com/api-contact).
+
 ### Using the Nuget Package
 The SDK is published to the public [Nuget](https://www.nuget.org/packages/GettyImages.Api/) package repository.
 
@@ -26,7 +30,7 @@ Open the package manager and add the package to your project:
 ### Examples
 The SDK supports async operations.
 ```csharp
-var client = ApiClient.GetApiClientWithClientCredentials("my_api_key", "my_api_secret");
+var client = ApiClient.GetApiClientWithClientCredentials("YOUR_API_KEY", "YOUR_API_SECRET");
 var searchResult = await client.SearchImagesEditorial()
     .WithEditorialSegment(EditorialSegment.News)
     .WithPhrase("all vocabulary")
@@ -42,7 +46,7 @@ foreach (var image in searchResult.images)
 The SDK can also be used synchronously, such as when running in a console application:
 
 ```csharp
-var client = ApiClient.GetApiClientWithClientCredentials("my_api_key", "my_api_secret");
+var client = ApiClient.GetApiClientWithClientCredentials("YOUR_API_KEY", "YOUR_API_SECRET");
 var searchResult = client.SearchImagesEditorial()
     .WithEditorialSegment(EditorialSegment.News)
     .WithPhrase("all vocabulary")
