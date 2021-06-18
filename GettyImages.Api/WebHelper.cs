@@ -34,13 +34,7 @@ namespace GettyImages.Api
                         BuildQuery(queryParameters)
                 };
 
-                var httpResponse = await client.GetAsync(builder.Uri);
-
-                if ((int)httpResponse.StatusCode >= 500)
-                {
-                    Task.Delay(1000).Wait();
-                    httpResponse = await client.GetAsync(builder.Uri);
-                }
+                var httpResponse = await client.GetAsyncWithRetryPolicy(builder.Uri);
 
                 try
                 {
@@ -51,7 +45,7 @@ namespace GettyImages.Api
                     _credentials.ResetAccessToken();
                     using (var retryClient = new HttpClient(await GetHandlersAsync(headerParameters)))
                     {
-                        httpResponse = await retryClient.GetAsync(builder.Uri);
+                        httpResponse = await retryClient.GetAsyncWithRetryPolicy(builder.Uri);
                         return await HandleResponseAsync(httpResponse);
                     }
                 }
@@ -69,13 +63,7 @@ namespace GettyImages.Api
                 var uri = _baseAddress + path;
                 var formContent = new FormUrlEncodedContent(formParameters);
 
-                var httpResponse = await client.PostAsync(uri, formContent);
-
-                if ((int)httpResponse.StatusCode >= 500)
-                {
-                    Task.Delay(1000).Wait();
-                    httpResponse = await client.PostAsync(uri, formContent);
-                }
+                var httpResponse = await client.PostAsyncWithRetryPolicy(uri, formContent);
 
                 try
                 {
@@ -88,7 +76,7 @@ namespace GettyImages.Api
                         _credentials.ResetAccessToken();
                         using (var retryClient = new HttpClient(await GetHandlersAsync(headerParameters)))
                         {
-                            httpResponse = await retryClient.PostAsync(uri, formContent);
+                            httpResponse = await retryClient.PostAsyncWithRetryPolicy(uri, formContent);
                             return await HandleResponseAsync(httpResponse);
                         }
                     }
@@ -105,13 +93,7 @@ namespace GettyImages.Api
                 var uri = _baseAddress + path;
                 var requestUri = new UriBuilder(uri) { Query = BuildQuery(queryParameters) }.Uri;
 
-                var httpResponse = await client.PostAsync(requestUri, bodyParameter);
-
-                if ((int)httpResponse.StatusCode >= 500)
-                {
-                    Task.Delay(1000).Wait();
-                    httpResponse = await client.PostAsync(requestUri, bodyParameter);
-                }
+                var httpResponse = await client.PostAsyncWithRetryPolicy(requestUri, bodyParameter);
 
                 try
                 {
@@ -122,7 +104,7 @@ namespace GettyImages.Api
                     _credentials.ResetAccessToken();
                     using (var retryClient = new HttpClient(await GetHandlersAsync(headerParameters)))
                     {
-                        httpResponse = await retryClient.PostAsync(requestUri, bodyParameter);
+                        httpResponse = await retryClient.PostAsyncWithRetryPolicy(requestUri, bodyParameter);
                         return await HandleResponseAsync(httpResponse);
                     }
                 }
@@ -137,13 +119,7 @@ namespace GettyImages.Api
                 var uri = _baseAddress + path;
                 var requestUri = new UriBuilder(uri) { Query = BuildQuery(queryParameters) }.Uri;
 
-                var httpResponse = await client.PutAsync(requestUri, bodyParameter);
-
-                if ((int)httpResponse.StatusCode >= 500)
-                {
-                    Task.Delay(1000).Wait();
-                    httpResponse = await client.PutAsync(requestUri, bodyParameter);
-                }
+                var httpResponse = await client.PutAsyncWithRetryPolicy(requestUri, bodyParameter);
 
                 try
                 {
@@ -154,7 +130,7 @@ namespace GettyImages.Api
                     _credentials.ResetAccessToken();
                     using (var retryClient = new HttpClient(await GetHandlersAsync(headerParameters)))
                     {
-                        httpResponse = await retryClient.PutAsync(requestUri, bodyParameter);
+                        httpResponse = await retryClient.PutAsyncWithRetryPolicy(requestUri, bodyParameter);
                         return await HandleResponseAsync(httpResponse);
                     }
                 }
@@ -173,13 +149,7 @@ namespace GettyImages.Api
                         BuildQuery(queryParameters)
                 };
 
-                var httpResponse = await client.DeleteAsync(builder.Uri);
-
-                if ((int)httpResponse.StatusCode >= 500)
-                {
-                    Task.Delay(1000).Wait();
-                    httpResponse = await client.DeleteAsync(builder.Uri);
-                }
+                var httpResponse = await client.DeleteAsyncWithRetryPolicy(builder.Uri);
 
                 try
                 {
@@ -190,7 +160,7 @@ namespace GettyImages.Api
                     _credentials.ResetAccessToken();
                     using (var retryClient = new HttpClient(await GetHandlersAsync(headerParameters)))
                     {
-                        httpResponse = await retryClient.DeleteAsync(builder.Uri);
+                        httpResponse = await retryClient.DeleteAsyncWithRetryPolicy(builder.Uri);
                         return await HandleResponseAsync(httpResponse);
                     }
                 }
