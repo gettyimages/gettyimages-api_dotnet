@@ -13,8 +13,6 @@ namespace GettyImages.Api
 
         static PollyHttpClientExtensions()
         {
-            // TODO - Can Polly be used for all the UnauthorizedException manual retries in WebHelper?
-
             RetryPolicy =
                 HttpPolicyExtensions
                     .HandleTransientHttpError()
