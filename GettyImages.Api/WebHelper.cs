@@ -88,7 +88,7 @@ namespace GettyImages.Api
                         _credentials.ResetAccessToken();
                         using (var retryClient = new HttpClient(await GetHandlersAsync(headerParameters)))
                         {
-                            httpResponse = await retryClient.PostAsync(uri, new FormUrlEncodedContent(formParameters));
+                            httpResponse = await retryClient.PostAsync(uri, formContent);
                             return await HandleResponseAsync(httpResponse);
                         }
                     }
@@ -122,7 +122,7 @@ namespace GettyImages.Api
                     _credentials.ResetAccessToken();
                     using (var retryClient = new HttpClient(await GetHandlersAsync(headerParameters)))
                     {
-                        httpResponse = await retryClient.PostAsync(uri, new FormUrlEncodedContent(queryParameters));
+                        httpResponse = await retryClient.PostAsync(requestUri, bodyParameter);
                         return await HandleResponseAsync(httpResponse);
                     }
                 }
@@ -142,7 +142,7 @@ namespace GettyImages.Api
                 if ((int)httpResponse.StatusCode >= 500)
                 {
                     Task.Delay(1000).Wait();
-                    httpResponse = await client.PostAsync(requestUri, bodyParameter);
+                    httpResponse = await client.PutAsync(requestUri, bodyParameter);
                 }
 
                 try
@@ -154,7 +154,7 @@ namespace GettyImages.Api
                     _credentials.ResetAccessToken();
                     using (var retryClient = new HttpClient(await GetHandlersAsync(headerParameters)))
                     {
-                        httpResponse = await retryClient.PutAsync(uri, new FormUrlEncodedContent(queryParameters));
+                        httpResponse = await retryClient.PutAsync(requestUri, bodyParameter);
                         return await HandleResponseAsync(httpResponse);
                     }
                 }
