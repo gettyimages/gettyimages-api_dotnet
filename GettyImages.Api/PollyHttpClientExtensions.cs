@@ -18,7 +18,7 @@ namespace GettyImages.Api
                     .HandleTransientHttpError()
                     .OrResult(responseMessage => (int) responseMessage.StatusCode == 429)
                     .WaitAndRetryAsync(3, retryAttempt =>
-                        TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
+                        TimeSpan.FromSeconds(retryAttempt)
                     );
         }
 
