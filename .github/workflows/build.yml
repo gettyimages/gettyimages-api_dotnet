@@ -8,22 +8,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET Core 2.1
+    - name: Setup .NET Core 6.0
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 2.1.x
-    - name: Setup .NET Core 3.1
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.x
+        dotnet-version: 6.0.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test
-      run: |
-        dotnet test --configuration Release --no-build --no-restore --verbosity normal -f netcoreapp2.1
-        dotnet test --configuration Release --no-build --no-restore --verbosity normal -f netcoreapp3.1
+      run: dotnet test --configuration Release --no-build --no-restore --verbosity normal -f net6
     - uses: actions/upload-artifact@v1
       with:
         name: artifacts
