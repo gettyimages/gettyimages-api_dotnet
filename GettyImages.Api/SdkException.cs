@@ -26,7 +26,7 @@ namespace GettyImages.Api
 
         internal static async Task GenerateSdkExceptionAsync(HttpResponseMessage httpResponse, string message = null)
         {
-            if (string.IsNullOrEmpty(message))
+            if (httpResponse.Content != null && string.IsNullOrEmpty(message))
             {
                 var resultContentAsString = await httpResponse.Content.ReadAsStringAsync();
 

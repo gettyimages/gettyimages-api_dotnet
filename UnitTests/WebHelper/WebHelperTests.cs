@@ -14,16 +14,10 @@ namespace UnitTests
         {
             var httpResponse = new HttpResponseMessage();
             httpResponse.StatusCode = (HttpStatusCode) 500;
-
             var testHandler = new TestHandler(httpResponse);
-
             var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
                 .SearchImages().WithPhrase("cat");
-
-            var ex = await Assert.ThrowsAsync<NullReferenceException>(async () => await response.ExecuteAsync());
-
-            Assert.Equal("Object reference not set to an instance of an object.", ex.Message);
-
+            var ex = await Assert.ThrowsAsync<SdkException>(async () => await response.ExecuteAsync());
             Assert.True(testHandler.NumberOfCallsSendAsync >= 2);
         }
     }
