@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using GettyImages.Api.Handlers;
 using Newtonsoft.Json;
@@ -112,7 +113,7 @@ namespace GettyImages.Api
         }
 
         internal async Task<dynamic> PutQueryAsync(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
-            IEnumerable<KeyValuePair<string, string>> headerParameters, HttpContent bodyParameter)
+            IEnumerable<KeyValuePair<string, string>> headerParameters, HttpContent bodyParameter, MediaTypeHeaderValue mediaType = null)
         {
             using (var client = new HttpClient(await GetHandlersAsync(headerParameters)))
             {

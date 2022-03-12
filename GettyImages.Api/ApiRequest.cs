@@ -11,7 +11,7 @@ namespace GettyImages.Api
 {
     public class ApiRequest
     {
-        private readonly DelegatingHandler _customHandler;
+        protected readonly DelegatingHandler _customHandler;
         private const string SpaceString = " ";
         protected string BaseUrl;
         protected Credentials Credentials;

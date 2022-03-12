@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using GettyImages.Api.Entity;
 
@@ -30,20 +31,25 @@ namespace GettyImages.Api.Search
             return await base.ExecuteAsync();
         }
 
-        private string AddToBucket(string filepath)
+        private async Task<string> AddToBucket(string filepath)
         {
-            Guid g = new Guid();
-            g = Guid.NewGuid();
-            string path = "https://search-by-image.s3.amazonaws.com/" + g;
-            var client = new HttpClient();
+            var g = Guid.NewGuid();
+            string path = $"/search/by-image/uploads/{g}";
             var stream = File.OpenRead(filepath);
-            client.PutAsync(path, new StreamContent(stream)).Wait();
+            var helper = new WebHelper(Credentials, BaseUrl, _customHandler);
+            var httpContent = new StreamContent(stream);
+            httpContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
+            await helper.PutQueryAsync(new List<KeyValuePair<string, string>>(),
+                path,
+                new List<KeyValuePair<string, string>>(),
+                httpContent);
             return path;
         }
 
-        public SearchImagesCreativeByImage AddToBucketAndSearch(string imageFilepath)
+        public async Task<SearchImagesCreativeByImage> AddToBucketAndSearchAsync(string imageFilepath)
         {
-            var url = AddToBucket(imageFilepath);
+            var path = await AddToBucket(imageFilepath);
+            var url = $"{BaseUrl}{path}";
             WithImageUrl(url);
             return this;
         }
