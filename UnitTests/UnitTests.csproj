@@ -23,4 +23,10 @@
     <ProjectReference Include="..\GettyImages.Api\GettyImages.Api.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="test-image.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
