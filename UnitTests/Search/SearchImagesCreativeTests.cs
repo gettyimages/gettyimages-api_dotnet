@@ -142,6 +142,21 @@ namespace UnitTests.Search
         }
 
         [Fact]
+        public async Task SearchForCreativeImagesWithExcludeKeywordIds()
+        {
+            var testHandler = TestUtil.CreateTestHandler();
+
+            var ids = new List<int>() {64284, 67255};
+
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesCreative()
+                .WithPhrase("cat").WithExcludeKeywordIds(ids).ExecuteAsync();
+
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/creative");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("exclude_keyword_ids=64284%2C67255");
+        }
+        
+        [Fact]
         public async Task SearchForCreativeImagesWithExcludeNudity()
         {
             var testHandler = TestUtil.CreateTestHandler();

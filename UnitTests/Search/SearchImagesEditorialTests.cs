@@ -185,6 +185,21 @@ namespace UnitTests.Search
         }
 
         [Fact]
+        public async Task SearchForEditorialImagesWithExcludeKeywordIds()
+        {
+            var testHandler = TestUtil.CreateTestHandler();
+
+            var ids = new List<int>() { 64284, 67255 };
+
+            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesEditorial()
+                .WithPhrase("cat").WithExcludeKeywordIds(ids).ExecuteAsync();
+
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/editorial");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("exclude_keyword_ids=64284%2C67255");
+        }
+        
+        [Fact]
         public async Task SearchForEditorialImagesWithExcludeNudity()
         {
             var testHandler = TestUtil.CreateTestHandler();
