@@ -88,6 +88,12 @@ namespace GettyImages.Api.Search
             return this;
         }
 
+        public SearchImagesCreative WithExcludeKeywordIds(IEnumerable<int> values)
+        {
+            AddExcludeKeywordIds(values);
+            return this;
+        }
+        
         public SearchImagesCreative WithExcludeNudity(bool value = true)
         {
             AddQueryParameter(Constants.Excludenudity, value);

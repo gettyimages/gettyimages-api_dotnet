@@ -106,6 +106,12 @@ namespace GettyImages.Api.Search
             return this;
         }
 
+        public SearchImagesEditorial WithExcludeKeywordIds(IEnumerable<int> values)
+        {
+            AddExcludeKeywordIds(values);
+            return this;
+        }
+        
         public SearchImagesEditorial WithExcludeNudity(bool value = true)
         {
             AddQueryParameter(Constants.Excludenudity, value);

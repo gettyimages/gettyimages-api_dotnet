@@ -398,9 +398,23 @@ namespace GettyImages.Api
             }
             else
             {
-                var assets = QueryParameters[Constants.KeywordIdsKey] as IEnumerable<int>;
-                assets = assets.Union(values).Distinct();
-                QueryParameters[Constants.KeywordIdsKey] = assets.ToList();
+                var keywords = QueryParameters[Constants.KeywordIdsKey] as IEnumerable<int>;
+                keywords = keywords.Union(values).Distinct();
+                QueryParameters[Constants.KeywordIdsKey] = keywords.ToList();
+            }
+        }
+        
+        protected void AddExcludeKeywordIds(IEnumerable<int> values)
+        {
+            if (!QueryParameters.ContainsKey(Constants.ExcludeKeywordIdsKey))
+            {
+                QueryParameters.Add(Constants.ExcludeKeywordIdsKey, values);
+            }
+            else
+            {
+                var keywords = QueryParameters[Constants.ExcludeKeywordIdsKey] as IEnumerable<int>;
+                keywords = keywords.Union(values).Distinct();
+                QueryParameters[Constants.ExcludeKeywordIdsKey] = keywords.ToList();
             }
         }
 
