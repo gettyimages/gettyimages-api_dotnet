@@ -1,3 +1,4 @@
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -13,10 +14,14 @@ namespace UnitTests
 
         public TestHandler(object testResponse)
         {
+            var stream = new MemoryStream();
+            System.Text.Json.JsonSerializer.Serialize(stream, testResponse);
             _httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new StringContent(JsonConvert.SerializeObject(testResponse))
+                
+                Content = new StreamContent(stream)
             };
+            stream.Seek(0, SeekOrigin.Begin);
         }
 
         public TestHandler(HttpResponseMessage httpResponseMessage)
@@ -24,11 +29,16 @@ namespace UnitTests
             _httpResponseMessage = httpResponseMessage;
         }
         public HttpRequestMessage Request { get; private set; }
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        public Stream RequestStream { get; set; }
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
+            await request.Content.LoadIntoBufferAsync();
+            RequestStream = await request.Content.ReadAsStreamAsync(cancellationToken);
+            RequestStream.Seek(0, SeekOrigin.Begin);
+            
             NumberOfCallsSendAsync += 1;
             Request = request;
-            return Task.FromResult(_httpResponseMessage);
+            return _httpResponseMessage;
         }
     }
 }

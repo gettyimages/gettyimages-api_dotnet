@@ -1,9 +1,10 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Collections
 {
-    public class Collections : ApiRequest
+    public class Collections : ApiRequest<GetCollectionsResponse>
     {
         protected const string V3CollectionsPath = "/collections";
 
@@ -18,7 +19,7 @@ namespace GettyImages.Api.Collections
             return new Collections(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task<GetCollectionsResponse> ExecuteAsync()
         {
             Method = "GET";
             Path = V3CollectionsPath;

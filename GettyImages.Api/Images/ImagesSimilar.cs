@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Images
 {
-    public class ImagesSimilar : ApiRequest
+    public class ImagesSimilar : ApiRequest<ImageSearchItemSearchResults>
     {
         private const string ImagePath = "/images/{0}/similar";
         protected string AssetId { get; set; }
@@ -20,7 +21,7 @@ namespace GettyImages.Api.Images
             return new ImagesSimilar(credentials, baseUrl, customHandler);
         }
 
-        public override Task<dynamic> ExecuteAsync()
+        public override Task<ImageSearchItemSearchResults> ExecuteAsync()
         {
             Method = "GET";
             Path = string.Format(ImagePath, AssetId);

@@ -2,10 +2,12 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using GettyImages.Api.Entity;
+using GettyImages.Api.Models;
+using SortOrder = GettyImages.Api.Entity.SortOrder;
 
 namespace GettyImages.Api.Search
 {
-    public class SearchImagesCreative : ApiRequest
+    public class SearchImagesCreative : ApiRequest<CreativeImageSearchResults>
     {
         protected const string V3SearchImagesPath = "/search/images/creative";
 
@@ -20,7 +22,7 @@ namespace GettyImages.Api.Search
             return new SearchImagesCreative(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task<CreativeImageSearchResults> ExecuteAsync()
         {
             Method = "GET";
             Path = V3SearchImagesPath;

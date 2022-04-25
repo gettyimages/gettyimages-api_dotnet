@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Products
 {
-    public class Products : ApiRequest
+    public class Products : ApiRequest<GetProductsResponse>
     {
         protected const string V3ProductsPath = "/products";
 
@@ -19,7 +20,7 @@ namespace GettyImages.Api.Products
             return new Products(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task<GetProductsResponse> ExecuteAsync()
         {
             Method = "GET";
             Path = V3ProductsPath;

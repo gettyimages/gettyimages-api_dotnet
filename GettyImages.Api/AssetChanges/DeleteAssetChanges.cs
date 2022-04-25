@@ -19,12 +19,12 @@ namespace GettyImages.Api.AssetChanges
             return new DeleteAssetChanges(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public new async Task ExecuteAsync()
         {
             Method = "DELETE";
             Path = V3DeleteAssetChangesPath + "/" + ChangeSetId;
 
-            return await base.ExecuteAsync();
+            await base.ExecuteVoidAsync();
         }
 
         public DeleteAssetChanges WithChangeSetId(long value)

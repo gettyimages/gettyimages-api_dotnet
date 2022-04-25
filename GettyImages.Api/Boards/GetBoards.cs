@@ -1,10 +1,12 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using GettyImages.Api.Entity;
+using GettyImages.Api.Models;
+using BoardRelationship = GettyImages.Api.Entity.BoardRelationship;
+using SortOrder = GettyImages.Api.Entity.SortOrder;
 
 namespace GettyImages.Api.Boards
 {
-    public class GetBoards : ApiRequest
+    public class GetBoards : ApiRequest<GetBoardsResponse>
     {
         protected const string V3GetBoardsPath = "/boards";
 
@@ -19,7 +21,7 @@ namespace GettyImages.Api.Boards
             return new GetBoards(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task<GetBoardsResponse> ExecuteAsync()
         {
             Method = "GET";
             Path = V3GetBoardsPath;

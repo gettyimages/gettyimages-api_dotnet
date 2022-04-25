@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Boards
 {
@@ -19,12 +20,12 @@ namespace GettyImages.Api.Boards
             return new PutBoardsById(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task ExecuteVoidAsync()
         {
             Method = "PUT";
             Path = V3PostBoardsPath + "/" + BoardId;
 
-            return await base.ExecuteAsync();
+            await base.ExecuteVoidAsync();
         }
 
         public PutBoardsById WithBoardId(string value)
@@ -33,7 +34,7 @@ namespace GettyImages.Api.Boards
             return this;
         }
 
-        public PutBoardsById WithBoardInfo(string value)
+        public PutBoardsById WithBoardInfo(BoardInfo value)
         {
             BodyParameter = value;
             return this;

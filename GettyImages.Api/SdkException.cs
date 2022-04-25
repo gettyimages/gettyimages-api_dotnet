@@ -2,7 +2,6 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 
 namespace GettyImages.Api
 {
@@ -32,19 +31,26 @@ namespace GettyImages.Api
 
                 if (httpResponse.Content.Headers != null && httpResponse.Content.Headers.ContentType != null && httpResponse.Content.Headers.ContentType.MediaType == "application/json")
                 {   
-                    var response = JObject.Parse(resultContentAsString);
-                    JToken errorMessage;
-                    if (response.TryGetValue(ErrorMessageProperty1, out errorMessage) ||
-                        response.TryGetValue(ErrorMessageProperty2, out errorMessage))
-                    {
-                        message = errorMessage.Value<string>();
-                    }
+                    //TODO: parse the error message
+                    // var response = JObject.Parse(resultContentAsString);
+                    // JToken errorMessage;
+                    // if (response.TryGetValue(ErrorMessageProperty1, out errorMessage) ||
+                    //     response.TryGetValue(ErrorMessageProperty2, out errorMessage))
+                    // {
+                    //     message = errorMessage.Value<string>();
+                    // }
                 }
                 else
                 {
                     message = resultContentAsString;
                 }
             }
+
+            if (string.IsNullOrEmpty(message))
+            {
+                message = $"{(int)httpResponse.StatusCode} - {httpResponse.ReasonPhrase}";
+            }
+            
             switch (httpResponse.StatusCode)
             {
                 case HttpStatusCode.Unauthorized:

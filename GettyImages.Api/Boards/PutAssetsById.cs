@@ -20,12 +20,11 @@ namespace GettyImages.Api.Boards
             return new PutAssetsById(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task ExecuteVoidAsync()
         {
             Method = "PUT";
             Path = string.Format(V3PutAssetByIdPath, BoardId, AssetId);
-
-            return await base.ExecuteAsync();
+            await base.ExecuteVoidAsync();
         }
 
         public PutAssetsById WithBoardId(string value)

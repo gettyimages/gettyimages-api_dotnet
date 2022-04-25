@@ -1,9 +1,10 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Boards
 {
-    public class PostComments : ApiRequest
+    public class PostComments : ApiRequest<CreateCommentResponse>
     {
         protected const string V3PostCommentsPath = "/boards/{0}/comments";
         protected string BoardId { get; set; }
@@ -12,6 +13,7 @@ namespace GettyImages.Api.Boards
         {
             Credentials = credentials;
             BaseUrl = baseUrl;
+            Method = "POST";
         }
 
         internal static PostComments GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
@@ -19,11 +21,9 @@ namespace GettyImages.Api.Boards
             return new PostComments(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task<CreateCommentResponse> ExecuteAsync()
         {
-            Method = "POST";
             Path = string.Format(V3PostCommentsPath, BoardId);
-
             return await base.ExecuteAsync();
         }
 
@@ -35,7 +35,7 @@ namespace GettyImages.Api.Boards
 
         public PostComments WithComment(string value)
         {
-            BodyParameter = value;
+            BodyParameter = new CommentRequest { Text = value };
             return this;
         }
 

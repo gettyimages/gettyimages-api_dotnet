@@ -1,9 +1,10 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Customers
 {
-    public class Customers : ApiRequest
+    public class Customers : ApiRequest<CustomerInfoResponse>
     {
         protected const string V3CustomersPath = "/customers/current";
 
@@ -18,7 +19,7 @@ namespace GettyImages.Api.Customers
             return new Customers(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task<CustomerInfoResponse> ExecuteAsync()
         {
             Method = "GET";
             Path = V3CustomersPath;

@@ -5,7 +5,7 @@ using Xunit;
 
 namespace UnitTests.Countries
 {
-    public class CollectionsTests
+    public class CountriesTests
     {
         [Fact]
         public async Task CountriesBasic()

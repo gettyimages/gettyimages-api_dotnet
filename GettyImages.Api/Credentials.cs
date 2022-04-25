@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using GettyImages.Api.Handlers;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api
 {
@@ -133,13 +134,13 @@ namespace GettyImages.Api
             }
 
             var helper = new WebHelper(this, _baseUrl, null);
-            var response = await helper.PostFormAsync(GetCredentialsDictionary(), Oauth2TokenPath, null, null, false);
+            var response = await helper.PostFormAsync<OAuthResponse>(GetCredentialsDictionary(), Oauth2TokenPath, null, null, false);
             _accessToken = new Token
             {
-                AccessToken = response.access_token.ToString(),
+                AccessToken = response.AccessToken,
                 Expiration =
-                    DateTime.UtcNow.Add(TimeSpan.FromSeconds((double) response.expires_in)),
-                RefreshToken = response.refresh_token
+                    DateTime.UtcNow.Add(TimeSpan.FromSeconds(int.Parse(response.ExpiresIn))),
+                RefreshToken = response.RefreshToken
             };
 
             return _accessToken;

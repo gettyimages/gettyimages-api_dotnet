@@ -1,10 +1,11 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using GettyImages.Api.Entity;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Download
 {
-    public class Downloads : ApiRequest
+    public class Downloads : ApiRequest<GetDownloadsResponse>
     {
         protected const string V3DownloadsPath = "/downloads";
 
@@ -19,7 +20,7 @@ namespace GettyImages.Api.Download
             return new Downloads(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task<GetDownloadsResponse> ExecuteAsync()
         {
             Method = "GET";
             Path = V3DownloadsPath;

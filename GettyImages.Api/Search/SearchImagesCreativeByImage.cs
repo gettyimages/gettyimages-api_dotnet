@@ -5,10 +5,11 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using GettyImages.Api.Entity;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Search
 {
-    public class SearchImagesCreativeByImage : ApiRequest
+    public class SearchImagesCreativeByImage : ApiRequest<SearchByImageResourceResults>
     {
         protected const string V3SearchImagesPath = "/search/images/creative/by-image";
 
@@ -23,7 +24,7 @@ namespace GettyImages.Api.Search
             return new SearchImagesCreativeByImage(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task<SearchByImageResourceResults> ExecuteAsync()
         {
             Method = "GET";
             Path = V3SearchImagesPath;
@@ -39,7 +40,7 @@ namespace GettyImages.Api.Search
             var helper = new WebHelper(Credentials, BaseUrl, _customHandler);
             var httpContent = new StreamContent(stream);
             httpContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
-            await helper.PutQueryAsync(new List<KeyValuePair<string, string>>(),
+            await helper.PutQueryVoidAsync(new List<KeyValuePair<string, string>>(),
                 path,
                 new List<KeyValuePair<string, string>>(),
                 httpContent);
@@ -50,8 +51,7 @@ namespace GettyImages.Api.Search
         {
             var path = await AddToBucket(imageFilepath);
             var url = $"{BaseUrl}{path}";
-            WithImageUrl(url);
-            return this;
+            return WithImageUrl(url);
         }
 
         public SearchImagesCreativeByImage WithAcceptLanguage(string value)

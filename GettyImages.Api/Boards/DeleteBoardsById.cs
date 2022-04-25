@@ -19,12 +19,12 @@ namespace GettyImages.Api.Boards
             return new DeleteBoardsById(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task ExecuteVoidAsync()
         {
             Method = "DELETE";
             Path = V3PostBoardsPath + "/" + BoardId;
 
-            return await base.ExecuteAsync();
+            await base.ExecuteVoidAsync();
         }
 
         public DeleteBoardsById WithBoardId(string value)

@@ -1,9 +1,10 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Images
 {
-    public class ImageDownloadHistory : ApiRequest
+    public class ImageDownloadHistory : ApiRequest<GetDownloadsResponse>
     {
         private const string ImageDownloadHistoryPath = "/images/{0}/downloadhistory";
         private string _imageId;
@@ -19,7 +20,7 @@ namespace GettyImages.Api.Images
             return new ImageDownloadHistory(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task<GetDownloadsResponse> ExecuteAsync()
         {
             Method = "GET";
             Path = Path = string.Format(ImageDownloadHistoryPath, _imageId);

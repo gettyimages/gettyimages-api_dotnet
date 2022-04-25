@@ -20,12 +20,12 @@ namespace GettyImages.Api.Boards
             return new DeleteCommentsById(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task ExecuteVoidAsync()
         {
             Method = "DELETE";
             Path = string.Format(V3DeleteCommentByIdPath, BoardId, CommentId);
 
-            return await base.ExecuteAsync();
+            await base.ExecuteVoidAsync();
         }
 
         public DeleteCommentsById WithBoardId(string value)

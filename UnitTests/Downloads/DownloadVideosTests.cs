@@ -20,21 +20,6 @@ namespace UnitTests.Downloads
         }
 
         [Fact]
-        public async Task DownloadVideosWithAutoDownload()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
-
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .DownloadsVideos()
-                .WithId("464423888")
-                .WithAutoDownload()
-                .ExecuteAsync();
-
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("downloads/videos/464423888");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("auto_download=True");
-        }
-
-        [Fact]
         public async Task DownloadVideosProductId()
         {
             var testHandler = TestUtil.CreateTestHandler();

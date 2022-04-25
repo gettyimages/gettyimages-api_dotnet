@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using GettyImages.Api;
 using GettyImages.Api.Boards;
+using GettyImages.Api.Models;
 using Xunit;
 
 namespace UnitTests.HeaderAndBody
@@ -17,12 +18,16 @@ namespace UnitTests.HeaderAndBody
                 'description': 'This board is for integration tests'
             }";
 
-            postBoards.WithNewBoard(newboard);
+            postBoards.WithNewBoard(new BoardInfo
+            {
+                Name = "Test Board",
+                Description = "This board is for integration tests"
+            });
 
             Assert.Equal(@"{
                 'name': 'Test Board',
                 'description': 'This board is for integration tests'
-            }", postBoards.BodyParameter);
+            }", postBoards.StringBodyParameter);
         }
 
         [Fact]

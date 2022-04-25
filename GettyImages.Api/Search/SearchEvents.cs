@@ -2,25 +2,26 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using GettyImages.Api.Entity;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Search
 {
-    public class Products : ApiRequest
+    public class Events : ApiRequest<EventsSearchResult>
     {
         protected const string V3SearchEventsPath = "/search/events";
 
-        private Products(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
+        private Events(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
         {
             Credentials = credentials;
             BaseUrl = baseUrl;
         }
 
-        internal static Products GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
+        internal static Events GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
         {
-            return new Products(credentials, baseUrl, customHandler);
+            return new Events(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task<EventsSearchResult> ExecuteAsync()
         {
             Method = "GET";
             Path = V3SearchEventsPath;
@@ -28,49 +29,49 @@ namespace GettyImages.Api.Search
             return await base.ExecuteAsync();
         }
 
-        public Products WithAcceptLanguage(string value)
+        public Events WithAcceptLanguage(string value)
         {
             AddHeaderParameter(Constants.AcceptLanguage, value);
             return this;
         }
 
-        public Products WithDateFrom(string value)
+        public Events WithDateFrom(string value)
         {
             AddQueryParameter(Constants.DateFromKey, value);
             return this;
         }
 
-        public Products WithDateTo(string value)
+        public Events WithDateTo(string value)
         {
             AddQueryParameter(Constants.DateToKey, value);
             return this;
         }
 
-        public Products WithEditorialSegment(EditorialSegment value)
+        public Events WithEditorialSegment(EditorialSegment value)
         {
-            AddEditorialSegment(value);
+            AddQueryParameter(Constants.EditorialSegmentKey,  value);
             return this;
         }
 
-        public Products WithResponseFields(IEnumerable<string> values)
+        public Events WithResponseFields(IEnumerable<string> values)
         {
             AddResponseFields(values);
             return this;
         }
 
-        public Products WithPage(int value)
+        public Events WithPage(int value)
         {
             AddQueryParameter(Constants.PageKey, value);
             return this;
         }
 
-        public Products WithPageSize(int value)
+        public Events WithPageSize(int value)
         {
             AddQueryParameter(Constants.PageSizeKey, value);
             return this;
         }
 
-        public Products WithPhrase(string value)
+        public Events WithPhrase(string value)
         {
             AddQueryParameter(Constants.PhraseKey, value);
             return this;

@@ -1,9 +1,10 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.AssetChanges
 {
-    public class Channels : ApiRequest
+    public class Channels : ApiRequest<Channel[]>
     {
         protected const string V3ChannelsPath = "/asset-changes/channels";
 
@@ -18,7 +19,7 @@ namespace GettyImages.Api.AssetChanges
             return new Channels(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task<Channel[]> ExecuteAsync()
         {
             Method = "GET";
             Path = V3ChannelsPath;

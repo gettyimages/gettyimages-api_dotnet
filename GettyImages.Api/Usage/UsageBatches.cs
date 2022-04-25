@@ -1,9 +1,10 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Usage
 {
-    public class UsageBatches : ApiRequest
+    public class UsageBatches : ApiRequest<ReportUsageBatchResponse>
     {
         protected const string V3UsageBatchesPath = "/usage-batches";
         protected string AssetId { get; set; }
@@ -19,7 +20,7 @@ namespace GettyImages.Api.Usage
             return new UsageBatches(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task<ReportUsageBatchResponse> ExecuteAsync()
         {
             Method = "PUT";
             Path = V3UsageBatchesPath + "/" + AssetId;
@@ -33,7 +34,7 @@ namespace GettyImages.Api.Usage
             return this;
         }
 
-        public UsageBatches WithRequest(string value)
+        public UsageBatches WithRequest(ReportUsageBatchRequest value)
         {
             BodyParameter = value;
             return this;

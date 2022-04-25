@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Events
 {
-    public class Events : ApiRequest
+    public class Events : ApiRequest<GetEventsResponse>
     {
         private const string Comma = ",";
         private const string IdsKey = "ids";
@@ -24,7 +25,7 @@ namespace GettyImages.Api.Events
             return new Events(credentials, baseUrl, customHandler);
         }
 
-        public override Task<dynamic> ExecuteAsync()
+        public override Task<GetEventsResponse> ExecuteAsync()
         {
             var ids = string.Join(Comma, _eventIds);
 

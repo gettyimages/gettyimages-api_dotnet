@@ -12,7 +12,7 @@ namespace UnitTests.HeaderAndBody
         [Fact]
         public void HeadersParameterTest()
         {
-            var searchImages = SearchImages.GetInstance(null, null, null);
+            var searchImages = SearchImagesCreative.GetInstance(null, null, null);
 
             searchImages.WithAcceptLanguage("fr");
 

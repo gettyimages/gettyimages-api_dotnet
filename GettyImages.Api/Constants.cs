@@ -15,11 +15,13 @@ namespace GettyImages.Api
         public const string CollectionFilterKey = "collections_filter_type";
         public const string ColorKey = "color";
         public const string CompanyDownloadsKey = "company_downloads";
+        public const string CompanyPurchasesKey = "company_purchases";
         public const string CompositionKey = "compositions";
         public const string DateToKey = "date_to";
         public const string DateFromKey = "date_from";
         public const string DownloadProductKey = "download_product";
-        public const string EditorialSegmentKey = "editorial_segments";
+        public const string EditorialSegmentsKey = "editorial_segments";
+        public const string EditorialSegmentKey = "editorial_segment";
         public const string EditorialVideoKey = "editorial_video_types";
         public const string EmbedContentOnlyKey = "embed_content_only";
         public const string EndDateKey = "end_date";

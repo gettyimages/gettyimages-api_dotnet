@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Artists
 {
-    public class ArtistsVideos : ApiRequest
+    public class ArtistsVideos : ApiRequest<ArtistVideoSearchResponse>
     {
         protected const string V3ArtistsVideosPath = "/artists/videos";
 
@@ -19,7 +20,7 @@ namespace GettyImages.Api.Artists
             return new ArtistsVideos(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task<ArtistVideoSearchResponse> ExecuteAsync()
         {
             Method = "GET";
             Path = V3ArtistsVideosPath;

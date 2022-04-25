@@ -1,6 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Text.Json;
+using System.Threading.Tasks;
 using FluentAssertions;
 using GettyImages.Api;
+using GettyImages.Api.Models;
 using Xunit;
 
 namespace UnitTests.AssetLicensing
@@ -11,10 +14,11 @@ namespace UnitTests.AssetLicensing
         public async Task AcquireExtendedLicenseBasic()
         {
             var testHandler = TestUtil.CreateTestHandler();
-            var requestBody = @"{
-                                 'LicenseTypes':['Indemnification','Multiseat'],
-                                 'UseTeamCredits':false
-                                }";
+            var requestBody = new AcquireAssetLicensesRequest
+            {
+                ExtendedLicenses = new [] { ExtendedLicense.Multiseat },
+                UseTeamCredits = true
+            };
 
             var assetId = "123";
             await ApiClient.GetApiClientWithResourceOwnerCredentials("apiKey", "apiSecret", "userName", "userPassword",  testHandler)
@@ -23,9 +27,10 @@ namespace UnitTests.AssetLicensing
                 .WithExtendedLicenses(requestBody)
                 .ExecuteAsync();
 
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain(string.Format("/asset-licensing/{0}", assetId));
-            var content = await testHandler.Request.Content.ReadAsStringAsync();
-            content.Should().Contain(requestBody);
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain($"/asset-licensing/{assetId}");
+            var content = JsonSerializer.Deserialize<AcquireAssetLicensesRequest>( await testHandler.Request.Content.ReadAsStringAsync());
+            content.ExtendedLicenses.First().Should().Be(ExtendedLicense.Multiseat);
+            content.UseTeamCredits.Should().BeTrue();
         }
     }
 }

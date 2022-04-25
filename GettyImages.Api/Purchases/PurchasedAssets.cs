@@ -1,9 +1,11 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Purchases
 {
-    public class PurchasedAssets : ApiRequest
+    public class PurchasedAssets : ApiRequest<GetPreviouslyPurchasedAssetsResponse>
     {
         protected const string V3PurchasedAssetsPath = "/purchased-assets";
 
@@ -18,7 +20,7 @@ namespace GettyImages.Api.Purchases
             return new PurchasedAssets(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task<GetPreviouslyPurchasedAssetsResponse> ExecuteAsync()
         {
             Method = "GET";
             Path = V3PurchasedAssetsPath;
@@ -32,9 +34,9 @@ namespace GettyImages.Api.Purchases
             return this;
         }
 
-        public PurchasedAssets WithEndDate(string value)
+        public PurchasedAssets WithEndDate(DateTime value)
         {
-            AddQueryParameter(Constants.EndDateKey, value);
+            AddQueryParameter(Constants.DateToKey, value);
             return this;
         }
 
@@ -50,9 +52,15 @@ namespace GettyImages.Api.Purchases
             return this;
         }
 
-        public PurchasedAssets WithStartDate(string value)
+        public PurchasedAssets WithStartDate(DateTime value)
         {
-            AddQueryParameter(Constants.StartDateKey, value);
+            AddQueryParameter(Constants.DateFromKey, value);
+            return this;
+        }
+
+        public PurchasedAssets WithCompanyPurchases(bool value = true)
+        {
+            AddQueryParameter(Constants.CompanyPurchasesKey, value);
             return this;
         }
     }

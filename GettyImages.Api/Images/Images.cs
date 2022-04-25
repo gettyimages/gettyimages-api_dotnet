@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Images
 {
-    public class Images : ApiRequest
+    public class Images : ApiRequest<ImagesDetailResponse>
     {
         private const string Comma = ",";
         private const string IdsKey = "ids";
@@ -23,7 +24,7 @@ namespace GettyImages.Api.Images
             return new Images(credentials, baseUrl, customHandler);
         }
 
-        public override Task<dynamic> ExecuteAsync()
+        public override Task<ImagesDetailResponse> ExecuteAsync()
         {
             Method = "GET";
             var ids = string.Join(Comma, _imageIds);

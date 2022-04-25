@@ -1,9 +1,10 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Boards
 {
-    public class GetComments : ApiRequest
+    public class GetComments : ApiRequest<GetCommentsResponse>
     {
         protected const string V3GetCommentsPath = "/boards/{0}/comments";
         protected string BoardId { get; set; }
@@ -19,7 +20,7 @@ namespace GettyImages.Api.Boards
             return new GetComments(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task<GetCommentsResponse> ExecuteAsync()
         {
             Method = "GET";
             Path = string.Format(V3GetCommentsPath, BoardId);

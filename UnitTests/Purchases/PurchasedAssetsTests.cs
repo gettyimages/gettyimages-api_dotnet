@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using FluentAssertions;
 using GettyImages.Api;
 using Xunit;
@@ -24,7 +25,7 @@ namespace UnitTests.Purchases
             var testHandler = TestUtil.CreateTestHandler();
 
             await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .PurchasedAssets().WithEndDate("2015-04-01").ExecuteAsync();
+                .PurchasedAssets().WithEndDate(DateTime.Parse("2015-04-01")).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("purchased-assets");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("end_date=2015-04-01");
@@ -60,7 +61,7 @@ namespace UnitTests.Purchases
             var testHandler = TestUtil.CreateTestHandler();
 
             await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .PurchasedAssets().WithStartDate("2015-04-01").ExecuteAsync();
+                .PurchasedAssets().WithStartDate(DateTime.Parse("2015-04-01")).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("purchased-assets");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("start_date=2015-04-01");

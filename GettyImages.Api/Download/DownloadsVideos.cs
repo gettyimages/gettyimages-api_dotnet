@@ -1,11 +1,12 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Download
 {
-    public class DownloadsVideos : ApiRequest
+    public class DownloadsVideos : ApiRequest<DownloadAssetResponse>
     {
-        protected const string V3DownloadVidoesPath = "/downloads/videos";
+        protected const string V3DownloadVideosPath = "/downloads/videos";
         protected string AssetId { get; set; }
 
         private DownloadsVideos(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
@@ -20,10 +21,10 @@ namespace GettyImages.Api.Download
             return new DownloadsVideos(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task<DownloadAssetResponse> ExecuteAsync()
         {
             Method = "POST";
-            Path = V3DownloadVidoesPath + "/" + AssetId;
+            Path = V3DownloadVideosPath + "/" + AssetId;
 
             return await base.ExecuteAsync();
         }
@@ -40,15 +41,9 @@ namespace GettyImages.Api.Download
             return this;
         }
 
-        public DownloadsVideos WithAutoDownload(bool value = true)
-        {
-            AddQueryParameter(Constants.AutoDownloadKey, value);
-            return this;
-        }
-
         public DownloadsVideos WithDownloadDetails(string value)
         {
-            BodyParameter = value;
+            StringBodyParameter = value;
             return this;
         }
 

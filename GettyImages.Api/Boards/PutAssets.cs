@@ -1,9 +1,13 @@
-﻿using System.Net.Http;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Boards
 {
-    public class PutAssets : ApiRequest
+    public class PutAssets : ApiRequest<AddBoardAssetsResult>
     {
         protected const string V3PutAssetsPath = "/boards/{0}/assets";
         protected string BoardId { get; set; }
@@ -19,7 +23,7 @@ namespace GettyImages.Api.Boards
             return new PutAssets(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task<AddBoardAssetsResult> ExecuteAsync()
         {
             Method = "PUT";
             Path = string.Format(V3PutAssetsPath, BoardId);
@@ -35,7 +39,13 @@ namespace GettyImages.Api.Boards
 
         public PutAssets WithBoardAssets(string value)
         {
-            BodyParameter = value;
+            StringBodyParameter = value;
+            return this;
+        }
+
+        public PutAssets WithAssetIds(IEnumerable<string> value)
+        {
+            BodyParameter = value.Select(id => new BoardAsset { AssetId = id });
             return this;
         }
 

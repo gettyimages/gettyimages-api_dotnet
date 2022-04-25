@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using FluentAssertions;
 using GettyImages.Api;
+using GettyImages.Api.Models;
 using Xunit;
 
 namespace UnitTests.Boards
@@ -17,7 +18,7 @@ namespace UnitTests.Boards
                 'description': 'string'
             }";
             await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .PostBoards().WithNewBoard(newboard).ExecuteAsync();
+                .PostBoards().WithNewBoard(new BoardInfo()).ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards");
         }

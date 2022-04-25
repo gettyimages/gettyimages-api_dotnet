@@ -1,9 +1,10 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Boards
 {
-    public class PostBoards : ApiRequest
+    public class PostBoards : ApiRequest<CreateBoardResponse>
     {
         protected const string V3PostBoardsPath = "/boards";
 
@@ -18,7 +19,7 @@ namespace GettyImages.Api.Boards
             return new PostBoards(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task<CreateBoardResponse> ExecuteAsync()
         {
             Method = "POST";
             Path = V3PostBoardsPath;
@@ -26,7 +27,7 @@ namespace GettyImages.Api.Boards
             return await base.ExecuteAsync();
         }
 
-        public PostBoards WithNewBoard(string value)
+        public PostBoards WithNewBoard(BoardInfo value)
         {
             BodyParameter = value;
             return this;

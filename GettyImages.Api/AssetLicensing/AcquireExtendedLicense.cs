@@ -1,9 +1,10 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.AssetLicensing
 {
-    public class AcquireExtendedLicense : ApiRequest
+    public class AcquireExtendedLicense : ApiRequest<AssetLicensingResponse>
     {
         protected const string V3AcquireExtendedLicensesPath = "/asset-licensing/{0}";
         protected string AssetId { get; set; }
@@ -19,7 +20,7 @@ namespace GettyImages.Api.AssetLicensing
             return new AcquireExtendedLicense(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task<AssetLicensingResponse> ExecuteAsync()
         {
             Method = "POST";
             Path = string.Format(V3AcquireExtendedLicensesPath, AssetId);
@@ -33,7 +34,7 @@ namespace GettyImages.Api.AssetLicensing
             return this;
         }
 
-        public AcquireExtendedLicense WithExtendedLicenses(string value)
+        public AcquireExtendedLicense WithExtendedLicenses(AcquireAssetLicensesRequest value)
         {
             BodyParameter = value;
             return this;

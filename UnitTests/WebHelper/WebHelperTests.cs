@@ -16,7 +16,7 @@ namespace UnitTests
             httpResponse.StatusCode = (HttpStatusCode) 500;
             var testHandler = new TestHandler(httpResponse);
             var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .SearchImages().WithPhrase("cat");
+                .SearchImagesCreative().WithPhrase("cat");
             var ex = await Assert.ThrowsAsync<SdkException>(async () => await response.ExecuteAsync());
             Assert.True(testHandler.NumberOfCallsSendAsync >= 2);
         }

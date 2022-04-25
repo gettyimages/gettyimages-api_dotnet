@@ -1,14 +1,43 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using GettyImages.Api.Entity;
 
 namespace GettyImages.Api
 {
+
+    public class ApiRequest<T> : ApiRequest
+    {
+        protected ApiRequest(DelegatingHandler customHandler) : base(customHandler)
+        {
+        }
+
+        public new virtual async  Task<T> ExecuteAsync()
+        {
+            var helper = new WebHelper(Credentials, BaseUrl, _customHandler);
+            switch (Method)
+            {
+                case "GET":
+                    return await helper.GetAsync<T>(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters));
+                case "POST":
+                    return await helper.PostQueryAsync<T>(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters), BuildBody());
+                case "PUT":
+                    return await helper.PutQueryAsync<T>(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters), BuildBody());
+                case "DELETE":
+                    return await helper.DeleteQueryAsync<T>(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters));
+                default:
+                    throw new SdkException("No appropriate HTTP method found for this request.");
+            }
+        }
+    }
     public class ApiRequest
     {
         protected readonly DelegatingHandler _customHandler;
@@ -17,9 +46,10 @@ namespace GettyImages.Api
         protected Credentials Credentials;
         protected string Method;
         protected string Path;
-        protected internal IDictionary<string, object> QueryParameters;
-        protected internal IDictionary<string, object> HeaderParameters;
-        protected internal string BodyParameter;
+        protected readonly IDictionary<string, object> QueryParameters;
+        protected internal readonly IDictionary<string, object> HeaderParameters;
+        protected internal string StringBodyParameter;
+        protected internal object BodyParameter;
 
         protected ApiRequest(DelegatingHandler customHandler)
         {
@@ -28,25 +58,47 @@ namespace GettyImages.Api
             HeaderParameters = new Dictionary<string, object>();
         }
 
-        public virtual Task<dynamic> ExecuteAsync()
+        public virtual async Task<dynamic> ExecuteAsync()
         {
             var helper = new WebHelper(Credentials, BaseUrl, _customHandler);
             switch (Method)
             {
                 case "GET":
-                    return helper.GetAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters));
+                    return await helper.GetAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters));
                 case "POST":
-                    return helper.PostQueryAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters), BuildBody(BodyParameter));
+                    return await helper.PostQueryAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters), BuildBody());
                 case "PUT":
-                    return helper.PutQueryAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters), BuildBody(BodyParameter));
+                    return await helper.PutQueryAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters), BuildBody());
                 case "DELETE":
-                    return helper.DeleteQueryAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters));
+                    return await helper.DeleteQueryAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters));
+                default:
+                    throw new SdkException("No appropriate HTTP method found for this request.");
+            }
+        }
+        
+        public virtual async Task ExecuteVoidAsync()
+        {
+            var helper = new WebHelper(Credentials, BaseUrl, _customHandler);
+            switch (Method)
+            {
+                case "GET":
+                    await helper.GetAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters));
+                    break;
+                case "POST":
+                    await helper.PostQueryAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters), BuildBody());
+                    break;
+                case "PUT":
+                    await helper.PutQueryVoidAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters), BuildBody());
+                    break;
+                case "DELETE":
+                    await helper.DeleteQueryVoidAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters));
+                    break;
                 default:
                     throw new SdkException("No appropriate HTTP method found for this request.");
             }
         }
 
-        private static IEnumerable<KeyValuePair<string, string>> BuildQuery(
+        protected static IEnumerable<KeyValuePair<string, string>> BuildQuery(
             IEnumerable<KeyValuePair<string, object>> queryParameters)
         {
             var keyValuePairs = queryParameters as KeyValuePair<string, object>[] ??
@@ -74,7 +126,7 @@ namespace GettyImages.Api
                 .AsEnumerable();
         }
 
-        private static IEnumerable<KeyValuePair<string, string>> BuildHeaders(
+        protected static IEnumerable<KeyValuePair<string, string>> BuildHeaders(
             IEnumerable<KeyValuePair<string, object>> headerParameters)
         {
             if (!headerParameters.Any())
@@ -102,16 +154,30 @@ namespace GettyImages.Api
                 .AsEnumerable();
         }
 
-        private static HttpContent BuildBody(string bodyParameter)
+        protected HttpContent BuildBody()
         {
-            if (string.IsNullOrEmpty(bodyParameter))
+            if (!string.IsNullOrEmpty(StringBodyParameter))
             {
-                return null;
+                var bytes = System.Text.Encoding.UTF8.GetBytes(StringBodyParameter);
+                var content = new ByteArrayContent(bytes);
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                return content;
             }
-            var bytes = System.Text.Encoding.UTF8.GetBytes(bodyParameter);
-            var content = new ByteArrayContent(bytes);
-            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            return content;
+
+            if (BodyParameter != null)
+            {
+                var serializedPayload = JsonSerializer.Serialize(BodyParameter, new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = new JsonSnakeCaseNamingPolicy(),
+                    Converters = { new JsonStringEnumConverter() }
+                });
+                var bytes = System.Text.Encoding.UTF8.GetBytes(serializedPayload);
+                var content = new ByteArrayContent(bytes);
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                return content;
+            }
+
+            return null;
         }
 
         private static string BuildEnumString(Enum value)
@@ -266,15 +332,15 @@ namespace GettyImages.Api
 
         protected void AddEditorialSegment(EditorialSegment value)
         {
-            if (QueryParameters.ContainsKey(Constants.EditorialSegmentKey))
+            if (QueryParameters.ContainsKey(Constants.EditorialSegmentsKey))
             {
-                QueryParameters[Constants.EditorialSegmentKey] = value == EditorialSegment.None
+                QueryParameters[Constants.EditorialSegmentsKey] = value == EditorialSegment.None
                     ? value
-                    : (EditorialSegment)QueryParameters[Constants.EditorialSegmentKey] | value;
+                    : (EditorialSegment)QueryParameters[Constants.EditorialSegmentsKey] | value;
             }
             else
             {
-                QueryParameters.Add(Constants.EditorialSegmentKey, value);
+                QueryParameters.Add(Constants.EditorialSegmentsKey, value);
             }
         }
 

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace GettyImages.Api.AssetChanges
 {
-    public class ChangeSets : ApiRequest
+    public class ChangeSets : ApiRequest<Models.AssetChanges>
     {
         protected const string V3ChangeSetsPath = "/asset-changes/change-sets";
 
@@ -18,7 +18,7 @@ namespace GettyImages.Api.AssetChanges
             return new ChangeSets(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task<Models.AssetChanges> ExecuteAsync()
         {
             Method = "PUT";
             Path = V3ChangeSetsPath;

@@ -1,9 +1,10 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Countries
 {
-    public class Countries : ApiRequest
+    public class Countries : ApiRequest<CountriesList>
     {
         protected const string V3CountriesPath = "/countries";
 
@@ -18,7 +19,7 @@ namespace GettyImages.Api.Countries
             return new Countries(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task<CountriesList> ExecuteAsync()
         {
             Method = "GET";
             Path = V3CountriesPath;
