@@ -1,5 +1,6 @@
 # Getty Images API SDK - .NET
-[![build status](https://travis-ci.org/gettyimages/gettyimages-api_dotnet.svg?branch=master)](https://travis-ci.org/gettyimages/gettyimages-api_dotnet)
+
+[![build status](https://github.com/gettyimages/gettyimages-api_dotnet/actions/workflows/build.yml/badge.svg)](https://github.com/gettyimages/gettyimages-api_dotnet/actions/workflows/build.yml)
 [![NuGet version](https://badge.fury.io/nu/gettyimages.api.svg)](https://badge.fury.io/nu/gettyimages.api)
 [![NuGet](https://img.shields.io/nuget/dt/GettyImages.Api.svg?style=flat-square)](https://www.nuget.org/packages/gettyimages.api)
 [![Open Hub](https://img.shields.io/badge/Open-Hub-0185CA.svg)](https://www.openhub.net/p/gettyimages-api_dotnet)
