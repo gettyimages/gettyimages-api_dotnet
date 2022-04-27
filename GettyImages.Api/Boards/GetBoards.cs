@@ -1,8 +1,8 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using GettyImages.Api.Models;
-using BoardRelationship = GettyImages.Api.Entity.BoardRelationship;
-using SortOrder = GettyImages.Api.Entity.SortOrder;
+using BoardRelationship = GettyImages.Api.Models.BoardRelationship;
+using SortOrder = GettyImages.Api.Models.SortOrder;
 
 namespace GettyImages.Api.Boards;
 

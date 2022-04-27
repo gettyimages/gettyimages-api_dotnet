@@ -6,7 +6,7 @@ using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Boards;
 
-public class PutAssets : ApiRequest<AddBoardAssetsResult>
+public class PutAssets : ApiRequest<AddBoardAssetsResponse>
 {
     protected const string V3PutAssetsPath = "/boards/{0}/assets";
 
@@ -23,7 +23,7 @@ public class PutAssets : ApiRequest<AddBoardAssetsResult>
         return new PutAssets(credentials, baseUrl, customHandler);
     }
 
-    public override async Task<AddBoardAssetsResult> ExecuteAsync()
+    public override async Task<AddBoardAssetsResponse> ExecuteAsync()
     {
         Method = "PUT";
         Path = string.Format(V3PutAssetsPath, BoardId);

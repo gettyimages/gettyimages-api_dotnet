@@ -1,4 +1,4 @@
-﻿namespace GettyImages.Api.Entity;
+﻿namespace GettyImages.Api.Models;
 
 public enum ReleaseStatus
 {

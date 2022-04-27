@@ -4,7 +4,7 @@ using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Videos;
 
-public class VideoDownloadHistory : ApiRequest<AssetDownloadHistoryResults>
+public class VideoDownloadHistory : ApiRequest<GetAssetDownloadHistoryResponse>
 {
     private const string VideoDownloadHistoryPath = "/videos/{0}/downloadhistory";
     private string _imageId;
@@ -22,7 +22,7 @@ public class VideoDownloadHistory : ApiRequest<AssetDownloadHistoryResults>
         return new VideoDownloadHistory(credentials, baseUrl, customHandler);
     }
 
-    public override async Task<AssetDownloadHistoryResults> ExecuteAsync()
+    public override async Task<GetAssetDownloadHistoryResponse> ExecuteAsync()
     {
         Method = "GET";
         Path = Path = string.Format(VideoDownloadHistoryPath, _imageId);

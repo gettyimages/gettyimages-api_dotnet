@@ -6,7 +6,7 @@ using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using GettyImages.Api.Entity;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api;
 

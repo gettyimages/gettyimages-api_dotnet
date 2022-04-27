@@ -5,7 +5,7 @@ using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Videos;
 
-public class Videos : ApiRequest<GetVideoMetadataResponse>
+public class Videos : ApiRequest<GetVideosDetailsResponse>
 {
     private const string Comma = ",";
     private const string IdsKey = "ids";
@@ -23,7 +23,7 @@ public class Videos : ApiRequest<GetVideoMetadataResponse>
         return new Videos(credentials, baseUrl, customHandler);
     }
 
-    public override Task<GetVideoMetadataResponse> ExecuteAsync()
+    public override Task<GetVideosDetailsResponse> ExecuteAsync()
     {
         Method = "GET";
         var ids = string.Join(Comma, _videoIds);

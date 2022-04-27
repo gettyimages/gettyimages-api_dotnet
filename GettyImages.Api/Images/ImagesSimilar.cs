@@ -5,7 +5,7 @@ using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Images;
 
-public class ImagesSimilar : ApiRequest<ImageSearchItemSearchResults>
+public class ImagesSimilar : ApiRequest<GetSimilarImagesResponse>
 {
     private const string ImagePath = "/images/{0}/similar";
 
@@ -23,7 +23,7 @@ public class ImagesSimilar : ApiRequest<ImageSearchItemSearchResults>
         return new ImagesSimilar(credentials, baseUrl, customHandler);
     }
 
-    public override Task<ImageSearchItemSearchResults> ExecuteAsync()
+    public override Task<GetSimilarImagesResponse> ExecuteAsync()
     {
         Method = "GET";
         Path = string.Format(ImagePath, AssetId);

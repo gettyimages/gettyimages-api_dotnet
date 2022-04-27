@@ -1,6 +1,6 @@
 using System;
 
-namespace GettyImages.Api.Entity;
+namespace GettyImages.Api.Models;
 
 [Flags]
 public enum Orientation

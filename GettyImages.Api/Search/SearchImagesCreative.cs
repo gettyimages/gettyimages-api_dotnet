@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GettyImages.Api.Entity;
 using GettyImages.Api.Models;
-using SortOrder = GettyImages.Api.Entity.SortOrder;
+using Humanizer;
+using SortOrder = GettyImages.Api.Models.SortOrder;
 
 namespace GettyImages.Api.Search;
 
-public class SearchImagesCreative : ApiRequest<CreativeImageSearchResults>
+public class SearchImagesCreative : ApiRequest<SearchCreativeImagesResponse>
 {
     protected const string V3SearchImagesPath = "/search/images/creative";
 
@@ -24,11 +25,10 @@ public class SearchImagesCreative : ApiRequest<CreativeImageSearchResults>
         return new SearchImagesCreative(credentials, baseUrl, customHandler);
     }
 
-    public override async Task<CreativeImageSearchResults> ExecuteAsync()
+    public override async Task<SearchCreativeImagesResponse> ExecuteAsync()
     {
         Method = "GET";
         Path = V3SearchImagesPath;
-
         return await base.ExecuteAsync();
     }
 
@@ -110,9 +110,9 @@ public class SearchImagesCreative : ApiRequest<CreativeImageSearchResults>
         return this;
     }
 
-    public SearchImagesCreative WithResponseFields(IEnumerable<string> values)
+    public SearchImagesCreative WithResponseFields(IEnumerable<CreativeImagesFieldValues> values)
     {
-        AddResponseFields(values);
+        AddResponseFields(values.Select(f => f.ToString().Underscore()));
         return this;
     }
 

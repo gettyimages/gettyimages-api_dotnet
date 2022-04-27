@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using GettyImages.Api;
-using GettyImages.Api.Entity;
+using GettyImages.Api.Models;
 using Xunit;
 
 namespace UnitTests.Search;

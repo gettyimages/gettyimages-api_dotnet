@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GettyImages.Api.Entity;
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Search;
 
-public class Events : ApiRequest<EventsSearchResult>
+public class Events : ApiRequest<SearchEventsResponse>
 {
     protected const string V3SearchEventsPath = "/search/events";
 
@@ -21,7 +20,7 @@ public class Events : ApiRequest<EventsSearchResult>
         return new Events(credentials, baseUrl, customHandler);
     }
 
-    public override async Task<EventsSearchResult> ExecuteAsync()
+    public override async Task<SearchEventsResponse> ExecuteAsync()
     {
         Method = "GET";
         Path = V3SearchEventsPath;

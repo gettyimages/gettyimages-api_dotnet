@@ -4,12 +4,11 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using GettyImages.Api.Entity;
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Search;
 
-public class SearchImagesCreativeByImage : ApiRequest<SearchByImageResourceResults>
+public class SearchImagesCreativeByImage : ApiRequest<SearchCreativeImagesByImageResponse>
 {
     protected const string V3SearchImagesPath = "/search/images/creative/by-image";
 
@@ -26,7 +25,7 @@ public class SearchImagesCreativeByImage : ApiRequest<SearchByImageResourceResul
         return new SearchImagesCreativeByImage(credentials, baseUrl, customHandler);
     }
 
-    public override async Task<SearchByImageResourceResults> ExecuteAsync()
+    public override async Task<SearchCreativeImagesByImageResponse> ExecuteAsync()
     {
         Method = "GET";
         Path = V3SearchImagesPath;
@@ -65,12 +64,6 @@ public class SearchImagesCreativeByImage : ApiRequest<SearchByImageResourceResul
     public SearchImagesCreativeByImage WithResponseFields(IEnumerable<string> values)
     {
         AddResponseFields(values);
-        return this;
-    }
-
-    public SearchImagesCreativeByImage WithImageFingerprint(string value)
-    {
-        AddQueryParameter(Constants.ImageFingerprintKey, value);
         return this;
     }
 

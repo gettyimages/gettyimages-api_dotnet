@@ -5,7 +5,7 @@ using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Images;
 
-public class Images : ApiRequest<ImagesDetailResponse>
+public class Images : ApiRequest<GetImagesDetailsResponse>
 {
     private const string Comma = ",";
     private const string IdsKey = "ids";
@@ -23,7 +23,7 @@ public class Images : ApiRequest<ImagesDetailResponse>
         return new Images(credentials, baseUrl, customHandler);
     }
 
-    public override Task<ImagesDetailResponse> ExecuteAsync()
+    public override Task<GetImagesDetailsResponse> ExecuteAsync()
     {
         Method = "GET";
         var ids = string.Join(Comma, _imageIds);

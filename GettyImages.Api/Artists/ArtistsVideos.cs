@@ -5,7 +5,7 @@ using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Artists;
 
-public class ArtistsVideos : ApiRequest<ArtistVideoSearchResponse>
+public class ArtistsVideos : ApiRequest<SearchVideosByArtistResponse>
 {
     protected const string V3ArtistsVideosPath = "/artists/videos";
 
@@ -21,7 +21,7 @@ public class ArtistsVideos : ApiRequest<ArtistVideoSearchResponse>
         return new ArtistsVideos(credentials, baseUrl, customHandler);
     }
 
-    public override async Task<ArtistVideoSearchResponse> ExecuteAsync()
+    public override async Task<SearchVideosByArtistResponse> ExecuteAsync()
     {
         Method = "GET";
         Path = V3ArtistsVideosPath;

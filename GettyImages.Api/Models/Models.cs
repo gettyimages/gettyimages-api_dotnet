@@ -5,7 +5,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using GettyImages.Api.Entity;
 
 namespace GettyImages.Api.Models;
 
@@ -49,7 +48,7 @@ public class Country
     [JsonPropertyName("iso_alpha_3")] public string IsoAlpha3 { get; set; }
     public string Name { get; set; }
 }
-public class CountriesList
+public class GetCountriesResponse
 {
     public Country[] Countries { get; set; }
 }
@@ -101,7 +100,7 @@ public class GetDownloadsResponse
     public int ResultCount { get; set; }
     public HistoricalDownload[] Downloads { get; set; }
 }
-public class ImagesDetailResponse
+public class GetImagesDetailsResponse
 {
     public ImageDetail[] Images { get; set; }
     public string[] ImagesNotFound { get; set; }
@@ -109,7 +108,7 @@ public class ImagesDetailResponse
 public class ImageDetail
 {
     public string Id { get; set; }
-    public AssetDetailAllowedUse AllowedUse { get; set; }
+    public AllowedUse AllowedUse { get; set; }
     public Dictionary<string, string> AlternativeIds { get; set; }
     public string Artist { get; set; }
     public string ArtistTitle { get; set; }
@@ -166,25 +165,20 @@ public class DownloadSize
     public int Width { get; set; }
     public int Dpi { get; set; }
 }
-public class AllowedUse
+public class ArtistAssetSearchAllowedUse
 {
     [JsonPropertyName("HowCanIUseIt")] public string HowCanIUseIt { get; set; }
     [JsonPropertyName("ReleaseInfo")] public string ReleaseInfo { get; set; }
     [JsonPropertyName("UsageRestrictions")] public string[] UsageRestrictions { get; set; }
     [JsonPropertyName("Code")] public string Code { get; set; }
 }
-public class AssetDetailAllowedUse
+public class AllowedUse
 {
     public string HowCanIUseIt { get; set; }
     public string ReleaseInfo { get; set; }
     public string[] UsageRestrictions { get; set; }
 }
-public class AssetSearchAllowedUse
-{
-    public string HowCanIUseIt { get; set; }
-    public string ReleaseInfo { get; set; }
-    public string[] UsageRestrictions { get; set; }
-}
+
 public class AssetSearchItemDisplaySize
 {
     public bool IsWatermarked { get; set; }
@@ -225,7 +219,7 @@ public class IStockLicense
 }
 public class ImageSearchItem
 {
-    public AssetDetailAllowedUse AllowedUse { get; set; }
+    public AllowedUse AllowedUse { get; set; }
     public Dictionary<string, string> AlternativeIds { get; set; }
     public string Artist { get; set; }
     public string AssetFamily { get; set; }
@@ -262,13 +256,13 @@ public class RelatedSearch
     public string Phrase { get; set; }
     public string Url { get; set; }
 }
-public class ImageSearchItemSearchResults
+public class GetSimilarImagesResponse
 {
     public int ResultCount { get; set; }
     public ImageSearchItem[] Images { get; set; }
     public RelatedSearch[] RelatedSearches { get; set; }
 }
-public class AssetDownloadHistoryResults
+public class GetAssetDownloadHistoryResponse
 {
     public AssetDownloadHistoryItem[] Downloads { get; set; }
 }
@@ -347,14 +341,7 @@ public class GetProductsResponse
 {
     public Product[] Products { get; set; }
 }
-public class PreviousPurchase
-{
-    public DateTime DatePurchased { get; set; }
-    public string ImageId { get; set; }
-    public string LicenseModel { get; set; }
-    public string OrderId { get; set; }
-    public string ThumbUri { get; set; }
-}
+
 public class PreviousAssetPurchase
 {
     public DateTime DatePurchased { get; set; }
@@ -375,7 +362,7 @@ public class GetPreviouslyPurchasedAssetsResponse
 }
 public class ImageSearchItemCreative
 {
-    public AssetSearchAllowedUse AllowedUse { get; set; }
+    public AllowedUse AllowedUse { get; set; }
     public Dictionary<string, string> AlternativeIds { get; set; }
     public string Artist { get; set; }
     public string AssetFamily { get; set; }
@@ -402,7 +389,7 @@ public class ImageSearchItemCreative
     public string Title { get; set; }
     public string UriOembed { get; set; }
 }
-public class CreativeImageSearchResults
+public class SearchCreativeImagesResponse
 {
     public int ResultCount { get; set; }
     public ImageSearchItemCreative[] Images { get; set; }
@@ -442,7 +429,7 @@ public class SearchFacetsResponse
     public Artist[] Artists { get; set; }
     public Entertainment[] Entertainment { get; set; }
 }
-public class SearchByImageResourceResults
+public class SearchCreativeImagesByImageResponse
 {
     public RelatedSearch[] RelatedSearches { get; set; }
     public int ResultCount { get; set; }
@@ -456,7 +443,7 @@ public class EditorialSource
 }
 public class ImageSearchItemEditorial
 {
-    public AssetSearchAllowedUse AllowedUse { get; set; }
+    public AllowedUse AllowedUse { get; set; }
     public Dictionary<string, string> AlternativeIds { get; set; }
     public string Artist { get; set; }
     public string AssetFamily { get; set; }
@@ -488,7 +475,7 @@ public class ImageSearchItemEditorial
     public string Title { get; set; }
     public string UriOembed { get; set; }
 }
-public class EditorialImageSearchResults
+public class SearchEditorialImagesResponse
 {
     public int ResultCount { get; set; }
     public ImageSearchItemEditorial[] Images { get; set; }
@@ -504,7 +491,7 @@ public class VideoSearchItemDisplaySize
 public class CreativeVideoSearchItem
 {
     public string Id { get; set; }
-    public AssetSearchAllowedUse AllowedUse { get; set; }
+    public AllowedUse AllowedUse { get; set; }
     public string Artist { get; set; }
     public string AssetFamily { get; set; }
     public string Caption { get; set; }
@@ -530,7 +517,7 @@ public class CreativeVideoSearchItem
     public string Title { get; set; }
     public IStockLicense[] IstockLicenses { get; set; }
 }
-public class CreativeVideoSearchResults
+public class SearchCreativeVideosResponse
 {
     public int ResultCount { get; set; }
     public CreativeVideoSearchItem[] Videos { get; set; }
@@ -542,7 +529,7 @@ public class EditorialVideoSearchItem
 {
     public string Source { get; set; }
     public string Id { get; set; }
-    public AssetSearchAllowedUse AllowedUse { get; set; }
+    public AllowedUse AllowedUse { get; set; }
     public string Artist { get; set; }
     public string AssetFamily { get; set; }
     public string Caption { get; set; }
@@ -568,7 +555,7 @@ public class EditorialVideoSearchItem
     public string Title { get; set; }
     public IStockLicense[] IstockLicenses { get; set; }
 }
-public class EditorialVideoSearchResults
+public class SearchEditorialVideosResponse
 {
     public int ResultCount { get; set; }
     public EditorialVideoSearchItem[] Videos { get; set; }
@@ -604,7 +591,7 @@ public class Event
     public string Name { get; set; }
     public DateTime StartDate { get; set; }
 }
-public class EventsSearchResult
+public class SearchEventsResponse
 {
     public Event[] Events { get; set; }
     public int ResultCount { get; set; }
@@ -720,7 +707,7 @@ public class BoardAsset
 {
     public string AssetId { get; set; }
 }
-public class AddBoardAssetsResult
+public class AddBoardAssetsResponse
 {
     public BoardAsset[] AssetsAdded { get; set; }
     public string[] AssetsNotAdded { get; set; }
@@ -759,19 +746,19 @@ public class CreateCommentResponse
 {
     public string Id { get; set; }
 }
-public class ArtistImageSearchResponse
+public class SearchImagesByArtistResponse
 {
     public int ResultCount { get; set; }
     public ArtistAssetSearchItem[] Images { get; set; }
 }
-public class ArtistVideoSearchResponse
+public class SearchVideosByArtistResponse
 {
     public int ResultCount { get; set; }
     public ArtistAssetSearchItem[] Videos { get; set; }
 }
 public class ArtistAssetSearchItem
 {
-    public AllowedUse AllowedUse { get; set; }
+    public ArtistAssetSearchAllowedUse AllowedUse { get; set; }
     public Dictionary<string, string> AlternativeIds { get; set; }
     public string Artist { get; set; }
     public string AssetFamily { get; set; }
@@ -804,7 +791,7 @@ public class ArtistAssetSearchKeyword
     public string Text { get; set; }
     public string Type { get; set; }
 }
-public class GetVideoMetadataResponse
+public class GetVideosDetailsResponse
 {
     public Video[] Videos { get; set; }
     public string[] VideosNotFound { get; set; }
@@ -812,7 +799,7 @@ public class GetVideoMetadataResponse
 public class Video
 {
     public string Id { get; set; }
-    public AssetDetailAllowedUse AllowedUse { get; set; }
+    public AllowedUse AllowedUse { get; set; }
     public string Artist { get; set; }
     public string AssetFamily { get; set; }
     public bool CallForImage { get; set; }

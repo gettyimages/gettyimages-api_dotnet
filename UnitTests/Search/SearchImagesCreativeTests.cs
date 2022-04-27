@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using GettyImages.Api;
-using GettyImages.Api.Entity;
+using GettyImages.Api.Models;
 using Xunit;
 
 namespace UnitTests.Search;
@@ -187,7 +187,7 @@ public class SearchImagesCreativeTests
     {
         var testHandler = TestUtil.CreateTestHandler();
 
-        var fields = new List<string> { "asset_family", "id" };
+        var fields = new List<CreativeImagesFieldValues> {  CreativeImagesFieldValues.AssetFamily, CreativeImagesFieldValues.Id };
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesCreative()
             .WithPhrase("cat").WithResponseFields(fields).ExecuteAsync();

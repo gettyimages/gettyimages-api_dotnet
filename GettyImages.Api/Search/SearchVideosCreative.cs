@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GettyImages.Api.Entity;
 using GettyImages.Api.Models;
-using ReleaseStatus = GettyImages.Api.Entity.ReleaseStatus;
-using SortOrder = GettyImages.Api.Entity.SortOrder;
+using ReleaseStatus = GettyImages.Api.Models.ReleaseStatus;
+using SortOrder = GettyImages.Api.Models.SortOrder;
 
 namespace GettyImages.Api.Search;
 
-public class SearchVideosCreative : ApiRequest<CreativeVideoSearchResults>
+public class SearchVideosCreative : ApiRequest<SearchCreativeVideosResponse>
 {
     protected const string V3SearchVideosPath = "/search/videos/creative";
 
@@ -25,7 +24,7 @@ public class SearchVideosCreative : ApiRequest<CreativeVideoSearchResults>
         return new SearchVideosCreative(credentials, baseUrl, customHandler);
     }
 
-    public override async Task<CreativeVideoSearchResults> ExecuteAsync()
+    public override async Task<SearchCreativeVideosResponse> ExecuteAsync()
     {
         Method = "GET";
         Path = V3SearchVideosPath;
