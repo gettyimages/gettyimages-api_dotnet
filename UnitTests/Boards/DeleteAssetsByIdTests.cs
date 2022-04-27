@@ -3,19 +3,18 @@ using FluentAssertions;
 using GettyImages.Api;
 using Xunit;
 
-namespace UnitTests.Boards
+namespace UnitTests.Boards;
+
+public class DeleteAssetsByIdTests
 {
-    public class DeleteAssetsByIdTests
+    [Fact]
+    public async Task DeleteAssetsByIdBasic()
     {
-        [Fact]
-        public async Task DeleteAssetsByIdBasic()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
+        var testHandler = TestUtil.CreateTestHandler();
 
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .DeleteAssetsById().WithBoardId("15345").WithAssetId("1245").ExecuteVoidAsync();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .DeleteAssetsById().WithBoardId("15345").WithAssetId("1245").ExecuteVoidAsync();
 
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards/15345/assets/1245");
-        }
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards/15345/assets/1245");
     }
 }

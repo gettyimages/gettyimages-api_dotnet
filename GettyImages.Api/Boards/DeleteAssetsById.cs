@@ -1,49 +1,51 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace GettyImages.Api.Boards
+namespace GettyImages.Api.Boards;
+
+public class DeleteAssetsById : ApiRequest
 {
-    public class DeleteAssetsById : ApiRequest
+    protected const string V3DeleteAssetByIdPath = "/boards/{0}/assets/{1}";
+
+    private DeleteAssetsById(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(
+        customHandler)
     {
-        protected const string V3DeleteAssetByIdPath = "/boards/{0}/assets/{1}";
-        protected string BoardId { get; set; }
-        protected string AssetId { get; set; }
+        Credentials = credentials;
+        BaseUrl = baseUrl;
+    }
 
-        private DeleteAssetsById(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
-        {
-            Credentials = credentials;
-            BaseUrl = baseUrl;
-        }
+    protected string BoardId { get; set; }
+    protected string AssetId { get; set; }
 
-        internal static DeleteAssetsById GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
-        {
-            return new DeleteAssetsById(credentials, baseUrl, customHandler);
-        }
+    internal static DeleteAssetsById GetInstance(Credentials credentials, string baseUrl,
+        DelegatingHandler customHandler)
+    {
+        return new DeleteAssetsById(credentials, baseUrl, customHandler);
+    }
 
-        public override async Task ExecuteVoidAsync()
-        {
-            Method = "DELETE";
-            Path = string.Format(V3DeleteAssetByIdPath, BoardId, AssetId);
+    public override async Task ExecuteVoidAsync()
+    {
+        Method = "DELETE";
+        Path = string.Format(V3DeleteAssetByIdPath, BoardId, AssetId);
 
-            await base.ExecuteVoidAsync();
-        }
+        await base.ExecuteVoidAsync();
+    }
 
-        public DeleteAssetsById WithBoardId(string value)
-        {
-            BoardId = value;
-            return this;
-        }
+    public DeleteAssetsById WithBoardId(string value)
+    {
+        BoardId = value;
+        return this;
+    }
 
-        public DeleteAssetsById WithAssetId(string value)
-        {
-            AssetId = value;
-            return this;
-        }
+    public DeleteAssetsById WithAssetId(string value)
+    {
+        AssetId = value;
+        return this;
+    }
 
-        public DeleteAssetsById WithAcceptLanguage(string value)
-        {
-            AddHeaderParameter(Constants.AcceptLanguage, value);
-            return this;
-        }
+    public DeleteAssetsById WithAcceptLanguage(string value)
+    {
+        AddHeaderParameter(Constants.AcceptLanguage, value);
+        return this;
     }
 }

@@ -9,7 +9,8 @@ public class ArtistsImages : ApiRequest<ArtistImageSearchResponse>
 {
     protected const string V3ArtistsImagesPath = "/artists/images";
 
-    private ArtistsImages(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
+    private ArtistsImages(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(
+        customHandler)
     {
         Credentials = credentials;
         BaseUrl = baseUrl;
@@ -58,4 +59,3 @@ public class ArtistsImages : ApiRequest<ArtistImageSearchResponse>
         return this;
     }
 }
-

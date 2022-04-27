@@ -1,12 +1,11 @@
-﻿namespace GettyImages.Api.Entity
+﻿namespace GettyImages.Api.Entity;
+
+public enum SortOrder
 {
-    public enum SortOrder
-    {
-        None = 0,
-        [Description("best_match")] BestMatch,
-        [Description("most_popular")] MostPopular,
-        [Description("newest")] Newest,
-        [Description("oldest")] Oldest,
-        [Description("random")] Random
-    }
+    None = 0,
+    [Description("best_match")] BestMatch,
+    [Description("most_popular")] MostPopular,
+    [Description("newest")] Newest,
+    [Description("oldest")] Oldest,
+    [Description("random")] Random
 }

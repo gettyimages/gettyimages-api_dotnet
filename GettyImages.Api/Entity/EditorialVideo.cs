@@ -1,13 +1,11 @@
 ﻿using System;
 
-namespace GettyImages.Api.Entity
-{
-    [Flags]
+namespace GettyImages.Api.Entity;
 
-    public enum EditorialVideo
-    {
-        None = 0,
-        [Description("raw")] Raw = 1,
-        [Description("produced")] Produced = 2,
-    }
+[Flags]
+public enum EditorialVideo
+{
+    None = 0,
+    [Description("raw")] Raw = 1,
+    [Description("produced")] Produced = 2
 }

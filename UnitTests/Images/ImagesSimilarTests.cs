@@ -4,57 +4,56 @@ using FluentAssertions;
 using GettyImages.Api;
 using Xunit;
 
-namespace UnitTests.Images
+namespace UnitTests.Images;
+
+public class ImagesSimilarTests
 {
-    public class ImagesSimilarTests
+    [Fact]
+    public async Task ImagesSimilarBasic()
     {
-        [Fact]
-        public async Task ImagesSimilarBasic()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
+        var testHandler = TestUtil.CreateTestHandler();
 
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .ImagesSimilar().WithId("882449540").ExecuteAsync();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .ImagesSimilar().WithId("882449540").ExecuteAsync();
 
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("images/882449540/similar");
-        }
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("images/882449540/similar");
+    }
 
-        [Fact]
-        public async Task ImagesSimilarWithResponseFields()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
+    [Fact]
+    public async Task ImagesSimilarWithResponseFields()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
 
-            var fields = new List<string>() { "country", "id" };
+        var fields = new List<string> { "country", "id" };
 
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .ImagesSimilar().WithId("882449540").WithResponseFields(fields).ExecuteAsync();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .ImagesSimilar().WithId("882449540").WithResponseFields(fields).ExecuteAsync();
 
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("images/882449540/similar");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("fields=country%2Cid");
-        }
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("images/882449540/similar");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("fields=country%2Cid");
+    }
 
-        [Fact]
-        public async Task ImagesSimilarWithPage()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
+    [Fact]
+    public async Task ImagesSimilarWithPage()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
 
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .ImagesSimilar().WithId("882449540").WithPage(3).ExecuteAsync();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .ImagesSimilar().WithId("882449540").WithPage(3).ExecuteAsync();
 
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("images/882449540/similar");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("page=3");
-        }
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("images/882449540/similar");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("page=3");
+    }
 
-        [Fact]
-        public async Task ImagesSimilarWithPageSize()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
+    [Fact]
+    public async Task ImagesSimilarWithPageSize()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
 
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .ImagesSimilar().WithId("882449540").WithPageSize(50).ExecuteAsync();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .ImagesSimilar().WithId("882449540").WithPageSize(50).ExecuteAsync();
 
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("images/882449540/similar");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("page_size=50");
-        }
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("images/882449540/similar");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("page_size=50");
     }
 }

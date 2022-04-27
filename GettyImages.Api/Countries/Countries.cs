@@ -2,35 +2,34 @@
 using System.Threading.Tasks;
 using GettyImages.Api.Models;
 
-namespace GettyImages.Api.Countries
+namespace GettyImages.Api.Countries;
+
+public class Countries : ApiRequest<CountriesList>
 {
-    public class Countries : ApiRequest<CountriesList>
+    protected const string V3CountriesPath = "/countries";
+
+    private Countries(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
     {
-        protected const string V3CountriesPath = "/countries";
+        Credentials = credentials;
+        BaseUrl = baseUrl;
+    }
 
-        private Countries(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
-        {
-            Credentials = credentials;
-            BaseUrl = baseUrl;
-        }
+    internal static Countries GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
+    {
+        return new Countries(credentials, baseUrl, customHandler);
+    }
 
-        internal static Countries GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
-        {
-            return new Countries(credentials, baseUrl, customHandler);
-        }
+    public override async Task<CountriesList> ExecuteAsync()
+    {
+        Method = "GET";
+        Path = V3CountriesPath;
 
-        public override async Task<CountriesList> ExecuteAsync()
-        {
-            Method = "GET";
-            Path = V3CountriesPath;
+        return await base.ExecuteAsync();
+    }
 
-            return await base.ExecuteAsync();
-        }
-
-        public Countries WithAcceptLanguage(string value)
-        {
-            AddHeaderParameter(Constants.AcceptLanguage, value);
-            return this;
-        }
+    public Countries WithAcceptLanguage(string value)
+    {
+        AddHeaderParameter(Constants.AcceptLanguage, value);
+        return this;
     }
 }

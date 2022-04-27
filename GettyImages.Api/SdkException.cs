@@ -3,61 +3,44 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace GettyImages.Api
+namespace GettyImages.Api;
+
+public class SdkException : Exception
 {
-    public class SdkException : Exception
+    private const string ErrorMessageProperty1 = "ErrorMessage";
+    private const string ErrorMessageProperty2 = "error_message";
+
+    internal SdkException(string message, HttpStatusCode? statusCode = null) : base(message)
     {
-        private const string ErrorMessageProperty1 = "ErrorMessage";
-        private const string ErrorMessageProperty2 = "error_message";
+        StatusCode = statusCode;
+    }
 
-        internal SdkException(string message, HttpStatusCode? statusCode = null) : base(message)
+    internal SdkException(string message, Exception innerException, HttpStatusCode? statusCode = null)
+        : base(message, innerException)
+    {
+        StatusCode = statusCode;
+    }
+
+    public HttpStatusCode? StatusCode { get; set; }
+
+    internal static async Task GenerateSdkExceptionAsync(HttpResponseMessage httpResponse, string message = null)
+    {
+        if (httpResponse.Content != null && string.IsNullOrEmpty(message))
         {
-            StatusCode = statusCode;
+            message = await httpResponse.Content.ReadAsStringAsync();
         }
 
-        internal SdkException(string message, Exception innerException, HttpStatusCode? statusCode = null)
-            : base(message, innerException)
+        if (string.IsNullOrEmpty(message))
         {
-            StatusCode = statusCode;
+            message = $"{(int)httpResponse.StatusCode} - {httpResponse.ReasonPhrase}";
         }
 
-        public HttpStatusCode? StatusCode { get; set; }
-
-        internal static async Task GenerateSdkExceptionAsync(HttpResponseMessage httpResponse, string message = null)
+        switch (httpResponse.StatusCode)
         {
-            if (httpResponse.Content != null && string.IsNullOrEmpty(message))
-            {
-                var resultContentAsString = await httpResponse.Content.ReadAsStringAsync();
-
-                if (httpResponse.Content.Headers != null && httpResponse.Content.Headers.ContentType != null && httpResponse.Content.Headers.ContentType.MediaType == "application/json")
-                {   
-                    //TODO: parse the error message
-                    // var response = JObject.Parse(resultContentAsString);
-                    // JToken errorMessage;
-                    // if (response.TryGetValue(ErrorMessageProperty1, out errorMessage) ||
-                    //     response.TryGetValue(ErrorMessageProperty2, out errorMessage))
-                    // {
-                    //     message = errorMessage.Value<string>();
-                    // }
-                }
-                else
-                {
-                    message = resultContentAsString;
-                }
-            }
-
-            if (string.IsNullOrEmpty(message))
-            {
-                message = $"{(int)httpResponse.StatusCode} - {httpResponse.ReasonPhrase}";
-            }
-            
-            switch (httpResponse.StatusCode)
-            {
-                case HttpStatusCode.Unauthorized:
-                    throw new UnauthorizedException(message);
-                default:
-                    throw new SdkException(message, httpResponse.StatusCode);
-            }
+            case HttpStatusCode.Unauthorized:
+                throw new UnauthorizedException(message);
+            default:
+                throw new SdkException(message, httpResponse.StatusCode);
         }
     }
 }

@@ -1,16 +1,15 @@
 using System;
 
-namespace GettyImages.Api.Entity
+namespace GettyImages.Api.Entity;
+
+[Flags]
+public enum EditorialSegment
 {
-    [Flags]
-    public enum EditorialSegment
-    {
-        None = 0,
-        Archival = 1,
-        Entertainment = 2,
-        News = 4,
-        Publicity = 8,
-        Royalty = 16,
-        Sport = 32,
-    }
+    None = 0,
+    Archival = 1,
+    Entertainment = 2,
+    News = 4,
+    Publicity = 8,
+    Royalty = 16,
+    Sport = 32
 }

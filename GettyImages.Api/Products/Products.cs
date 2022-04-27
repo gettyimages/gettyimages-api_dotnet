@@ -3,41 +3,40 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using GettyImages.Api.Models;
 
-namespace GettyImages.Api.Products
+namespace GettyImages.Api.Products;
+
+public class Products : ApiRequest<GetProductsResponse>
 {
-    public class Products : ApiRequest<GetProductsResponse>
+    protected const string V3ProductsPath = "/products";
+
+    private Products(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
     {
-        protected const string V3ProductsPath = "/products";
+        Credentials = credentials;
+        BaseUrl = baseUrl;
+    }
 
-        private Products(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
-        {
-            Credentials = credentials;
-            BaseUrl = baseUrl;
-        }
+    internal static Products GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
+    {
+        return new Products(credentials, baseUrl, customHandler);
+    }
 
-        internal static Products GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
-        {
-            return new Products(credentials, baseUrl, customHandler);
-        }
+    public override async Task<GetProductsResponse> ExecuteAsync()
+    {
+        Method = "GET";
+        Path = V3ProductsPath;
 
-        public override async Task<GetProductsResponse> ExecuteAsync()
-        {
-            Method = "GET";
-            Path = V3ProductsPath;
+        return await base.ExecuteAsync();
+    }
 
-            return await base.ExecuteAsync();
-        }
+    public Products WithAcceptLanguage(string value)
+    {
+        AddHeaderParameter(Constants.AcceptLanguage, value);
+        return this;
+    }
 
-        public Products WithAcceptLanguage(string value)
-        {
-            AddHeaderParameter(Constants.AcceptLanguage, value);
-            return this;
-        }
-
-        public Products WithResponseFields(IEnumerable<string> values)
-        {
-            AddResponseFields(values);
-            return this;
-        }
+    public Products WithResponseFields(IEnumerable<string> values)
+    {
+        AddResponseFields(values);
+        return this;
     }
 }

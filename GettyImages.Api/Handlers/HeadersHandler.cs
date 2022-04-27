@@ -3,32 +3,32 @@ using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-[assembly:InternalsVisibleTo("UnitTests")]
 
-namespace GettyImages.Api.Handlers
+[assembly: InternalsVisibleTo("UnitTests")]
+
+namespace GettyImages.Api.Handlers;
+
+internal class HeadersHandler : DelegatingHandler
 {
-    internal class HeadersHandler : DelegatingHandler
+    private readonly IEnumerable<KeyValuePair<string, string>> _headerParameters;
+
+    public HeadersHandler(IEnumerable<KeyValuePair<string, string>> headerParameters)
     {
-        private readonly IEnumerable<KeyValuePair<string, string>> _headerParameters;
+        _headerParameters = headerParameters;
+    }
 
-        public HeadersHandler(IEnumerable<KeyValuePair<string, string>> headerParameters)
+    protected override async Task<HttpResponseMessage> SendAsync(
+        HttpRequestMessage request,
+        CancellationToken cancellationToken)
+    {
+        if (_headerParameters != null)
         {
-            _headerParameters = headerParameters;
-        }
-
-        protected override async Task<HttpResponseMessage> SendAsync(
-            HttpRequestMessage request,
-            CancellationToken cancellationToken)
-        {
-            if (_headerParameters != null)
+            foreach (var header in _headerParameters)
             {
-                foreach (var header in _headerParameters)
-                {
-                    request.Headers.Add(header.Key, header.Value);
-                }
+                request.Headers.Add(header.Key, header.Value);
             }
-
-            return await base.SendAsync(request, cancellationToken);
         }
+
+        return await base.SendAsync(request, cancellationToken);
     }
 }

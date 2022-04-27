@@ -2,36 +2,35 @@
 using System.Threading.Tasks;
 using GettyImages.Api.Models;
 
-namespace GettyImages.Api.Customers
+namespace GettyImages.Api.Customers;
+
+public class Customers : ApiRequest<CustomerInfoResponse>
 {
-    public class Customers : ApiRequest<CustomerInfoResponse>
+    protected const string V3CustomersPath = "/customers/current";
+
+    public Customers(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
     {
-        protected const string V3CustomersPath = "/customers/current";
+        Credentials = credentials;
+        BaseUrl = baseUrl;
+    }
 
-        public Customers(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
-        {
-            Credentials = credentials;
-            BaseUrl = baseUrl;
-        }
+    internal static Customers GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
+    {
+        return new Customers(credentials, baseUrl, customHandler);
+    }
 
-        internal static Customers GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
-        {
-            return new Customers(credentials, baseUrl, customHandler);
-        }
+    public override async Task<CustomerInfoResponse> ExecuteAsync()
+    {
+        Method = "GET";
+        Path = V3CustomersPath;
 
-        public override async Task<CustomerInfoResponse> ExecuteAsync()
-        {
-            Method = "GET";
-            Path = V3CustomersPath;
+        return await base.ExecuteAsync();
+    }
 
-            return await base.ExecuteAsync();
-        }
+    public Customers WithAcceptLanguage(string value)
+    {
+        AddHeaderParameter(Constants.AcceptLanguage, value);
 
-        public Customers WithAcceptLanguage(string value)
-        {
-            AddHeaderParameter(Constants.AcceptLanguage, value);
-
-            return this;
-        }
+        return this;
     }
 }

@@ -4,64 +4,64 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GettyImages.Api.Handlers
+namespace GettyImages.Api.Handlers;
+
+internal class UserAgentHandler : DelegatingHandler
 {
-    internal class UserAgentHandler : DelegatingHandler
+    private static readonly string UserAgentString;
+
+    static UserAgentHandler()
     {
-        private static readonly string UserAgentString;
+        UserAgentString = "GettyImagesApiSdk/" +
+                          Assembly.Load(new AssemblyName("GettyImages.Api"))
+                              .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+                              .InformationalVersion +
+                          " (" + OsVersion() + Framework() + ")";
+    }
 
-        static UserAgentHandler()
+    private static string OsVersion()
+    {
+        var os = string.Empty;
+
+        try
         {
-            UserAgentString = "GettyImagesApiSdk/" +
-                              Assembly.Load(new AssemblyName("GettyImages.Api"))
-                                  .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
-                                  .InformationalVersion +
-                              " (" + OsVersion() + Framework() + ")";
+            os = typeof(Environment).GetTypeInfo().Assembly
+                .GetType("System.Environment")
+                .GetRuntimeProperty("OSVersion")
+                .GetValue(null).ToString();
+        }
+        catch
+        {
         }
 
-        private static string OsVersion()
+        return string.IsNullOrEmpty(os) ? os : os + "; ";
+    }
+
+    private static string Framework()
+    {
+        var frameworkVersion = ".NET";
+
+        try
         {
-            var os = string.Empty;
-
-            try
-            {
-                os = typeof (Environment).GetTypeInfo().Assembly
-                    .GetType("System.Environment")
-                    .GetRuntimeProperty("OSVersion")
-                    .GetValue(null).ToString();
-            }
-            catch
-            {
-            }
-
-            return string.IsNullOrEmpty(os) ? os : os + "; ";
+            frameworkVersion = " " + typeof(Environment).GetTypeInfo().Assembly
+                .GetType("System.Environment").GetRuntimeProperty("Version").GetValue(null);
+        }
+        catch
+        {
         }
 
-        private static string Framework()
+        return (Type.GetType("Mono.Runtime") != null ? "Mono" : ".NET") + frameworkVersion;
+    }
+
+    protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+        CancellationToken cancellationToken)
+    {
+        request.Headers.Add("User-Agent", UserAgentString);
+        if (InnerHandler == null)
         {
-            var frameworkVersion = ".NET";
-
-            try
-            {
-                frameworkVersion = " " + typeof (Environment).GetTypeInfo().Assembly
-                    .GetType("System.Environment").GetRuntimeProperty("Version").GetValue(null);
-            }
-            catch
-            {
-            }
-
-            return (Type.GetType("Mono.Runtime") != null ? "Mono" : ".NET") + frameworkVersion;
+            InnerHandler = new HttpClientHandler();
         }
 
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
-            CancellationToken cancellationToken)
-        {
-            request.Headers.Add("User-Agent", UserAgentString);
-            if (InnerHandler == null)
-            {
-                InnerHandler = new HttpClientHandler();
-            }
-            return base.SendAsync(request, cancellationToken);
-        }
+        return base.SendAsync(request, cancellationToken);
     }
 }

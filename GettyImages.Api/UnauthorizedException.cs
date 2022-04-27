@@ -1,11 +1,10 @@
 using System.Net;
 
-namespace GettyImages.Api
+namespace GettyImages.Api;
+
+public class UnauthorizedException : SdkException
 {
-    public class UnauthorizedException : SdkException
+    internal UnauthorizedException(string message) : base(message, HttpStatusCode.Unauthorized)
     {
-        internal UnauthorizedException(string message) : base(message, HttpStatusCode.Unauthorized)
-        {
-        }
     }
 }

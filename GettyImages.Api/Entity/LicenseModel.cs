@@ -1,13 +1,12 @@
 using System;
 
-namespace GettyImages.Api.Entity
+namespace GettyImages.Api.Entity;
+
+[Flags]
+public enum LicenseModel
 {
-    [Flags]
-    public enum LicenseModel
-    {
-        None = 0,
-        RightsManaged = 1,
-        RoyaltyFree = 2,
-        RightsReady = 4
-    }
+    None = 0,
+    RightsManaged = 1,
+    RoyaltyFree = 2,
+    RightsReady = 4
 }
