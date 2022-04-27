@@ -104,7 +104,7 @@ namespace GettyImages.Api
             var keyValuePairs = queryParameters as KeyValuePair<string, object>[] ??
                                 queryParameters.ToArray();
 
-            return keyValuePairs.Where(v => v.Value is string || v.Value is bool || v.Value is int)
+            return keyValuePairs.Where(v => v.Value is string || v.Value is bool || v.Value is int || v.Value is DateTime)
                 .Select(
                     d =>
                         new KeyValuePair<string, string>(d.Key,

@@ -13,7 +13,7 @@ namespace UnitTests.Boards
             var testHandler = TestUtil.CreateTestHandler();
 
             await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .DeleteBoardsById().WithBoardId("15345").ExecuteAsync();
+                .DeleteBoardsById().WithBoardId("15345").ExecuteVoidAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards/15345");
         }

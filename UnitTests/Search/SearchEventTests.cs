@@ -67,7 +67,7 @@ namespace UnitTests.Search
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("editorial_segments=archival");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("editorial_segment=archival");
         }
 
         [Fact]

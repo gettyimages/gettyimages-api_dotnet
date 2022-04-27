@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using FluentAssertions;
 using GettyImages.Api;
 using GettyImages.Api.Boards;
 using GettyImages.Api.Models;
@@ -13,21 +14,16 @@ namespace UnitTests.HeaderAndBody
         {
             var postBoards = PostBoards.GetInstance(null, null, null);
 
-            var newboard = @"{
-                'name': 'Test Board',
-                'description': 'This board is for integration tests'
-            }";
-
+            var description = "This board is for integration tests";
+            var name = "Test Board";
             postBoards.WithNewBoard(new BoardInfo
             {
-                Name = "Test Board",
-                Description = "This board is for integration tests"
+                Name = name,
+                Description = description
             });
 
-            Assert.Equal(@"{
-                'name': 'Test Board',
-                'description': 'This board is for integration tests'
-            }", postBoards.StringBodyParameter);
+            ((BoardInfo)postBoards.BodyParameter).Description.Should().Be(description);
+            ((BoardInfo)postBoards.BodyParameter).Name.Should().Be(name);
         }
 
         [Fact]

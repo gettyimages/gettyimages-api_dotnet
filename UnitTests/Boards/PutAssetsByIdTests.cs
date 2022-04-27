@@ -13,7 +13,7 @@ namespace UnitTests.Boards
             var testHandler = TestUtil.CreateTestHandler();
 
             await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .PutAssetsById().WithBoardId("15345").WithAssetId("1245").ExecuteAsync();
+                .PutAssetsById().WithBoardId("15345").WithAssetId("1245").ExecuteVoidAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards/15345/assets/1245");
         }

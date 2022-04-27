@@ -28,9 +28,9 @@ namespace UnitTests.Images
             var testHandler = TestUtil.CreateTestHandler();
 
             await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .Images().WithId("882449540").ExecuteAsync();
+                .Images().WithIds(new [] { "882449540" }).ExecuteAsync();
 
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("images/882449540");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("ids=882449540");
         }
 
         [Fact]
@@ -58,9 +58,9 @@ namespace UnitTests.Images
             var fields = new List<string>() { "country", "id" };
 
             await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .Images().WithId("882449540").WithResponseFields(fields).ExecuteAsync();
+                .Images().WithIds(new [] { "882449540" }).WithResponseFields(fields).ExecuteAsync();
 
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("images/882449540");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("ids=882449540");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("fields=country%2Cid");
         }
     }

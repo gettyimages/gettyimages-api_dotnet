@@ -34,7 +34,7 @@ namespace GettyImages.Api.Purchases
             return this;
         }
 
-        public PurchasedAssets WithEndDate(DateTime value)
+        public PurchasedAssets WithDateTo(DateTime value)
         {
             AddQueryParameter(Constants.DateToKey, value);
             return this;
@@ -52,7 +52,7 @@ namespace GettyImages.Api.Purchases
             return this;
         }
 
-        public PurchasedAssets WithStartDate(DateTime value)
+        public PurchasedAssets WithDateFrom(DateTime value)
         {
             AddQueryParameter(Constants.DateFromKey, value);
             return this;

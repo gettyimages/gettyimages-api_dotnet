@@ -1,9 +1,10 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Videos
 {
-    public class VideoDownloadHistory : ApiRequest
+    public class VideoDownloadHistory : ApiRequest<AssetDownloadHistoryResults>
     {
         private const string VideoDownloadHistoryPath = "/videos/{0}/downloadhistory";
         private string _imageId;
@@ -19,7 +20,7 @@ namespace GettyImages.Api.Videos
             return new VideoDownloadHistory(credentials, baseUrl, customHandler);
         }
 
-        public override async Task<dynamic> ExecuteAsync()
+        public override async Task<AssetDownloadHistoryResults> ExecuteAsync()
         {
             Method = "GET";
             Path = Path = string.Format(VideoDownloadHistoryPath, _imageId);

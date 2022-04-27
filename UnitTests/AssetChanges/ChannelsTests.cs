@@ -23,6 +23,7 @@ namespace UnitTests.AssetChanges
 
             var stream = new MemoryStream();
             await JsonSerializer.SerializeAsync(stream, channels);
+            stream.Seek(0, SeekOrigin.Begin);
             var content = new StreamContent(stream);
             var responseMessage = new HttpResponseMessage(HttpStatusCode.OK);
             responseMessage.Content = content;

@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Videos
 {
-    public class Videos : ApiRequest
+    public class Videos : ApiRequest<GetVideoMetadataResponse>
     {
         private const string Comma = ",";
         private const string IdsKey = "ids";
-        private const string VideosPath = "/videos/{0}";
         private const string VideosBatchPath = "/videos";
         private readonly List<string> _videoIds = new List<string>();
 
@@ -23,22 +23,12 @@ namespace GettyImages.Api.Videos
             return new Videos(credentials, baseUrl, customHandler);
         }
 
-        public override Task<dynamic> ExecuteAsync()
+        public override Task<GetVideoMetadataResponse> ExecuteAsync()
         {
             Method = "GET";
-
             var ids = string.Join(Comma, _videoIds);
-
-            if (_videoIds.Count > 1)
-            {
-                QueryParameters.Add(IdsKey, ids);
-                Path = VideosBatchPath;
-            }
-            else
-            {
-                Path = string.Format(VideosPath, ids);
-            }
-
+            QueryParameters.Add(IdsKey, ids);
+            Path = VideosBatchPath;
             return base.ExecuteAsync();
         }
 

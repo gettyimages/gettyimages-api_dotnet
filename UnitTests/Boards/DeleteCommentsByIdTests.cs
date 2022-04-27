@@ -13,7 +13,7 @@ namespace UnitTests.Boards
             var testHandler = TestUtil.CreateTestHandler();
 
             await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .DeleteCommentsById().WithBoardId("15345").WithCommentId("1245").ExecuteAsync();
+                .DeleteCommentsById().WithBoardId("15345").WithCommentId("1245").ExecuteVoidAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards/15345/comments/1245");
         }

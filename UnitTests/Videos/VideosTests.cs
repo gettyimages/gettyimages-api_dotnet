@@ -30,7 +30,7 @@ namespace UnitTests.Videos
             await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
                 .Videos().WithId("882449540").ExecuteAsync();
 
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("videos/882449540");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("videos?ids=882449540");
         }
 
         [Fact]
@@ -60,7 +60,7 @@ namespace UnitTests.Videos
             await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
                 .Videos().WithId("882449540").WithResponseFields(fields).ExecuteAsync();
 
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("videos/882449540");
+            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("videos?ids=882449540");
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("fields=country%2Cid");
         }
     }

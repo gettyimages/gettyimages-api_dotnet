@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using FluentAssertions;
 using GettyImages.Api;
@@ -28,7 +29,8 @@ namespace UnitTests.AssetLicensing
                 .ExecuteAsync();
 
             testHandler.Request.RequestUri.AbsoluteUri.Should().Contain($"/asset-licensing/{assetId}");
-            var content = JsonSerializer.Deserialize<AcquireAssetLicensesRequest>( await testHandler.Request.Content.ReadAsStringAsync());
+            var requestString = await testHandler.Request.Content.ReadAsStringAsync();
+            var content = Serializer.Deserialize<AcquireAssetLicensesRequest>(requestString);
             content.ExtendedLicenses.First().Should().Be(ExtendedLicense.Multiseat);
             content.UseTeamCredits.Should().BeTrue();
         }
