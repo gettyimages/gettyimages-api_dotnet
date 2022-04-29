@@ -13,7 +13,7 @@ public class DeleteAssetsByIdTests
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-            .DeleteAssetsById().WithBoardId("15345").WithAssetId("1245").ExecuteVoidAsync();
+            .DeleteAssetsById().WithBoardId("15345").WithAssetId("1245").ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards/15345/assets/1245");
     }

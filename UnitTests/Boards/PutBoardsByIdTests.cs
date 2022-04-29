@@ -13,7 +13,7 @@ public class PutBoardsByIdTests
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-            .PutBoardsById().WithBoardId("15345").ExecuteVoidAsync();
+            .PutBoardsById().WithBoardId("15345").ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards/15345");
     }

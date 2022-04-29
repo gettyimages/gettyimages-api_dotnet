@@ -16,7 +16,7 @@ public class ApiRequest<T> : ApiRequest
     {
     }
 
-    public new virtual async Task<T> ExecuteAsync()
+    public new async Task<T> ExecuteAsync()
     {
         var helper = new WebHelper(Credentials, BaseUrl, _customHandler);
         switch (Method)
@@ -58,27 +58,7 @@ public class ApiRequest
         HeaderParameters = new Dictionary<string, object>();
     }
 
-    public virtual async Task<dynamic> ExecuteAsync()
-    {
-        var helper = new WebHelper(Credentials, BaseUrl, _customHandler);
-        switch (Method)
-        {
-            case "GET":
-                return await helper.GetAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters));
-            case "POST":
-                return await helper.PostQueryAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters),
-                    BuildBody());
-            case "PUT":
-                return await helper.PutQueryAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters),
-                    BuildBody());
-            case "DELETE":
-                return await helper.DeleteQueryAsync(BuildQuery(QueryParameters), Path, BuildHeaders(HeaderParameters));
-            default:
-                throw new SdkException("No appropriate HTTP method found for this request.");
-        }
-    }
-
-    public virtual async Task ExecuteVoidAsync()
+    public virtual async Task ExecuteAsync()
     {
         var helper = new WebHelper(Credentials, BaseUrl, _customHandler);
         switch (Method)

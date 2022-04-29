@@ -22,12 +22,12 @@ public class DeleteBoardsById : ApiRequest
         return new DeleteBoardsById(credentials, baseUrl, customHandler);
     }
 
-    public override async Task ExecuteVoidAsync()
+    public override async Task ExecuteAsync()
     {
         Method = "DELETE";
         Path = V3PostBoardsPath + "/" + BoardId;
 
-        await base.ExecuteVoidAsync();
+        await base.ExecuteAsync();
     }
 
     public DeleteBoardsById WithBoardId(string value)

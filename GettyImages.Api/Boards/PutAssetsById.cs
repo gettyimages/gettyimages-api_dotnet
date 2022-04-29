@@ -22,11 +22,11 @@ public class PutAssetsById : ApiRequest
         return new PutAssetsById(credentials, baseUrl, customHandler);
     }
 
-    public override async Task ExecuteVoidAsync()
+    public override async Task ExecuteAsync()
     {
         Method = "PUT";
         Path = string.Format(V3PutAssetByIdPath, BoardId, AssetId);
-        await base.ExecuteVoidAsync();
+        await base.ExecuteAsync();
     }
 
     public PutAssetsById WithBoardId(string value)

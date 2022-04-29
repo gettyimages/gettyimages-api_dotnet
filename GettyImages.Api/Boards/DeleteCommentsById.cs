@@ -23,12 +23,12 @@ public class DeleteCommentsById : ApiRequest
         return new DeleteCommentsById(credentials, baseUrl, customHandler);
     }
 
-    public override async Task ExecuteVoidAsync()
+    public override async Task ExecuteAsync()
     {
         Method = "DELETE";
         Path = string.Format(V3DeleteCommentByIdPath, BoardId, CommentId);
 
-        await base.ExecuteVoidAsync();
+        await base.ExecuteAsync();
     }
 
     public DeleteCommentsById WithBoardId(string value)

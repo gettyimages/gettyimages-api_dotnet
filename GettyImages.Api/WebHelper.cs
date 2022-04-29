@@ -22,7 +22,7 @@ internal class WebHelper
         _customHandler = customHandler;
     }
 
-    internal async Task<dynamic> GetAsync(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
+    internal async Task GetAsync(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
         IEnumerable<KeyValuePair<string, string>> headerParameters = null)
     {
         using var client = new HttpClient(await GetHandlersAsync(headerParameters));
@@ -37,14 +37,14 @@ internal class WebHelper
 
         try
         {
-            return await HandleResponseAsync(httpResponse);
+            await HandleResponseAsync(httpResponse);
         }
         catch (UnauthorizedException)
         {
             _credentials.ResetAccessToken();
             using var retryClient = new HttpClient(await GetHandlersAsync(headerParameters));
             httpResponse = await retryClient.GetAsyncWithRetryPolicy(builder.Uri);
-            return await HandleResponseAsync(httpResponse);
+            await HandleResponseAsync(httpResponse);
         }
     }
 
@@ -71,35 +71,6 @@ internal class WebHelper
             using var retryClient = new HttpClient(await GetHandlersAsync(headerParameters));
             httpResponse = await retryClient.GetAsyncWithRetryPolicy(builder.Uri);
             return await HandleResponseAsync<T>(httpResponse);
-        }
-    }
-
-    internal async Task<dynamic> PostFormAsync(
-        IEnumerable<KeyValuePair<string, string>> formParameters,
-        string path, DelegatingHandler handlers, IEnumerable<KeyValuePair<string, string>> headerParameters = null,
-        bool shouldRetry = true)
-    {
-        using var client = new HttpClient(handlers ?? new UserAgentHandler());
-        var uri = _baseAddress + path;
-        var formContent = new FormUrlEncodedContent(formParameters);
-
-        var httpResponse = await client.PostAsyncWithRetryPolicy(uri, formContent);
-
-        try
-        {
-            return await HandleResponseAsync(httpResponse);
-        }
-        catch (UnauthorizedException)
-        {
-            if (shouldRetry)
-            {
-                _credentials.ResetAccessToken();
-                using var retryClient = new HttpClient(await GetHandlersAsync(headerParameters));
-                httpResponse = await retryClient.PostAsyncWithRetryPolicy(uri, formContent);
-                return await HandleResponseAsync(httpResponse);
-            }
-
-            throw;
         }
     }
 
@@ -132,7 +103,7 @@ internal class WebHelper
         }
     }
 
-    internal async Task<dynamic> PostQueryAsync(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
+    internal async Task PostQueryAsync(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
         IEnumerable<KeyValuePair<string, string>> headerParameters, HttpContent bodyParameter)
     {
         using var client = new HttpClient(await GetHandlersAsync(headerParameters));
@@ -143,14 +114,14 @@ internal class WebHelper
 
         try
         {
-            return await HandleResponseAsync(httpResponse);
+            await HandleResponseAsync(httpResponse);
         }
         catch (UnauthorizedException)
         {
             _credentials.ResetAccessToken();
             using var retryClient = new HttpClient(await GetHandlersAsync(headerParameters));
             httpResponse = await retryClient.PostAsyncWithRetryPolicy(requestUri, bodyParameter);
-            return await HandleResponseAsync(httpResponse);
+            await HandleResponseAsync(httpResponse);
         }
     }
 
@@ -173,29 +144,6 @@ internal class WebHelper
             using var retryClient = new HttpClient(await GetHandlersAsync(headerParameters));
             httpResponse = await retryClient.PostAsyncWithRetryPolicy(requestUri, bodyParameter);
             return await HandleResponseAsync<T>(httpResponse);
-        }
-    }
-
-    internal async Task<dynamic> PutQueryAsync(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
-        IEnumerable<KeyValuePair<string, string>> headerParameters, HttpContent bodyParameter,
-        MediaTypeHeaderValue mediaType = null)
-    {
-        using var client = new HttpClient(await GetHandlersAsync(headerParameters));
-        var uri = _baseAddress + path;
-        var requestUri = new UriBuilder(uri) { Query = BuildQuery(queryParameters) }.Uri;
-
-        var httpResponse = await client.PutAsyncWithRetryPolicy(requestUri, bodyParameter);
-
-        try
-        {
-            return await HandleResponseAsync(httpResponse);
-        }
-        catch (UnauthorizedException)
-        {
-            _credentials.ResetAccessToken();
-            using var retryClient = new HttpClient(await GetHandlersAsync(headerParameters));
-            httpResponse = await retryClient.PutAsyncWithRetryPolicy(requestUri, bodyParameter);
-            return await HandleResponseAsync(httpResponse);
         }
     }
 
@@ -242,33 +190,6 @@ internal class WebHelper
             using var retryClient = new HttpClient(await GetHandlersAsync(headerParameters));
             httpResponse = await retryClient.PutAsyncWithRetryPolicy(requestUri, bodyParameter);
             await HandleVoidResponseAsync(httpResponse);
-        }
-    }
-
-    internal async Task<dynamic> DeleteQueryAsync(IEnumerable<KeyValuePair<string, string>> queryParameters,
-        string path,
-        IEnumerable<KeyValuePair<string, string>> headerParameters = null)
-    {
-        using var client = new HttpClient(await GetHandlersAsync(headerParameters));
-        var uri = _baseAddress + path;
-        var builder = new UriBuilder(uri)
-        {
-            Query =
-                BuildQuery(queryParameters)
-        };
-
-        var httpResponse = await client.DeleteAsyncWithRetryPolicy(builder.Uri);
-
-        try
-        {
-            return await HandleResponseAsync(httpResponse);
-        }
-        catch (UnauthorizedException)
-        {
-            _credentials.ResetAccessToken();
-            using var retryClient = new HttpClient(await GetHandlersAsync(headerParameters));
-            httpResponse = await retryClient.DeleteAsyncWithRetryPolicy(builder.Uri);
-            return await HandleResponseAsync(httpResponse);
         }
     }
 
@@ -345,15 +266,14 @@ internal class WebHelper
         return mainHandler;
     }
 
-    private static async Task<dynamic> HandleResponseAsync(HttpResponseMessage httpResponse)
+    private static async Task HandleResponseAsync(HttpResponseMessage httpResponse)
     {
         if (httpResponse.IsSuccessStatusCode)
         {
-            return await Serializer.DeserializeAsync<dynamic>(await httpResponse.Content.ReadAsStreamAsync());
+            return;
         }
 
         await SdkException.GenerateSdkExceptionAsync(httpResponse);
-        return null;
     }
 
     private static async Task HandleVoidResponseAsync(HttpResponseMessage httpResponse)

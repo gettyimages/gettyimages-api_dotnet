@@ -22,12 +22,12 @@ public class PutBoardsById : ApiRequest
         return new PutBoardsById(credentials, baseUrl, customHandler);
     }
 
-    public override async Task ExecuteVoidAsync()
+    public override async Task ExecuteAsync()
     {
         Method = "PUT";
         Path = V3PostBoardsPath + "/" + BoardId;
 
-        await base.ExecuteVoidAsync();
+        await base.ExecuteAsync();
     }
 
     public PutBoardsById WithBoardId(string value)

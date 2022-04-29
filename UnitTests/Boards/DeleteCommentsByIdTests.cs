@@ -13,7 +13,7 @@ public class DeleteCommentsByIdTests
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-            .DeleteCommentsById().WithBoardId("15345").WithCommentId("1245").ExecuteVoidAsync();
+            .DeleteCommentsById().WithBoardId("15345").WithCommentId("1245").ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards/15345/comments/1245");
     }

@@ -21,12 +21,12 @@ public class DeleteAssets : ApiRequest
         return new DeleteAssets(credentials, baseUrl, customHandler);
     }
 
-    public override async Task ExecuteVoidAsync()
+    public override async Task ExecuteAsync()
     {
         Method = "DELETE";
         Path = string.Format(V3DeleteAssetsPath, BoardId);
 
-        await base.ExecuteVoidAsync();
+        await base.ExecuteAsync();
     }
 
     public DeleteAssets WithBoardId(string value)
