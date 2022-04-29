@@ -21,20 +21,7 @@ public class VideosSimilarTests
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("videos/882449540/similar");
     }
 
-    [Fact]
-    public async Task VideosSimilarWithResponseFields()
-    {
-        var testHandler = TestUtil.CreateTestHandler();
-
-        var fields = new List<string> { "country", "id" };
-
-        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-            .VideosSimilar().WithId("882449540").WithResponseFields(fields).ExecuteAsync();
-
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("videos/882449540/similar");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("fields=country%2Cid");
-    }
-
+    
     [Fact]
     public async Task VideosSimilarWithPage()
     {

@@ -1,35 +1,36 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
 using GettyImages.Api.Models;
-using Humanizer;
 using SortOrder = GettyImages.Api.Models.SortOrder;
 
 namespace GettyImages.Api.Search;
 
 public class SearchImagesCreative : ApiRequest<SearchCreativeImagesResponse>
 {
-    protected const string V3SearchImagesPath = "/search/images/creative";
+    protected List<string> DefaultResponseFields = new ()
+    {
+        "allowed_use", "alternative_ids", "artist", "asset_family", "call_for_image", "caption", "collection_code",
+        "collection_id", "collection_name", "color_type", "comp", "copyright", "date_camera_shot", "date_created",
+        "date_submitted", "download_product", "graphical_style", "id",
+        "istock_collection", "license_model", "max_dimensions", "orientation",
+        "preview", "product_types", "quality_rank", "referral_destinations", "thumb", "title",
+        "uri_oembed"
+    };
 
     private SearchImagesCreative(Credentials credentials, string baseUrl, DelegatingHandler customHandler) :
         base(customHandler)
     {
         Credentials = credentials;
         BaseUrl = baseUrl;
+        Method = "GET";
+        Path = "/search/images/creative";
+        AddResponseFields(DefaultResponseFields);
     }
 
     internal static SearchImagesCreative GetInstance(Credentials credentials, string baseUrl,
         DelegatingHandler customHandler)
     {
         return new SearchImagesCreative(credentials, baseUrl, customHandler);
-    }
-
-    public override async Task<SearchCreativeImagesResponse> ExecuteAsync()
-    {
-        Method = "GET";
-        Path = V3SearchImagesPath;
-        return await base.ExecuteAsync();
     }
 
     public SearchImagesCreative WithAcceptLanguage(string value)
@@ -110,9 +111,21 @@ public class SearchImagesCreative : ApiRequest<SearchCreativeImagesResponse>
         return this;
     }
 
-    public SearchImagesCreative WithResponseFields(IEnumerable<CreativeImagesFieldValues> values)
+    public SearchImagesCreative IncludeKeywords()
     {
-        AddResponseFields(values.Select(f => f.ToString().Underscore()));
+        AddResponseField("keywords");
+        return this;
+    }
+
+    public SearchImagesCreative IncludeLargestDownloads()
+    {
+        AddResponseField("largest_downloads");
+        return this;
+    }
+
+    public SearchImagesCreative IncludeDownloadSizes()
+    {
+        AddResponseField("download_sizes");
         return this;
     }
 

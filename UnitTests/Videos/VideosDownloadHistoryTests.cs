@@ -15,7 +15,7 @@ public class VideosDownloadHistoryTests
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
             .VideoDownloadHistory()
             .WithId("882449540")
-            .WithCompanyDownloads()
+            .IncludeCompanyDownloads()
             .ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("videos/882449540/downloadhistory");

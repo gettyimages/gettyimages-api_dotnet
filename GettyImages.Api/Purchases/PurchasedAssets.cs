@@ -1,33 +1,24 @@
 ﻿using System;
 using System.Net.Http;
-using System.Threading.Tasks;
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Purchases;
 
 public class PurchasedAssets : ApiRequest<GetPreviouslyPurchasedAssetsResponse>
 {
-    protected const string V3PurchasedAssetsPath = "/purchased-assets";
-
     private PurchasedAssets(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(
         customHandler)
     {
         Credentials = credentials;
         BaseUrl = baseUrl;
+        Method = "GET";
+        Path = "/purchased-assets";
     }
 
     internal static PurchasedAssets GetInstance(Credentials credentials, string baseUrl,
         DelegatingHandler customHandler)
     {
         return new PurchasedAssets(credentials, baseUrl, customHandler);
-    }
-
-    public override async Task<GetPreviouslyPurchasedAssetsResponse> ExecuteAsync()
-    {
-        Method = "GET";
-        Path = V3PurchasedAssetsPath;
-
-        return await base.ExecuteAsync();
     }
 
     public PurchasedAssets WithAcceptLanguage(string value)
@@ -60,9 +51,9 @@ public class PurchasedAssets : ApiRequest<GetPreviouslyPurchasedAssetsResponse>
         return this;
     }
 
-    public PurchasedAssets WithCompanyPurchases(bool value = true)
+    public PurchasedAssets IncludeCompanyPurchases()
     {
-        AddQueryParameter(Constants.CompanyPurchasesKey, value);
+        AddQueryParameter(Constants.CompanyPurchasesKey, true);
         return this;
     }
 }

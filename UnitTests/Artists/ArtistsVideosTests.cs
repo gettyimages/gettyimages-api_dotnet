@@ -19,22 +19,7 @@ public class ArtistsVideosTests
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artists/videos");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artist_name=roman+makhmutov");
     }
-
-    [Fact]
-    public async Task SearchForVideosByArtistWithFields()
-    {
-        var testHandler = TestUtil.CreateTestHandler();
-
-        var fields = new List<string> { "asset_family", "keywords" };
-
-        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).ArtistsVideos()
-            .WithArtist("roman makhmutov").WithResponseFields(fields).ExecuteAsync();
-
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artists/videos");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artist_name=roman+makhmutov");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("fields=asset_family%2Ckeywords");
-    }
-
+    
     [Fact]
     public async Task SearchForVideosByArtistWithPage()
     {

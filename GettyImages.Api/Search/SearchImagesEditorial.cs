@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Threading.Tasks;
 using GettyImages.Api.Models;
 using SortOrder = GettyImages.Api.Models.SortOrder;
 
@@ -8,27 +7,27 @@ namespace GettyImages.Api.Search;
 
 public class SearchImagesEditorial : ApiRequest<SearchEditorialImagesResponse>
 {
-    protected const string V3SearchImagesPath = "/search/images/editorial";
-
     private SearchImagesEditorial(Credentials credentials, string baseUrl, DelegatingHandler customHandler) :
         base(customHandler)
     {
         Credentials = credentials;
         BaseUrl = baseUrl;
+        Method = "GET";
+        Path = "/search/images/editorial";
+        AddResponseFields(new[]
+        {
+            "allowed_use", "alternative_ids", "artist", "asset_family", "call_for_image", "caption", "collection_code",
+            "collection_id", "collection_name", "color_type", "comp", "copyright", "date_camera_shot", "date_created",
+            "date_submitted", "download_product", "editorial_segments", "editorial_source", "entity_details",
+            "event_ids", "graphical_style", "id", "license_model", "max_dimensions", "orientation", "people", "preview",
+            "product_types", "quality_rank", "referral_destinations", "thumb", "title", "uri_oembed"
+        });
     }
 
     internal static SearchImagesEditorial GetInstance(Credentials credentials, string baseUrl,
         DelegatingHandler customHandler)
     {
         return new SearchImagesEditorial(credentials, baseUrl, customHandler);
-    }
-
-    public override async Task<SearchEditorialImagesResponse> ExecuteAsync()
-    {
-        Method = "GET";
-        Path = V3SearchImagesPath;
-
-        return await base.ExecuteAsync();
     }
 
     public SearchImagesEditorial WithAcceptLanguage(string value)
@@ -121,30 +120,19 @@ public class SearchImagesEditorial : ApiRequest<SearchEditorialImagesResponse>
         return this;
     }
 
-    public SearchImagesEditorial WithResponseFields(IEnumerable<string> values)
-    {
-        AddResponseFields(values);
-        return this;
-    }
-
     public SearchImagesEditorial WithFileType(FileType value)
     {
         AddFileTypes(value);
         return this;
     }
 
-    public SearchImagesEditorial WithGraphicalStyle(GraphicalStyles value)
+    public SearchImagesEditorial WithGraphicalStyle(GraphicalStyles value, GraphicalStyleFilter filterType = GraphicalStyleFilter.Include)
     {
         AddGraphicalStyle(value);
+        AddQueryParameter(Constants.GraphicalStyleFilterKey, filterType);
         return this;
     }
-
-    public SearchImagesEditorial WithGraphicalStyleFilterType(GraphicalStyleFilter value)
-    {
-        AddQueryParameter(Constants.GraphicalStyleFilterKey, value);
-        return this;
-    }
-
+    
     public SearchImagesEditorial WithKeywordIds(IEnumerable<int> values)
     {
         AddKeywordIds(values);
@@ -217,9 +205,9 @@ public class SearchImagesEditorial : ApiRequest<SearchEditorialImagesResponse>
         return this;
     }
 
-    public SearchImagesEditorial WithIncludeFacets(bool value = true)
+    public SearchImagesEditorial IncludeFacets()
     {
-        AddQueryParameter(Constants.IncludeFacetsKey, value);
+        AddQueryParameter(Constants.IncludeFacetsKey, true);
         return this;
     }
 
@@ -232,6 +220,24 @@ public class SearchImagesEditorial : ApiRequest<SearchEditorialImagesResponse>
     public SearchImagesEditorial WithFacetMaxCount(int value)
     {
         AddQueryParameter(Constants.FacetMaxCountKey, value);
+        return this;
+    }
+    
+    public SearchImagesEditorial IncludeKeywords()
+    {
+        AddResponseField("keywords");
+        return this;
+    }
+
+    public SearchImagesEditorial IncludeLargestDownloads()
+    {
+        AddResponseField("largest_downloads");
+        return this;
+    }
+
+    public SearchImagesEditorial IncludeDownloadSizes()
+    {
+        AddResponseField("download_sizes");
         return this;
     }
 }

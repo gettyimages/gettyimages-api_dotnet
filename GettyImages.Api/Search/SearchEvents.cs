@@ -7,25 +7,22 @@ namespace GettyImages.Api.Search;
 
 public class Events : ApiRequest<SearchEventsResponse>
 {
-    protected const string V3SearchEventsPath = "/search/events";
-
     private Events(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
     {
         Credentials = credentials;
         BaseUrl = baseUrl;
+        AddResponseFields(new[]
+        {
+            "id", "child_event_count", "editorial_segments", "hero_image", "image_count", "keywords", "location",
+            "name", "start_date", "type"
+        });
+        Method = "GET";
+        Path = "/search/events";
     }
 
     internal static Events GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
     {
         return new Events(credentials, baseUrl, customHandler);
-    }
-
-    public override async Task<SearchEventsResponse> ExecuteAsync()
-    {
-        Method = "GET";
-        Path = V3SearchEventsPath;
-
-        return await base.ExecuteAsync();
     }
 
     public Events WithAcceptLanguage(string value)
@@ -49,12 +46,6 @@ public class Events : ApiRequest<SearchEventsResponse>
     public Events WithEditorialSegment(EditorialSegment value)
     {
         AddQueryParameter(Constants.EditorialSegmentKey, value);
-        return this;
-    }
-
-    public Events WithResponseFields(IEnumerable<string> values)
-    {
-        AddResponseFields(values);
         return this;
     }
 

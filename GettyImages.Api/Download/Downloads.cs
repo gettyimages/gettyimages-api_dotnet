@@ -1,30 +1,21 @@
 ﻿using System.Net.Http;
-using System.Threading.Tasks;
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Download;
 
 public class Downloads : ApiRequest<GetDownloadsResponse>
 {
-    protected const string V3DownloadsPath = "/downloads";
-
     private Downloads(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
     {
         Credentials = credentials;
         BaseUrl = baseUrl;
+        Method = "GET";
+        Path = "/downloads";
     }
 
     internal static Downloads GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
     {
         return new Downloads(credentials, baseUrl, customHandler);
-    }
-
-    public override async Task<GetDownloadsResponse> ExecuteAsync()
-    {
-        Method = "GET";
-        Path = V3DownloadsPath;
-
-        return await base.ExecuteAsync();
     }
 
     public Downloads WithAcceptLanguage(string value)

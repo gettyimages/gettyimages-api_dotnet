@@ -1,21 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Threading.Tasks;
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Images;
 
 public class Images : ApiRequest<GetImagesDetailsResponse>
 {
-    private const string Comma = ",";
-    private const string IdsKey = "ids";
-    private const string ImageBatchPath = "/images";
-    private readonly List<string> _imageIds = new();
-
     private Images(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
     {
         Credentials = credentials;
         BaseUrl = baseUrl;
+        Method = "GET";
+        Path = "/images";
+
+        AddResponseFields(new[]
+        {
+            "allowed_use", "alternative_ids", "artist", "artist_title", "asset_family", "call_for_image", "caption",
+            "city", "collection_code", "collection_id", "collection_name", "color_type", "comp", "copyright", "country",
+            "credit_line", "date_camera_shot", "date_created", "date_submitted", "download_product", "downloads",
+            "editorial_segments", "editorial_source", "entity_details", "event_ids", "graphical_style", "id",
+            "istock_collection", "istock_licenses", "license_model", "links", "max_dimensions", "object_name",
+            "orientation", "people", "preview", "product_types", "quality_rank", "referral_destinations",
+            "state_province", "thumb", "title", "uri_oembed"
+        });
     }
 
     internal static Images GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
@@ -23,18 +30,15 @@ public class Images : ApiRequest<GetImagesDetailsResponse>
         return new Images(credentials, baseUrl, customHandler);
     }
 
-    public override Task<GetImagesDetailsResponse> ExecuteAsync()
+    public Images WithId(string value)
     {
-        Method = "GET";
-        var ids = string.Join(Comma, _imageIds);
-        QueryParameters.Add(IdsKey, ids);
-        Path = ImageBatchPath;
-        return base.ExecuteAsync();
+        AddIds(new []{ value });
+        return this;
     }
 
-    public Images WithIds(IEnumerable<string> val)
+    public Images WithIds(IEnumerable<string> value)
     {
-        _imageIds.AddRange(val);
+        AddIds(value);
         return this;
     }
 
@@ -43,10 +47,22 @@ public class Images : ApiRequest<GetImagesDetailsResponse>
         AddHeaderParameter(Constants.AcceptLanguage, value);
         return this;
     }
-
-    public Images WithResponseFields(IEnumerable<string> values)
+    
+    public Images IncludeKeywords()
     {
-        AddResponseFields(values);
+        AddResponseField("keywords");
+        return this;
+    }
+
+    public Images IncludeLargestDownloads()
+    {
+        AddResponseField("largest_downloads");
+        return this;
+    }
+
+    public Images IncludeDownloads()
+    {
+        AddResponseField("downloads");
         return this;
     }
 }

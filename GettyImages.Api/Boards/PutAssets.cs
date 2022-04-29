@@ -1,39 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Boards;
 
 public class PutAssets : ApiRequest<AddBoardAssetsResponse>
 {
-    protected const string V3PutAssetsPath = "/boards/{0}/assets";
-
     private PutAssets(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
     {
         Credentials = credentials;
         BaseUrl = baseUrl;
+        Method = "PUT";
     }
-
-    protected string BoardId { get; set; }
 
     internal static PutAssets GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
     {
         return new PutAssets(credentials, baseUrl, customHandler);
     }
 
-    public override async Task<AddBoardAssetsResponse> ExecuteAsync()
-    {
-        Method = "PUT";
-        Path = string.Format(V3PutAssetsPath, BoardId);
-
-        return await base.ExecuteAsync();
-    }
-
     public PutAssets WithBoardId(string value)
     {
-        BoardId = value;
+        Path = $"/boards/{value}/assets";
         return this;
     }
 

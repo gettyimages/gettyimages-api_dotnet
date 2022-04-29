@@ -1,17 +1,15 @@
 ﻿using System.Net.Http;
-using System.Threading.Tasks;
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Orders;
 
 public class Orders : ApiRequest<OrderDetail>
 {
-    protected const string V3OrdersPath = "/orders/";
-
     private Orders(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
     {
         Credentials = credentials;
         BaseUrl = baseUrl;
+        Method = "GET";
     }
 
     protected int id { get; set; }
@@ -21,17 +19,9 @@ public class Orders : ApiRequest<OrderDetail>
         return new Orders(credentials, baseUrl, customHandler);
     }
 
-    public override async Task<OrderDetail> ExecuteAsync()
+    public Orders WithId(int value)
     {
-        Method = "GET";
-        Path = V3OrdersPath + id;
-
-        return await base.ExecuteAsync();
-    }
-
-    public Orders WithId(int val)
-    {
-        id = val;
+        Path = $"/orders/{value}";
         return this;
     }
 

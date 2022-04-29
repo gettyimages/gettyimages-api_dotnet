@@ -9,13 +9,22 @@ namespace GettyImages.Api.Search;
 
 public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
 {
-    protected const string V3SearchVideosPath = "/search/videos/editorial";
-
     private SearchVideosEditorial(Credentials credentials, string baseUrl, DelegatingHandler customHandler) :
         base(customHandler)
     {
         Credentials = credentials;
         BaseUrl = baseUrl;
+        Method = "GET";
+        Path = "/search/videos/editorial";
+        AddResponseFields(new[]
+        {
+            "allowed_use", "artist", "aspect_ratio", "asset_family", "call_for_image", "caption", "clip_length",
+            "collection_code", "collection_id", "collection_name", "color_type", "comp", "copyright", "date_created",
+            "date_submitted", "download_product", "editorial_segments", "entity_details", "era", "event_ids", "id",
+            "istock_collection", "license_model", "mastered_to", "object_name", "orientation", "originally_shot_on",
+            "preview", "product_types", "quality_rank", "referral_destinations", "shot_speed", "source", "thumb",
+            "title", "istock_licenses"
+        });
     }
 
     internal static SearchVideosEditorial GetInstance(Credentials credentials, string baseUrl,
@@ -24,15 +33,7 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
         return new SearchVideosEditorial(credentials, baseUrl, customHandler);
     }
 
-    public override async Task<SearchEditorialVideosResponse> ExecuteAsync()
-    {
-        Method = "GET";
-        Path = V3SearchVideosPath;
-
-        return await base.ExecuteAsync();
-    }
-
-    public SearchVideosEditorial WithAcceptLanguage(string value)
+   public SearchVideosEditorial WithAcceptLanguage(string value)
     {
         AddHeaderParameter(Constants.AcceptLanguage, value);
         return this;
@@ -77,12 +78,6 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
     public SearchVideosEditorial WithExcludeNudity(bool value = true)
     {
         AddQueryParameter(Constants.Excludenudity, value);
-        return this;
-    }
-
-    public SearchVideosEditorial WithResponseFields(IEnumerable<string> values)
-    {
-        AddResponseFields(values);
         return this;
     }
 
@@ -158,9 +153,9 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
         return this;
     }
 
-    public SearchVideosEditorial WithIncludeFacets(bool value = true)
+    public SearchVideosEditorial IncludeFacets()
     {
-        AddQueryParameter(Constants.IncludeFacetsKey, value);
+        AddQueryParameter(Constants.IncludeFacetsKey, true);
         return this;
     }
 
@@ -173,6 +168,24 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
     public SearchVideosEditorial WithFacetMaxCount(int value)
     {
         AddQueryParameter(Constants.FacetMaxCountKey, value);
+        return this;
+    }
+    
+    public SearchVideosEditorial IncludeKeywords()
+    {
+        AddResponseField("keywords");
+        return this;
+    }
+
+    public SearchVideosEditorial IncludeLargestDownloads()
+    {
+        AddResponseField("largest_downloads");
+        return this;
+    }
+
+    public SearchVideosEditorial IncludeDownloadSizes()
+    {
+        AddResponseField("download_sizes");
         return this;
     }
 }

@@ -1,19 +1,16 @@
 ﻿using System.Net.Http;
-using System.Threading.Tasks;
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Videos;
 
 public class VideoDownloadHistory : ApiRequest<GetAssetDownloadHistoryResponse>
 {
-    private const string VideoDownloadHistoryPath = "/videos/{0}/downloadhistory";
-    private string _imageId;
-
     private VideoDownloadHistory(Credentials credentials, string baseUrl, DelegatingHandler customHandler) :
         base(customHandler)
     {
         Credentials = credentials;
         BaseUrl = baseUrl;
+        Method = "GET";
     }
 
     internal static VideoDownloadHistory GetInstance(Credentials credentials, string baseUrl,
@@ -22,29 +19,21 @@ public class VideoDownloadHistory : ApiRequest<GetAssetDownloadHistoryResponse>
         return new VideoDownloadHistory(credentials, baseUrl, customHandler);
     }
 
-    public override async Task<GetAssetDownloadHistoryResponse> ExecuteAsync()
-    {
-        Method = "GET";
-        Path = Path = string.Format(VideoDownloadHistoryPath, _imageId);
-
-        return await base.ExecuteAsync();
-    }
-
     public VideoDownloadHistory WithAcceptLanguage(string value)
     {
         AddHeaderParameter(Constants.AcceptLanguage, value);
         return this;
     }
 
-    public VideoDownloadHistory WithId(string val)
+    public VideoDownloadHistory WithId(string value)
     {
-        _imageId = val;
+        Path = $"/videos/{value}/downloadhistory";
         return this;
     }
 
-    public VideoDownloadHistory WithCompanyDownloads(bool value = true)
+    public VideoDownloadHistory IncludeCompanyDownloads()
     {
-        AddQueryParameter(Constants.CompanyDownloadsKey, value);
+        AddQueryParameter(Constants.CompanyDownloadsKey, true);
         return this;
     }
 }

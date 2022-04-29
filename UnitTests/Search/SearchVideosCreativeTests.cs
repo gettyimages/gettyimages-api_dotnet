@@ -91,15 +91,10 @@ public class SearchVideosCreativeTests
     public async Task SearchForCreativeVideosWithResponseFields()
     {
         var testHandler = TestUtil.CreateTestHandler();
-
-        var fields = new List<string> { "asset_family", "id" };
-
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-            .WithPhrase("cat").WithResponseFields(fields).ExecuteAsync();
-
+            .WithPhrase("cat").ExecuteAsync();
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("fields=asset_family%2Cid");
     }
 
     [Fact]

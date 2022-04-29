@@ -1,19 +1,16 @@
 ﻿using System.Net.Http;
-using System.Threading.Tasks;
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Images;
 
 public class ImageDownloadHistory : ApiRequest<GetDownloadsResponse>
 {
-    private const string ImageDownloadHistoryPath = "/images/{0}/downloadhistory";
-    private string _imageId;
-
     private ImageDownloadHistory(Credentials credentials, string baseUrl, DelegatingHandler customHandler) :
         base(customHandler)
     {
         Credentials = credentials;
         BaseUrl = baseUrl;
+        Method = "GET";
     }
 
     internal static ImageDownloadHistory GetInstance(Credentials credentials, string baseUrl,
@@ -22,23 +19,15 @@ public class ImageDownloadHistory : ApiRequest<GetDownloadsResponse>
         return new ImageDownloadHistory(credentials, baseUrl, customHandler);
     }
 
-    public override async Task<GetDownloadsResponse> ExecuteAsync()
-    {
-        Method = "GET";
-        Path = Path = string.Format(ImageDownloadHistoryPath, _imageId);
-
-        return await base.ExecuteAsync();
-    }
-
     public ImageDownloadHistory WithAcceptLanguage(string value)
     {
         AddHeaderParameter(Constants.AcceptLanguage, value);
         return this;
     }
 
-    public ImageDownloadHistory WithId(string val)
+    public ImageDownloadHistory WithId(string value)
     {
-        _imageId = val;
+        Path = $"/images/{value}/downloadhistory";
         return this;
     }
 

@@ -377,6 +377,7 @@ public class ImageSearchItemCreative
     public DateTime? DateCreated { get; set; }
     public AssetSearchItemDisplaySize[] DisplaySizes { get; set; }
     public string DownloadProduct { get; set; }
+    public DownloadSize[] DownloadSizes { get; set; }
     public string GraphicalStyle { get; set; }
     public string Id { get; set; }
     public Keyword[] Keywords { get; set; }
@@ -458,6 +459,7 @@ public class ImageSearchItemEditorial
     public DateTime? DateCreated { get; set; }
     public AssetSearchItemDisplaySize[] DisplaySizes { get; set; }
     public string DownloadProduct { get; set; }
+    public DownloadSize[] DownloadSizes { get; set; }
     public string[] EditorialSegments { get; set; }
     public EditorialSource EditorialSource { get; set; }
     public int[] EventIds { get; set; }
@@ -504,6 +506,7 @@ public class CreativeVideoSearchItem
     public DateTime DateCreated { get; set; }
     public VideoSearchItemDisplaySize[] DisplaySizes { get; set; }
     public string DownloadProduct { get; set; }
+    public VideoDownloadSize[] DownloadSizes { get; set; }
     public string Era { get; set; }
     public int[] EventIds { get; set; }
     public Keyword[] Keywords { get; set; }
@@ -542,6 +545,7 @@ public class EditorialVideoSearchItem
     public DateTime DateCreated { get; set; }
     public VideoSearchItemDisplaySize[] DisplaySizes { get; set; }
     public string DownloadProduct { get; set; }
+    public VideoDownloadSize[] DownloadSizes { get; set; }
     public string Era { get; set; }
     public int[] EventIds { get; set; }
     public Keyword[] Keywords { get; set; }

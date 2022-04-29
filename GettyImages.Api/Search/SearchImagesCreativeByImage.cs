@@ -17,20 +17,22 @@ public class SearchImagesCreativeByImage : ApiRequest<SearchCreativeImagesByImag
     {
         Credentials = credentials;
         BaseUrl = baseUrl;
+        Method = "GET";
+        Path = V3SearchImagesPath;
+        AddResponseFields(new[]
+        {
+            "allowed_use", "alternative_ids", "artist", "asset_family", "call_for_image", "caption", "collection_code",
+            "collection_id", "collection_name", "color_type", "comp", "copyright", "date_camera_shot", "date_created",
+            "date_submitted", "download_product", "graphical_style", "id", "istock_collection", "license_model",
+            "max_dimensions", "orientation", "preview", "product_types", "quality_rank", "referral_destinations",
+            "thumb", "title", "uri_oembed"
+        });
     }
 
     internal static SearchImagesCreativeByImage GetInstance(Credentials credentials, string baseUrl,
         DelegatingHandler customHandler)
     {
         return new SearchImagesCreativeByImage(credentials, baseUrl, customHandler);
-    }
-
-    public override async Task<SearchCreativeImagesByImageResponse> ExecuteAsync()
-    {
-        Method = "GET";
-        Path = V3SearchImagesPath;
-
-        return await base.ExecuteAsync();
     }
 
     private async Task<string> AddToBucket(string filepath)
@@ -61,12 +63,6 @@ public class SearchImagesCreativeByImage : ApiRequest<SearchCreativeImagesByImag
         return this;
     }
 
-    public SearchImagesCreativeByImage WithResponseFields(IEnumerable<string> values)
-    {
-        AddResponseFields(values);
-        return this;
-    }
-
     public SearchImagesCreativeByImage WithImageUrl(string value)
     {
         AddQueryParameter(Constants.ImageUrlKey, value);
@@ -91,9 +87,9 @@ public class SearchImagesCreativeByImage : ApiRequest<SearchCreativeImagesByImag
         return this;
     }
 
-    public SearchImagesCreativeByImage WithIncludeFacets(bool value = true)
+    public SearchImagesCreativeByImage IncludeFacets()
     {
-        AddQueryParameter(Constants.IncludeFacetsKey, value);
+        AddQueryParameter(Constants.IncludeFacetsKey, true);
         return this;
     }
 
@@ -106,6 +102,24 @@ public class SearchImagesCreativeByImage : ApiRequest<SearchCreativeImagesByImag
     public SearchImagesCreativeByImage WithFacetMaxCount(int value)
     {
         AddQueryParameter(Constants.FacetMaxCountKey, value);
+        return this;
+    }
+    
+    public SearchImagesCreativeByImage IncludeKeywords()
+    {
+        AddResponseField("keywords");
+        return this;
+    }
+
+    public SearchImagesCreativeByImage IncludeLargestDownloads()
+    {
+        AddResponseField("largest_downloads");
+        return this;
+    }
+
+    public SearchImagesCreativeByImage IncludeDownloadSizes()
+    {
+        AddResponseField("download_sizes");
         return this;
     }
 }

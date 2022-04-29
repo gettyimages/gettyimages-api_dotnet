@@ -21,21 +21,6 @@ public class ArtistsImagesTests
     }
 
     [Fact]
-    public async Task SearchForImagesByArtistWithFields()
-    {
-        var testHandler = TestUtil.CreateTestHandler();
-
-        var fields = new List<string> { "asset_family", "keywords" };
-
-        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).ArtistsImages()
-            .WithArtist("roman makhmutov").WithResponseFields(fields).ExecuteAsync();
-
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artists/images");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artist_name=roman+makhmutov");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("fields=asset_family%2Ckeywords");
-    }
-
-    [Fact]
     public async Task SearchForImagesByArtistWithPage()
     {
         var testHandler = TestUtil.CreateTestHandler();

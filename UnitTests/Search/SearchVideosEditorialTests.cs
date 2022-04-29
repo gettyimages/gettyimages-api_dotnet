@@ -119,15 +119,10 @@ public class SearchVideosEditorialTests
     public async Task SearchForEditorialVideosWithResponseFields()
     {
         var testHandler = TestUtil.CreateTestHandler();
-
-        var fields = new List<string> { "asset_family", "id" };
-
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosEditorial()
-            .WithPhrase("cat").WithResponseFields(fields).ExecuteAsync();
-
+            .WithPhrase("cat").ExecuteAsync();
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("fields=asset_family%2Cid");
     }
 
     [Fact]

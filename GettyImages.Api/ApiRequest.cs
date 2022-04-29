@@ -409,6 +409,11 @@ public class ApiRequest
         }
     }
 
+    protected void AddResponseField(string value)
+    {
+        AddResponseFields(new []{ value });
+    }
+
     protected void AddResponseFields(IEnumerable<string> values)
     {
         if (!QueryParameters.ContainsKey(Constants.FieldsKey))
@@ -417,9 +422,9 @@ public class ApiRequest
         }
         else
         {
-            var assets = QueryParameters[Constants.FieldsKey] as IEnumerable<string>;
-            assets = assets.Union(values).Distinct();
-            QueryParameters[Constants.FieldsKey] = assets.ToList();
+            var fields = QueryParameters[Constants.FieldsKey] as IEnumerable<string>;
+            fields = fields.Union(values).Distinct();
+            QueryParameters[Constants.FieldsKey] = fields.ToList();
         }
     }
 
@@ -600,4 +605,32 @@ public class ApiRequest
             QueryParameters[Constants.FacetFieldsKey] = assets.ToList();
         }
     }
+    protected void AddIds(IEnumerable<string> values)
+    {
+        if (!QueryParameters.ContainsKey(Constants.IdsKey))
+        {
+            QueryParameters.Add(Constants.IdsKey, values);
+        }
+        else
+        {
+            var ids = QueryParameters[Constants.IdsKey] as IEnumerable<string>;
+            ids = ids.Union(values).Distinct();
+            QueryParameters[Constants.IdsKey] = ids.ToList();
+        }
+    }
+    
+    protected void AddIds(IEnumerable<int> values)
+    {
+        if (!QueryParameters.ContainsKey(Constants.IdsKey))
+        {
+            QueryParameters.Add(Constants.IdsKey, values);
+        }
+        else
+        {
+            var ids = QueryParameters[Constants.IdsKey] as IEnumerable<int>;
+            ids = ids.Union(values).Distinct();
+            QueryParameters[Constants.IdsKey] = ids.ToList();
+        }
+    }
+    
 }
