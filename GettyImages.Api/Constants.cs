@@ -29,7 +29,7 @@ internal static class Constants
     public const string EthnicityKey = "ethnicity";
     public const string EventIdsKey = "event_ids";
     public const string ExcludeKeywordIdsKey = "exclude_keyword_ids";
-    public const string Excludenudity = "exclude_nudity";
+    public const string ExcludeNudity = "exclude_nudity";
     public const string ExcludeEditorialUseOnly = "exclude_editorial_use_only";
     public const string FacetFieldsKey = "facet_fields";
     public const string FacetMaxCountKey = "maxcount";

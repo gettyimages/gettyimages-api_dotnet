@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using FluentAssertions;
 using GettyImages.Api;
@@ -18,6 +18,7 @@ public class VideosSimilarTests
             .WithId("882449540")
             .ExecuteAsync();
 
+        Debug.Assert(testHandler.Request.RequestUri != null, "testHandler.Request.RequestUri != null");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("videos/882449540/similar");
     }
 
@@ -30,6 +31,7 @@ public class VideosSimilarTests
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
             .VideosSimilar().WithId("882449540").WithPage(3).ExecuteAsync();
 
+        Debug.Assert(testHandler.Request.RequestUri != null, "testHandler.Request.RequestUri != null");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("videos/882449540/similar");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("page=3");
     }
@@ -42,6 +44,7 @@ public class VideosSimilarTests
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
             .VideosSimilar().WithId("882449540").WithPageSize(50).ExecuteAsync();
 
+        Debug.Assert(testHandler.Request.RequestUri != null, "testHandler.Request.RequestUri != null");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("videos/882449540/similar");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("page_size=50");
     }

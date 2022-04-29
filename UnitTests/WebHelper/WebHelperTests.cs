@@ -16,7 +16,7 @@ public class WebHelperTests
         var testHandler = new TestHandler(httpResponse);
         var response = ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
             .SearchImagesCreative().WithPhrase("cat");
-        var ex = await Assert.ThrowsAsync<SdkException>(async () => await response.ExecuteAsync());
+        await Assert.ThrowsAsync<SdkException>(async () => await response.ExecuteAsync());
         Assert.True(testHandler.NumberOfCallsSendAsync >= 2);
     }
 }

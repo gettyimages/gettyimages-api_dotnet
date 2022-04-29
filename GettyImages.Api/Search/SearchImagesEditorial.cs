@@ -116,7 +116,7 @@ public class SearchImagesEditorial : ApiRequest<SearchEditorialImagesResponse>
 
     public SearchImagesEditorial WithExcludeNudity(bool value = true)
     {
-        AddQueryParameter(Constants.Excludenudity, value);
+        AddQueryParameter(Constants.ExcludeNudity, value);
         return this;
     }
 

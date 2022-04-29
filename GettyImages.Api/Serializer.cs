@@ -7,7 +7,7 @@ namespace GettyImages.Api;
 
 public static class Serializer
 {
-    private static readonly JsonSerializerOptions _jsonSerializerOptions = new()
+    private static readonly JsonSerializerOptions JsonSerializerOptions = new()
     {
         PropertyNamingPolicy = new JsonSnakeCaseNamingPolicy(),
         Converters = { new JsonStringEnumConverter() }
@@ -15,21 +15,21 @@ public static class Serializer
 
     public static T Deserialize<T>(string requestString)
     {
-        return JsonSerializer.Deserialize<T>(requestString, _jsonSerializerOptions);
+        return JsonSerializer.Deserialize<T>(requestString, JsonSerializerOptions);
     }
 
     public static async Task<T> DeserializeAsync<T>(Stream stream)
     {
-        return await JsonSerializer.DeserializeAsync<T>(stream, _jsonSerializerOptions);
+        return await JsonSerializer.DeserializeAsync<T>(stream, JsonSerializerOptions);
     }
 
     public static string Serialize(object value)
     {
-        return JsonSerializer.Serialize(value, _jsonSerializerOptions);
+        return JsonSerializer.Serialize(value, JsonSerializerOptions);
     }
 
     public static async Task SerializeAsync(Stream stream, object value)
     {
-        await JsonSerializer.SerializeAsync(stream, value, _jsonSerializerOptions);
+        await JsonSerializer.SerializeAsync(stream, value, JsonSerializerOptions);
     }
 }

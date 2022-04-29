@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Threading.Tasks;
 using GettyImages.Api.Models;
 using ReleaseStatus = GettyImages.Api.Models.ReleaseStatus;
 using SortOrder = GettyImages.Api.Models.SortOrder;
@@ -77,7 +76,7 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
 
     public SearchVideosEditorial WithExcludeNudity(bool value = true)
     {
-        AddQueryParameter(Constants.Excludenudity, value);
+        AddQueryParameter(Constants.ExcludeNudity, value);
         return this;
     }
 

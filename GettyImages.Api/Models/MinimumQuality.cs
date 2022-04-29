@@ -1,4 +1,5 @@
-﻿namespace GettyImages.Api.Models;
+﻿// ReSharper disable UnusedMember.Global
+namespace GettyImages.Api.Models;
 
 public enum MinimumQuality
 {

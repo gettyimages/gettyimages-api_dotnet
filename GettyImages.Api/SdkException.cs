@@ -7,21 +7,14 @@ namespace GettyImages.Api;
 
 public class SdkException : Exception
 {
-    private const string ErrorMessageProperty1 = "ErrorMessage";
-    private const string ErrorMessageProperty2 = "error_message";
-
     internal SdkException(string message, HttpStatusCode? statusCode = null) : base(message)
     {
         StatusCode = statusCode;
     }
 
-    internal SdkException(string message, Exception innerException, HttpStatusCode? statusCode = null)
-        : base(message, innerException)
-    {
-        StatusCode = statusCode;
-    }
-
-    public HttpStatusCode? StatusCode { get; set; }
+    // ReSharper disable once MemberCanBePrivate.Global
+    // ReSharper disable once UnusedAutoPropertyAccessor.Global
+    public HttpStatusCode? StatusCode { get; }
 
     internal static async Task GenerateSdkExceptionAsync(HttpResponseMessage httpResponse, string message = null)
     {

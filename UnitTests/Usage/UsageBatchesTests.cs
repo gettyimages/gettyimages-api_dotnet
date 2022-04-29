@@ -31,7 +31,7 @@ public class UsageBatchesTests
                 new AssetUsage
                 {
                     Quantity = 10,
-                    AssetId = "testasset",
+                    AssetId = "test-asset",
                     UsageDate = DateTime.UtcNow
                 }
             }

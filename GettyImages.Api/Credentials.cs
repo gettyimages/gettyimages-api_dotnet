@@ -20,7 +20,7 @@ public class Credentials
     private readonly string _baseUrl;
     private Token _accessToken;
 
-    internal Credentials(string apiKey, string apiSecret, string baseUrl)
+    private Credentials(string apiKey, string apiSecret, string baseUrl)
     {
         _baseUrl = baseUrl;
         CredentialType = CredentialType.ClientCredentials;
@@ -28,7 +28,7 @@ public class Credentials
         ApiSecret = apiSecret;
     }
 
-    internal Credentials(string apiKey, string apiSecret, string refreshToken, string baseUrl)
+    private Credentials(string apiKey, string apiSecret, string refreshToken, string baseUrl)
     {
         _baseUrl = baseUrl;
         CredentialType = CredentialType.RefreshToken;
@@ -37,7 +37,7 @@ public class Credentials
         RefreshToken = refreshToken;
     }
 
-    internal Credentials(string apiKey, string apiSecret, string userName, string userPassword, string baseUrl)
+    private Credentials(string apiKey, string apiSecret, string userName, string userPassword, string baseUrl)
     {
         _baseUrl = baseUrl;
         CredentialType = CredentialType.ResourceOwner;
@@ -47,14 +47,14 @@ public class Credentials
         UserPassword = userPassword;
     }
 
-    public string ApiKey { get; set; }
-    public string ApiSecret { get; set; }
-    public CredentialType CredentialType { get; set; }
-    public string RefreshToken { get; set; }
-    public string UserName { get; set; }
-    public string UserPassword { get; set; }
+    private string ApiKey { get; }
+    private string ApiSecret { get; }
+    private CredentialType CredentialType { get; }
+    private string RefreshToken { get; }
+    private string UserName { get; }
+    private string UserPassword { get; }
 
-    internal IEnumerable<KeyValuePair<string, string>> GetCredentialsDictionary()
+    private IEnumerable<KeyValuePair<string, string>> GetCredentialsDictionary()
     {
         var dict = new Dictionary<string, string>();
         if (!string.IsNullOrEmpty(ApiKey))
@@ -117,6 +117,8 @@ public class Credentials
                 bearerTokenHandler.InnerHandler = new HttpClientHandler();
                 handler.InnerHandler = bearerTokenHandler;
                 break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
 
         return handler;

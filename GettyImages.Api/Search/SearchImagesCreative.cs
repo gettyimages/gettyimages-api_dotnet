@@ -101,7 +101,7 @@ public class SearchImagesCreative : ApiRequest<SearchCreativeImagesResponse>
 
     public SearchImagesCreative WithExcludeNudity(bool value = true)
     {
-        AddQueryParameter(Constants.Excludenudity, value);
+        AddQueryParameter(Constants.ExcludeNudity, value);
         return this;
     }
 
