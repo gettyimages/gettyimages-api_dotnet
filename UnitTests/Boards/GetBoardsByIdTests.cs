@@ -3,19 +3,18 @@ using FluentAssertions;
 using GettyImages.Api;
 using Xunit;
 
-namespace UnitTests.Boards
+namespace UnitTests.Boards;
+
+public class GetBoardsByIdTests
 {
-    public class GetBoardsByIdTests
+    [Fact]
+    public async Task GetBoardsByIdBasic()
     {
-        [Fact]
-        public async Task GetBoardsByIdBasic()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
+        var testHandler = TestUtil.CreateTestHandler();
 
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .GetBoardsById().WithBoardId("15345").ExecuteAsync();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .GetBoardsById().WithBoardId("15345").ExecuteAsync();
 
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards/15345");
-        }
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards/15345");
     }
 }

@@ -1,70 +1,69 @@
 ﻿using System.Threading.Tasks;
 using FluentAssertions;
 using GettyImages.Api;
-using GettyImages.Api.Entity;
+using GettyImages.Api.Models;
 using Xunit;
 
-namespace UnitTests.Boards
+namespace UnitTests.Boards;
+
+public class GetBoardsTests
 {
-    public class GetBoardsTests
-    { 
-        [Fact]
-        public async Task GetBoardsBasic()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
+    [Fact]
+    public async Task GetBoardsBasic()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
 
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .GetBoards().ExecuteAsync();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .GetBoards().ExecuteAsync();
 
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards");
-        }
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards");
+    }
 
-        [Fact]
-        public async Task GetBoardsWithBoardRelationship()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
+    [Fact]
+    public async Task GetBoardsWithBoardRelationship()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
 
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .GetBoards().WithBoardRelationship(BoardRelationship.Invited).ExecuteAsync();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .GetBoards().WithBoardRelationship(BoardRelationship.Invited).ExecuteAsync();
 
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("board_relationship=invited");
-        }
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("board_relationship=invited");
+    }
 
-        [Fact]
-        public async Task GetBoardsWithPage()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
+    [Fact]
+    public async Task GetBoardsWithPage()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
 
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .GetBoards().WithPage(3).ExecuteAsync();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .GetBoards().WithPage(3).ExecuteAsync();
 
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("page=3");
-        }
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("page=3");
+    }
 
-        [Fact]
-        public async Task GetBoardsWithPageSize()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
+    [Fact]
+    public async Task GetBoardsWithPageSize()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
 
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .GetBoards().WithPageSize(50).ExecuteAsync();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .GetBoards().WithPageSize(50).ExecuteAsync();
 
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("page_size=50");
-        }
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("page_size=50");
+    }
 
-        [Fact]
-        public async Task GetBoardsWithSortOrder()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
+    [Fact]
+    public async Task GetBoardsWithSortOrder()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
 
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .GetBoards().WithSortOrder(SortOrder.BestMatch).ExecuteAsync();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .GetBoards().WithSortOrder(SortOrder.BestMatch).ExecuteAsync();
 
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("sort_order=best_match");
-        }
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("sort_order=best_match");
     }
 }

@@ -1,36 +1,27 @@
 ﻿using System.Net.Http;
-using System.Threading.Tasks;
 
-namespace GettyImages.Api.AssetChanges
+namespace GettyImages.Api.AssetChanges;
+
+public class DeleteAssetChanges : ApiRequest
 {
-    public class DeleteAssetChanges : ApiRequest
+    private DeleteAssetChanges(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(
+        customHandler)
     {
-        protected const string V3DeleteAssetChangesPath = "/asset-changes/change-sets";
-        protected long ChangeSetId { get; set; }
+        Credentials = credentials;
+        BaseUrl = baseUrl;
+        Method = "DELETE";
+        
+    }
 
-        private DeleteAssetChanges(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
-        {
-            Credentials = credentials;
-            BaseUrl = baseUrl;
-        }
+    internal static DeleteAssetChanges GetInstance(Credentials credentials, string baseUrl,
+        DelegatingHandler customHandler)
+    {
+        return new DeleteAssetChanges(credentials, baseUrl, customHandler);
+    }
 
-        internal static DeleteAssetChanges GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
-        {
-            return new DeleteAssetChanges(credentials, baseUrl, customHandler);
-        }
-
-        public override async Task<dynamic> ExecuteAsync()
-        {
-            Method = "DELETE";
-            Path = V3DeleteAssetChangesPath + "/" + ChangeSetId;
-
-            return await base.ExecuteAsync();
-        }
-
-        public DeleteAssetChanges WithChangeSetId(long value)
-        {
-            ChangeSetId = value;
-            return this;
-        }
+    public DeleteAssetChanges WithChangeSetId(long value)
+    {
+        Path = $"/asset-changes/change-sets/{value}";
+        return this;
     }
 }

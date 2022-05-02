@@ -1,25 +1,21 @@
 ﻿using System.Threading.Tasks;
 using FluentAssertions;
 using GettyImages.Api;
+using GettyImages.Api.Models;
 using Xunit;
 
-namespace UnitTests.Boards
+namespace UnitTests.Boards;
+
+public class PostBoardsTests
 {
-    public class PostBoardsTests
+    [Fact]
+    public async Task PostBoardsBasic()
     {
-        [Fact]
-        public async Task PostBoardsBasic()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
+        var testHandler = TestUtil.CreateTestHandler();
 
-            var newboard = @"{
-                'name': 'string',
-                'description': 'string'
-            }";
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .PostBoards().WithNewBoard(newboard).ExecuteAsync();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .PostBoards().WithNewBoard(new BoardInfo()).ExecuteAsync();
 
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards");
-        }
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards");
     }
 }

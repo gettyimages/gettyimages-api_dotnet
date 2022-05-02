@@ -1,42 +1,33 @@
 ﻿using System.Net.Http;
-using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
-namespace GettyImages.Api.Orders
+namespace GettyImages.Api.Orders;
+
+public class Orders : ApiRequest<OrderDetail>
 {
-    public class Orders : ApiRequest
+    private Orders(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
     {
-        protected const string V3OrdersPath = "/orders/";
-        protected int id { get; set; }
+        Credentials = credentials;
+        BaseUrl = baseUrl;
+        Method = "GET";
+    }
 
-        private Orders(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
-        {
-            Credentials = credentials;
-            BaseUrl = baseUrl;
-        }
+    protected int id { get; set; }
 
-        internal static Orders GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
-        {
-            return new Orders(credentials, baseUrl, customHandler);
-        }
+    internal static Orders GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
+    {
+        return new Orders(credentials, baseUrl, customHandler);
+    }
 
-        public override async Task<dynamic> ExecuteAsync()
-        {
-            Method = "GET";
-            Path = V3OrdersPath + id;
+    public Orders WithId(int value)
+    {
+        Path = $"/orders/{value}";
+        return this;
+    }
 
-            return await base.ExecuteAsync();
-        }
-
-        public Orders WithId(int val)
-        {
-            id = val;
-            return this;
-        }
-
-        public Orders WithAcceptLanguage(string value)
-        {
-            AddHeaderParameter(Constants.AcceptLanguage, value);
-            return this;
-        }
+    public Orders WithAcceptLanguage(string value)
+    {
+        AddHeaderParameter(Constants.AcceptLanguage, value);
+        return this;
     }
 }

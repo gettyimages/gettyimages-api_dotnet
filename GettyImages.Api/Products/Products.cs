@@ -1,42 +1,27 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Net.Http;
+using GettyImages.Api.Models;
 
-namespace GettyImages.Api.Products
+namespace GettyImages.Api.Products;
+
+public class Products : ApiRequest<GetProductsResponse>
 {
-    public class Products : ApiRequest
+    private Products(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
     {
-        protected const string V3ProductsPath = "/products";
+        Credentials = credentials;
+        BaseUrl = baseUrl;
+        Method = "GET";
+        Path = "/products";
+        AddResponseFields(new []{ "download_requirements"});
+    }
 
-        private Products(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
-        {
-            Credentials = credentials;
-            BaseUrl = baseUrl;
-        }
+    internal static Products GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
+    {
+        return new Products(credentials, baseUrl, customHandler);
+    }
 
-        internal static Products GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
-        {
-            return new Products(credentials, baseUrl, customHandler);
-        }
-
-        public override async Task<dynamic> ExecuteAsync()
-        {
-            Method = "GET";
-            Path = V3ProductsPath;
-
-            return await base.ExecuteAsync();
-        }
-
-        public Products WithAcceptLanguage(string value)
-        {
-            AddHeaderParameter(Constants.AcceptLanguage, value);
-            return this;
-        }
-
-        public Products WithResponseFields(IEnumerable<string> values)
-        {
-            AddResponseFields(values);
-            return this;
-        }
+    public Products WithAcceptLanguage(string value)
+    {
+        AddHeaderParameter(Constants.AcceptLanguage, value);
+        return this;
     }
 }

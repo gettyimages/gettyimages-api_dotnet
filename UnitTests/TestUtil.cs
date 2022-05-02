@@ -1,16 +1,15 @@
-﻿namespace UnitTests
+﻿namespace UnitTests;
+
+internal class TestUtil
 {
-    class TestUtil
+    public static TestHandler CreateTestHandler()
     {
-        public static TestHandler CreateTestHandler()
+        return new TestHandler(new
         {
-            return new TestHandler(new
+            images = new[]
             {
-                images = new[]
-                {
-                    new {}
-                }
-            });
-        }
+                new { }
+            }
+        });
     }
 }

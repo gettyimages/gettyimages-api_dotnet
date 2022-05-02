@@ -1,45 +1,45 @@
 ﻿using System.Threading.Tasks;
+using FluentAssertions;
 using GettyImages.Api;
 using GettyImages.Api.Boards;
+using GettyImages.Api.Models;
 using Xunit;
 
-namespace UnitTests.HeaderAndBody
+namespace UnitTests.HeaderAndBody;
+
+public class BodyTests
 {
-    public class BodyTests
+    [Fact]
+    public void BodyParameterTest()
     {
-        [Fact]
-        public void BodyParameterTest()
+        var postBoards = PostBoards.GetInstance(null, null, null);
+
+        var description = "This board is for integration tests";
+        var name = "Test Board";
+        postBoards.WithNewBoard(new BoardInfo
         {
-            var postBoards = PostBoards.GetInstance(null, null, null);
+            Name = name,
+            Description = description
+        });
 
-            var newboard = @"{
-                'name': 'Test Board',
-                'description': 'This board is for integration tests'
-            }";
+        ((BoardInfo)postBoards.BodyParameter).Description.Should().Be(description);
+        ((BoardInfo)postBoards.BodyParameter).Name.Should().Be(name);
+    }
 
-            postBoards.WithNewBoard(newboard);
+    [Fact]
+    public async Task BodyBuilderTest()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
 
-            Assert.Equal(@"{
-                'name': 'Test Board',
-                'description': 'This board is for integration tests'
-            }", postBoards.BodyParameter);
-        }
-
-        [Fact]
-        public async Task BodyBuilderTest()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
-
-            var assets = @"[
+        var assets = @"[
              {
                 'asset_id': 'string'
              }
              ]";
 
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .PutAssets().WithBoardId("15345").WithBoardAssets(assets).ExecuteAsync();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .PutAssets().WithBoardId("15345").WithBoardAssets(assets).ExecuteAsync();
 
-            Assert.Equal("application/json", testHandler.Request.Content.Headers.ContentType.ToString());
-        }
+        Assert.Equal("application/json", testHandler.Request.Content.Headers.ContentType.ToString());
     }
 }

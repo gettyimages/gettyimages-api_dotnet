@@ -1,29 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.0</Version>
-    <Authors>Getty Images</Authors>
-    <Company>Getty Images</Company>
-    <Product>Getty Images API SDK</Product>
-    <Title>Getty Images API SDK</Title>
-    <Description>Allows easy integration with the Getty Images API.</Description>
-    <Copyright>Copyright © 2014 - 2018 Getty Images</Copyright>
-    <PackageTags>Getty Images Videos API SDK GettyImages Photo Photos Search Creative Editorial Artist Embed</PackageTags>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageProjectUrl>https://github.com/gettyimages/gettyimages-api_dotnet</PackageProjectUrl>
-    <PackageIcon>package-icon.jpg</PackageIcon>
-    <RepositoryUrl>https://github.com/gettyimages/gettyimages-api_dotnet</RepositoryUrl>
-    <RepositoryType>GitHub</RepositoryType>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="Polly.Extensions.Http" Version="3.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="../LICENSE" Pack="true" PackagePath=""/>
-    <None Include="../package-icon.jpg" Pack="true" PackagePath=""/>
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Version>0.0.0</Version>
+        <Authors>Getty Images</Authors>
+        <Company>Getty Images</Company>
+        <Product>Getty Images API SDK</Product>
+        <Title>Getty Images API SDK</Title>
+        <Description>Allows easy integration with the Getty Images API.</Description>
+        <Copyright>Copyright © 2014 - 2018 Getty Images</Copyright>
+        <PackageTags>Getty Images Videos API SDK GettyImages Photo Photos Search Creative Editorial Artist Embed</PackageTags>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageProjectUrl>https://github.com/gettyimages/gettyimages-api_dotnet</PackageProjectUrl>
+        <PackageIcon>package-icon.jpg</PackageIcon>
+        <RepositoryUrl>https://github.com/gettyimages/gettyimages-api_dotnet</RepositoryUrl>
+        <RepositoryType>GitHub</RepositoryType>
+        <LangVersion>10</LangVersion>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Humanizer.Core" Version="2.14.1" />
+        <PackageReference Include="Polly.Extensions.Http" Version="3.0.0" />
+        <PackageReference Include="System.Memory" Version="4.5.4" />
+        <PackageReference Include="System.Text.Json" Version="6.0.3" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="../LICENSE" Pack="true" PackagePath="" />
+        <None Include="../package-icon.jpg" Pack="true" PackagePath="" />
+    </ItemGroup>
 
 </Project>

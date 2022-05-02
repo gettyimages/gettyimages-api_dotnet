@@ -1,20 +1,14 @@
 ﻿using System;
 
-namespace GettyImages.Api
+namespace GettyImages.Api;
+
+[AttributeUsage(AttributeTargets.Field)]
+public class DescriptionAttribute : Attribute
 {
-    [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
-    public class DescriptionAttribute : Attribute
+    public DescriptionAttribute(string description)
     {
-        private readonly string _description;
-
-        public DescriptionAttribute(string description)
-        {
-            _description = description;
-        }
-
-        public string Description
-        {
-            get { return _description; }
-        }
+        Description = description;
     }
+
+    public string Description { get; }
 }

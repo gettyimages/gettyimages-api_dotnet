@@ -1,48 +1,39 @@
 ﻿using System.Net.Http;
-using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
-namespace GettyImages.Api.Images
+namespace GettyImages.Api.Images;
+
+public class ImageDownloadHistory : ApiRequest<GetDownloadsResponse>
 {
-    public class ImageDownloadHistory : ApiRequest
+    private ImageDownloadHistory(Credentials credentials, string baseUrl, DelegatingHandler customHandler) :
+        base(customHandler)
     {
-        private const string ImageDownloadHistoryPath = "/images/{0}/downloadhistory";
-        private string _imageId;
+        Credentials = credentials;
+        BaseUrl = baseUrl;
+        Method = "GET";
+    }
 
-        private ImageDownloadHistory(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
-        {
-            Credentials = credentials;
-            BaseUrl = baseUrl;
-        }
+    internal static ImageDownloadHistory GetInstance(Credentials credentials, string baseUrl,
+        DelegatingHandler customHandler)
+    {
+        return new ImageDownloadHistory(credentials, baseUrl, customHandler);
+    }
 
-        internal static ImageDownloadHistory GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
-        {
-            return new ImageDownloadHistory(credentials, baseUrl, customHandler);
-        }
+    public ImageDownloadHistory WithAcceptLanguage(string value)
+    {
+        AddHeaderParameter(Constants.AcceptLanguage, value);
+        return this;
+    }
 
-        public override async Task<dynamic> ExecuteAsync()
-        {
-            Method = "GET";
-            Path = Path = string.Format(ImageDownloadHistoryPath, _imageId);
+    public ImageDownloadHistory WithId(string value)
+    {
+        Path = $"/images/{value}/downloadhistory";
+        return this;
+    }
 
-            return await base.ExecuteAsync();
-        }
-
-        public ImageDownloadHistory WithAcceptLanguage(string value)
-        {
-            AddHeaderParameter(Constants.AcceptLanguage, value);
-            return this;
-        }
-
-        public ImageDownloadHistory WithId(string val)
-        {
-            _imageId = val;
-            return this;
-        }
-
-        public ImageDownloadHistory WithCompanyDownloads(bool value = true)
-        {
-            AddQueryParameter(Constants.CompanyDownloadsKey, value);
-            return this;
-        }
+    public ImageDownloadHistory WithCompanyDownloads(bool value = true)
+    {
+        AddQueryParameter(Constants.CompanyDownloadsKey, value);
+        return this;
     }
 }

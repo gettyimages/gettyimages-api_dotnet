@@ -1,78 +1,68 @@
 ﻿using System.Net.Http;
-using System.Threading.Tasks;
-using GettyImages.Api.Entity;
+using GettyImages.Api.Models;
 
-namespace GettyImages.Api.Download
+namespace GettyImages.Api.Download;
+
+public class Downloads : ApiRequest<GetDownloadsResponse>
 {
-    public class Downloads : ApiRequest
+    private Downloads(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
     {
-        protected const string V3DownloadsPath = "/downloads";
+        Credentials = credentials;
+        BaseUrl = baseUrl;
+        Method = "GET";
+        Path = "/downloads";
+    }
 
-        private Downloads(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
-        {
-            Credentials = credentials;
-            BaseUrl = baseUrl;
-        }
+    internal static Downloads GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
+    {
+        return new Downloads(credentials, baseUrl, customHandler);
+    }
 
-        internal static Downloads GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
-        {
-            return new Downloads(credentials, baseUrl, customHandler);
-        }
+    public Downloads WithAcceptLanguage(string value)
+    {
+        AddHeaderParameter(Constants.AcceptLanguage, value);
+        return this;
+    }
 
-        public override async Task<dynamic> ExecuteAsync()
-        {
-            Method = "GET";
-            Path = V3DownloadsPath;
+    public Downloads WithCompanyDownloads(bool value = true)
+    {
+        AddQueryParameter(Constants.CompanyDownloadsKey, value);
+        return this;
+    }
 
-            return await base.ExecuteAsync();
-        }
+    public Downloads WithEndDate(string value)
+    {
+        AddQueryParameter(Constants.EndDateKey, value);
+        return this;
+    }
 
-        public Downloads WithAcceptLanguage(string value)
-        {
-            AddHeaderParameter(Constants.AcceptLanguage, value);
-            return this;
-        }
+    public Downloads WithPage(int value)
+    {
+        AddQueryParameter(Constants.PageKey, value);
+        return this;
+    }
 
-        public Downloads WithCompanyDownloads(bool value = true)
-        {
-            AddQueryParameter(Constants.CompanyDownloadsKey, value);
-            return this;
-        }
+    public Downloads WithPageSize(int value)
+    {
+        AddQueryParameter(Constants.PageSizeKey, value);
+        return this;
+    }
 
-        public Downloads WithEndDate(string value)
-        {
-            AddQueryParameter(Constants.EndDateKey, value);
-            return this;
-        }
+    public Downloads WithProductType(ProductType value)
+    {
+        AddQueryParameter(Constants.ProductTypeKey, value);
+        return this;
+    }
 
-        public Downloads WithPage(int value)
-        {
-            AddQueryParameter(Constants.PageKey, value);
-            return this;
-        }
+    public Downloads WithStartDate(string value)
+    {
+        AddQueryParameter(Constants.StartDateKey, value);
+        return this;
+    }
 
-        public Downloads WithPageSize(int value)
-        {
-            AddQueryParameter(Constants.PageSizeKey, value);
-            return this;
-        }
-
-        public Downloads WithProductType(ProductType value)
-        {
-            AddQueryParameter(Constants.ProductTypeKey, value);
-            return this;
-        }
-
-        public Downloads WithStartDate(string value)
-        {
-            AddQueryParameter(Constants.StartDateKey, value);
-            return this;
-        }
-
-        public Downloads WithUseTime(string value)
-        {
-            AddQueryParameter(Constants.UseTimeKey, value);
-            return this;
-        }
+    public Downloads WithUseTime(string value)
+    {
+        AddQueryParameter(Constants.UseTimeKey, value);
+        return this;
     }
 }

@@ -4,113 +4,122 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using GettyImages.Api.Entity;
+using GettyImages.Api.Models;
 
-namespace GettyImages.Api.Search
+namespace GettyImages.Api.Search;
+
+public class SearchImagesCreativeByImage : ApiRequest<SearchCreativeImagesByImageResponse>
 {
-    public class SearchImagesCreativeByImage : ApiRequest
+    protected const string V3SearchImagesPath = "/search/images/creative/by-image";
+
+    private SearchImagesCreativeByImage(Credentials credentials, string baseUrl, DelegatingHandler customHandler) :
+        base(customHandler)
     {
-        protected const string V3SearchImagesPath = "/search/images/creative/by-image";
-
-        private SearchImagesCreativeByImage(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
+        Credentials = credentials;
+        BaseUrl = baseUrl;
+        Method = "GET";
+        Path = V3SearchImagesPath;
+        AddResponseFields(new[]
         {
-            Credentials = credentials;
-            BaseUrl = baseUrl;
-        }
+            "allowed_use", "alternative_ids", "artist", "asset_family", "call_for_image", "caption", "collection_code",
+            "collection_id", "collection_name", "color_type", "comp", "copyright", "date_camera_shot", "date_created",
+            "date_submitted", "download_product", "graphical_style", "id", "istock_collection", "license_model",
+            "max_dimensions", "orientation", "preview", "product_types", "quality_rank", "referral_destinations",
+            "thumb", "title", "uri_oembed"
+        });
+    }
 
-        internal static SearchImagesCreativeByImage GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
-        {
-            return new SearchImagesCreativeByImage(credentials, baseUrl, customHandler);
-        }
+    internal static SearchImagesCreativeByImage GetInstance(Credentials credentials, string baseUrl,
+        DelegatingHandler customHandler)
+    {
+        return new SearchImagesCreativeByImage(credentials, baseUrl, customHandler);
+    }
 
-        public override async Task<dynamic> ExecuteAsync()
-        {
-            Method = "GET";
-            Path = V3SearchImagesPath;
+    private async Task<string> AddToBucket(string filepath)
+    {
+        var g = Guid.NewGuid();
+        var path = $"/search/by-image/uploads/{g}";
+        var stream = File.OpenRead(filepath);
+        var helper = new WebHelper(Credentials, BaseUrl, _customHandler);
+        var httpContent = new StreamContent(stream);
+        httpContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
+        await helper.PutQueryVoidAsync(new List<KeyValuePair<string, string>>(),
+            path,
+            new List<KeyValuePair<string, string>>(),
+            httpContent);
+        return path;
+    }
 
-            return await base.ExecuteAsync();
-        }
+    public async Task<SearchImagesCreativeByImage> AddToBucketAndSearchAsync(string imageFilepath)
+    {
+        var path = await AddToBucket(imageFilepath);
+        var url = $"{BaseUrl}{path}";
+        return WithImageUrl(url);
+    }
 
-        private async Task<string> AddToBucket(string filepath)
-        {
-            var g = Guid.NewGuid();
-            string path = $"/search/by-image/uploads/{g}";
-            var stream = File.OpenRead(filepath);
-            var helper = new WebHelper(Credentials, BaseUrl, _customHandler);
-            var httpContent = new StreamContent(stream);
-            httpContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
-            await helper.PutQueryAsync(new List<KeyValuePair<string, string>>(),
-                path,
-                new List<KeyValuePair<string, string>>(),
-                httpContent);
-            return path;
-        }
+    public SearchImagesCreativeByImage WithAcceptLanguage(string value)
+    {
+        AddHeaderParameter(Constants.AcceptLanguage, value);
+        return this;
+    }
 
-        public async Task<SearchImagesCreativeByImage> AddToBucketAndSearchAsync(string imageFilepath)
-        {
-            var path = await AddToBucket(imageFilepath);
-            var url = $"{BaseUrl}{path}";
-            WithImageUrl(url);
-            return this;
-        }
+    public SearchImagesCreativeByImage WithImageUrl(string value)
+    {
+        AddQueryParameter(Constants.ImageUrlKey, value);
+        return this;
+    }
 
-        public SearchImagesCreativeByImage WithAcceptLanguage(string value)
-        {
-            AddHeaderParameter(Constants.AcceptLanguage, value);
-            return this;
-        }
+    public SearchImagesCreativeByImage WithPage(int value)
+    {
+        AddQueryParameter(Constants.PageKey, value);
+        return this;
+    }
 
-        public SearchImagesCreativeByImage WithResponseFields(IEnumerable<string> values)
-        {
-            AddResponseFields(values);
-            return this;
-        }
+    public SearchImagesCreativeByImage WithPageSize(int value)
+    {
+        AddQueryParameter(Constants.PageSizeKey, value);
+        return this;
+    }
 
-        public SearchImagesCreativeByImage WithImageFingerprint(string value)
-        {
-            AddQueryParameter(Constants.ImageFingerprintKey, value);
-            return this;
-        }
+    public SearchImagesCreativeByImage WithProductType(ProductType value)
+    {
+        AddProductTypes(value);
+        return this;
+    }
 
-        public SearchImagesCreativeByImage WithImageUrl(string value)
-        {
-            AddQueryParameter(Constants.ImageUrlKey, value);
-            return this;
-        }
+    public SearchImagesCreativeByImage IncludeFacets()
+    {
+        AddQueryParameter(Constants.IncludeFacetsKey, true);
+        return this;
+    }
 
-        public SearchImagesCreativeByImage WithPage(int value)
-        {
-            AddQueryParameter(Constants.PageKey, value);
-            return this;
-        }
+    public SearchImagesCreativeByImage WithFacetFields(IEnumerable<string> values)
+    {
+        AddFacetResponseFields(values);
+        return this;
+    }
 
-        public SearchImagesCreativeByImage WithPageSize(int value)
-        {
-            AddQueryParameter(Constants.PageSizeKey, value);
-            return this;
-        }
+    public SearchImagesCreativeByImage WithFacetMaxCount(int value)
+    {
+        AddQueryParameter(Constants.FacetMaxCountKey, value);
+        return this;
+    }
+    
+    public SearchImagesCreativeByImage IncludeKeywords()
+    {
+        AddResponseField("keywords");
+        return this;
+    }
 
-        public SearchImagesCreativeByImage WithProductType(ProductType value)
-        {
-            AddProductTypes(value);
-            return this;
-        }
+    public SearchImagesCreativeByImage IncludeLargestDownloads()
+    {
+        AddResponseField("largest_downloads");
+        return this;
+    }
 
-        public SearchImagesCreativeByImage WithIncludeFacets(bool value = true)
-        {
-            AddQueryParameter(Constants.IncludeFacetsKey, value);
-            return this;
-        }
-
-        public SearchImagesCreativeByImage WithFacetFields(IEnumerable<string> values)
-        {
-            AddFacetResponseFields(values);
-            return this;
-        }
-        public SearchImagesCreativeByImage WithFacetMaxCount(int value)
-        {
-            AddQueryParameter(Constants.FacetMaxCountKey, value);
-            return this;
-        }
+    public SearchImagesCreativeByImage IncludeDownloadSizes()
+    {
+        AddResponseField("download_sizes");
+        return this;
     }
 }

@@ -1,48 +1,45 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using GettyImages.Api.Models;
 
-namespace GettyImages.Api.Boards
+namespace GettyImages.Api.Boards;
+
+public class PutAssets : ApiRequest<AddBoardAssetsResponse>
 {
-    public class PutAssets : ApiRequest
+    private PutAssets(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
     {
-        protected const string V3PutAssetsPath = "/boards/{0}/assets";
-        protected string BoardId { get; set; }
+        Credentials = credentials;
+        BaseUrl = baseUrl;
+        Method = "PUT";
+    }
 
-        private PutAssets(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
-        {
-            Credentials = credentials;
-            BaseUrl = baseUrl;
-        }
+    internal static PutAssets GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
+    {
+        return new PutAssets(credentials, baseUrl, customHandler);
+    }
 
-        internal static PutAssets GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
-        {
-            return new PutAssets(credentials, baseUrl, customHandler);
-        }
+    public PutAssets WithBoardId(string value)
+    {
+        Path = $"/boards/{value}/assets";
+        return this;
+    }
 
-        public override async Task<dynamic> ExecuteAsync()
-        {
-            Method = "PUT";
-            Path = string.Format(V3PutAssetsPath, BoardId);
+    public PutAssets WithBoardAssets(string value)
+    {
+        StringBodyParameter = value;
+        return this;
+    }
 
-            return await base.ExecuteAsync();
-        }
+    public PutAssets WithAssetIds(IEnumerable<string> value)
+    {
+        BodyParameter = value.Select(id => new BoardAsset { AssetId = id });
+        return this;
+    }
 
-        public PutAssets WithBoardId(string value)
-        {
-            BoardId = value;
-            return this;
-        }
-
-        public PutAssets WithBoardAssets(string value)
-        {
-            BodyParameter = value;
-            return this;
-        }
-
-        public PutAssets WithAcceptLanguage(string value)
-        {
-            AddHeaderParameter(Constants.AcceptLanguage, value);
-            return this;
-        }
+    public PutAssets WithAcceptLanguage(string value)
+    {
+        AddHeaderParameter(Constants.AcceptLanguage, value);
+        return this;
     }
 }

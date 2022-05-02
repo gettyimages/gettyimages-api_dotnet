@@ -1,69 +1,70 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
-namespace GettyImages.Api.Videos
+namespace GettyImages.Api.Videos;
+
+public class Videos : ApiRequest<GetVideosDetailsResponse>
 {
-    public class Videos : ApiRequest
+    private readonly List<string> _videoIds = new();
+    
+
+    private Videos(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
     {
-        private const string Comma = ",";
-        private const string IdsKey = "ids";
-        private const string VideosPath = "/videos/{0}";
-        private const string VideosBatchPath = "/videos";
-        private readonly List<string> _videoIds = new List<string>();
-
-        private Videos(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
+        Credentials = credentials;
+        BaseUrl = baseUrl;
+        Method = "GET";
+        Path = "/videos";
+        
+        AddResponseFields(new[]
         {
-            Credentials = credentials;
-            BaseUrl = baseUrl;
-        }
+            "id", "allowed_use", "artist", "asset_family", "call_for_image", "caption", "clip_length",
+            "collection_code", "collection_id", "collection_name", "color_type", "comp", "copyright", "date_created",
+            "date_submitted", "detail_set", "download_sizes", "download_product", "editorial_segments",
+            "entity_details", "era", "event_ids", "istock_collection", "istock_licenses", "keywords", "license_model",
+            "mastered_to", "object_name", "orientation", "originally_shot_on", "preview", "product_types",
+            "quality_rank", "referral_destinations", "shot_speed", "source", "thumb", "title"
+        });
+    }
 
-        internal static Videos GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
-        {
-            return new Videos(credentials, baseUrl, customHandler);
-        }
+    internal static Videos GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
+    {
+        return new Videos(credentials, baseUrl, customHandler);
+    }
 
-        public override Task<dynamic> ExecuteAsync()
-        {
-            Method = "GET";
+    public Videos WithId(string value)
+    {
+        AddIds(new []{ value });
+        return this;
+    }
 
-            var ids = string.Join(Comma, _videoIds);
+    public Videos WithIds(IEnumerable<string> value)
+    {
+        AddIds(value);
+        return this;
+    }
 
-            if (_videoIds.Count > 1)
-            {
-                QueryParameters.Add(IdsKey, ids);
-                Path = VideosBatchPath;
-            }
-            else
-            {
-                Path = string.Format(VideosPath, ids);
-            }
+    public Videos WithAcceptLanguage(string value)
+    {
+        AddHeaderParameter(Constants.AcceptLanguage, value);
+        return this;
+    }
+    
+    public Videos IncludeKeywords()
+    {
+        AddResponseField("keywords");
+        return this;
+    }
 
-            return base.ExecuteAsync();
-        }
+    public Videos IncludeLargestDownloads()
+    {
+        AddResponseField("largest_downloads");
+        return this;
+    }
 
-        public Videos WithId(string val)
-        {
-            _videoIds.Add(val);
-            return this;
-        }
-
-        public Videos WithIds(IEnumerable<string> val)
-        {
-            _videoIds.AddRange(val);
-            return this;
-        }
-
-        public Videos WithAcceptLanguage(string value)
-        {
-            AddHeaderParameter(Constants.AcceptLanguage, value);
-            return this;
-        }
-
-        public Videos WithResponseFields(IEnumerable<string> values)
-        {
-            AddResponseFields(values);
-            return this;
-        }
+    public Videos IncludeDownloads()
+    {
+        AddResponseField("downloads");
+        return this;
     }
 }

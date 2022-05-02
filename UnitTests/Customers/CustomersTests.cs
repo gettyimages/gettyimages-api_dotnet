@@ -3,20 +3,20 @@ using FluentAssertions;
 using GettyImages.Api;
 using Xunit;
 
-namespace UnitTests.Customers
+namespace UnitTests.Customers;
+
+public class CustomersTests
 {
-    public class CustomersTests
+    [Fact]
+    public async Task GetCustomerInfoBasic()
     {
-        [Fact]
-        public async Task GetCustomerInfoBasic()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
+        var testHandler = TestUtil.CreateTestHandler();
 
-            await ApiClient.GetApiClientWithResourceOwnerCredentials("apiKey", "apiSecret", "userName", "userPassword", testHandler)
-                                    .Customers()
-                                    .ExecuteAsync();
+        await ApiClient
+            .GetApiClientWithResourceOwnerCredentials("apiKey", "apiSecret", "userName", "userPassword", testHandler)
+            .Customers()
+            .ExecuteAsync();
 
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("/customers/current");
-        }
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("/customers/current");
     }
 }

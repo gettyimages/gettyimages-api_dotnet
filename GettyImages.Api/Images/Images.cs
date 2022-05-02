@@ -1,68 +1,68 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
-namespace GettyImages.Api.Images
+namespace GettyImages.Api.Images;
+
+public class Images : ApiRequest<GetImagesDetailsResponse>
 {
-    public class Images : ApiRequest
+    private Images(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
     {
-        private const string Comma = ",";
-        private const string IdsKey = "ids";
-        private const string ImagePath = "/images/{0}";
-        private const string ImageBatchPath = "/images";
-        private readonly List<string> _imageIds = new List<string>();
+        Credentials = credentials;
+        BaseUrl = baseUrl;
+        Method = "GET";
+        Path = "/images";
 
-        private Images(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
+        AddResponseFields(new[]
         {
-            Credentials = credentials;
-            BaseUrl = baseUrl;
-        }
+            "allowed_use", "alternative_ids", "artist", "artist_title", "asset_family", "call_for_image", "caption",
+            "city", "collection_code", "collection_id", "collection_name", "color_type", "comp", "copyright", "country",
+            "credit_line", "date_camera_shot", "date_created", "date_submitted", "download_product", "downloads",
+            "editorial_segments", "editorial_source", "entity_details", "event_ids", "graphical_style", "id",
+            "istock_collection", "istock_licenses", "license_model", "links", "max_dimensions", "object_name",
+            "orientation", "people", "preview", "product_types", "quality_rank", "referral_destinations",
+            "state_province", "thumb", "title", "uri_oembed"
+        });
+    }
 
-        internal static Images GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
-        {
-            return new Images(credentials, baseUrl, customHandler);
-        }
+    internal static Images GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
+    {
+        return new Images(credentials, baseUrl, customHandler);
+    }
 
-        public override Task<dynamic> ExecuteAsync()
-        {
-            Method = "GET";
-            var ids = string.Join(Comma, _imageIds);
+    public Images WithId(string value)
+    {
+        AddIds(new []{ value });
+        return this;
+    }
 
-            if (_imageIds.Count > 1)
-            {
-                QueryParameters.Add(IdsKey, ids);
-                Path = ImageBatchPath;
-            }
-            else
-            {
-                Path = string.Format(ImagePath, ids);
-            }
+    public Images WithIds(IEnumerable<string> value)
+    {
+        AddIds(value);
+        return this;
+    }
 
-            return base.ExecuteAsync();
-        }
+    public Images WithAcceptLanguage(string value)
+    {
+        AddHeaderParameter(Constants.AcceptLanguage, value);
+        return this;
+    }
+    
+    public Images IncludeKeywords()
+    {
+        AddResponseField("keywords");
+        return this;
+    }
 
-        public Images WithId(string val)
-        {
-            _imageIds.Add(val);
-            return this;
-        }
+    public Images IncludeLargestDownloads()
+    {
+        AddResponseField("largest_downloads");
+        return this;
+    }
 
-        public Images WithIds(IEnumerable<string> val)
-        {
-            _imageIds.AddRange(val);
-            return this;
-        }
-
-        public Images WithAcceptLanguage(string value)
-        {
-            AddHeaderParameter(Constants.AcceptLanguage, value);
-            return this;
-        }
-
-        public Images WithResponseFields(IEnumerable<string> values)
-        {
-            AddResponseFields(values);
-            return this;
-        }
+    public Images IncludeDownloads()
+    {
+        AddResponseField("downloads");
+        return this;
     }
 }

@@ -1,48 +1,39 @@
 ﻿using System.Net.Http;
-using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
-namespace GettyImages.Api.Videos
+namespace GettyImages.Api.Videos;
+
+public class VideoDownloadHistory : ApiRequest<GetAssetDownloadHistoryResponse>
 {
-    public class VideoDownloadHistory : ApiRequest
+    private VideoDownloadHistory(Credentials credentials, string baseUrl, DelegatingHandler customHandler) :
+        base(customHandler)
     {
-        private const string VideoDownloadHistoryPath = "/videos/{0}/downloadhistory";
-        private string _imageId;
+        Credentials = credentials;
+        BaseUrl = baseUrl;
+        Method = "GET";
+    }
 
-        private VideoDownloadHistory(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
-        {
-            Credentials = credentials;
-            BaseUrl = baseUrl;
-        }
+    internal static VideoDownloadHistory GetInstance(Credentials credentials, string baseUrl,
+        DelegatingHandler customHandler)
+    {
+        return new VideoDownloadHistory(credentials, baseUrl, customHandler);
+    }
 
-        internal static VideoDownloadHistory GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
-        {
-            return new VideoDownloadHistory(credentials, baseUrl, customHandler);
-        }
+    public VideoDownloadHistory WithAcceptLanguage(string value)
+    {
+        AddHeaderParameter(Constants.AcceptLanguage, value);
+        return this;
+    }
 
-        public override async Task<dynamic> ExecuteAsync()
-        {
-            Method = "GET";
-            Path = Path = string.Format(VideoDownloadHistoryPath, _imageId);
+    public VideoDownloadHistory WithId(string value)
+    {
+        Path = $"/videos/{value}/downloadhistory";
+        return this;
+    }
 
-            return await base.ExecuteAsync();
-        }
-
-        public VideoDownloadHistory WithAcceptLanguage(string value)
-        {
-            AddHeaderParameter(Constants.AcceptLanguage, value);
-            return this;
-        }
-
-        public VideoDownloadHistory WithId(string val)
-        {
-            _imageId = val;
-            return this;
-        }
-
-        public VideoDownloadHistory WithCompanyDownloads(bool value = true)
-        {
-            AddQueryParameter(Constants.CompanyDownloadsKey, value);
-            return this;
-        }
+    public VideoDownloadHistory IncludeCompanyDownloads()
+    {
+        AddQueryParameter(Constants.CompanyDownloadsKey, true);
+        return this;
     }
 }

@@ -1,49 +1,51 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace GettyImages.Api.Boards
+namespace GettyImages.Api.Boards;
+
+public class DeleteCommentsById : ApiRequest
 {
-    public class DeleteCommentsById : ApiRequest
+    protected const string V3DeleteCommentByIdPath = "/boards/{0}/comments/{1}";
+
+    private DeleteCommentsById(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(
+        customHandler)
     {
-        protected const string V3DeleteCommentByIdPath = "/boards/{0}/comments/{1}";
-        protected string BoardId { get; set; }
-        protected string CommentId { get; set; }
+        Credentials = credentials;
+        BaseUrl = baseUrl;
+    }
 
-        private DeleteCommentsById(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
-        {
-            Credentials = credentials;
-            BaseUrl = baseUrl;
-        }
+    protected string BoardId { get; set; }
+    protected string CommentId { get; set; }
 
-        internal static DeleteCommentsById GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
-        {
-            return new DeleteCommentsById(credentials, baseUrl, customHandler);
-        }
+    internal static DeleteCommentsById GetInstance(Credentials credentials, string baseUrl,
+        DelegatingHandler customHandler)
+    {
+        return new DeleteCommentsById(credentials, baseUrl, customHandler);
+    }
 
-        public override async Task<dynamic> ExecuteAsync()
-        {
-            Method = "DELETE";
-            Path = string.Format(V3DeleteCommentByIdPath, BoardId, CommentId);
+    public override async Task ExecuteAsync()
+    {
+        Method = "DELETE";
+        Path = string.Format(V3DeleteCommentByIdPath, BoardId, CommentId);
 
-            return await base.ExecuteAsync();
-        }
+        await base.ExecuteAsync();
+    }
 
-        public DeleteCommentsById WithBoardId(string value)
-        {
-            BoardId = value;
-            return this;
-        }
+    public DeleteCommentsById WithBoardId(string value)
+    {
+        BoardId = value;
+        return this;
+    }
 
-        public DeleteCommentsById WithCommentId(string value)
-        {
-            CommentId = value;
-            return this;
-        }
+    public DeleteCommentsById WithCommentId(string value)
+    {
+        CommentId = value;
+        return this;
+    }
 
-        public DeleteCommentsById WithAcceptLanguage(string value)
-        {
-            AddHeaderParameter(Constants.AcceptLanguage, value);
-            return this;
-        }
+    public DeleteCommentsById WithAcceptLanguage(string value)
+    {
+        AddHeaderParameter(Constants.AcceptLanguage, value);
+        return this;
     }
 }

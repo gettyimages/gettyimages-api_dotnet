@@ -1,61 +1,44 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Net.Http;
+using GettyImages.Api.Models;
 
-namespace GettyImages.Api.Images
+namespace GettyImages.Api.Images;
+
+public class ImagesSimilar : ApiRequest<GetSimilarImagesResponse>
 {
-    public class ImagesSimilar : ApiRequest
+    private ImagesSimilar(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(
+        customHandler)
     {
-        private const string ImagePath = "/images/{0}/similar";
-        protected string AssetId { get; set; }
+        Credentials = credentials;
+        BaseUrl = baseUrl;
+        Method = "GET";
+    }
 
-        private ImagesSimilar(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
-        {
-            Credentials = credentials;
-            BaseUrl = baseUrl;
-        }
+    internal static ImagesSimilar GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
+    {
+        return new ImagesSimilar(credentials, baseUrl, customHandler);
+    }
 
-        internal static ImagesSimilar GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
-        {
-            return new ImagesSimilar(credentials, baseUrl, customHandler);
-        }
+    public ImagesSimilar WithId(string value)
+    {
+        Path = $"/images/{value}/similar";
+        return this;
+    }
 
-        public override Task<dynamic> ExecuteAsync()
-        {
-            Method = "GET";
-            Path = string.Format(ImagePath, AssetId);
+    public ImagesSimilar WithAcceptLanguage(string value)
+    {
+        AddHeaderParameter(Constants.AcceptLanguage, value);
+        return this;
+    }
 
-            return base.ExecuteAsync();
-        }
+    public ImagesSimilar WithPage(int value)
+    {
+        AddQueryParameter(Constants.PageKey, value);
+        return this;
+    }
 
-        public ImagesSimilar WithId(string val)
-        {
-            AssetId = val;
-            return this;
-        }
-
-        public ImagesSimilar WithAcceptLanguage(string value)
-        {
-            AddHeaderParameter(Constants.AcceptLanguage, value);
-            return this;
-        }
-
-        public ImagesSimilar WithResponseFields(IEnumerable<string> values)
-        {
-            AddResponseFields(values);
-            return this;
-        }
-
-        public ImagesSimilar WithPage(int value)
-        {
-            AddQueryParameter(Constants.PageKey, value);
-            return this;
-        }
-
-        public ImagesSimilar WithPageSize(int value)
-        {
-            AddQueryParameter(Constants.PageSizeKey, value);
-            return this;
-        }
+    public ImagesSimilar WithPageSize(int value)
+    {
+        AddQueryParameter(Constants.PageSizeKey, value);
+        return this;
     }
 }

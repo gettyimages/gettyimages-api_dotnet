@@ -1,11 +1,10 @@
-﻿namespace GettyImages.Api
+﻿namespace GettyImages.Api;
+
+public enum CredentialType
 {
-    public enum CredentialType
-    {
-        None,
-        ApiKey,
-        ClientCredentials,
-        ResourceOwner,
-        RefreshToken
-    }
+    None,
+    ApiKey,
+    ClientCredentials,
+    ResourceOwner,
+    RefreshToken
 }

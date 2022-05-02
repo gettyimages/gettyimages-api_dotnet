@@ -4,17 +4,17 @@ using System.Threading;
 using System.Threading.Tasks;
 using GettyImages.Api.Handlers;
 
-namespace UnitTests.HeaderAndBody
+namespace UnitTests.HeaderAndBody;
+
+internal class TestHeadersHandler : HeadersHandler
 {
-    internal class TestHeadersHandler : HeadersHandler
+    public TestHeadersHandler(IEnumerable<KeyValuePair<string, string>> headerParameters) : base(headerParameters)
     {
-        public  TestHeadersHandler(IEnumerable<KeyValuePair<string, string>> headerParameters) : base(headerParameters)
-        {
-        }
-   
-        public new async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-        {
-            return await base.SendAsync(request, cancellationToken);
-        }
+    }
+
+    public new async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+        CancellationToken cancellationToken)
+    {
+        return await base.SendAsync(request, cancellationToken);
     }
 }

@@ -1,114 +1,96 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
 using GettyImages.Api;
-using GettyImages.Api.Entity;
+using GettyImages.Api.Models;
 using Xunit;
 
-namespace UnitTests.Search
+namespace UnitTests.Search;
+
+public class SearchEventTests
 {
-    public class SearchEventTests
+    [Fact]
+    public async Task SearchForEventsWithPhrase()
     {
-        [Fact]
-        public async Task SearchForEventsWithPhrase()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
+        var testHandler = TestUtil.CreateTestHandler();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .SearchEvents()
+            .WithPhrase("cat")
+            .ExecuteAsync();
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+    }
 
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .SearchEvents()
-                .WithPhrase("cat")
-                .ExecuteAsync();
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-        }
+    [Fact]
+    public async Task SearchForEventsWithDateFrom()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .SearchEvents()
+            .WithPhrase("cat")
+            .WithDateFrom("2015-04-01")
+            .ExecuteAsync();
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("date_from=2015-04-01");
+    }
 
-        [Fact]
-        public async Task SearchForEventsWithDateFrom()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
+    [Fact]
+    public async Task SearchForEventsWithDateTo()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .SearchEvents()
+            .WithPhrase("cat")
+            .WithDateTo("2015-04-01")
+            .ExecuteAsync();
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("date_to=2015-04-01");
+    }
 
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .SearchEvents()
-                .WithPhrase("cat")
-                .WithDateFrom("2015-04-01")
-                .ExecuteAsync();
+    [Fact]
+    public async Task SearchForEventsWithEditorialSegment()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .SearchEvents()
+            .WithPhrase("cat")
+            .WithEditorialSegment(EditorialSegment.Archival)
+            .ExecuteAsync();
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("editorial_segment=archival");
+    }
 
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("date_from=2015-04-01");
-        }
+    [Fact]
+    public async Task SearchForEventsWithResponseFields()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchEvents()
+            .WithPhrase("cat").ExecuteAsync();
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+    }
 
-        [Fact]
-        public async Task SearchForEventsWithDateTo()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
+    [Fact]
+    public async Task SearchForEventsWithPage()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchEvents()
+            .WithPhrase("cat").WithPage(2).ExecuteAsync();
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("page=2");
+    }
 
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .SearchEvents()
-                .WithPhrase("cat")
-                .WithDateTo("2015-04-01")
-                .ExecuteAsync();
-
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("date_to=2015-04-01");
-        }
-
-        [Fact]
-        public async Task SearchForEventsWithEditorialSegment()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
-
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-                .SearchEvents()
-                .WithPhrase("cat")
-                .WithEditorialSegment(EditorialSegment.Archival)
-                .ExecuteAsync();
-
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("editorial_segments=archival");
-        }
-
-        [Fact]
-        public async Task SearchForEventsWithResponseFields()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
-
-            var fields = new List<string>() { "id", "keywords" };
-
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchEvents()
-                .WithPhrase("cat").WithResponseFields(fields).ExecuteAsync();
-
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("fields=id%2Ckeywords");
-        }
-
-        [Fact]
-        public async Task SearchForEventsWithPage()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
-
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchEvents()
-                .WithPhrase("cat").WithPage(2).ExecuteAsync();
-
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("page=2");
-        }
-
-        [Fact]
-        public async Task SearchForEventsWithPageSize()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
-
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchEvents()
-                .WithPhrase("cat").WithPageSize(50).ExecuteAsync();
-
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("page_size=50");
-        }
+    [Fact]
+    public async Task SearchForEventsWithPageSize()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchEvents()
+            .WithPhrase("cat").WithPageSize(50).ExecuteAsync();
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("page_size=50");
     }
 }

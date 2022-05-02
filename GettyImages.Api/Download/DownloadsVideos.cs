@@ -1,67 +1,52 @@
 ﻿using System.Net.Http;
-using System.Threading.Tasks;
+using GettyImages.Api.Models;
 
-namespace GettyImages.Api.Download
+namespace GettyImages.Api.Download;
+
+public class DownloadsVideos : ApiRequest<DownloadAssetResponse>
 {
-    public class DownloadsVideos : ApiRequest
+    private DownloadsVideos(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(
+        customHandler)
     {
-        protected const string V3DownloadVidoesPath = "/downloads/videos";
-        protected string AssetId { get; set; }
+        Credentials = credentials;
+        BaseUrl = baseUrl;
+        Method = "POST";
+        AddQueryParameter(Constants.AutoDownloadKey, false);
+    }
 
-        private DownloadsVideos(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
-        {
-            Credentials = credentials;
-            BaseUrl = baseUrl;
-            AddQueryParameter(Constants.AutoDownloadKey, false);
-        }
+    internal static DownloadsVideos GetInstance(Credentials credentials, string baseUrl,
+        DelegatingHandler customHandler)
+    {
+        return new DownloadsVideos(credentials, baseUrl, customHandler);
+    }
 
-        internal static DownloadsVideos GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
-        {
-            return new DownloadsVideos(credentials, baseUrl, customHandler);
-        }
+    public DownloadsVideos WithId(string value)
+    {
+        Path = $"/downloads/videos/{value}";
+        return this;
+    }
 
-        public override async Task<dynamic> ExecuteAsync()
-        {
-            Method = "POST";
-            Path = V3DownloadVidoesPath + "/" + AssetId;
+    public DownloadsVideos WithAcceptLanguage(string value)
+    {
+        AddHeaderParameter(Constants.AcceptLanguage, value);
+        return this;
+    }
 
-            return await base.ExecuteAsync();
-        }
+    public DownloadsVideos WithDownloadDetails(DownloadDetails value)
+    {
+        BodyParameter = value;
+        return this;
+    }
 
-        public DownloadsVideos WithId(string value)
-        {
-            AssetId = value;
-            return this;
-        }
+    public DownloadsVideos WithProductId(int value)
+    {
+        AddQueryParameter(Constants.ProductIdKey, value);
+        return this;
+    }
 
-        public DownloadsVideos WithAcceptLanguage(string value)
-        {
-            AddHeaderParameter(Constants.AcceptLanguage, value);
-            return this;
-        }
-
-        public DownloadsVideos WithAutoDownload(bool value = true)
-        {
-            AddQueryParameter(Constants.AutoDownloadKey, value);
-            return this;
-        }
-
-        public DownloadsVideos WithDownloadDetails(string value)
-        {
-            BodyParameter = value;
-            return this;
-        }
-
-        public DownloadsVideos WithProductId(int value)
-        {
-            AddQueryParameter(Constants.ProductIdKey, value);
-            return this;
-        }
-
-        public DownloadsVideos WithSize(string value)
-        {
-            AddQueryParameter(Constants.SizeKey, value);
-            return this;
-        }
+    public DownloadsVideos WithSize(string value)
+    {
+        AddQueryParameter(Constants.SizeKey, value);
+        return this;
     }
 }

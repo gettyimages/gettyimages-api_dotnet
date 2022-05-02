@@ -1,63 +1,47 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
 using GettyImages.Api;
 using Xunit;
 
-namespace UnitTests.Artists
+namespace UnitTests.Artists;
+
+public class ArtistsImagesTests
 {
-    public class ArtistsImagesTests
+    [Fact]
+    public async Task SearchForImagesByArtistBasic()
     {
-        [Fact]
-        public async Task SearchForImagesByArtistBasic()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
+        var testHandler = TestUtil.CreateTestHandler();
 
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).ArtistsImages().WithArtist("roman makhmutov").ExecuteAsync();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).ArtistsImages()
+            .WithArtist("roman makhmutov").ExecuteAsync();
 
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artists/images");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artist_name=roman+makhmutov");
-        }
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artists/images");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artist_name=roman+makhmutov");
+    }
 
-        [Fact]
-        public async Task SearchForImagesByArtistWithFields()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
+    [Fact]
+    public async Task SearchForImagesByArtistWithPage()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
 
-            var fields = new List<string>() {"asset_family", "keywords"};
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).ArtistsImages()
+            .WithArtist("roman makhmutov").WithPage(3).ExecuteAsync();
 
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).ArtistsImages()
-                .WithArtist("roman makhmutov").WithResponseFields(fields).ExecuteAsync();
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artists/images");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artist_name=roman+makhmutov");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("page=3");
+    }
 
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artists/images");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artist_name=roman+makhmutov");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("fields=asset_family%2Ckeywords");
-        }
+    [Fact]
+    public async Task SearchForImagesByArtistWithPageSize()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
 
-        [Fact]
-        public async Task SearchForImagesByArtistWithPage()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).ArtistsImages()
+            .WithArtist("roman makhmutov").WithPageSize(50).ExecuteAsync();
 
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).ArtistsImages()
-                .WithArtist("roman makhmutov").WithPage(3).ExecuteAsync();
-
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artists/images");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artist_name=roman+makhmutov");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("page=3");
-        }
-
-        [Fact]
-        public async Task SearchForImagesByArtistWithPageSize()
-        {
-            var testHandler = TestUtil.CreateTestHandler();
-
-            await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).ArtistsImages()
-                .WithArtist("roman makhmutov").WithPageSize(50).ExecuteAsync();
-
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artists/images");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artist_name=roman+makhmutov");
-            testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("page_size=50");
-        }
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artists/images");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artist_name=roman+makhmutov");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("page_size=50");
     }
 }
