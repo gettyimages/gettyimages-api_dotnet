@@ -173,6 +173,17 @@ public class ApiClient
     }
 
     /// <summary>
+    ///     Search for creative images based on url
+    /// </summary>
+    /// <returns>
+    ///     The <see cref="Search.SearchImagesCreativeByImage" />.
+    /// </returns>
+    public SearchVideosCreativeByImage SearchVideosCreativeByImage()
+    {
+        return Search.SearchVideosCreativeByImage.GetInstance(_credentials, _baseUrl, _customHandler);
+    }
+    
+    /// <summary>
     ///     Search for editorial videos
     /// </summary>
     /// <returns>

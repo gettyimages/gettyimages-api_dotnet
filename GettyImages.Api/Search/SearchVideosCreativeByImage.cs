@@ -8,31 +8,29 @@ using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Search;
 
-public class SearchImagesCreativeByImage : ApiRequest<SearchCreativeImagesByImageResponse>
+public class SearchVideosCreativeByImage : ApiRequest<SearchCreativeVideosByImageResponse>
 {
-    protected const string V3SearchImagesPath = "/search/images/creative/by-image";
-
-    private SearchImagesCreativeByImage(Credentials credentials, string baseUrl, DelegatingHandler customHandler) :
+    private SearchVideosCreativeByImage(Credentials credentials, string baseUrl, DelegatingHandler customHandler) :
         base(customHandler)
     {
         Credentials = credentials;
         BaseUrl = baseUrl;
         Method = "GET";
-        Path = V3SearchImagesPath;
+        Path = "/search/videos/creative/by-image";
         AddResponseFields(new[]
         {
-            "allowed_use", "alternative_ids", "artist", "asset_family", "call_for_image", "caption", "collection_code",
-            "collection_id", "collection_name", "color_type", "comp", "copyright", "date_camera_shot", "date_created",
-            "date_submitted", "download_product", "graphical_style", "id", "istock_collection", "license_model",
-            "max_dimensions", "orientation", "preview", "product_types", "quality_rank", "referral_destinations",
-            "thumb", "title", "uri_oembed"
+            "allowed_use", "artist", "aspect_ratio", "asset_family", "call_for_image", "caption", "clip_length",
+            "collection_code", "collection_id", "collection_name", "color_type", "comp", "copyright", "date_created",
+            "date_submitted", "download_product", "era", "id", "istock_collection", "license_model", "mastered_to",
+            "orientation", "originally_shot_on", "preview", "product_types", "quality_rank", "referral_destinations",
+            "shot_speed", "thumb", "title"
         });
     }
 
-    internal static SearchImagesCreativeByImage GetInstance(Credentials credentials, string baseUrl,
+    internal static SearchVideosCreativeByImage GetInstance(Credentials credentials, string baseUrl,
         DelegatingHandler customHandler)
     {
-        return new SearchImagesCreativeByImage(credentials, baseUrl, customHandler);
+        return new SearchVideosCreativeByImage(credentials, baseUrl, customHandler);
     }
 
     private async Task<string> AddToBucket(string filepath)
@@ -50,80 +48,80 @@ public class SearchImagesCreativeByImage : ApiRequest<SearchCreativeImagesByImag
         return path;
     }
 
-    public async Task<SearchImagesCreativeByImage> AddToBucketAndSearchAsync(string imageFilepath)
+    public async Task<SearchVideosCreativeByImage> AddToBucketAndSearchAsync(string imageFilepath)
     {
         var path = await AddToBucket(imageFilepath);
         var url = $"{BaseUrl}{path}";
         return WithImageUrl(url);
     }
 
-    public SearchImagesCreativeByImage WithAcceptLanguage(string value)
+    public SearchVideosCreativeByImage WithAcceptLanguage(string value)
     {
         AddHeaderParameter(Constants.AcceptLanguage, value);
         return this;
     }
 
-    public SearchImagesCreativeByImage WithImageUrl(string value)
+    public SearchVideosCreativeByImage WithImageUrl(string value)
     {
         AddQueryParameter(Constants.ImageUrlKey, value);
         return this;
     }
 
-    public SearchImagesCreativeByImage WithPage(int value)
+    public SearchVideosCreativeByImage WithPage(int value)
     {
         AddQueryParameter(Constants.PageKey, value);
         return this;
     }
 
-    public SearchImagesCreativeByImage WithPageSize(int value)
+    public SearchVideosCreativeByImage WithPageSize(int value)
     {
         AddQueryParameter(Constants.PageSizeKey, value);
         return this;
     }
 
-    public SearchImagesCreativeByImage WithProductType(ProductType value)
+    public SearchVideosCreativeByImage WithProductType(ProductType value)
     {
         AddProductTypes(value);
         return this;
     }
 
-    public SearchImagesCreativeByImage IncludeFacets()
+    public SearchVideosCreativeByImage IncludeFacets()
     {
         AddQueryParameter(Constants.IncludeFacetsKey, true);
         return this;
     }
 
-    public SearchImagesCreativeByImage WithFacetFields(IEnumerable<string> values)
+    public SearchVideosCreativeByImage WithFacetFields(IEnumerable<string> values)
     {
         AddFacetResponseFields(values);
         return this;
     }
 
-    public SearchImagesCreativeByImage WithFacetMaxCount(int value)
+    public SearchVideosCreativeByImage WithFacetMaxCount(int value)
     {
         AddQueryParameter(Constants.FacetMaxCountKey, value);
         return this;
     }
-    
-    public SearchImagesCreativeByImage ExcludeEditorialUseOnly()
+
+    public SearchVideosCreativeByImage ExcludeEditorialUseOnly()
     {
         AddQueryParameter("exclude_editorial_use_only", true);
         return this;
     }
     
-    public SearchImagesCreativeByImage IncludeKeywords()
+    public SearchVideosCreativeByImage IncludeKeywords()
     {
         AddResponseField("keywords");
         return this;
     }
 
-    public SearchImagesCreativeByImage IncludeLargestDownloads()
+    public SearchVideosCreativeByImage IncludeLargestDownloads()
     {
         AddResponseField("largest_downloads");
         return this;
     }
 
-    public SearchImagesCreativeByImage IncludeDownloadSizes()
+    public SearchVideosCreativeByImage IncludeDownloadSizes()
     {
         AddResponseField("download_sizes");
         return this;

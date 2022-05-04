@@ -26,7 +26,7 @@ public class ImageSearchItemCreative
     public DownloadSize[] DownloadSizes { get; set; }
     public string GraphicalStyle { get; set; }
     public string Id { get; set; }
-    public Keyword[] Keywords { get; set; }
+    public CreativeKeyword[] Keywords { get; set; }
     public Download[] LargestDownloads { get; set; }
     public string LicenseModel { get; set; }
     public MaxDimensions MaxDimensions { get; set; }
