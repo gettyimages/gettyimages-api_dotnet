@@ -19,7 +19,6 @@
         <LangVersion>10</LangVersion>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Humanizer.Core" Version="2.14.1" />
         <PackageReference Include="Polly.Extensions.Http" Version="3.0.0" />
         <PackageReference Include="System.Memory" Version="4.5.4" />
         <PackageReference Include="System.Text.Json" Version="6.0.3" />

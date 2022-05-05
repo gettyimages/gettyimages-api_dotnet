@@ -5,7 +5,7 @@ using System;
 
 namespace GettyImages.Api.Models;
 
-public class OrderDetail
+public class GetOrderDetailsResponse
 {
     public string Id { get; set; }
     public string InvoiceNumber { get; set; }

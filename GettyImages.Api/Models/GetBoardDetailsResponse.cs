@@ -5,7 +5,7 @@ using System;
 
 namespace GettyImages.Api.Models;
 
-public class BoardDetail
+public class GetBoardDetailsResponse
 {
     public string Id { get; set; }
     public int AssetCount { get; set; }
