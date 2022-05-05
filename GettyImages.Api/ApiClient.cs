@@ -140,7 +140,7 @@ public class ApiClient
     }
 
     /// <summary>
-    ///     Search for creative images based on url
+    ///     Search for creative images based on an image
     /// </summary>
     /// <returns>
     ///     The <see cref="Search.SearchImagesCreativeByImage" />.
@@ -173,7 +173,7 @@ public class ApiClient
     }
 
     /// <summary>
-    ///     Search for creative images based on url
+    ///     Search for creative videos based on an image
     /// </summary>
     /// <returns>
     ///     The <see cref="Search.SearchImagesCreativeByImage" />.
