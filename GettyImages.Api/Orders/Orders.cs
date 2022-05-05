@@ -3,7 +3,7 @@ using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Orders;
 
-public class Orders : ApiRequest<OrderDetail>
+public class Orders : ApiRequest<GetOrderDetailsResponse>
 {
     private Orders(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
     {

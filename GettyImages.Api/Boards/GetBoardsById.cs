@@ -3,7 +3,7 @@ using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Boards;
 
-public class GetBoardsById : ApiRequest<BoardDetail>
+public class GetBoardsById : ApiRequest<GetBoardDetailsResponse>
 {
     private GetBoardsById(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(
         customHandler)

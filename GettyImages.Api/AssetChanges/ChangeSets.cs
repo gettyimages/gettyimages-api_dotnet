@@ -2,7 +2,7 @@
 
 namespace GettyImages.Api.AssetChanges;
 
-public class ChangeSets : ApiRequest<Models.AssetChanges>
+public class ChangeSets : ApiRequest<Models.AssetChangesResponse>
 {
     private ChangeSets(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
     {
