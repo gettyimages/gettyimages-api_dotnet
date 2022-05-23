@@ -17,7 +17,7 @@ public class Images : ApiRequest<GetImagesDetailsResponse>
         {
             "allowed_use", "alternative_ids", "artist", "artist_title", "asset_family", "call_for_image", "caption",
             "city", "collection_code", "collection_id", "collection_name", "color_type", "comp", "copyright", "country",
-            "credit_line", "date_camera_shot", "date_created", "date_submitted", "download_product", "downloads",
+            "credit_line", "date_camera_shot", "date_created", "date_submitted", "download_product", "download_sizes",
             "editorial_segments", "editorial_source", "entity_details", "event_ids", "graphical_style", "id",
             "istock_collection", "istock_licenses", "license_model", "links", "max_dimensions", "object_name",
             "orientation", "people", "preview", "product_types", "quality_rank", "referral_destinations",
