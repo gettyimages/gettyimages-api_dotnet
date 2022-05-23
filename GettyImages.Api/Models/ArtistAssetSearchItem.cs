@@ -15,6 +15,7 @@ public class ArtistAssetSearchItem
     public string AssetType { get; set; }
     public bool CallForImage { get; set; }
     public string Caption { get; set; }
+    public string ClipLength { get; set; }
     public string CollectionCode { get; set; }
     public int? CollectionId { get; set; }
     public string CollectionName { get; set; }
