@@ -327,6 +327,17 @@ public class ApiClient
     }
 
     /// <summary>
+    ///     Search for images in same series as an image
+    /// </summary>
+    /// <returns>
+    ///     The <see cref="Api.Images.ImagesSameSeries" />.
+    /// </returns>
+    public ImagesSameSeries ImagesSameSeries()
+    {
+        return Api.Images.ImagesSameSeries.GetInstance(_credentials, _baseUrl, _customHandler);
+    }
+
+    /// <summary>
     ///     Get download history for single image
     /// </summary>
     /// <returns>
