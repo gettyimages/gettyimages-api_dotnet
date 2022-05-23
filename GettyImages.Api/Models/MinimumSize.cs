@@ -8,5 +8,6 @@ public enum MinimumSize
     [Description("medium")] Medium,
     [Description("large")] Large,
     [Description("x_large")] Xlarge,
-    [Description("xx_large")] Xxlarge
+    [Description("xx_large")] Xxlarge,
+    [Description("vector")] Vector
 }
