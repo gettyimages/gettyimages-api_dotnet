@@ -16,7 +16,7 @@ public class Events : ApiRequest<GetEventsResponse>
 
         AddResponseFields(new[]
         {
-            "id", "child_event_count", "editorial_segments", "hero_image", "image_count", "location", "name,start_date",
+            "id", "child_event_count", "editorial_segments", "hero_image", "image_count", "location", "name", "start_date",
             "type"
         });
     }
