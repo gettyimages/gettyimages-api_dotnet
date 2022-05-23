@@ -371,6 +371,17 @@ public class ApiClient
     }
 
     /// <summary>
+    ///     Search for videos in same series as a video
+    /// </summary>
+    /// <returns>
+    ///     The <see cref="Api.Videos.VideosSameSeries" />.
+    /// </returns>
+    public VideosSameSeries VideosSameSeries()
+    {
+        return Api.Videos.VideosSameSeries.GetInstance(_credentials, _baseUrl, _customHandler);
+    }
+
+    /// <summary>
     ///     Get download history for a single video
     /// </summary>
     /// <returns>
