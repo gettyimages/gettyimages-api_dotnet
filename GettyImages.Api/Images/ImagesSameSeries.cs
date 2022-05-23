@@ -14,10 +14,10 @@ namespace GettyImages.Api.Images
             AddResponseFields(new[]
             {
                 "accessrestriction", "allowed_use", "alternative_ids", "artist", "asset_family", "call_for_image", "caption",
-                "collection_code", "collection_id", "collection_name", "color_type", "comp", "contributor", "copyright", "date_camera_shot", "date_created",
+                "collection_code", "collection_id", "collection_name", "color_type", "comp", "copyright", "date_camera_shot", "date_created",
                 "date_submitted", "download_product", "download_sizes", "editorial_segments", "editorial_source", "entity_details",
                 "event_ids", "graphical_style", "id", "istock_collection", "license_model", "max_dimensions", "orientation", "people",
-                "preview", "product_types", "quality_rank", "referral_destinations", "territory_restrictions", "thumb",
+                "preview", "product_types", "quality_rank", "referral_destinations", "thumb",
                 "title", "uri_oembed"
             });
         }
