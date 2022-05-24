@@ -212,7 +212,7 @@ public class SearchVideosEditorialTests
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosEditorial()
-            .WithPhrase("cat").WithSortOrder(SortOrder.BestMatch).ExecuteAsync();
+            .WithPhrase("cat").WithSortOrder(SortOrderEditorial.BestMatch).ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");

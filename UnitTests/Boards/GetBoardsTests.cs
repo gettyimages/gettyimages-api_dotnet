@@ -61,7 +61,7 @@ public class GetBoardsTests
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-            .GetBoards().WithSortOrder(SortOrder.BestMatch).ExecuteAsync();
+            .GetBoards().WithSortOrder(SortOrderEditorial.BestMatch).ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("boards");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("sort_order=best_match");

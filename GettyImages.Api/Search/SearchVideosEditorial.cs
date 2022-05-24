@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using GettyImages.Api.Models;
-using ReleaseStatus = GettyImages.Api.Models.ReleaseStatus;
-using SortOrder = GettyImages.Api.Models.SortOrder;
 
 namespace GettyImages.Api.Search;
 
@@ -134,7 +132,7 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
         return this;
     }
 
-    public SearchVideosEditorial WithSortOrder(SortOrder value)
+    public SearchVideosEditorial WithSortOrder(SortOrderEditorial value)
     {
         AddQueryParameter(Constants.SortOrderKey, value);
         return this;

@@ -354,7 +354,7 @@ public class SearchImagesCreativeTests
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesCreative()
-            .WithPhrase("cat").WithSortOrder(SortOrder.BestMatch).ExecuteAsync();
+            .WithPhrase("cat").WithSortOrder(SortOrderCreative.BestMatch).ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/creative");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");

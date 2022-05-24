@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using GettyImages.Api.Models;
-using SortOrder = GettyImages.Api.Models.SortOrder;
 
 namespace GettyImages.Api.Search;
 
@@ -201,7 +200,7 @@ public class SearchImagesCreative : ApiRequest<SearchCreativeImagesResponse>
         return this;
     }
 
-    public SearchImagesCreative WithSortOrder(SortOrder value)
+    public SearchImagesCreative WithSortOrder(SortOrderCreative value)
     {
         AddQueryParameter(Constants.SortOrderKey, value);
         return this;
