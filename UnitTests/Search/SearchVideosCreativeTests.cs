@@ -75,6 +75,19 @@ public class SearchVideosCreativeTests
     }
 
     [Fact]
+    public async Task SearchForCreativeVideosWithWithExcludeEditorialUseOnly()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+            .WithPhrase("cat").WithExcludeEditorialUseOnly().ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/creative");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("exclude_editorial_use_only=True");
+    }
+
+    [Fact]
     public async Task SearchForCreativeVideosWithExcludeNudity()
     {
         var testHandler = TestUtil.CreateTestHandler();

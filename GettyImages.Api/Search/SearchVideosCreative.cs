@@ -59,6 +59,12 @@ public class SearchVideosCreative : ApiRequest<SearchCreativeVideosResponse>
         return this;
     }
 
+    public SearchVideosCreative WithExcludeEditorialUseOnly(bool value = true)
+    {
+        AddQueryParameter(Constants.ExcludeEditorialUseOnly, value);
+        return this;
+    }
+
     public SearchVideosCreative WithExcludeNudity(bool value = true)
     {
         AddQueryParameter(Constants.ExcludeNudity, value);
