@@ -349,6 +349,20 @@ public class SearchImagesCreativeTests
     }
 
     [Fact]
+    public async Task SearchForCreativeImagesWithSafeSearch()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesCreative()
+            .WithPhrase("cat").WithSafeSearch()
+            .ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/creative");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("safe_search=True");
+    }
+
+    [Fact]
     public async Task SearchForCreativeImagesWithSortOrder()
     {
         var testHandler = TestUtil.CreateTestHandler();

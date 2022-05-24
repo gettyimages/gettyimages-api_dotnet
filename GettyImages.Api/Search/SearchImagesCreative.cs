@@ -200,6 +200,12 @@ public class SearchImagesCreative : ApiRequest<SearchCreativeImagesResponse>
         return this;
     }
 
+    public SearchImagesCreative WithSafeSearch(bool value = true)
+    {
+        AddQueryParameter(Constants.SafeSearch, value);
+        return this;
+    }
+
     public SearchImagesCreative WithSortOrder(SortOrderCreative value)
     {
         AddQueryParameter(Constants.SortOrderKey, value);

@@ -131,6 +131,12 @@ public class SearchVideosCreative : ApiRequest<SearchCreativeVideosResponse>
         return this;
     }
 
+    public SearchVideosCreative WithSafeSearch(bool value = true)
+    {
+        AddQueryParameter(Constants.SafeSearch, value);
+        return this;
+    }
+
     public SearchVideosCreative WithSortOrder(SortOrderCreative value)
     {
         AddQueryParameter(Constants.SortOrderKey, value);
