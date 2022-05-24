@@ -34,6 +34,21 @@ public class SearchVideosCreativeTests
     }
 
     [Fact]
+    public async Task SearchForCreativeVideosWithArtist()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        var artists = new List<string> { "roman makhmutov", "Linda Raymond" };
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+            .WithPhrase("cat").WithArtists(artists).ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/creative");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artists=roman+makhmutov%2CLinda+Raymond");
+    }
+
+    [Fact]
     public async Task SearchForCreativeVideosWithCollectionCodes()
     {
         var testHandler = TestUtil.CreateTestHandler();

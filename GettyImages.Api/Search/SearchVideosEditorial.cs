@@ -42,6 +42,12 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
         return this;
     }
 
+    public SearchVideosEditorial WithArtists(IEnumerable<string> values)
+    {
+        AddArtists(values);
+        return this;
+    }
+
     public SearchVideosEditorial WithCollectionCodes(IEnumerable<string> values)
     {
         AddCollectionCodes(values);

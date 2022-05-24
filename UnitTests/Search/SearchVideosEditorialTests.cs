@@ -34,6 +34,21 @@ public class SearchVideosEditorialTests
     }
 
     [Fact]
+    public async Task SearchForEditorialVideosWithArtist()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        var artists = new List<string> { "roman makhmutov", "Linda Raymond" };
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosEditorial()
+            .WithPhrase("cat").WithArtists(artists).ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/editorial");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artists=roman+makhmutov%2CLinda+Raymond");
+    }
+
+    [Fact]
     public async Task SearchForEditorialVideosWithCollectionCodes()
     {
         var testHandler = TestUtil.CreateTestHandler();

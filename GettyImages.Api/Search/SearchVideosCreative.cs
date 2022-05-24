@@ -41,6 +41,12 @@ public class SearchVideosCreative : ApiRequest<SearchCreativeVideosResponse>
         return this;
     }
 
+    public SearchVideosCreative WithArtists(IEnumerable<string> values)
+    {
+        AddArtists(values);
+        return this;
+    }
+
     public SearchVideosCreative WithCollectionCodes(IEnumerable<string> values)
     {
         AddCollectionCodes(values);
