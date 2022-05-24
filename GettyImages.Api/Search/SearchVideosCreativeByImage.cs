@@ -67,6 +67,12 @@ public class SearchVideosCreativeByImage : ApiRequest<SearchCreativeVideosByImag
         return this;
     }
 
+    public SearchVideosCreativeByImage WithAssetId(string value)
+    {
+        AddQueryParameter(Constants.AssetIdKey, value);
+        return this;
+    }
+
     public SearchVideosCreativeByImage WithPage(int value)
     {
         AddQueryParameter(Constants.PageKey, value);

@@ -4,6 +4,7 @@ internal static class Constants
 {
     public const string AcceptLanguage = "Accept-Language";
     public const string AgeOfPeopleKey = "age_of_people";
+    public const string AssetIdKey = "asset_id";
     public const string AssetIdsKey = "asset_ids";
     public const string ArtistKey = "artists";
     public const string ArtistNameKey = "artist_name";
