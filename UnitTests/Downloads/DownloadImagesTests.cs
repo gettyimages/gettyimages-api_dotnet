@@ -80,4 +80,20 @@ public class DownloadImagesTests
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("downloads/images/464423888");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("product_type=easyaccess");
     }
+
+    [Fact]
+    public async Task DownloadImagesWithUseTeamCredits()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .DownloadsImages()
+            .WithId("464423888")
+            .WithUseTeamCredits()
+            .WithHeight(592)
+            .ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("downloads/images/464423888");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("use_team_credits=True");
+    }
 }
