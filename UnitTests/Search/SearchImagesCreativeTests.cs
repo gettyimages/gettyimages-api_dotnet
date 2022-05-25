@@ -287,7 +287,7 @@ public class SearchImagesCreativeTests
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesCreative()
-            .WithPhrase("cat").WithOrientation(Orientation.Horizontal | Orientation.Square).ExecuteAsync();
+            .WithPhrase("cat").WithOrientation(OrientationImages.Horizontal | OrientationImages.Square).ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/creative");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");

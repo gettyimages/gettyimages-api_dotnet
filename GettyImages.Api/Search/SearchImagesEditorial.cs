@@ -156,7 +156,7 @@ public class SearchImagesEditorial : ApiRequest<SearchEditorialImagesResponse>
         return this;
     }
 
-    public SearchImagesEditorial WithOrientation(Orientation value)
+    public SearchImagesEditorial WithOrientation(OrientationImages value)
     {
         AddOrientation(value);
         return this;

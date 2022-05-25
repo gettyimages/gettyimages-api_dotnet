@@ -29,6 +29,7 @@ public class EditorialVideoSearchItem
     public Download[] LargestDownloads { get; set; }
     public string LicenseModel { get; set; }
     public string MasteredTo { get; set; }
+    public string Orientation { get; set; }
     public string OriginallyShotOn { get; set; }
     public string[] ProductTypes { get; set; }
     public ReferralDestination[] ReferralDestinations { get; set; }

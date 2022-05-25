@@ -164,7 +164,7 @@ public class SearchImagesCreative : ApiRequest<SearchCreativeImagesResponse>
         return this;
     }
 
-    public SearchImagesCreative WithOrientation(Orientation value)
+    public SearchImagesCreative WithOrientation(OrientationImages value)
     {
         AddOrientation(value);
         return this;

@@ -113,6 +113,12 @@ public class SearchVideosCreative : ApiRequest<SearchCreativeVideosResponse>
         return this;
     }
 
+    public SearchVideosCreative WithOrientation(OrientationVideos value)
+    {
+        AddOrientation(value);
+        return this;
+    }
+
     public SearchVideosCreative WithPage(int value)
     {
         AddQueryParameter(Constants.PageKey, value);

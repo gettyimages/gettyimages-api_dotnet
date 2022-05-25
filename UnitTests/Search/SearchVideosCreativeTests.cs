@@ -180,6 +180,19 @@ public class SearchVideosCreativeTests
     }
 
     [Fact]
+    public async Task SearchForCreativeVideosWithOrientation()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+            .WithPhrase("cat").WithOrientation(OrientationVideos.Horizontal | OrientationVideos.Vertical).ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/creative");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("orientations=horizontal%2Cvertical");
+    }
+
+    [Fact]
     public async Task SearchForCreativeVideosWithPage()
     {
         var testHandler = TestUtil.CreateTestHandler();

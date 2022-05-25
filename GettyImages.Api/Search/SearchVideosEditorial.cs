@@ -114,6 +114,12 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
         return this;
     }
 
+    public SearchVideosEditorial WithOrientation(OrientationVideos value)
+    {
+        AddOrientation(value);
+        return this;
+    }
+
     public SearchVideosEditorial WithPage(int value)
     {
         AddQueryParameter(Constants.PageKey, value);

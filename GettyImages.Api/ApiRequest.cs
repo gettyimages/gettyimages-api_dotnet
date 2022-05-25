@@ -530,13 +530,27 @@ public class ApiRequest
         }
     }
 
-    protected void AddOrientation(Orientation value)
+    protected void AddOrientation(OrientationImages value)
     {
         if (QueryParameters.ContainsKey(Constants.OrientationsKey))
         {
-            QueryParameters[Constants.OrientationsKey] = value == Orientation.None
+            QueryParameters[Constants.OrientationsKey] = value == OrientationImages.None
                 ? value
-                : (Orientation)QueryParameters[Constants.OrientationsKey] | value;
+                : (OrientationImages)QueryParameters[Constants.OrientationsKey] | value;
+        }
+        else
+        {
+            QueryParameters.Add(Constants.OrientationsKey, value);
+        }
+    }
+
+    protected void AddOrientation(OrientationVideos value)
+    {
+        if (QueryParameters.ContainsKey(Constants.OrientationsKey))
+        {
+            QueryParameters[Constants.OrientationsKey] = value == OrientationVideos.None
+                ? value
+                : (OrientationVideos)QueryParameters[Constants.OrientationsKey] | value;
         }
         else
         {

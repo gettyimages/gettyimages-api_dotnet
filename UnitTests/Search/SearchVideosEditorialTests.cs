@@ -181,6 +181,20 @@ public class SearchVideosEditorialTests
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("keyword_ids=64284%2C67255");
     }
 
+
+    [Fact]
+    public async Task SearchForEditorialVideosWithOrientation()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosEditorial()
+            .WithPhrase("cat").WithOrientation(OrientationVideos.Horizontal | OrientationVideos.Vertical).ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/editorial");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("orientations=horizontal%2Cvertical");
+    }
+
     [Fact]
     public async Task SearchForEditorialVideosWithPage()
     {

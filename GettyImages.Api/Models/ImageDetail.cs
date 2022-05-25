@@ -42,7 +42,7 @@ public class ImageDetail
     public ImageDetailLink[] Links { get; set; }
     public Dimensions MaxDimensions { get; set; }
     public string ObjectName { get; set; }
-    public Orientation Orientation { get; set; }
+    public OrientationImages Orientation { get; set; }
     public string[] People { get; set; }
     public ProductType[] ProductTypes { get; set; }
     public int QualityRank { get; set; }
