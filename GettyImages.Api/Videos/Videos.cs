@@ -20,8 +20,8 @@ public class Videos : ApiRequest<GetVideosDetailsResponse>
         {
             "id", "allowed_use", "artist", "asset_family", "call_for_image", "caption", "clip_length",
             "collection_code", "collection_id", "collection_name", "color_type", "comp", "copyright", "date_created",
-            "date_submitted", "detail_set", "download_sizes", "download_product", "editorial_segments",
-            "entity_details", "era", "event_ids", "istock_collection", "istock_licenses", "keywords", "license_model",
+            "date_submitted", "download_sizes", "download_product", "editorial_segments",
+            "entity_details", "era", "event_ids", "istock_collection", "istock_licenses", "license_model",
             "mastered_to", "object_name", "orientation", "originally_shot_on", "preview", "product_types",
             "quality_rank", "referral_destinations", "shot_speed", "source", "thumb", "title"
         });
