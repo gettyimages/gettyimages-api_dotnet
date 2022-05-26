@@ -113,12 +113,6 @@ public class SearchImagesEditorial : ApiRequest<SearchEditorialImagesResponse>
         return this;
     }
 
-    public SearchImagesEditorial WithExcludeNudity(bool value = true)
-    {
-        AddQueryParameter(Constants.ExcludeNudity, value);
-        return this;
-    }
-
     public SearchImagesEditorial WithFileType(FileType value)
     {
         AddFileTypes(value);

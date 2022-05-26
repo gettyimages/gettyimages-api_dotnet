@@ -144,19 +144,6 @@ public class SearchVideosEditorialTests
     }
 
     [Fact]
-    public async Task SearchForEditorialVideosWithExcludeNudity()
-    {
-        var testHandler = TestUtil.CreateTestHandler();
-
-        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosEditorial()
-            .WithPhrase("cat").WithExcludeNudity().ExecuteAsync();
-
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("exclude_nudity=True");
-    }
-
-    [Fact]
     public async Task SearchForEditorialVideosWithResponseFields()
     {
         var testHandler = TestUtil.CreateTestHandler();

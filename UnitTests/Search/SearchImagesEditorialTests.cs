@@ -201,19 +201,6 @@ public class SearchImagesEditorialTests
     }
 
     [Fact]
-    public async Task SearchForEditorialImagesWithExcludeNudity()
-    {
-        var testHandler = TestUtil.CreateTestHandler();
-
-        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesEditorial()
-            .WithPhrase("cat").WithExcludeNudity().ExecuteAsync();
-
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/editorial");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("exclude_nudity=True");
-    }
-
-    [Fact]
     public async Task SearchForEditorialImagesWithResponseFields()
     {
         var testHandler = TestUtil.CreateTestHandler();

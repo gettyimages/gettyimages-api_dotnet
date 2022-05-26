@@ -90,12 +90,6 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
         return this;
     }
 
-    public SearchVideosEditorial WithExcludeNudity(bool value = true)
-    {
-        AddQueryParameter(Constants.ExcludeNudity, value);
-        return this;
-    }
-
     public SearchVideosEditorial WithAvailableFormat(string value)
     {
         AddQueryParameter(Constants.FormatAvailableKey, value);
