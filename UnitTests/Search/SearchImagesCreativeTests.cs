@@ -335,19 +335,6 @@ public class SearchImagesCreativeTests
     }
 
     [Fact]
-    public async Task SearchForCreativeImagesWithPrestigeContent()
-    {
-        var testHandler = TestUtil.CreateTestHandler();
-
-        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesCreative()
-            .WithPhrase("cat").WithPrestigeContentOnly().ExecuteAsync();
-
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/creative");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("prestige_content_only=True");
-    }
-
-    [Fact]
     public async Task SearchForCreativeImagesWithProductType()
     {
         var testHandler = TestUtil.CreateTestHandler();

@@ -58,7 +58,6 @@ internal static class Constants
     public const string PageKey = "page";
     public const string PageSizeKey = "page_size";
     public const string PhraseKey = "phrase";
-    public const string PrestigeContentOnlyKey = "prestige_content_only";
     public const string ProductIdKey = "product_id";
     public const string ProductTypeKey = "product_type";
     public const string ProductTypesKey = "product_types";

@@ -194,12 +194,6 @@ public class SearchImagesCreative : ApiRequest<SearchCreativeImagesResponse>
         return this;
     }
 
-    public SearchImagesCreative WithPrestigeContentOnly(bool value = true)
-    {
-        AddQueryParameter(Constants.PrestigeContentOnlyKey, value);
-        return this;
-    }
-
     public SearchImagesCreative WithProductType(ProductType value)
     {
         AddProductTypes(value);
