@@ -47,6 +47,12 @@ public class SearchVideosCreative : ApiRequest<SearchCreativeVideosResponse>
         return this;
     }
 
+    public SearchVideosCreative WithAspectRatios(AspectRatio value)
+    {
+        AddAspectRatiosFilter(value);
+        return this;
+    }
+
     public SearchVideosCreative WithCollectionCodes(IEnumerable<string> values)
     {
         AddCollectionCodes(values);

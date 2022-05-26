@@ -11,6 +11,7 @@ public class EditorialVideoSearchItem
     public string Id { get; set; }
     public AllowedUse AllowedUse { get; set; }
     public string Artist { get; set; }
+    public string AspectRatio { get; set; }
     public string AssetFamily { get; set; }
     public string Caption { get; set; }
     public string ClipLength { get; set; }

@@ -48,6 +48,12 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
         return this;
     }
 
+    public SearchVideosEditorial WithAspectRatios(AspectRatio value)
+    {
+        AddAspectRatiosFilter(value);
+        return this;
+    }
+
     public SearchVideosEditorial WithCollectionCodes(IEnumerable<string> values)
     {
         AddCollectionCodes(values);

@@ -49,6 +49,19 @@ public class SearchVideosEditorialTests
     }
 
     [Fact]
+    public async Task SearchForEditorialVideosWithAspectRatios()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosEditorial()
+            .WithPhrase("cat").WithAspectRatios(AspectRatio.AspectRatio4_3 | AspectRatio.AspectRatio16_9).ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/editorial");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("aspect_ratios=16%3A9%2C4%3A3");
+    }
+
+    [Fact]
     public async Task SearchForEditorialVideosWithCollectionCodes()
     {
         var testHandler = TestUtil.CreateTestHandler();

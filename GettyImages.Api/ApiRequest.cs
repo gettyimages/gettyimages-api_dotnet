@@ -251,6 +251,20 @@ public class ApiRequest
         }
     }
 
+    protected void AddAspectRatiosFilter(AspectRatio value)
+    {
+        if (QueryParameters.ContainsKey(Constants.AspectRatioKey))
+        {
+            QueryParameters[Constants.AspectRatioKey] = value == AspectRatio.None
+                ? value
+                : (AspectRatio)QueryParameters[Constants.AspectRatioKey] | value;
+        }
+        else
+        {
+            QueryParameters.Add(Constants.AspectRatioKey, value);
+        }
+    }
+
     protected void AddAssetIds(IEnumerable<string> values)
     {
         if (!QueryParameters.ContainsKey(Constants.AssetIdsKey))
