@@ -64,4 +64,10 @@ public class Events : ApiRequest<SearchEventsResponse>
         AddQueryParameter(Constants.PhraseKey, value);
         return this;
     }
+
+    public Events WithSortOrder(SortOrderEvent value)
+    {
+        AddQueryParameter(Constants.SortOrderKey, value);
+        return this;
+    }
 }
