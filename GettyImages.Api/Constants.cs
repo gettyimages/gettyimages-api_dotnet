@@ -44,6 +44,7 @@ internal static class Constants
     public const string GraphicalStyleFilterKey = "graphical_styles_filter_type";
     public const string HeightKey = "height";
     public const string IdsKey = "ids";
+    public const string ImageTechniqueKey = "image_techniques";
     public const string ImageUrlKey = "image_url";
     public const string IncludeFacetsKey = "include_facets";
     public const string KeywordIdsKey = "keyword_ids";

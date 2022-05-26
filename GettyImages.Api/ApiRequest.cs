@@ -450,6 +450,20 @@ public class ApiRequest
         }
     }
 
+    protected void AddImageTechniquesFilter(ImageTechnique value)
+    {
+        if (QueryParameters.ContainsKey(Constants.ImageTechniqueKey))
+        {
+            QueryParameters[Constants.ImageTechniqueKey] = value == ImageTechnique.None
+                ? value
+                : (ImageTechnique)QueryParameters[Constants.ImageTechniqueKey] | value;
+        }
+        else
+        {
+            QueryParameters.Add(Constants.ImageTechniqueKey, value);
+        }
+    }
+
     protected void AddGraphicalStyle(GraphicalStyles value)
     {
         if (QueryParameters.ContainsKey(Constants.GraphicalStylesKey))

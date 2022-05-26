@@ -108,6 +108,12 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
         return this;
     }
 
+    public SearchVideosEditorial WithImageTechniques(ImageTechnique value)
+    {
+        AddImageTechniquesFilter(value);
+        return this;
+    }
+
     public SearchVideosEditorial WithKeywordIds(IEnumerable<int> values)
     {
         AddKeywordIds(values);

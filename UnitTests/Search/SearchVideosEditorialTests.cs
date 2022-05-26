@@ -192,6 +192,20 @@ public class SearchVideosEditorialTests
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("include_related_searches=True");
     }
 
+
+    [Fact]
+    public async Task SearchForEditorialVideosWithImageTechniques()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosEditorial()
+            .WithPhrase("cat").WithImageTechniques(ImageTechnique.SelectiveFocus | ImageTechnique.TimeLapse).ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("image_techniques=time_lapse%2Cselective_focus");
+    }
+
     [Fact]
     public async Task SearchForEditorialVideosWithKeywordId()
     {
