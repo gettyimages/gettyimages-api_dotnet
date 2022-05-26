@@ -267,6 +267,19 @@ public class SearchImagesEditorialTests
     }
 
     [Fact]
+    public async Task SearchForEditorialImagesWithRelatedSearches()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesEditorial()
+            .WithPhrase("cat").IncludeRelatedSearches().ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/editorial");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("include_related_searches=True");
+    }
+
+    [Fact]
     public async Task SearchForEditorialImagesWithKeywordId()
     {
         var testHandler = TestUtil.CreateTestHandler();

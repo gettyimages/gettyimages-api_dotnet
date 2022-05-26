@@ -180,6 +180,19 @@ public class SearchVideosEditorialTests
     }
 
     [Fact]
+    public async Task SearchForEditorialVideosWithRelatedSearches()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosEditorial()
+            .WithPhrase("cat").IncludeRelatedSearches().ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/editorial");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("include_related_searches=True");
+    }
+
+    [Fact]
     public async Task SearchForEditorialVideosWithKeywordId()
     {
         var testHandler = TestUtil.CreateTestHandler();

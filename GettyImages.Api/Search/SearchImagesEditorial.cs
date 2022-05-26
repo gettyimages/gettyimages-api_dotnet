@@ -131,7 +131,13 @@ public class SearchImagesEditorial : ApiRequest<SearchEditorialImagesResponse>
         AddQueryParameter(Constants.GraphicalStyleFilterKey, filterType);
         return this;
     }
-    
+
+    public SearchImagesEditorial IncludeRelatedSearches(bool value = true)
+    {
+        AddQueryParameter(Constants.RelatedSearchesKey, value);
+        return this;
+    }
+
     public SearchImagesEditorial WithKeywordIds(IEnumerable<int> values)
     {
         AddKeywordIds(values);

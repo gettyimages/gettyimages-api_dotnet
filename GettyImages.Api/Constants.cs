@@ -61,6 +61,7 @@ internal static class Constants
     public const string ProductIdKey = "product_id";
     public const string ProductTypeKey = "product_type";
     public const string ProductTypesKey = "product_types";
+    public const string RelatedSearchesKey = "include_related_searches";
     public const string SafeSearch = "safe_search";
     public const string SizeKey = "size";
     public const string SortOrderKey = "sort_order";

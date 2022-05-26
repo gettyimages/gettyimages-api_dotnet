@@ -165,6 +165,19 @@ public class SearchVideosCreativeTests
     }
 
     [Fact]
+    public async Task SearchForCreativeVideosWithRelatedSearches()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+            .WithPhrase("cat").IncludeRelatedSearches().ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/creative");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("include_related_searches=True");
+    }
+
+    [Fact]
     public async Task SearchForCreativeVideosWithKeywordId()
     {
         var testHandler = TestUtil.CreateTestHandler();

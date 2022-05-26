@@ -128,6 +128,12 @@ public class SearchImagesCreative : ApiRequest<SearchCreativeImagesResponse>
         return this;
     }
 
+    public SearchImagesCreative IncludeRelatedSearches(bool value = true)
+    {
+        AddQueryParameter(Constants.RelatedSearchesKey, value);
+        return this;
+    }
+
     public SearchImagesCreative WithFileType(FileType value)
     {
         AddFileTypes(value);

@@ -102,6 +102,12 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
         return this;
     }
 
+    public SearchVideosEditorial IncludeRelatedSearches(bool value = true)
+    {
+        AddQueryParameter(Constants.RelatedSearchesKey, value);
+        return this;
+    }
+
     public SearchVideosEditorial WithKeywordIds(IEnumerable<int> values)
     {
         AddKeywordIds(values);

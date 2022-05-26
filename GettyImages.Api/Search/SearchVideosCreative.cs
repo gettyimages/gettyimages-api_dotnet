@@ -95,6 +95,12 @@ public class SearchVideosCreative : ApiRequest<SearchCreativeVideosResponse>
         return this;
     }
 
+    public SearchVideosCreative IncludeRelatedSearches(bool value = true)
+    {
+        AddQueryParameter(Constants.RelatedSearchesKey, value);
+        return this;
+    }
+
     public SearchVideosCreative WithKeywordIds(IEnumerable<int> values)
     {
         AddKeywordIds(values);
