@@ -197,7 +197,13 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
         AddQueryParameter(Constants.FacetMaxCountKey, value);
         return this;
     }
-    
+
+    public SearchVideosEditorial WithViewpoints(Viewpoint value)
+    {
+        AddViewpointsFilter(value);
+        return this;
+    }
+
     public SearchVideosEditorial IncludeKeywords()
     {
         AddResponseField("keywords");

@@ -627,6 +627,21 @@ public class ApiRequest
             QueryParameters[Constants.FacetFieldsKey] = assets.ToList();
         }
     }
+
+    protected void AddViewpointsFilter(Viewpoint value)
+    {
+        if (QueryParameters.ContainsKey(Constants.ViewpointKey))
+        {
+            QueryParameters[Constants.ViewpointKey] = value == Viewpoint.None
+                ? value
+                : (Viewpoint)QueryParameters[Constants.ViewpointKey] | value;
+        }
+        else
+        {
+            QueryParameters.Add(Constants.ViewpointKey, value);
+        }
+    }
+
     protected void AddIds(IEnumerable<string> values)
     {
         if (!QueryParameters.ContainsKey(Constants.IdsKey))

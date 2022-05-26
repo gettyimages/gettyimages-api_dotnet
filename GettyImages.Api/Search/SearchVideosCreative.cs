@@ -196,7 +196,13 @@ public class SearchVideosCreative : ApiRequest<SearchCreativeVideosResponse>
         AddQueryParameter(Constants.FacetMaxCountKey, value);
         return this;
     }
-    
+
+    public SearchVideosCreative WithViewpoints(Viewpoint value)
+    {
+        AddViewpointsFilter(value);
+        return this;
+    }
+
     public SearchVideosCreative IncludeKeywords()
     {
         AddResponseField("keywords");

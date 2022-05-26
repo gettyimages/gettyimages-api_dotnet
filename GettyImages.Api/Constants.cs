@@ -72,4 +72,5 @@ internal static class Constants
     public const string ReleaseStatus = "release_status";
     public const string UseTeamCredits = "use_team_credits";
     public const string UseTimeKey = "use_time";
+    public const string ViewpointKey = "viewpoints";
 }

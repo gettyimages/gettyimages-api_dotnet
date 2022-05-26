@@ -352,4 +352,17 @@ public class SearchVideosCreativeTests
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("min_clip_length=20");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("max_clip_length=200");
     }
+
+    [Fact]
+    public async Task SearchForCreativeVideosWithViewpoints()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+            .WithPhrase("cat").WithViewpoints(Viewpoint.HighAngleView | Viewpoint.Panning).ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("viewpoints=panning%2Chigh_angle_view");
+    }
 }
