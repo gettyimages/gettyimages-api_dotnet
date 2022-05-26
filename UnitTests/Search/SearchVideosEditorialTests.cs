@@ -90,6 +90,19 @@ public class SearchVideosEditorialTests
     }
 
     [Fact]
+    public async Task SearchForEditorialVideosWithComposition()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosEditorial()
+            .WithPhrase("cat").WithComposition(Composition.Headshot | Composition.Abstract).ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/editorial");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("compositions=abstract%2Cheadshot");
+    }
+
+    [Fact]
     public async Task SearchForEditorialVideosWithDownloadProduct()
     {
         var testHandler = TestUtil.CreateTestHandler();

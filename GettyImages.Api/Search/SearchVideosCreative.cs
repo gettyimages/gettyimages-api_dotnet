@@ -65,6 +65,12 @@ public class SearchVideosCreative : ApiRequest<SearchCreativeVideosResponse>
         return this;
     }
 
+    public SearchVideosCreative WithComposition(Composition value)
+    {
+        AddComposition(value);
+        return this;
+    }
+
     public SearchVideosCreative WithDownloadProduct(ProductType value)
     {
         AddDownloadProduct(value);

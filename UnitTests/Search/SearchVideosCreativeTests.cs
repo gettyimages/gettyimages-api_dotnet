@@ -90,6 +90,19 @@ public class SearchVideosCreativeTests
     }
 
     [Fact]
+    public async Task SearchForCreativeVideosWithComposition()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+            .WithPhrase("cat").WithComposition(Composition.Headshot | Composition.Abstract).ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/creative");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("compositions=abstract%2Cheadshot");
+    }
+
+    [Fact]
     public async Task SearchForCreativeVideosWithDownloadProduct()
     {
         var testHandler = TestUtil.CreateTestHandler();

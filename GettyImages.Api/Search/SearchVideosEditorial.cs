@@ -66,6 +66,12 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
         return this;
     }
 
+    public SearchVideosEditorial WithComposition(Composition value)
+    {
+        AddComposition(value);
+        return this;
+    }
+
     public SearchVideosEditorial WithDownloadProduct(ProductType value)
     {
         AddDownloadProduct(value);
