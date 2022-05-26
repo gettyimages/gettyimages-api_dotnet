@@ -194,12 +194,6 @@ public class SearchImagesCreative : ApiRequest<SearchCreativeImagesResponse>
         return this;
     }
 
-    public SearchImagesCreative WithProductType(ProductType value)
-    {
-        AddProductTypes(value);
-        return this;
-    }
-
     public SearchImagesCreative WithSafeSearch(bool value = true)
     {
         AddQueryParameter(Constants.SafeSearch, value);

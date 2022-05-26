@@ -186,12 +186,6 @@ public class SearchImagesEditorial : ApiRequest<SearchEditorialImagesResponse>
         return this;
     }
 
-    public SearchImagesEditorial WithProductType(ProductType value)
-    {
-        AddProductTypes(value);
-        return this;
-    }
-
     public SearchImagesEditorial WithSortOrder(SortOrderEditorial value)
     {
         AddQueryParameter(Constants.SortOrderKey, value);

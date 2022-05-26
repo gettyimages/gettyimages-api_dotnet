@@ -270,20 +270,6 @@ public class SearchVideosCreativeTests
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("page_size=50");
     }
 
-    [Fact]
-    public async Task SearchForCreativeVideosWithProductType()
-    {
-        var testHandler = TestUtil.CreateTestHandler();
-
-        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-            .WithPhrase("cat").WithProductType(ProductType.Easyaccess | ProductType.Editorialsubscription)
-            .ExecuteAsync();
-
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("product_types=editorialsubscription%2Ceasyaccess");
-    }
-
 
     [Fact]
     public async Task SearchForCreativeVideosWithSafeSearch()

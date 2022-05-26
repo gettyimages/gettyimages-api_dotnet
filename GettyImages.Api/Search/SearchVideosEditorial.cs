@@ -162,12 +162,6 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
         return this;
     }
 
-    public SearchVideosEditorial WithProductType(ProductType value)
-    {
-        AddProductTypes(value);
-        return this;
-    }
-
     public SearchVideosEditorial WithSortOrder(SortOrderEditorial value)
     {
         AddQueryParameter(Constants.SortOrderKey, value);

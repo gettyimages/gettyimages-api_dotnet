@@ -161,11 +161,6 @@ public class SearchVideosCreative : ApiRequest<SearchCreativeVideosResponse>
         return this;
     }
 
-    public SearchVideosCreative WithProductType(ProductType value)
-    {
-        AddProductTypes(value);
-        return this;
-    }
 
     public SearchVideosCreative WithSafeSearch(bool value = true)
     {
