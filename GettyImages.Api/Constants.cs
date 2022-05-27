@@ -40,6 +40,7 @@ internal static class Constants
     public const string FileTypesKey = "file_types";
     public const string FormatAvailableKey = "format_available";
     public const string FrameRatesKey = "frame_rates";
+    public const string GICountryCode = "GI-Country-Code";
     public const string GraphicalStylesKey = "graphical_styles";
     public const string GraphicalStyleFilterKey = "graphical_styles_filter_type";
     public const string HeightKey = "height";

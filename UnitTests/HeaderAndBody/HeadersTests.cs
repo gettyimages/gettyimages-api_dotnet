@@ -17,7 +17,11 @@ public class HeadersTests
 
         searchImages.WithAcceptLanguage("fr");
 
+        searchImages.WithGICountryCode("FRA");
+
         Assert.Equal("fr", searchImages.HeaderParameters[Constants.AcceptLanguage]);
+
+        Assert.Equal("FRA", searchImages.HeaderParameters[Constants.GICountryCode]);
     }
 
     [Fact]

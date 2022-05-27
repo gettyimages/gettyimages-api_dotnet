@@ -29,6 +29,12 @@ public class Events : ApiRequest<SearchEventsResponse>
         return this;
     }
 
+    public Events WithGICountryCode(string value)
+    {
+        AddHeaderParameter(Constants.GICountryCode, value);
+        return this;
+    }
+
     public Events WithDateFrom(string value)
     {
         AddQueryParameter(Constants.DateFromKey, value);

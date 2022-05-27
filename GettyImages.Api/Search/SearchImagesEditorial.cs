@@ -35,6 +35,12 @@ public class SearchImagesEditorial : ApiRequest<SearchEditorialImagesResponse>
         return this;
     }
 
+    public SearchImagesEditorial WithGICountryCode(string value)
+    {
+        AddHeaderParameter(Constants.GICountryCode, value);
+        return this;
+    }
+
     public SearchImagesEditorial WithAgeOfPeople(AgeOfPeople value)
     {
         AddAgeOfPeopleFilter(value);

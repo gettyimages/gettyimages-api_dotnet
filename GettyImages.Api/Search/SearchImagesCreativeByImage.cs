@@ -63,6 +63,12 @@ public class SearchImagesCreativeByImage : ApiRequest<SearchCreativeImagesByImag
         return this;
     }
 
+    public SearchImagesCreativeByImage WithGICountryCode(string value)
+    {
+        AddHeaderParameter(Constants.GICountryCode, value);
+        return this;
+    }
+
     public SearchImagesCreativeByImage WithImageUrl(string value)
     {
         AddQueryParameter(Constants.ImageUrlKey, value);

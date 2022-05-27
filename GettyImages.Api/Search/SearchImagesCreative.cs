@@ -38,6 +38,12 @@ public class SearchImagesCreative : ApiRequest<SearchCreativeImagesResponse>
         return this;
     }
 
+    public SearchImagesCreative WithGICountryCode(string value)
+    {
+        AddHeaderParameter(Constants.GICountryCode, value);
+        return this;
+    }
+
     public SearchImagesCreative WithAgeOfPeople(AgeOfPeople value)
     {
         AddAgeOfPeopleFilter(value);

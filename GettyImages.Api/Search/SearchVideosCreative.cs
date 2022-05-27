@@ -35,6 +35,12 @@ public class SearchVideosCreative : ApiRequest<SearchCreativeVideosResponse>
         return this;
     }
 
+    public SearchVideosCreative WithGICountryCode(string value)
+    {
+        AddHeaderParameter(Constants.GICountryCode, value);
+        return this;
+    }
+
     public SearchVideosCreative WithAgeOfPeople(AgeOfPeople value)
     {
         AddAgeOfPeopleFilter(value);
