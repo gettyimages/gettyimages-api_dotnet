@@ -71,9 +71,11 @@ public class SearchVideosCreative : ApiRequest<SearchCreativeVideosResponse>
         return this;
     }
 
-    public SearchVideosCreative WithDownloadProduct(ProductType value)
+    public SearchVideosCreative WithDownloadProduct(ProductType productType, int? productId = null)
     {
-        AddDownloadProduct(value);
+        var productTypeString = productType.ToString();
+        var value = productId == null ? productTypeString : $"{productTypeString}:{productId}";
+        AddQueryParameter(Constants.DownloadProductKey, value);
         return this;
     }
 

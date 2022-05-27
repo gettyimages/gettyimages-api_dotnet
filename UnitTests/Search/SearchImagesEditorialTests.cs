@@ -103,6 +103,19 @@ public class SearchImagesEditorialTests
     }
 
     [Fact]
+    public async Task SearchForEditorialImagesWithDownloadProductAndProductId()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesEditorial()
+            .WithPhrase("cat").WithDownloadProduct(ProductType.Premiumaccess, 1234).ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/editorial");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("download_product=premiumaccess%3A1234");
+    }
+
+    [Fact]
     public async Task SearchForEditorialImagesWithEditorialSegment()
     {
         var testHandler = TestUtil.CreateTestHandler();

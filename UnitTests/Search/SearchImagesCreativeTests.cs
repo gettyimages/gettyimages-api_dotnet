@@ -115,6 +115,20 @@ public class SearchImagesCreativeTests
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("download_product=easyaccess");
     }
 
+
+    [Fact]
+    public async Task SearchForCreativeImagesWithDownloadProductAndProductId()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesCreative()
+            .WithPhrase("cat").WithDownloadProduct(ProductType.Premiumaccess, 1234).ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/creative");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("download_product=premiumaccess%3A1234");
+    }
+
     [Fact]
     public async Task SearchForCreativeImagesWithEmbedContentOnly()
     {

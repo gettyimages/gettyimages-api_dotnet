@@ -116,6 +116,19 @@ public class SearchVideosEditorialTests
     }
 
     [Fact]
+    public async Task SearchForEditorialVideosWithDownloadProductAndProductId()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosEditorial()
+            .WithPhrase("cat").WithDownloadProduct(ProductType.Premiumaccess, 1234).ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/editorial");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("download_product=premiumaccess%3A1234");
+    }
+
+    [Fact]
     public async Task SearchForEditorialVideosWithEditorialVideoType()
     {
         var testHandler = TestUtil.CreateTestHandler();
