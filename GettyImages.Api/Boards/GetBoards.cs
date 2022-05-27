@@ -43,7 +43,7 @@ public class GetBoards : ApiRequest<GetBoardsResponse>
         return this;
     }
 
-    public GetBoards WithSortOrder(SortOrderEditorial value)
+    public GetBoards WithSortOrder(SortOrderBoards value)
     {
         AddQueryParameter(Constants.SortOrderKey, value);
         return this;
