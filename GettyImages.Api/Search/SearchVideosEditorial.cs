@@ -180,9 +180,9 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
         return this;
     }
 
-    public SearchVideosEditorial WithFacetFields(IEnumerable<string> values)
+    public SearchVideosEditorial WithFacetFields(FacetFieldsEditorial value)
     {
-        AddFacetResponseFields(values);
+        AddFacetFields(value);
         return this;
     }
 

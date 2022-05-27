@@ -384,4 +384,22 @@ public class SearchImagesEditorialTests
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("start_date=2015-04-01");
     }
+
+    [Fact]
+    public async Task SearchForEditorialImagesWithFacets()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .SearchImagesEditorial()
+            .IncludeFacets()
+            .WithFacetMaxCount(200)
+            .WithFacetFields(FacetFieldsEditorial.Artists | FacetFieldsEditorial.Locations)
+            .ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/editorial");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("include_facets=True");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("facet_fields=artists%2Clocations");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("maxcount=200");
+    }
 }

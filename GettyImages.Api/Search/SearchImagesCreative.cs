@@ -201,15 +201,15 @@ public class SearchImagesCreative : ApiRequest<SearchCreativeImagesResponse>
         return this;
     }
 
-    public SearchImagesCreative WithIncludeFacets(bool value = true)
+    public SearchImagesCreative IncludeFacets(bool value = true)
     {
         AddQueryParameter(Constants.IncludeFacetsKey, value);
         return this;
     }
 
-    public SearchImagesCreative WithFacetFields(IEnumerable<string> values)
+    public SearchImagesCreative WithFacetFields(FacetFieldsCreative value)
     {
-        AddFacetResponseFields(values);
+        AddFacetFields(value);
         return this;
     }
 

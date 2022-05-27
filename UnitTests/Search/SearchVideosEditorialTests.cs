@@ -355,4 +355,22 @@ public class SearchVideosEditorialTests
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("viewpoints=panning%2Chigh_angle_view");
     }
+
+    [Fact]
+    public async Task SearchForEditorialVideosWithFacets()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .SearchVideosEditorial()
+            .IncludeFacets()
+            .WithFacetMaxCount(200)
+            .WithFacetFields(FacetFieldsEditorial.Artists | FacetFieldsEditorial.Locations)
+            .ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/editorial");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("include_facets=True");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("facet_fields=artists%2Clocations");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("maxcount=200");
+    }
 }

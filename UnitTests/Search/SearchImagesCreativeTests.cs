@@ -368,9 +368,9 @@ public class SearchImagesCreativeTests
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
             .SearchImagesCreative()
-            .WithIncludeFacets()
+            .IncludeFacets()
             .WithFacetMaxCount(200)
-            .WithFacetFields(new List<string> { "artists", "locations" })
+            .WithFacetFields(FacetFieldsCreative.Artists | FacetFieldsCreative.Locations)
             .ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/creative");

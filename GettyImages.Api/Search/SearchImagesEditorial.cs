@@ -204,9 +204,9 @@ public class SearchImagesEditorial : ApiRequest<SearchEditorialImagesResponse>
         return this;
     }
 
-    public SearchImagesEditorial WithFacetFields(IEnumerable<string> values)
+    public SearchImagesEditorial WithFacetFields(FacetFieldsEditorial value)
     {
-        AddFacetResponseFields(values);
+        AddFacetFields(value);
         return this;
     }
 

@@ -364,4 +364,22 @@ public class SearchVideosCreativeTests
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("viewpoints=panning%2Chigh_angle_view");
     }
+
+    [Fact]
+    public async Task SearchForCreativeVideosWithFacets()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .SearchVideosCreative()
+            .IncludeFacets()
+            .WithFacetMaxCount(200)
+            .WithFacetFields(FacetFieldsCreative.Artists | FacetFieldsCreative.Locations)
+            .ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/creative");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("include_facets=True");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("facet_fields=artists%2Clocations");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("maxcount=200");
+    }
 }

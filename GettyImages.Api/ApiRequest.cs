@@ -628,17 +628,31 @@ public class ApiRequest
         }
     }
 
-    protected void AddFacetResponseFields(IEnumerable<string> values)
+    protected void AddFacetFields(FacetFieldsCreative value)
     {
-        if (!QueryParameters.ContainsKey(Constants.FacetFieldsKey))
+        if (QueryParameters.ContainsKey(Constants.FacetFieldsKey))
         {
-            QueryParameters.Add(Constants.FacetFieldsKey, values);
+            QueryParameters[Constants.FacetFieldsKey] = value == FacetFieldsCreative.None
+                ? value
+                : (FacetFieldsCreative)QueryParameters[Constants.FacetFieldsKey] | value;
         }
         else
         {
-            var assets = QueryParameters[Constants.FacetFieldsKey] as IEnumerable<string>;
-            assets = assets.Union(values).Distinct();
-            QueryParameters[Constants.FacetFieldsKey] = assets.ToList();
+            QueryParameters.Add(Constants.FacetFieldsKey, value);
+        }
+    }
+
+    protected void AddFacetFields(FacetFieldsEditorial value)
+    {
+        if (QueryParameters.ContainsKey(Constants.FacetFieldsKey))
+        {
+            QueryParameters[Constants.FacetFieldsKey] = value == FacetFieldsEditorial.None
+                ? value
+                : (FacetFieldsEditorial)QueryParameters[Constants.FacetFieldsKey] | value;
+        }
+        else
+        {
+            QueryParameters.Add(Constants.FacetFieldsKey, value);
         }
     }
 

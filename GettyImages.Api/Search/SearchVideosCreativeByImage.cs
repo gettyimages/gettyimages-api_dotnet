@@ -97,9 +97,9 @@ public class SearchVideosCreativeByImage : ApiRequest<SearchCreativeVideosByImag
         return this;
     }
 
-    public SearchVideosCreativeByImage WithFacetFields(IEnumerable<string> values)
+    public SearchVideosCreativeByImage WithFacetFields(FacetFieldsCreative value)
     {
-        AddFacetResponseFields(values);
+        AddFacetFields(value);
         return this;
     }
 

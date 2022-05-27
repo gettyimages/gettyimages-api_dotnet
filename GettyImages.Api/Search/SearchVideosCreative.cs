@@ -186,9 +186,9 @@ public class SearchVideosCreative : ApiRequest<SearchCreativeVideosResponse>
         return this;
     }
 
-    public SearchVideosCreative WithFacetFields(IEnumerable<string> values)
+    public SearchVideosCreative WithFacetFields(FacetFieldsCreative value)
     {
-        AddFacetResponseFields(values);
+        AddFacetFields(value);
         return this;
     }
 
