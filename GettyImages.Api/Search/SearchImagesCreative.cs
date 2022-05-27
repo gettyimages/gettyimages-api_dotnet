@@ -140,15 +140,10 @@ public class SearchImagesCreative : ApiRequest<SearchCreativeImagesResponse>
         return this;
     }
 
-    public SearchImagesCreative WithGraphicalStyle(GraphicalStyles value)
+    public SearchImagesCreative WithGraphicalStyle(GraphicalStylesCreative value, GraphicalStyleFilter filterType = GraphicalStyleFilter.Include)
     {
         AddGraphicalStyle(value);
-        return this;
-    }
-
-    public SearchImagesCreative WithGraphicalStyleFilterType(GraphicalStyleFilter value)
-    {
-        AddQueryParameter(Constants.GraphicalStyleFilterKey, value);
+        AddQueryParameter(Constants.GraphicalStyleFilterKey, filterType);
         return this;
     }
 

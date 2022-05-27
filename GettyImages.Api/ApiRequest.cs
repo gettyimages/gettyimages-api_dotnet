@@ -464,13 +464,27 @@ public class ApiRequest
         }
     }
 
-    protected void AddGraphicalStyle(GraphicalStyles value)
+    protected void AddGraphicalStyle(GraphicalStylesCreative value)
     {
         if (QueryParameters.ContainsKey(Constants.GraphicalStylesKey))
         {
-            QueryParameters[Constants.GraphicalStylesKey] = value == GraphicalStyles.None
+            QueryParameters[Constants.GraphicalStylesKey] = value == GraphicalStylesCreative.None
                 ? value
-                : (GraphicalStyles)QueryParameters[Constants.GraphicalStylesKey] | value;
+                : (GraphicalStylesCreative)QueryParameters[Constants.GraphicalStylesKey] | value;
+        }
+        else
+        {
+            QueryParameters.Add(Constants.GraphicalStylesKey, value);
+        }
+    }
+
+    protected void AddGraphicalStyle(GraphicalStylesEditorial value)
+    {
+        if (QueryParameters.ContainsKey(Constants.GraphicalStylesKey))
+        {
+            QueryParameters[Constants.GraphicalStylesKey] = value == GraphicalStylesEditorial.None
+                ? value
+                : (GraphicalStylesEditorial)QueryParameters[Constants.GraphicalStylesKey] | value;
         }
         else
         {

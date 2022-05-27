@@ -217,7 +217,7 @@ public class SearchImagesCreativeTests
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesCreative()
-            .WithPhrase("cat").WithGraphicalStyle(GraphicalStyles.FineArt | GraphicalStyles.Illustration)
+            .WithPhrase("cat").WithGraphicalStyle(GraphicalStylesCreative.FineArt | GraphicalStylesCreative.Illustration)
             .ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/creative");
@@ -231,8 +231,8 @@ public class SearchImagesCreativeTests
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesCreative()
-            .WithPhrase("cat").WithGraphicalStyle(GraphicalStyles.FineArt | GraphicalStyles.Vector)
-            .WithGraphicalStyleFilterType(GraphicalStyleFilter.Include).ExecuteAsync();
+            .WithPhrase("cat").WithGraphicalStyle(GraphicalStylesCreative.FineArt | GraphicalStylesCreative.Vector, GraphicalStyleFilter.Include)
+            .ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/creative");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");

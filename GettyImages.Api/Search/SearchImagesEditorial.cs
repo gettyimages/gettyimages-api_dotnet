@@ -119,7 +119,7 @@ public class SearchImagesEditorial : ApiRequest<SearchEditorialImagesResponse>
         return this;
     }
 
-    public SearchImagesEditorial WithGraphicalStyle(GraphicalStyles value, GraphicalStyleFilter filterType = GraphicalStyleFilter.Include)
+    public SearchImagesEditorial WithGraphicalStyle(GraphicalStylesEditorial value, GraphicalStyleFilter filterType = GraphicalStyleFilter.Include)
     {
         AddGraphicalStyle(value);
         AddQueryParameter(Constants.GraphicalStyleFilterKey, filterType);

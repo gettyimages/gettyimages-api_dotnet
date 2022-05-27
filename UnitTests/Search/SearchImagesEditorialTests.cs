@@ -230,27 +230,12 @@ public class SearchImagesEditorialTests
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesEditorial()
-            .WithPhrase("cat").WithGraphicalStyle(GraphicalStyles.FineArt)
-            .WithGraphicalStyle(GraphicalStyles.Illustration).ExecuteAsync();
-
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/editorial");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("graphical_styles=fine_art%2Cillustration");
-    }
-
-    [Fact]
-    public async Task SearchForBlendedImagesWithGraphicalStyleFilter()
-    {
-        var testHandler = TestUtil.CreateTestHandler();
-
-        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesEditorial()
-            .WithPhrase("cat").WithGraphicalStyle(GraphicalStyles.FineArt | GraphicalStyles.Vector)
+            .WithPhrase("cat").WithGraphicalStyle(GraphicalStylesEditorial.Illustration | GraphicalStylesEditorial.Photography)
             .ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/editorial");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("graphical_styles=fine_art%2Cvector");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("graphical_styles_filter_type=include");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("graphical_styles=photography%2Cillustration");
     }
 
     [Fact]
