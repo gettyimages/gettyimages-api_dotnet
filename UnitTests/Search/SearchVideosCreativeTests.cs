@@ -157,7 +157,7 @@ public class SearchVideosCreativeTests
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-            .WithPhrase("cat").WithAvailableFormat("HD").ExecuteAsync();
+            .WithPhrase("cat").WithAvailableFormat(FormatAvailable.HD).ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");

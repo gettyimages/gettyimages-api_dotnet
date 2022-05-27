@@ -89,7 +89,7 @@ public class SearchVideosCreative : ApiRequest<SearchCreativeVideosResponse>
         return this;
     }
 
-    public SearchVideosCreative WithAvailableFormat(string value)
+    public SearchVideosCreative WithAvailableFormat(FormatAvailable value)
     {
         AddQueryParameter(Constants.FormatAvailableKey, value);
         return this;

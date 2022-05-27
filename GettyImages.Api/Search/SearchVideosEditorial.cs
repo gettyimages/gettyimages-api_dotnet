@@ -90,7 +90,7 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
         return this;
     }
 
-    public SearchVideosEditorial WithAvailableFormat(string value)
+    public SearchVideosEditorial WithAvailableFormat(FormatAvailable value)
     {
         AddQueryParameter(Constants.FormatAvailableKey, value);
         return this;
