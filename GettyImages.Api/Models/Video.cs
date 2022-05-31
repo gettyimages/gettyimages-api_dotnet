@@ -13,12 +13,14 @@ public class Video
     public string AssetFamily { get; set; }
     public bool CallForImage { get; set; }
     public string Caption { get; set; }
+    public string City { get; set; }
     public string ClipLength { get; set; }
     public string CollectionCode { get; set; }
     public int CollectionId { get; set; }
     public string CollectionName { get; set; }
     public string ColorType { get; set; }
     public string Copyright { get; set; }
+    public string Country { get; set; }
     public DateTime? DateCreated { get; set; }
     public DateTime? DateSubmitted { get; set; }
     public DisplaySize[] DisplaySizes { get; set; }
@@ -39,5 +41,6 @@ public class Video
     public ReferralDestination[] ReferralDestinations { get; set; }
     public string ShotSpeed { get; set; }
     public string Source { get; set; }
+    public string StateProvince { get; set; }
     public string Title { get; set; }
 }
