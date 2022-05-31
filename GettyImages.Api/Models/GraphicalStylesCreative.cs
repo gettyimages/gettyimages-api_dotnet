@@ -3,7 +3,7 @@ using System;
 namespace GettyImages.Api.Models;
 
 [Flags]
-public enum GraphicalStyles
+public enum GraphicalStylesCreative
 {
     None = 0,
     [Description("fine_art")] FineArt = 1,

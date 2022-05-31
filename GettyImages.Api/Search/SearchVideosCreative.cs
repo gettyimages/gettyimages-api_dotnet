@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using GettyImages.Api.Models;
-using ReleaseStatus = GettyImages.Api.Models.ReleaseStatus;
-using SortOrder = GettyImages.Api.Models.SortOrder;
 
 namespace GettyImages.Api.Search;
 
@@ -37,9 +35,27 @@ public class SearchVideosCreative : ApiRequest<SearchCreativeVideosResponse>
         return this;
     }
 
+    public SearchVideosCreative WithGICountryCode(string value)
+    {
+        AddHeaderParameter(Constants.GICountryCode, value);
+        return this;
+    }
+
     public SearchVideosCreative WithAgeOfPeople(AgeOfPeople value)
     {
         AddAgeOfPeopleFilter(value);
+        return this;
+    }
+
+    public SearchVideosCreative WithArtists(IEnumerable<string> values)
+    {
+        AddArtists(values);
+        return this;
+    }
+
+    public SearchVideosCreative WithAspectRatios(AspectRatio value)
+    {
+        AddAspectRatiosFilter(value);
         return this;
     }
 
@@ -55,9 +71,23 @@ public class SearchVideosCreative : ApiRequest<SearchCreativeVideosResponse>
         return this;
     }
 
-    public SearchVideosCreative WithDownloadProduct(ProductType value)
+    public SearchVideosCreative WithComposition(Composition value)
     {
-        AddDownloadProduct(value);
+        AddComposition(value);
+        return this;
+    }
+
+    public SearchVideosCreative WithDownloadProduct(ProductType productType, int? productId = null)
+    {
+        var productTypeString = productType.ToString();
+        var value = productId == null ? productTypeString : $"{productTypeString}:{productId}";
+        AddQueryParameter(Constants.DownloadProductKey, value);
+        return this;
+    }
+
+    public SearchVideosCreative WithExcludeEditorialUseOnly(bool value = true)
+    {
+        AddQueryParameter(Constants.ExcludeEditorialUseOnly, value);
         return this;
     }
 
@@ -67,7 +97,7 @@ public class SearchVideosCreative : ApiRequest<SearchCreativeVideosResponse>
         return this;
     }
 
-    public SearchVideosCreative WithAvailableFormat(string value)
+    public SearchVideosCreative WithAvailableFormat(FormatAvailable value)
     {
         AddQueryParameter(Constants.FormatAvailableKey, value);
         return this;
@@ -76,6 +106,18 @@ public class SearchVideosCreative : ApiRequest<SearchCreativeVideosResponse>
     public SearchVideosCreative WithFrameRate(FrameRate value)
     {
         AddFrameRate(value);
+        return this;
+    }
+
+    public SearchVideosCreative WithImageTechniques(ImageTechnique value)
+    {
+        AddImageTechniquesFilter(value);
+        return this;
+    }
+
+    public SearchVideosCreative IncludeRelatedSearches(bool value = true)
+    {
+        AddQueryParameter(Constants.RelatedSearchesKey, value);
         return this;
     }
 
@@ -103,6 +145,12 @@ public class SearchVideosCreative : ApiRequest<SearchCreativeVideosResponse>
         return this;
     }
 
+    public SearchVideosCreative WithOrientation(OrientationVideos value)
+    {
+        AddOrientation(value);
+        return this;
+    }
+
     public SearchVideosCreative WithPage(int value)
     {
         AddQueryParameter(Constants.PageKey, value);
@@ -121,13 +169,14 @@ public class SearchVideosCreative : ApiRequest<SearchCreativeVideosResponse>
         return this;
     }
 
-    public SearchVideosCreative WithProductType(ProductType value)
+
+    public SearchVideosCreative WithSafeSearch(bool value = true)
     {
-        AddProductTypes(value);
+        AddQueryParameter(Constants.SafeSearch, value);
         return this;
     }
 
-    public SearchVideosCreative WithSortOrder(SortOrder value)
+    public SearchVideosCreative WithSortOrder(SortOrderCreative value)
     {
         AddQueryParameter(Constants.SortOrderKey, value);
         return this;
@@ -145,9 +194,9 @@ public class SearchVideosCreative : ApiRequest<SearchCreativeVideosResponse>
         return this;
     }
 
-    public SearchVideosCreative WithFacetFields(IEnumerable<string> values)
+    public SearchVideosCreative WithFacetFields(FacetFieldsCreative value)
     {
-        AddFacetResponseFields(values);
+        AddFacetFields(value);
         return this;
     }
 
@@ -156,7 +205,13 @@ public class SearchVideosCreative : ApiRequest<SearchCreativeVideosResponse>
         AddQueryParameter(Constants.FacetMaxCountKey, value);
         return this;
     }
-    
+
+    public SearchVideosCreative WithViewpoints(Viewpoint value)
+    {
+        AddViewpointsFilter(value);
+        return this;
+    }
+
     public SearchVideosCreative IncludeKeywords()
     {
         AddResponseField("keywords");

@@ -115,6 +115,20 @@ public class SearchImagesCreativeTests
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("download_product=easyaccess");
     }
 
+
+    [Fact]
+    public async Task SearchForCreativeImagesWithDownloadProductAndProductId()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesCreative()
+            .WithPhrase("cat").WithDownloadProduct(ProductType.Premiumaccess, 1234).ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/creative");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("download_product=premiumaccess%3A1234");
+    }
+
     [Fact]
     public async Task SearchForCreativeImagesWithEmbedContentOnly()
     {
@@ -217,7 +231,7 @@ public class SearchImagesCreativeTests
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesCreative()
-            .WithPhrase("cat").WithGraphicalStyle(GraphicalStyles.FineArt | GraphicalStyles.Illustration)
+            .WithPhrase("cat").WithGraphicalStyle(GraphicalStylesCreative.FineArt | GraphicalStylesCreative.Illustration)
             .ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/creative");
@@ -231,13 +245,26 @@ public class SearchImagesCreativeTests
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesCreative()
-            .WithPhrase("cat").WithGraphicalStyle(GraphicalStyles.FineArt | GraphicalStyles.Vector)
-            .WithGraphicalStyleFilterType(GraphicalStyleFilter.Include).ExecuteAsync();
+            .WithPhrase("cat").WithGraphicalStyle(GraphicalStylesCreative.FineArt | GraphicalStylesCreative.Vector, GraphicalStyleFilter.Include)
+            .ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/creative");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("graphical_styles=fine_art%2Cvector");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("graphical_styles_filter_type=include");
+    }
+
+    [Fact]
+    public async Task SearchForCreativeImagesWithRelatedSearches()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesCreative()
+            .WithPhrase("cat").IncludeRelatedSearches().ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/creative");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("include_related_searches=True");
     }
 
     [Fact]
@@ -287,7 +314,7 @@ public class SearchImagesCreativeTests
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesCreative()
-            .WithPhrase("cat").WithOrientation(Orientation.Horizontal | Orientation.Square).ExecuteAsync();
+            .WithPhrase("cat").WithOrientation(OrientationImages.Horizontal | OrientationImages.Square).ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/creative");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -322,30 +349,17 @@ public class SearchImagesCreativeTests
     }
 
     [Fact]
-    public async Task SearchForCreativeImagesWithPrestigeContent()
+    public async Task SearchForCreativeImagesWithSafeSearch()
     {
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesCreative()
-            .WithPhrase("cat").WithPrestigeContentOnly().ExecuteAsync();
-
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/creative");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("prestige_content_only=True");
-    }
-
-    [Fact]
-    public async Task SearchForCreativeImagesWithProductType()
-    {
-        var testHandler = TestUtil.CreateTestHandler();
-
-        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesCreative()
-            .WithPhrase("cat").WithProductType(ProductType.Easyaccess | ProductType.Editorialsubscription)
+            .WithPhrase("cat").WithSafeSearch()
             .ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/creative");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("product_types=editorialsubscription%2Ceasyaccess");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("safe_search=True");
     }
 
     [Fact]
@@ -354,7 +368,7 @@ public class SearchImagesCreativeTests
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesCreative()
-            .WithPhrase("cat").WithSortOrder(SortOrder.BestMatch).ExecuteAsync();
+            .WithPhrase("cat").WithSortOrder(SortOrderCreative.BestMatch).ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/creative");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -368,9 +382,9 @@ public class SearchImagesCreativeTests
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
             .SearchImagesCreative()
-            .WithIncludeFacets()
+            .IncludeFacets()
             .WithFacetMaxCount(200)
-            .WithFacetFields(new List<string> { "artists", "locations" })
+            .WithFacetFields(FacetFieldsCreative.Artists | FacetFieldsCreative.Locations)
             .ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/creative");

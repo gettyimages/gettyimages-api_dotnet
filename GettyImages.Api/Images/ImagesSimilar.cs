@@ -11,6 +11,15 @@ public class ImagesSimilar : ApiRequest<GetSimilarImagesResponse>
         Credentials = credentials;
         BaseUrl = baseUrl;
         Method = "GET";
+        AddResponseFields(new[]
+        {
+                "accessrestriction", "allowed_use", "alternative_ids", "artist", "asset_family", "call_for_image", "caption",
+                "collection_code", "collection_id", "collection_name", "color_type", "comp", "copyright", "date_camera_shot", "date_created",
+                "date_submitted", "download_product", "download_sizes", "editorial_segments", "editorial_source", "entity_details",
+                "event_ids", "graphical_style", "id", "istock_collection", "license_model", "max_dimensions", "orientation", "people",
+                "preview", "product_types", "quality_rank", "referral_destinations", "thumb",
+                "title", "uri_oembed"
+        });
     }
 
     internal static ImagesSimilar GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
@@ -39,6 +48,18 @@ public class ImagesSimilar : ApiRequest<GetSimilarImagesResponse>
     public ImagesSimilar WithPageSize(int value)
     {
         AddQueryParameter(Constants.PageSizeKey, value);
+        return this;
+    }
+
+    public ImagesSimilar IncludeKeywords()
+    {
+        AddResponseField("keywords");
+        return this;
+    }
+
+    public ImagesSimilar IncludeLargestDownloads()
+    {
+        AddResponseField("largest_downloads");
         return this;
     }
 }

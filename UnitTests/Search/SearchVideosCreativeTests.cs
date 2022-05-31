@@ -34,6 +34,34 @@ public class SearchVideosCreativeTests
     }
 
     [Fact]
+    public async Task SearchForCreativeVideosWithArtist()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        var artists = new List<string> { "roman makhmutov", "Linda Raymond" };
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+            .WithPhrase("cat").WithArtists(artists).ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/creative");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artists=roman+makhmutov%2CLinda+Raymond");
+    }
+
+    [Fact]
+    public async Task SearchForCreativeVideosWithAspectRatios()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+            .WithPhrase("cat").WithAspectRatios(AspectRatio.AspectRatio4_3 | AspectRatio.AspectRatio16_9).ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("aspect_ratios=16%3A9%2C4%3A3");
+    }
+
+    [Fact]
     public async Task SearchForCreativeVideosWithCollectionCodes()
     {
         var testHandler = TestUtil.CreateTestHandler();
@@ -62,6 +90,19 @@ public class SearchVideosCreativeTests
     }
 
     [Fact]
+    public async Task SearchForCreativeVideosWithComposition()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+            .WithPhrase("cat").WithComposition(Composition.Headshot | Composition.Abstract).ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/creative");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("compositions=abstract%2Cheadshot");
+    }
+
+    [Fact]
     public async Task SearchForCreativeVideosWithDownloadProduct()
     {
         var testHandler = TestUtil.CreateTestHandler();
@@ -72,6 +113,32 @@ public class SearchVideosCreativeTests
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/creative");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("download_product=easyaccess");
+    }
+
+    [Fact]
+    public async Task SearchForCreativeVideosWithDownloadProductAndProductId()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+            .WithPhrase("cat").WithDownloadProduct(ProductType.Premiumaccess, 1234).ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/creative");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("download_product=premiumaccess%3A1234");
+    }
+
+    [Fact]
+    public async Task SearchForCreativeVideosWithWithExcludeEditorialUseOnly()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+            .WithPhrase("cat").WithExcludeEditorialUseOnly().ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/creative");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("exclude_editorial_use_only=True");
     }
 
     [Fact]
@@ -103,7 +170,7 @@ public class SearchVideosCreativeTests
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-            .WithPhrase("cat").WithAvailableFormat("HD").ExecuteAsync();
+            .WithPhrase("cat").WithAvailableFormat(FormatAvailable.HD).ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -121,6 +188,32 @@ public class SearchVideosCreativeTests
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("frame_rates=24%2C29.97");
+    }
+
+    [Fact]
+    public async Task SearchForCreativeVideosWithRelatedSearches()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+            .WithPhrase("cat").IncludeRelatedSearches().ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/creative");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("include_related_searches=True");
+    }
+
+    [Fact]
+    public async Task SearchForCreativeVideosWithImageTechniques()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+            .WithPhrase("cat").WithImageTechniques(ImageTechnique.SelectiveFocus | ImageTechnique.TimeLapse).ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("image_techniques=time_lapse%2Cselective_focus");
     }
 
     [Fact]
@@ -152,6 +245,19 @@ public class SearchVideosCreativeTests
     }
 
     [Fact]
+    public async Task SearchForCreativeVideosWithOrientation()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+            .WithPhrase("cat").WithOrientation(OrientationVideos.Horizontal | OrientationVideos.Vertical).ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/creative");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("orientations=horizontal%2Cvertical");
+    }
+
+    [Fact]
     public async Task SearchForCreativeVideosWithPage()
     {
         var testHandler = TestUtil.CreateTestHandler();
@@ -177,19 +283,21 @@ public class SearchVideosCreativeTests
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("page_size=50");
     }
 
+
     [Fact]
-    public async Task SearchForCreativeVideosWithProductType()
+    public async Task SearchForCreativeVideosWithSafeSearch()
     {
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-            .WithPhrase("cat").WithProductType(ProductType.Easyaccess | ProductType.Editorialsubscription)
+            .WithPhrase("cat").WithSafeSearch()
             .ExecuteAsync();
 
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/creative");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("product_types=editorialsubscription%2Ceasyaccess");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("safe_search=True");
     }
+
 
     [Fact]
     public async Task SearchForCreativeVideosWithSortOrder()
@@ -197,7 +305,7 @@ public class SearchVideosCreativeTests
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
-            .WithPhrase("cat").WithSortOrder(SortOrder.BestMatch).ExecuteAsync();
+            .WithPhrase("cat").WithSortOrder(SortOrderCreative.BestMatch).ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -255,5 +363,36 @@ public class SearchVideosCreativeTests
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("min_clip_length=20");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("max_clip_length=200");
+    }
+
+    [Fact]
+    public async Task SearchForCreativeVideosWithViewpoints()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchVideosCreative()
+            .WithPhrase("cat").WithViewpoints(Viewpoint.HighAngleView | Viewpoint.Panning).ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("viewpoints=panning%2Chigh_angle_view");
+    }
+
+    [Fact]
+    public async Task SearchForCreativeVideosWithFacets()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .SearchVideosCreative()
+            .IncludeFacets()
+            .WithFacetMaxCount(200)
+            .WithFacetFields(FacetFieldsCreative.Artists | FacetFieldsCreative.Locations)
+            .ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/videos/creative");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("include_facets=True");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("facet_fields=artists%2Clocations");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("maxcount=200");
     }
 }

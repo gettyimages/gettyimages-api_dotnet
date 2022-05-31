@@ -29,6 +29,12 @@ public class Events : ApiRequest<SearchEventsResponse>
         return this;
     }
 
+    public Events WithGICountryCode(string value)
+    {
+        AddHeaderParameter(Constants.GICountryCode, value);
+        return this;
+    }
+
     public Events WithDateFrom(string value)
     {
         AddQueryParameter(Constants.DateFromKey, value);
@@ -62,6 +68,12 @@ public class Events : ApiRequest<SearchEventsResponse>
     public Events WithPhrase(string value)
     {
         AddQueryParameter(Constants.PhraseKey, value);
+        return this;
+    }
+
+    public Events WithSortOrder(SortOrderEvent value)
+    {
+        AddQueryParameter(Constants.SortOrderKey, value);
         return this;
     }
 }

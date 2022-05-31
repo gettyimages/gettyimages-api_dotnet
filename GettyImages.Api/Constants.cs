@@ -4,6 +4,8 @@ internal static class Constants
 {
     public const string AcceptLanguage = "Accept-Language";
     public const string AgeOfPeopleKey = "age_of_people";
+    public const string AspectRatioKey = "aspect_ratios";
+    public const string AssetIdKey = "asset_id";
     public const string AssetIdsKey = "asset_ids";
     public const string ArtistKey = "artists";
     public const string ArtistNameKey = "artist_name";
@@ -38,10 +40,12 @@ internal static class Constants
     public const string FileTypesKey = "file_types";
     public const string FormatAvailableKey = "format_available";
     public const string FrameRatesKey = "frame_rates";
+    public const string GICountryCode = "GI-Country-Code";
     public const string GraphicalStylesKey = "graphical_styles";
     public const string GraphicalStyleFilterKey = "graphical_styles_filter_type";
     public const string HeightKey = "height";
     public const string IdsKey = "ids";
+    public const string ImageTechniqueKey = "image_techniques";
     public const string ImageUrlKey = "image_url";
     public const string IncludeFacetsKey = "include_facets";
     public const string KeywordIdsKey = "keyword_ids";
@@ -55,15 +59,18 @@ internal static class Constants
     public const string PageKey = "page";
     public const string PageSizeKey = "page_size";
     public const string PhraseKey = "phrase";
-    public const string PrestigeContentOnlyKey = "prestige_content_only";
     public const string ProductIdKey = "product_id";
     public const string ProductTypeKey = "product_type";
     public const string ProductTypesKey = "product_types";
+    public const string RelatedSearchesKey = "include_related_searches";
+    public const string SafeSearch = "safe_search";
     public const string SizeKey = "size";
     public const string SortOrderKey = "sort_order";
     public const string LocationKey = "specific_locations";
     public const string SpecificPeopleKey = "specific_people";
     public const string StartDateKey = "start_date";
     public const string ReleaseStatus = "release_status";
+    public const string UseTeamCredits = "use_team_credits";
     public const string UseTimeKey = "use_time";
+    public const string ViewpointKey = "viewpoints";
 }

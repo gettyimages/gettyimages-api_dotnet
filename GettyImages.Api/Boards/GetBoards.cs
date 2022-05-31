@@ -1,7 +1,6 @@
 ﻿using System.Net.Http;
 using GettyImages.Api.Models;
 using BoardRelationship = GettyImages.Api.Models.BoardRelationship;
-using SortOrder = GettyImages.Api.Models.SortOrder;
 
 namespace GettyImages.Api.Boards;
 
@@ -44,7 +43,7 @@ public class GetBoards : ApiRequest<GetBoardsResponse>
         return this;
     }
 
-    public GetBoards WithSortOrder(SortOrder value)
+    public GetBoards WithSortOrder(SortOrderBoards value)
     {
         AddQueryParameter(Constants.SortOrderKey, value);
         return this;

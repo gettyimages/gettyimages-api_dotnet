@@ -11,6 +11,7 @@ public class EditorialVideoSearchItem
     public string Id { get; set; }
     public AllowedUse AllowedUse { get; set; }
     public string Artist { get; set; }
+    public string AspectRatio { get; set; }
     public string AssetFamily { get; set; }
     public string Caption { get; set; }
     public string ClipLength { get; set; }
@@ -29,6 +30,7 @@ public class EditorialVideoSearchItem
     public Download[] LargestDownloads { get; set; }
     public string LicenseModel { get; set; }
     public string MasteredTo { get; set; }
+    public string Orientation { get; set; }
     public string OriginallyShotOn { get; set; }
     public string[] ProductTypes { get; set; }
     public ReferralDestination[] ReferralDestinations { get; set; }

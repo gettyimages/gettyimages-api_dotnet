@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using GettyImages.Api.Models;
-using SortOrder = GettyImages.Api.Models.SortOrder;
 
 namespace GettyImages.Api.Search;
 
@@ -36,6 +35,12 @@ public class SearchImagesCreative : ApiRequest<SearchCreativeImagesResponse>
     public SearchImagesCreative WithAcceptLanguage(string value)
     {
         AddHeaderParameter(Constants.AcceptLanguage, value);
+        return this;
+    }
+
+    public SearchImagesCreative WithGICountryCode(string value)
+    {
+        AddHeaderParameter(Constants.GICountryCode, value);
         return this;
     }
 
@@ -75,9 +80,11 @@ public class SearchImagesCreative : ApiRequest<SearchCreativeImagesResponse>
         return this;
     }
 
-    public SearchImagesCreative WithDownloadProduct(ProductType value)
+    public SearchImagesCreative WithDownloadProduct(ProductType productType, int? productId = null)
     {
-        AddDownloadProduct(value);
+        var productTypeString = productType.ToString();
+        var value = productId == null ? productTypeString : $"{productTypeString}:{productId}";
+        AddQueryParameter(Constants.DownloadProductKey, value);
         return this;
     }
 
@@ -129,21 +136,22 @@ public class SearchImagesCreative : ApiRequest<SearchCreativeImagesResponse>
         return this;
     }
 
+    public SearchImagesCreative IncludeRelatedSearches(bool value = true)
+    {
+        AddQueryParameter(Constants.RelatedSearchesKey, value);
+        return this;
+    }
+
     public SearchImagesCreative WithFileType(FileType value)
     {
         AddFileTypes(value);
         return this;
     }
 
-    public SearchImagesCreative WithGraphicalStyle(GraphicalStyles value)
+    public SearchImagesCreative WithGraphicalStyle(GraphicalStylesCreative value, GraphicalStyleFilter filterType = GraphicalStyleFilter.Include)
     {
         AddGraphicalStyle(value);
-        return this;
-    }
-
-    public SearchImagesCreative WithGraphicalStyleFilterType(GraphicalStyleFilter value)
-    {
-        AddQueryParameter(Constants.GraphicalStyleFilterKey, value);
+        AddQueryParameter(Constants.GraphicalStyleFilterKey, filterType);
         return this;
     }
 
@@ -165,7 +173,7 @@ public class SearchImagesCreative : ApiRequest<SearchCreativeImagesResponse>
         return this;
     }
 
-    public SearchImagesCreative WithOrientation(Orientation value)
+    public SearchImagesCreative WithOrientation(OrientationImages value)
     {
         AddOrientation(value);
         return this;
@@ -189,33 +197,27 @@ public class SearchImagesCreative : ApiRequest<SearchCreativeImagesResponse>
         return this;
     }
 
-    public SearchImagesCreative WithPrestigeContentOnly(bool value = true)
+    public SearchImagesCreative WithSafeSearch(bool value = true)
     {
-        AddQueryParameter(Constants.PrestigeContentOnlyKey, value);
+        AddQueryParameter(Constants.SafeSearch, value);
         return this;
     }
 
-    public SearchImagesCreative WithProductType(ProductType value)
-    {
-        AddProductTypes(value);
-        return this;
-    }
-
-    public SearchImagesCreative WithSortOrder(SortOrder value)
+    public SearchImagesCreative WithSortOrder(SortOrderCreative value)
     {
         AddQueryParameter(Constants.SortOrderKey, value);
         return this;
     }
 
-    public SearchImagesCreative WithIncludeFacets(bool value = true)
+    public SearchImagesCreative IncludeFacets(bool value = true)
     {
         AddQueryParameter(Constants.IncludeFacetsKey, value);
         return this;
     }
 
-    public SearchImagesCreative WithFacetFields(IEnumerable<string> values)
+    public SearchImagesCreative WithFacetFields(FacetFieldsCreative value)
     {
-        AddFacetResponseFields(values);
+        AddFacetFields(value);
         return this;
     }
 

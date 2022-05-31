@@ -61,4 +61,10 @@ public class DownloadsImages : ApiRequest<DownloadAssetResponse>
         AddQueryParameter(Constants.ProductTypeKey, value);
         return this;
     }
+
+    public DownloadsImages WithUseTeamCredits(bool value = true)
+    {
+        AddQueryParameter(Constants.UseTeamCredits, value);
+        return this;
+    }
 }

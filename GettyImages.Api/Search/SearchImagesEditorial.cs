@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using GettyImages.Api.Models;
-using SortOrder = GettyImages.Api.Models.SortOrder;
 
 namespace GettyImages.Api.Search;
 
@@ -36,6 +35,12 @@ public class SearchImagesEditorial : ApiRequest<SearchEditorialImagesResponse>
         return this;
     }
 
+    public SearchImagesEditorial WithGICountryCode(string value)
+    {
+        AddHeaderParameter(Constants.GICountryCode, value);
+        return this;
+    }
+
     public SearchImagesEditorial WithAgeOfPeople(AgeOfPeople value)
     {
         AddAgeOfPeopleFilter(value);
@@ -66,9 +71,11 @@ public class SearchImagesEditorial : ApiRequest<SearchEditorialImagesResponse>
         return this;
     }
 
-    public SearchImagesEditorial WithDownloadProduct(ProductType value)
+    public SearchImagesEditorial WithDownloadProduct(ProductType productType, int? productId = null)
     {
-        AddDownloadProduct(value);
+        var productTypeString = productType.ToString();
+        var value = productId == null ? productTypeString : $"{productTypeString}:{productId}";
+        AddQueryParameter(Constants.DownloadProductKey, value);
         return this;
     }
 
@@ -114,25 +121,25 @@ public class SearchImagesEditorial : ApiRequest<SearchEditorialImagesResponse>
         return this;
     }
 
-    public SearchImagesEditorial WithExcludeNudity(bool value = true)
-    {
-        AddQueryParameter(Constants.ExcludeNudity, value);
-        return this;
-    }
-
     public SearchImagesEditorial WithFileType(FileType value)
     {
         AddFileTypes(value);
         return this;
     }
 
-    public SearchImagesEditorial WithGraphicalStyle(GraphicalStyles value, GraphicalStyleFilter filterType = GraphicalStyleFilter.Include)
+    public SearchImagesEditorial WithGraphicalStyle(GraphicalStylesEditorial value, GraphicalStyleFilter filterType = GraphicalStyleFilter.Include)
     {
         AddGraphicalStyle(value);
         AddQueryParameter(Constants.GraphicalStyleFilterKey, filterType);
         return this;
     }
-    
+
+    public SearchImagesEditorial IncludeRelatedSearches(bool value = true)
+    {
+        AddQueryParameter(Constants.RelatedSearchesKey, value);
+        return this;
+    }
+
     public SearchImagesEditorial WithKeywordIds(IEnumerable<int> values)
     {
         AddKeywordIds(values);
@@ -157,7 +164,7 @@ public class SearchImagesEditorial : ApiRequest<SearchEditorialImagesResponse>
         return this;
     }
 
-    public SearchImagesEditorial WithOrientation(Orientation value)
+    public SearchImagesEditorial WithOrientation(OrientationImages value)
     {
         AddOrientation(value);
         return this;
@@ -181,13 +188,7 @@ public class SearchImagesEditorial : ApiRequest<SearchEditorialImagesResponse>
         return this;
     }
 
-    public SearchImagesEditorial WithProductType(ProductType value)
-    {
-        AddProductTypes(value);
-        return this;
-    }
-
-    public SearchImagesEditorial WithSortOrder(SortOrder value)
+    public SearchImagesEditorial WithSortOrder(SortOrderEditorial value)
     {
         AddQueryParameter(Constants.SortOrderKey, value);
         return this;
@@ -211,9 +212,9 @@ public class SearchImagesEditorial : ApiRequest<SearchEditorialImagesResponse>
         return this;
     }
 
-    public SearchImagesEditorial WithFacetFields(IEnumerable<string> values)
+    public SearchImagesEditorial WithFacetFields(FacetFieldsEditorial value)
     {
-        AddFacetResponseFields(values);
+        AddFacetFields(value);
         return this;
     }
 

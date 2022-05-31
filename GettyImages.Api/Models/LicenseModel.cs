@@ -6,7 +6,6 @@ namespace GettyImages.Api.Models;
 public enum LicenseModel
 {
     None = 0,
-    RightsManaged = 1,
-    RoyaltyFree = 2,
-    RightsReady = 4
+    RoyaltyFree = 1,
+    RightsReady = 2
 }

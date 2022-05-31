@@ -61,9 +61,21 @@ public class SearchVideosCreativeByImage : ApiRequest<SearchCreativeVideosByImag
         return this;
     }
 
+    public SearchVideosCreativeByImage WithGICountryCode(string value)
+    {
+        AddHeaderParameter(Constants.GICountryCode, value);
+        return this;
+    }
+
     public SearchVideosCreativeByImage WithImageUrl(string value)
     {
         AddQueryParameter(Constants.ImageUrlKey, value);
+        return this;
+    }
+
+    public SearchVideosCreativeByImage WithAssetId(string value)
+    {
+        AddQueryParameter(Constants.AssetIdKey, value);
         return this;
     }
 
@@ -79,9 +91,11 @@ public class SearchVideosCreativeByImage : ApiRequest<SearchCreativeVideosByImag
         return this;
     }
 
-    public SearchVideosCreativeByImage WithProductType(ProductType value)
+    public SearchVideosCreativeByImage WithProductType(ProductType productType, int? productId = null)
     {
-        AddProductTypes(value);
+        var productTypeString = productType.ToString();
+        var value = productId == null ? productTypeString : $"{productTypeString}:{productId}";
+        AddQueryParameter(Constants.ProductTypesKey, value);
         return this;
     }
 
@@ -91,9 +105,9 @@ public class SearchVideosCreativeByImage : ApiRequest<SearchCreativeVideosByImag
         return this;
     }
 
-    public SearchVideosCreativeByImage WithFacetFields(IEnumerable<string> values)
+    public SearchVideosCreativeByImage WithFacetFields(FacetFieldsCreative value)
     {
-        AddFacetResponseFields(values);
+        AddFacetFields(value);
         return this;
     }
 

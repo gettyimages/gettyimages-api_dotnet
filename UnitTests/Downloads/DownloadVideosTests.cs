@@ -48,4 +48,19 @@ public class DownloadVideosTests
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("downloads/videos/681332124");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("size=hd1");
     }
+
+    [Fact]
+    public async Task DownloadVideosWithUseTeamCredits()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .DownloadsVideos()
+            .WithId("681332124")
+            .WithUseTeamCredits()
+            .ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("downloads/videos/681332124");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("use_team_credits=True");
+    }
 }

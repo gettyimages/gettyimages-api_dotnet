@@ -93,4 +93,15 @@ public class SearchEventTests
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("page_size=50");
     }
+
+    [Fact]
+    public async Task SearchForEventsWithSortOrder()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchEvents()
+            .WithPhrase("cat").WithSortOrder(SortOrderEvent.Newest).ExecuteAsync();
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/events");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("sort_order=newest");
+    }
 }

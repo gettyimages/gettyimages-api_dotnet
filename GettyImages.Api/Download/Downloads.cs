@@ -60,7 +60,7 @@ public class Downloads : ApiRequest<GetDownloadsResponse>
         return this;
     }
 
-    public Downloads WithUseTime(string value)
+    public Downloads WithUseTime(bool value = true)
     {
         AddQueryParameter(Constants.UseTimeKey, value);
         return this;

@@ -16,7 +16,7 @@ public class ArtistsVideos : ApiRequest<SearchVideosByArtistResponse>
         AddResponseFields(new[]
         {
             "id", "allowed_use", "alternative_ids", "artist", "asset_family", "asset_type", "call_for_image",
-            "caption",
+            "caption", "clip_length",
             "collection_id", "collection_code", "collection_name", "comp", "copyright", "date_created",
             "date_submitted",
             "editorial_segments", "event_ids", "graphical_style",

@@ -110,11 +110,11 @@ public class DownloadsTests
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
             .Downloads()
             .WithStartDate("2015-04-01")
-            .WithUseTime("true")
+            .WithUseTime()
             .ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("downloads");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("start_date=2015-04-01");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("use_time=true");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("use_time=True");
     }
 }

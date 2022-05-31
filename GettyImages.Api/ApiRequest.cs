@@ -251,6 +251,20 @@ public class ApiRequest
         }
     }
 
+    protected void AddAspectRatiosFilter(AspectRatio value)
+    {
+        if (QueryParameters.ContainsKey(Constants.AspectRatioKey))
+        {
+            QueryParameters[Constants.AspectRatioKey] = value == AspectRatio.None
+                ? value
+                : (AspectRatio)QueryParameters[Constants.AspectRatioKey] | value;
+        }
+        else
+        {
+            QueryParameters.Add(Constants.AspectRatioKey, value);
+        }
+    }
+
     protected void AddAssetIds(IEnumerable<string> values)
     {
         if (!QueryParameters.ContainsKey(Constants.AssetIdsKey))
@@ -304,18 +318,6 @@ public class ApiRequest
         else
         {
             QueryParameters.Add(Constants.CompositionKey, value);
-        }
-    }
-
-    protected void AddDownloadProduct(ProductType value)
-    {
-        if (QueryParameters.ContainsKey(Constants.DownloadProductKey))
-        {
-            QueryParameters[Constants.DownloadProductKey] = value;
-        }
-        else
-        {
-            QueryParameters.Add(Constants.DownloadProductKey, value);
         }
     }
 
@@ -436,13 +438,41 @@ public class ApiRequest
         }
     }
 
-    protected void AddGraphicalStyle(GraphicalStyles value)
+    protected void AddImageTechniquesFilter(ImageTechnique value)
+    {
+        if (QueryParameters.ContainsKey(Constants.ImageTechniqueKey))
+        {
+            QueryParameters[Constants.ImageTechniqueKey] = value == ImageTechnique.None
+                ? value
+                : (ImageTechnique)QueryParameters[Constants.ImageTechniqueKey] | value;
+        }
+        else
+        {
+            QueryParameters.Add(Constants.ImageTechniqueKey, value);
+        }
+    }
+
+    protected void AddGraphicalStyle(GraphicalStylesCreative value)
     {
         if (QueryParameters.ContainsKey(Constants.GraphicalStylesKey))
         {
-            QueryParameters[Constants.GraphicalStylesKey] = value == GraphicalStyles.None
+            QueryParameters[Constants.GraphicalStylesKey] = value == GraphicalStylesCreative.None
                 ? value
-                : (GraphicalStyles)QueryParameters[Constants.GraphicalStylesKey] | value;
+                : (GraphicalStylesCreative)QueryParameters[Constants.GraphicalStylesKey] | value;
+        }
+        else
+        {
+            QueryParameters.Add(Constants.GraphicalStylesKey, value);
+        }
+    }
+
+    protected void AddGraphicalStyle(GraphicalStylesEditorial value)
+    {
+        if (QueryParameters.ContainsKey(Constants.GraphicalStylesKey))
+        {
+            QueryParameters[Constants.GraphicalStylesKey] = value == GraphicalStylesEditorial.None
+                ? value
+                : (GraphicalStylesEditorial)QueryParameters[Constants.GraphicalStylesKey] | value;
         }
         else
         {
@@ -530,13 +560,13 @@ public class ApiRequest
         }
     }
 
-    protected void AddOrientation(Orientation value)
+    protected void AddOrientation(OrientationImages value)
     {
         if (QueryParameters.ContainsKey(Constants.OrientationsKey))
         {
-            QueryParameters[Constants.OrientationsKey] = value == Orientation.None
+            QueryParameters[Constants.OrientationsKey] = value == OrientationImages.None
                 ? value
-                : (Orientation)QueryParameters[Constants.OrientationsKey] | value;
+                : (OrientationImages)QueryParameters[Constants.OrientationsKey] | value;
         }
         else
         {
@@ -544,17 +574,17 @@ public class ApiRequest
         }
     }
 
-    protected void AddProductTypes(ProductType value)
+    protected void AddOrientation(OrientationVideos value)
     {
-        if (QueryParameters.ContainsKey(Constants.ProductTypesKey))
+        if (QueryParameters.ContainsKey(Constants.OrientationsKey))
         {
-            QueryParameters[Constants.ProductTypesKey] = value == ProductType.None
+            QueryParameters[Constants.OrientationsKey] = value == OrientationVideos.None
                 ? value
-                : (ProductType)QueryParameters[Constants.ProductTypesKey] | value;
+                : (OrientationVideos)QueryParameters[Constants.OrientationsKey] | value;
         }
         else
         {
-            QueryParameters.Add(Constants.ProductTypesKey, value);
+            QueryParameters.Add(Constants.OrientationsKey, value);
         }
     }
 
@@ -572,19 +602,48 @@ public class ApiRequest
         }
     }
 
-    protected void AddFacetResponseFields(IEnumerable<string> values)
+    protected void AddFacetFields(FacetFieldsCreative value)
     {
-        if (!QueryParameters.ContainsKey(Constants.FacetFieldsKey))
+        if (QueryParameters.ContainsKey(Constants.FacetFieldsKey))
         {
-            QueryParameters.Add(Constants.FacetFieldsKey, values);
+            QueryParameters[Constants.FacetFieldsKey] = value == FacetFieldsCreative.None
+                ? value
+                : (FacetFieldsCreative)QueryParameters[Constants.FacetFieldsKey] | value;
         }
         else
         {
-            var assets = QueryParameters[Constants.FacetFieldsKey] as IEnumerable<string>;
-            assets = assets.Union(values).Distinct();
-            QueryParameters[Constants.FacetFieldsKey] = assets.ToList();
+            QueryParameters.Add(Constants.FacetFieldsKey, value);
         }
     }
+
+    protected void AddFacetFields(FacetFieldsEditorial value)
+    {
+        if (QueryParameters.ContainsKey(Constants.FacetFieldsKey))
+        {
+            QueryParameters[Constants.FacetFieldsKey] = value == FacetFieldsEditorial.None
+                ? value
+                : (FacetFieldsEditorial)QueryParameters[Constants.FacetFieldsKey] | value;
+        }
+        else
+        {
+            QueryParameters.Add(Constants.FacetFieldsKey, value);
+        }
+    }
+
+    protected void AddViewpointsFilter(Viewpoint value)
+    {
+        if (QueryParameters.ContainsKey(Constants.ViewpointKey))
+        {
+            QueryParameters[Constants.ViewpointKey] = value == Viewpoint.None
+                ? value
+                : (Viewpoint)QueryParameters[Constants.ViewpointKey] | value;
+        }
+        else
+        {
+            QueryParameters.Add(Constants.ViewpointKey, value);
+        }
+    }
+
     protected void AddIds(IEnumerable<string> values)
     {
         if (!QueryParameters.ContainsKey(Constants.IdsKey))

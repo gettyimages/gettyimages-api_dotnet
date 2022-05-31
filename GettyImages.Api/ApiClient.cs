@@ -327,6 +327,17 @@ public class ApiClient
     }
 
     /// <summary>
+    ///     Search for images in same series as an image
+    /// </summary>
+    /// <returns>
+    ///     The <see cref="Api.Images.ImagesSameSeries" />.
+    /// </returns>
+    public ImagesSameSeries ImagesSameSeries()
+    {
+        return Api.Images.ImagesSameSeries.GetInstance(_credentials, _baseUrl, _customHandler);
+    }
+
+    /// <summary>
     ///     Get download history for single image
     /// </summary>
     /// <returns>
@@ -357,6 +368,17 @@ public class ApiClient
     public VideosSimilar VideosSimilar()
     {
         return Api.Videos.VideosSimilar.GetInstance(_credentials, _baseUrl, _customHandler);
+    }
+
+    /// <summary>
+    ///     Search for videos in same series as a video
+    /// </summary>
+    /// <returns>
+    ///     The <see cref="Api.Videos.VideosSameSeries" />.
+    /// </returns>
+    public VideosSameSeries VideosSameSeries()
+    {
+        return Api.Videos.VideosSameSeries.GetInstance(_credentials, _baseUrl, _customHandler);
     }
 
     /// <summary>

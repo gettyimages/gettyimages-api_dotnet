@@ -103,6 +103,19 @@ public class SearchImagesEditorialTests
     }
 
     [Fact]
+    public async Task SearchForEditorialImagesWithDownloadProductAndProductId()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesEditorial()
+            .WithPhrase("cat").WithDownloadProduct(ProductType.Premiumaccess, 1234).ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/editorial");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("download_product=premiumaccess%3A1234");
+    }
+
+    [Fact]
     public async Task SearchForEditorialImagesWithEditorialSegment()
     {
         var testHandler = TestUtil.CreateTestHandler();
@@ -201,19 +214,6 @@ public class SearchImagesEditorialTests
     }
 
     [Fact]
-    public async Task SearchForEditorialImagesWithExcludeNudity()
-    {
-        var testHandler = TestUtil.CreateTestHandler();
-
-        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesEditorial()
-            .WithPhrase("cat").WithExcludeNudity().ExecuteAsync();
-
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/editorial");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("exclude_nudity=True");
-    }
-
-    [Fact]
     public async Task SearchForEditorialImagesWithResponseFields()
     {
         var testHandler = TestUtil.CreateTestHandler();
@@ -243,27 +243,25 @@ public class SearchImagesEditorialTests
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesEditorial()
-            .WithPhrase("cat").WithGraphicalStyle(GraphicalStyles.FineArt)
-            .WithGraphicalStyle(GraphicalStyles.Illustration).ExecuteAsync();
-
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/editorial");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("graphical_styles=fine_art%2Cillustration");
-    }
-
-    [Fact]
-    public async Task SearchForBlendedImagesWithGraphicalStyleFilter()
-    {
-        var testHandler = TestUtil.CreateTestHandler();
-
-        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesEditorial()
-            .WithPhrase("cat").WithGraphicalStyle(GraphicalStyles.FineArt | GraphicalStyles.Vector)
+            .WithPhrase("cat").WithGraphicalStyle(GraphicalStylesEditorial.Illustration | GraphicalStylesEditorial.Photography)
             .ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/editorial");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("graphical_styles=fine_art%2Cvector");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("graphical_styles_filter_type=include");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("graphical_styles=photography%2Cillustration");
+    }
+
+    [Fact]
+    public async Task SearchForEditorialImagesWithRelatedSearches()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesEditorial()
+            .WithPhrase("cat").IncludeRelatedSearches().ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/editorial");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("include_related_searches=True");
     }
 
     [Fact]
@@ -326,7 +324,7 @@ public class SearchImagesEditorialTests
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesEditorial()
-            .WithPhrase("cat").WithOrientation(Orientation.Horizontal | Orientation.Square).ExecuteAsync();
+            .WithPhrase("cat").WithOrientation(OrientationImages.Horizontal | OrientationImages.Square).ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/editorial");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -360,25 +358,12 @@ public class SearchImagesEditorialTests
     }
 
     [Fact]
-    public async Task SearchForEditorialImagesWithProductType()
-    {
-        var testHandler = TestUtil.CreateTestHandler();
-
-        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesEditorial()
-            .WithPhrase("cat").WithProductType(ProductType.Easyaccess).ExecuteAsync();
-
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/editorial");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("product_types=easyaccess");
-    }
-
-    [Fact]
     public async Task SearchForEditorialImagesWithSortOrder()
     {
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler).SearchImagesEditorial()
-            .WithPhrase("cat").WithSortOrder(SortOrder.BestMatch).ExecuteAsync();
+            .WithPhrase("cat").WithSortOrder(SortOrderEditorial.BestMatch).ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/editorial");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
@@ -411,5 +396,23 @@ public class SearchImagesEditorialTests
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/editorial");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("start_date=2015-04-01");
+    }
+
+    [Fact]
+    public async Task SearchForEditorialImagesWithFacets()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .SearchImagesEditorial()
+            .IncludeFacets()
+            .WithFacetMaxCount(200)
+            .WithFacetFields(FacetFieldsEditorial.Artists | FacetFieldsEditorial.Locations)
+            .ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/editorial");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("include_facets=True");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("facet_fields=artists%2Clocations");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("maxcount=200");
     }
 }

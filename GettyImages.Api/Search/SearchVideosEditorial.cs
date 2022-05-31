@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using GettyImages.Api.Models;
-using ReleaseStatus = GettyImages.Api.Models.ReleaseStatus;
-using SortOrder = GettyImages.Api.Models.SortOrder;
 
 namespace GettyImages.Api.Search;
 
@@ -38,9 +36,27 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
         return this;
     }
 
+    public SearchVideosEditorial WithGICountryCode(string value)
+    {
+        AddHeaderParameter(Constants.GICountryCode, value);
+        return this;
+    }
+
     public SearchVideosEditorial WithAgeOfPeople(AgeOfPeople value)
     {
         AddAgeOfPeopleFilter(value);
+        return this;
+    }
+
+    public SearchVideosEditorial WithArtists(IEnumerable<string> values)
+    {
+        AddArtists(values);
+        return this;
+    }
+
+    public SearchVideosEditorial WithAspectRatios(AspectRatio value)
+    {
+        AddAspectRatiosFilter(value);
         return this;
     }
 
@@ -56,9 +72,17 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
         return this;
     }
 
-    public SearchVideosEditorial WithDownloadProduct(ProductType value)
+    public SearchVideosEditorial WithComposition(Composition value)
     {
-        AddDownloadProduct(value);
+        AddComposition(value);
+        return this;
+    }
+
+    public SearchVideosEditorial WithDownloadProduct(ProductType productType, int? productId = null)
+    {
+        var productTypeString = productType.ToString();
+        var value = productId == null ? productTypeString : $"{productTypeString}:{productId}";
+        AddQueryParameter(Constants.DownloadProductKey, value);
         return this;
     }
 
@@ -74,13 +98,7 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
         return this;
     }
 
-    public SearchVideosEditorial WithExcludeNudity(bool value = true)
-    {
-        AddQueryParameter(Constants.ExcludeNudity, value);
-        return this;
-    }
-
-    public SearchVideosEditorial WithAvailableFormat(string value)
+    public SearchVideosEditorial WithAvailableFormat(FormatAvailable value)
     {
         AddQueryParameter(Constants.FormatAvailableKey, value);
         return this;
@@ -89,6 +107,18 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
     public SearchVideosEditorial WithFrameRate(FrameRate value)
     {
         AddFrameRate(value);
+        return this;
+    }
+
+    public SearchVideosEditorial IncludeRelatedSearches(bool value = true)
+    {
+        AddQueryParameter(Constants.RelatedSearchesKey, value);
+        return this;
+    }
+
+    public SearchVideosEditorial WithImageTechniques(ImageTechnique value)
+    {
+        AddImageTechniquesFilter(value);
         return this;
     }
 
@@ -110,6 +140,12 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
         return this;
     }
 
+    public SearchVideosEditorial WithOrientation(OrientationVideos value)
+    {
+        AddOrientation(value);
+        return this;
+    }
+
     public SearchVideosEditorial WithPage(int value)
     {
         AddQueryParameter(Constants.PageKey, value);
@@ -128,13 +164,7 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
         return this;
     }
 
-    public SearchVideosEditorial WithProductType(ProductType value)
-    {
-        AddProductTypes(value);
-        return this;
-    }
-
-    public SearchVideosEditorial WithSortOrder(SortOrder value)
+    public SearchVideosEditorial WithSortOrder(SortOrderEditorial value)
     {
         AddQueryParameter(Constants.SortOrderKey, value);
         return this;
@@ -158,9 +188,9 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
         return this;
     }
 
-    public SearchVideosEditorial WithFacetFields(IEnumerable<string> values)
+    public SearchVideosEditorial WithFacetFields(FacetFieldsEditorial value)
     {
-        AddFacetResponseFields(values);
+        AddFacetFields(value);
         return this;
     }
 
@@ -169,7 +199,13 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
         AddQueryParameter(Constants.FacetMaxCountKey, value);
         return this;
     }
-    
+
+    public SearchVideosEditorial WithViewpoints(Viewpoint value)
+    {
+        AddViewpointsFilter(value);
+        return this;
+    }
+
     public SearchVideosEditorial IncludeKeywords()
     {
         AddResponseField("keywords");

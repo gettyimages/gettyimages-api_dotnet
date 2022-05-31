@@ -49,4 +49,10 @@ public class DownloadsVideos : ApiRequest<DownloadAssetResponse>
         AddQueryParameter(Constants.SizeKey, value);
         return this;
     }
+
+    public DownloadsVideos WithUseTeamCredits(bool value = true)
+    {
+        AddQueryParameter(Constants.UseTeamCredits, value);
+        return this;
+    }
 }
