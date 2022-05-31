@@ -93,9 +93,11 @@ public class SearchImagesCreativeByImage : ApiRequest<SearchCreativeImagesByImag
         return this;
     }
 
-    public SearchImagesCreativeByImage WithProductType(ProductType value)
+    public SearchImagesCreativeByImage WithProductType(ProductType productType, int? productId = null)
     {
-        AddProductTypes(value);
+        var productTypeString = productType.ToString();
+        var value = productId == null ? productTypeString : $"{productTypeString}:{productId}";
+        AddQueryParameter(Constants.ProductTypesKey, value);
         return this;
     }
 

@@ -588,20 +588,6 @@ public class ApiRequest
         }
     }
 
-    protected void AddProductTypes(ProductType value)
-    {
-        if (QueryParameters.ContainsKey(Constants.ProductTypesKey))
-        {
-            QueryParameters[Constants.ProductTypesKey] = value == ProductType.None
-                ? value
-                : (ProductType)QueryParameters[Constants.ProductTypesKey] | value;
-        }
-        else
-        {
-            QueryParameters.Add(Constants.ProductTypesKey, value);
-        }
-    }
-
     protected void AddSpecificPeople(IEnumerable<string> values)
     {
         if (!QueryParameters.ContainsKey(Constants.SpecificPeopleKey))
