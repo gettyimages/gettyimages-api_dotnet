@@ -17,6 +17,8 @@
         <RepositoryUrl>https://github.com/gettyimages/gettyimages-api_dotnet</RepositoryUrl>
         <RepositoryType>GitHub</RepositoryType>
         <LangVersion>10</LangVersion>
+        <SignAssembly>True</SignAssembly>
+        <AssemblyOriginatorKeyFile>../GettyImages.Api.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Polly.Extensions.Http" Version="3.0.0" />

@@ -10,6 +10,10 @@
         <OutputType>Library</OutputType>
 
         <StartupObject />
+
+        <SignAssembly>True</SignAssembly>
+
+        <AssemblyOriginatorKeyFile>../GettyImages.Api.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
 
     <ItemGroup>
