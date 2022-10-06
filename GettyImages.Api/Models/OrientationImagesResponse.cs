@@ -10,6 +10,7 @@ namespace GettyImages.Api.Models
         PanoramicHorizontal = 2,
         PanoramicVertical = 4,
         Square = 8,
-        Vertical = 16
+        Vertical = 16,
+        Unknown = 32
     }
 }
