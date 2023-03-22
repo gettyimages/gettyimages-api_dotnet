@@ -31,6 +31,13 @@ public class ApiClient
         NormalizeAndSetBaseUrl(baseUrl);
     }
 
+    private ApiClient(string apiKey,
+        string baseUrl, DelegatingHandler customHandler) : this(baseUrl, customHandler)
+    {
+        _customHandler = customHandler;
+        _credentials = Credentials.GetInstance(apiKey, GetOAuthBaseUrl());
+    }
+
     private ApiClient(string apiKey, string apiSecret, string refreshToken,
         string baseUrl, DelegatingHandler customHandler) : this(baseUrl, customHandler)
     {
@@ -51,6 +58,11 @@ public class ApiClient
     {
         _customHandler = customHandler;
         _credentials = Credentials.GetInstance(apiKey, apiSecret, userName, userPassword, GetOAuthBaseUrl());
+    }
+
+    public static ApiClient GetApiClientWithApiKey(string apiKey, DelegatingHandler customHandler = null)
+    {
+        return new ApiClient(apiKey, DefaultApiUri, customHandler);
     }
 
     public static ApiClient GetApiClientWithClientCredentials(string apiKey, string apiSecret)

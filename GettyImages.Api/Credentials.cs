@@ -20,6 +20,13 @@ public class Credentials
     private readonly string _baseUrl;
     private Token _accessToken;
 
+    private Credentials(string apiKey, string baseUrl)
+    {
+        _baseUrl = baseUrl;
+        CredentialType = CredentialType.ApiKey;
+        ApiKey = apiKey;
+    }
+
     private Credentials(string apiKey, string apiSecret, string baseUrl)
     {
         _baseUrl = baseUrl;
@@ -153,6 +160,11 @@ public class Credentials
     internal void ResetAccessToken()
     {
         _accessToken = null;
+    }
+
+    public static Credentials GetInstance(string apiKey, string baseUrl)
+    {
+        return new Credentials(apiKey, baseUrl);
     }
 
     public static Credentials GetInstance(string apiKey, string apiSecret, string baseUrl)
