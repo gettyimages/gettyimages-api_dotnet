@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using GettyImages.Api.Artists;
 using GettyImages.Api.AssetChanges;
@@ -21,6 +20,7 @@ public class ApiClient
 {
     private const string Slash = "/";
     private const string DefaultApiUri = "https://api.gettyimages.com/v3";
+    private const string AuthApiUrl = "https://authentication.gettyimages.com";
     private readonly Credentials _credentials;
     private readonly DelegatingHandler _customHandler;
     private string _baseUrl;
@@ -35,21 +35,21 @@ public class ApiClient
         string baseUrl, DelegatingHandler customHandler) : this(baseUrl, customHandler)
     {
         _customHandler = customHandler;
-        _credentials = Credentials.GetInstance(apiKey, GetOAuthBaseUrl());
+        _credentials = Credentials.GetInstance(apiKey, AuthApiUrl);
     }
 
     private ApiClient(string apiKey, string apiSecret, string refreshToken,
         string baseUrl, DelegatingHandler customHandler) : this(baseUrl, customHandler)
     {
         _customHandler = customHandler;
-        _credentials = Credentials.GetInstance(apiKey, apiSecret, refreshToken, GetOAuthBaseUrl());
+        _credentials = Credentials.GetInstance(apiKey, apiSecret, refreshToken, AuthApiUrl);
     }
 
     private ApiClient(string apiKey, string apiSecret, string baseUrl, DelegatingHandler customHandler)
         : this(baseUrl, customHandler)
     {
         _customHandler = customHandler;
-        _credentials = Credentials.GetInstance(apiKey, apiSecret, GetOAuthBaseUrl());
+        _credentials = Credentials.GetInstance(apiKey, apiSecret, AuthApiUrl);
     }
 
     private ApiClient(string apiKey, string apiSecret, string userName, string userPassword,
@@ -57,7 +57,7 @@ public class ApiClient
         : this(baseUrl, customHandler)
     {
         _customHandler = customHandler;
-        _credentials = Credentials.GetInstance(apiKey, apiSecret, userName, userPassword, GetOAuthBaseUrl());
+        _credentials = Credentials.GetInstance(apiKey, apiSecret, userName, userPassword, AuthApiUrl);
     }
 
     public static ApiClient GetApiClientWithApiKey(string apiKey, DelegatingHandler customHandler = null)
@@ -132,12 +132,6 @@ public class ApiClient
     private void NormalizeAndSetBaseUrl(string baseUrl)
     {
         _baseUrl = baseUrl.EndsWith(Slash) ? baseUrl.Remove(baseUrl.Length - 1) : baseUrl;
-    }
-
-    private string GetOAuthBaseUrl()
-    {
-        var oAuthBaseUrl = _baseUrl.Substring(0, _baseUrl.LastIndexOf(Slash, StringComparison.Ordinal));
-        return oAuthBaseUrl;
     }
 
     /// <summary>

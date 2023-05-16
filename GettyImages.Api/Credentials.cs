@@ -150,7 +150,7 @@ public class Credentials
         {
             AccessToken = response.AccessToken,
             Expiration =
-                DateTime.UtcNow.Add(TimeSpan.FromSeconds(int.Parse(response.ExpiresIn))),
+                DateTime.UtcNow.Add(TimeSpan.FromSeconds(response.ExpiresIn)),
             RefreshToken = response.RefreshToken
         };
 
