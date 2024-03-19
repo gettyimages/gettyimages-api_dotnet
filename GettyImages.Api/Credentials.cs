@@ -138,7 +138,7 @@ public class Credentials
              CredentialType != CredentialType.RefreshToken)
             ||
             (_accessToken != null &&
-             _accessToken.Expiration >= DateTime.UtcNow.AddMinutes(-5)))
+             _accessToken.Expiration >= DateTime.UtcNow.AddMinutes(5)))
         {
             return _accessToken;
         }
