@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.AiGenerator;
 using GettyImages.Api.Artists;
 using GettyImages.Api.AssetChanges;
 using GettyImages.Api.AssetLicensing;
@@ -616,5 +617,16 @@ public class ApiClient
     public Customers.Customers Customers()
     {
         return Api.Customers.Customers.GetInstance(_credentials, _baseUrl, _customHandler);
+    }
+    
+    /// <summary>
+    ///     Generate images
+    /// </summary>
+    /// <returns>
+    ///     The <see cref="ImageGenerations" />.
+    /// </returns>
+    public ImageGenerations GenerateImages()
+    {
+        return ImageGenerations.GetInstance(_credentials, _baseUrl, _customHandler);
     }
 }
