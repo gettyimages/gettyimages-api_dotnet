@@ -7,11 +7,10 @@ using Xunit;
 
 namespace UnitTests.AiGenerator;
 
-// TODO POST /v3/ai/image-generations
-// TODO Support a one-step call to generate and get images?
 public class GenerateImagesTests : IAsyncLifetime
 {
-    private image_generations_request _requestPayload;
+    private image_generations_request? _requestPayload;
+    private string _absoluteUri;
 
     public async Task InitializeAsync()
     {
@@ -30,8 +29,11 @@ public class GenerateImagesTests : IAsyncLifetime
                 ProjectCode = "some project code"
             })
             .ExecuteAsync();
+// TODO Support a one-step call to generate and get images?
 
-        _requestPayload = await testHandler.Request.Content.ReadFromJsonAsync<image_generations_request>();
+        _requestPayload = await testHandler.Request.Content!.ReadFromJsonAsync<image_generations_request>();
+        _absoluteUri = testHandler.Request.RequestUri!.AbsoluteUri;
+
     }
 
     [Fact]
@@ -50,6 +52,12 @@ public class GenerateImagesTests : IAsyncLifetime
     public void MediaTypeIsAttached()
     {
         _requestPayload.media_type.Should().Be("photography");
+    }
+
+    [Fact]
+    public void UriIsExpected()
+    {
+        _absoluteUri.Should().Be("https://api.gettyimages.com/v3/ai/image-generations");
     }
 
     public class image_generations_request
