@@ -9,7 +9,7 @@ public class ReDownloadTests
     // TODO POST /v3/ai/redownloads
     // Re-download a previously downloaded item
     [Fact]
-    public async Task TODO()
+    public Task TODO()
     {
         throw new NotImplementedException();
     }

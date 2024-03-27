@@ -9,7 +9,7 @@ public class GetVariationsTests
     // TODO POST /v3/ai/image-generations/{generationRequestId}/images/{index}/variations
     // Get variations on a generated image
     [Fact]
-    public async Task TODO()
+    public Task TODO()
     {
         throw new NotImplementedException();
     }

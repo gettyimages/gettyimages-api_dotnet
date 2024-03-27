@@ -8,7 +8,7 @@ public class GetDownloadGeneratedImageTests
 {
     // TODO GET /v3/ai/image-generations/{generationRequestId}/images/{index}/download
     [Fact]
-    public async Task TODO()
+    public Task TODO()
     {
         throw new NotImplementedException();
     }

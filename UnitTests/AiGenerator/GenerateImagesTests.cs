@@ -29,7 +29,6 @@ public class GenerateImagesTests : IAsyncLifetime
                 ProjectCode = "some project code"
             })
             .ExecuteAsync();
-// TODO Support a one-step call to generate and get images?
 
         _requestPayload = await testHandler.Request.Content!.ReadFromJsonAsync<image_generations_request>();
         _absoluteUri = testHandler.Request.RequestUri!.AbsoluteUri;
