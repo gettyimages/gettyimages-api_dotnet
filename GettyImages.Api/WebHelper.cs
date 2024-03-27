@@ -1,9 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading;
 using System.Threading.Tasks;
 using GettyImages.Api.Handlers;
 
@@ -101,6 +102,57 @@ internal class WebHelper
 
             throw;
         }
+    }
+
+    internal async Task<HttpResponseMessage> GetRawHttpResponseMessageAsync(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
+        IEnumerable<KeyValuePair<string, string>> headerParameters, CancellationToken cancellationToken = default)
+    {
+        return await RetryOnUnauthorizedAction(Action);
+
+        async Task<HttpResponseMessage> Action()
+        {
+            using var client = new HttpClient(await GetHandlersAsync(headerParameters));
+            var uri = _baseAddress + path;
+            var builder = new UriBuilder(uri)
+            {
+                Query =
+                    BuildQuery(queryParameters)
+            };
+
+            return await client.GetAsyncWithRetryPolicy(builder.Uri);
+        }
+    }
+
+
+    internal async Task<HttpResponseMessage> PostQueryRawHttpResponseMessageAsync(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
+        IEnumerable<KeyValuePair<string, string>> headerParameters, HttpContent bodyParameter)
+    {
+        return await RetryOnUnauthorizedAction(Action);
+
+        async Task<HttpResponseMessage> Action()
+        {
+            using var client = new HttpClient(await GetHandlersAsync(headerParameters));
+            var uri = _baseAddress + path;
+            var requestUri = new UriBuilder(uri) { Query = BuildQuery(queryParameters) }.Uri;
+
+            return await client.PostAsyncWithRetryPolicy(requestUri, bodyParameter);
+        }
+    }
+
+    private static async Task<HttpResponseMessage> RetryOnUnauthorizedAction(Func<Task<HttpResponseMessage>> action)
+    {
+        var httpResponse = await action();
+
+        try
+        {
+            await httpResponse.HandleResponseAsync();
+        }
+        catch (UnauthorizedException)
+        {
+            httpResponse = await action();
+            await httpResponse.HandleResponseAsync();
+        }
+        return httpResponse;
     }
 
     internal async Task PostQueryAsync(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,

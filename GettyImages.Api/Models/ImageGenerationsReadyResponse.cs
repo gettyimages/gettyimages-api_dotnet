@@ -1,6 +1,6 @@
 ﻿namespace GettyImages.Api.Models;
 
-public class ImageGenerationsResponse
+public class ImageGenerationsReadyResponse
 {
     public string GenerationRequestId { get; set; }
 
