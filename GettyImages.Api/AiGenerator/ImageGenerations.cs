@@ -35,7 +35,7 @@ public class ImageGenerations : ApiRequest
     }
 
     // TODO - Generalize
-    public new async Task<ImageGenerationsReadyResponse> ExecuteAsync(TimeSpan pollDelay, TimeSpan timeout)
+    public async Task<ImageGenerationsReadyResponse> ExecuteAsync(TimeSpan pollDelay, TimeSpan timeout)
     {
         var helper = new WebHelper(Credentials, BaseUrl, _customHandler);
 
