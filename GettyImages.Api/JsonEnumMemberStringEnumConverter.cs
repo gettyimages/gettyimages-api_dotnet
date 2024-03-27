@@ -23,7 +23,7 @@ public class JsonEnumMemberStringEnumConverter : JsonConverterFactory
     {
         this.namingPolicy = namingPolicy;
         this.allowIntegerValues = allowIntegerValues;
-        this.baseConverter = new JsonStringEnumConverter(namingPolicy, allowIntegerValues);
+        baseConverter = new JsonStringEnumConverter(namingPolicy, allowIntegerValues);
     }
 
     public override bool CanConvert(Type typeToConvert) => baseConverter.CanConvert(typeToConvert);
