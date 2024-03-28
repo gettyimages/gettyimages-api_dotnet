@@ -1,7 +1,6 @@
 using System;
 using System.Net;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 using GettyImages.Api.Models;
 
@@ -46,31 +45,12 @@ public class ImageGenerations : ApiRequest
 
         if (httpResponseMessage.StatusCode == HttpStatusCode.Accepted)
         {
-            var pollingPath = GetPollingPath(httpResponseMessage);
-
-            try
-            {
-                var cancellationTokenWithTimeout = new CancellationTokenSource(timeout);
-                // TODO - Can we use Polly instead of half-rolling our own timeout logic?
-
-                while (httpResponseMessage.StatusCode == HttpStatusCode.Accepted)
-                {
-                    await Task.Delay(pollDelay, cancellationTokenWithTimeout.Token);
-
-                    httpResponseMessage = await helper.GetRawHttpResponseMessageAsync(BuildQuery(QueryParameters),
-                        path: pollingPath, BuildHeaders(HeaderParameters), cancellationTokenWithTimeout.Token);
-                }
-
-                cancellationTokenWithTimeout.Token.ThrowIfCancellationRequested();
-            }
-            catch (OperationCanceledException)
-            {
-                throw new SdkException("Call timed out", HttpStatusCode.GatewayTimeout);
-            }
+            var generationRequestId = httpResponseMessage.GetContentHandleResponseAsync<ImageGenerationsPendingResponse>().Result.GenerationRequestId;
+            var generatedImages = GetGeneratedImages.GetInstance(Credentials, BaseUrl, _customHandler).WithGenerationRequestId(generationRequestId);
+            return await generatedImages.ExecuteAsync(pollDelay, timeout);
         }
 
         await httpResponseMessage.HandleResponseAsync();
-
         return await httpResponseMessage.GetContentHandleResponseAsync<ImageGenerationsReadyResponse>();
     }
  

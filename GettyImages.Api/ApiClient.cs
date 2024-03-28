@@ -623,10 +623,21 @@ public class ApiClient
     ///     Generate images
     /// </summary>
     /// <returns>
-    ///     The <see cref="ImageGenerations" />.
+    ///     The <see cref="AiGenerator.ImageGenerations" />.
     /// </returns>
-    public ImageGenerations GenerateImages()
+    public ImageGenerations ImageGenerations()
     {
-        return ImageGenerations.GetInstance(_credentials, _baseUrl, _customHandler);
+        return AiGenerator.ImageGenerations.GetInstance(_credentials, _baseUrl, _customHandler);
+    }
+    
+    /// <summary>
+    ///     Get generated images
+    /// </summary>
+    /// <returns>
+    ///     The <see cref="AiGenerator.GetGeneratedImages" />.
+    /// </returns>
+    public GetGeneratedImages GetGeneratedImages()
+    {
+        return AiGenerator.GetGeneratedImages.GetInstance(_credentials, _baseUrl, _customHandler);
     }
 }

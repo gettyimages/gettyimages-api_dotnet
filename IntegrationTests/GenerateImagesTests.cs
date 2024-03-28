@@ -16,30 +16,49 @@ public class GenerateImagesTests : IClassFixture<GenerateImagesTests.Fixture>
     }
 
     [Fact]
-    public void GenerationRequestIdReturned()
+    public void ImageGenerationsResponse_GenerationRequestIdReturned()
     {
-        _fixture.Response.GenerationRequestId.Should().NotBeNullOrEmpty();
+        _fixture.ImageGenerationsResponse.GenerationRequestId.Should().NotBeNullOrEmpty();
     }
 
     [Fact]
-    public void ResultsArePresent()
+    public void ImageGenerationsResponse_ResultsArePresent()
     {
-        _fixture.Response.Results.Should().NotBeNullOrEmpty();
+        _fixture.ImageGenerationsResponse.Results.Should().NotBeNullOrEmpty();
     }
 
     [Fact]
-    public void MultipleResultsArePresent()
+    public void ImageGenerationsResponse_MultipleResultsArePresent()
     {
-        _fixture.Response.Results.Length.Should().BePositive();
+        _fixture.ImageGenerationsResponse.Results.Length.Should().BePositive();
+    }
+
+    
+    [Fact]
+    public void GetGeneratedImagesResponse_GenerationRequestIdReturned()
+    {
+        _fixture.GetGeneratedImagesResponse.GenerationRequestId.Should().NotBeNullOrEmpty();
+    }
+
+    [Fact]
+    public void GetGeneratedImagesResponse_ResultsArePresent()
+    {
+        _fixture.GetGeneratedImagesResponse.Results.Should().NotBeNullOrEmpty();
+    }
+
+    [Fact]
+    public void GetGeneratedImagesResponse_MultipleResultsArePresent()
+    {
+        _fixture.GetGeneratedImagesResponse.Results.Length.Should().BePositive();
     }
 
     public class Fixture : BaseFixture, IAsyncLifetime
     {
         public async Task InitializeAsync()
         {
-            Response = await ApiClient
+            ImageGenerationsResponse = await ApiClient
                 .GetApiClientWithResourceOwnerCredentials(ApiKey, ApiSecret, UserName, UserPassword)
-                .GenerateImages()
+                .ImageGenerations()
                 .WithDownloadDetails(new ImageGenerationsRequest
                 {
                     Prompt = "a prompt",
@@ -51,9 +70,22 @@ public class GenerateImagesTests : IClassFixture<GenerateImagesTests.Fixture>
                     ProductId = ProductId,
                 })
                 .ExecuteAsync();
+
+            if (ImageGenerationsResponse != null && ImageGenerationsResponse.GenerationRequestId != null)
+            {
+                GetGeneratedImagesResponse = await ApiClient
+                    .GetApiClientWithResourceOwnerCredentials(ApiKey, ApiSecret, UserName, UserPassword)
+                    .GetGeneratedImages()
+                    .WithGenerationRequestId(ImageGenerationsResponse.GenerationRequestId)
+                    .ExecuteAsync();
+            }
         }
 
-        public ImageGenerationsReadyResponse Response { get; set; }
+        // TODO - Naming is confusing
+        public ImageGenerationsReadyResponse GetGeneratedImagesResponse { get; private set; }
+
+        // TODO - Naming is confusing
+        public ImageGenerationsReadyResponse ImageGenerationsResponse { get; private set; }
 
         public Task DisposeAsync()
         {
