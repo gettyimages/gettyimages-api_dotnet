@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -77,6 +77,6 @@ public class ImageGenerations : ApiRequest
     private string GetPollingPath(HttpResponseMessage httpResponseMessage)
     {
         var pendingResult = httpResponseMessage.GetContentHandleResponseAsync<ImageGenerationsPendingResponse>();
-        return $"/ai/image-generations/{pendingResult.Result}";
+        return $"/ai/image-generations/{pendingResult.Result.GenerationRequestId}";
     }
 }
