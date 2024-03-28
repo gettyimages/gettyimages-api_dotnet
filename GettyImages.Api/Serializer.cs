@@ -1,6 +1,5 @@
-﻿using System.IO;
+using System.IO;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace GettyImages.Api;
@@ -10,7 +9,7 @@ public static class Serializer
     private static readonly JsonSerializerOptions JsonSerializerOptions = new()
     {
         PropertyNamingPolicy = new JsonSnakeCaseNamingPolicy(),
-        Converters = { new JsonStringEnumConverter() }
+        Converters = { new JsonEnumMemberStringEnumConverter() }
     };
 
     public static T Deserialize<T>(string requestString)
