@@ -27,6 +27,12 @@ public class GetGeneratedImageDownload : PolledPathApiRequest<DownloadGeneratedI
         return this;
     }
 
+    internal GetGeneratedImageDownload WithPath(string path)
+    {
+        Path = path;
+        return this;
+    }
+
     public new Task<DownloadGeneratedImageReadyResponse> ExecuteAsync()
     {
         return ExecuteAsync(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(45));

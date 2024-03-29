@@ -55,6 +55,7 @@ public class ImageGenerations : ApiRequest
         return await httpResponseMessage.GetContentHandleResponseAsync<ImageGenerationsReadyResponse>();
     }
  
+    // TODO - Remove
     private string GetPollingPath(HttpResponseMessage httpResponseMessage)
     {
         var pendingResult = httpResponseMessage.GetContentHandleResponseAsync<ImageGenerationsPendingResponse>();

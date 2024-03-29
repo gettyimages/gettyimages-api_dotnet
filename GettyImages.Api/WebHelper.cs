@@ -123,7 +123,6 @@ internal class WebHelper
         }
     }
 
-
     internal async Task<HttpResponseMessage> PostQueryRawHttpResponseMessageAsync(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
         IEnumerable<KeyValuePair<string, string>> headerParameters, HttpContent bodyParameter)
     {
@@ -136,6 +135,22 @@ internal class WebHelper
             var requestUri = new UriBuilder(uri) { Query = BuildQuery(queryParameters) }.Uri;
 
             return await client.PostAsyncWithRetryPolicy(requestUri, bodyParameter);
+        }
+    }
+
+    internal async Task<HttpResponseMessage> PutQueryRawHttpResponseMessageAsync(IEnumerable<KeyValuePair<string, string>> queryParameters, string path,
+        IEnumerable<KeyValuePair<string, string>> headerParameters, HttpContent bodyParameter)
+    {
+        return await RetryOnUnauthorizedAction(Action);
+
+        // TODO - DRY with PostQueryRawHttpResponseMessageAsync?  
+        async Task<HttpResponseMessage> Action()
+        {
+            using var client = new HttpClient(await GetHandlersAsync(headerParameters));
+            var uri = _baseAddress + path;
+            var requestUri = new UriBuilder(uri) { Query = BuildQuery(queryParameters) }.Uri;
+
+            return await client.PutAsyncWithRetryPolicy(requestUri, bodyParameter);
         }
     }
 

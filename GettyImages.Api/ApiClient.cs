@@ -654,4 +654,16 @@ public class ApiClient
     {
         return AiGenerator.GetGeneratedImageDownload.GetInstance(_credentials, _baseUrl, _customHandler);
     }
+
+    // TODO - Naming?
+    /// <summary>
+    ///     Download a generate image
+    /// </summary>
+    /// <returns>
+    ///     The <see cref="AiGenerator.DownloadGeneratedImage" />.
+    /// </returns>
+    public DownloadGeneratedImage DownloadGeneratedImage()
+    {
+        return AiGenerator.DownloadGeneratedImage.GetInstance(_credentials, _baseUrl, _customHandler);
+    }
 }
