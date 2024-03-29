@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -6,32 +6,32 @@ using GettyImages.Api.Models;
 
 namespace GettyImages.Api.AiGenerator;
 
-// TODO - Naming? "GenerateImages"?
-// TODO - Generalize: CallAndPollApiRequest
-public class ImageGenerations : ApiRequest
+// TODO - Naming
+public class GetGeneratedImageVariations : ApiRequest
 {
-    private ImageGenerations(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(
+    private GetGeneratedImageVariations(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(
         customHandler)
     {
         Credentials = credentials;
         BaseUrl = baseUrl;
     }
 
-    internal static ImageGenerations GetInstance(Credentials credentials, string baseUrl,
-        DelegatingHandler customHandler)
-    {
-        return new ImageGenerations(credentials, baseUrl, customHandler);
-    }
-
-    public ImageGenerations With(ImageGenerationsRequest value)
-    {
-        BodyParameter = value;
-        return this;
-    }
-
     public new Task<ImageGenerationsReadyResponse> ExecuteAsync()
     {
         return ExecuteAsync(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(45));
+    }
+
+    internal static GetGeneratedImageVariations GetInstance(Credentials credentials, string baseUrl,
+        DelegatingHandler customHandler)
+    {
+        return new GetGeneratedImageVariations(credentials, baseUrl, customHandler);
+    }
+    
+    public GetGeneratedImageVariations With(string generationRequestId, int index, GenerationVariationsRequest generationVariationsRequest)
+    {
+        Path = $"/ai/image-generations/{generationRequestId}/images/{index}/variations";
+        BodyParameter = generationVariationsRequest;
+        return this;
     }
 
     // TODO - Generalize
@@ -40,7 +40,7 @@ public class ImageGenerations : ApiRequest
         var helper = new WebHelper(Credentials, BaseUrl, _customHandler);
 
         var httpResponseMessage = await helper.PostQueryRawHttpResponseMessageAsync(BuildQuery(QueryParameters),
-            path: "/ai/image-generations", BuildHeaders(HeaderParameters), BuildBody());
+            path: Path, BuildHeaders(HeaderParameters), BuildBody());
 
         await httpResponseMessage.HandleResponseAsync();
 

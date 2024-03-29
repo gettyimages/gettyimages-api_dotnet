@@ -20,8 +20,7 @@ public class DownloadGeneratedImage : ApiRequest
     {
         return new DownloadGeneratedImage(credentials, baseUrl, customHandler);
     }
-    
-    
+
     public DownloadGeneratedImage With(string generationRequestId, int index, GeneratedImageDownloadRequest downloadRequest)
     {
         // TODO - DRY with GetGeneratedImageDownload.With/Path - Extract to base class?  

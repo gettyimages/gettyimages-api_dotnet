@@ -105,6 +105,30 @@ public class AiGeneratorTests : IClassFixture<AiGeneratorTests.Fixture>
         _fixture.GetDownloadSizesResponse.DownloadSizes[0].Width.Should().BePositive();
     }
 
+    [Fact]
+    public void GetGeneratedImageVariationsResponse_GenerationRequestId()
+    {
+        _fixture.GetGeneratedImageVariationsResponse.GenerationRequestId.Should().NotBeNullOrEmpty();
+    }
+
+    [Fact]
+    public void GetGeneratedImageVariationsResponse_Results()
+    {
+        _fixture.GetGeneratedImageVariationsResponse.Results.Length.Should().BePositive();
+    }
+
+    [Fact]
+    public void GetGeneratedImageVariationsResponse_Results_Url()
+    {
+        _fixture.GetGeneratedImageVariationsResponse.Results[1].Url.Should().NotBeNullOrEmpty();
+    }
+
+    [Fact]
+    public void GetGeneratedImageVariationsResponse_Results_Index()
+    {
+        _fixture.GetGeneratedImageVariationsResponse.Results[1].Index.Should().BePositive();
+    }
+
     public class Fixture : BaseFixture, IAsyncLifetime
     {
         public async Task InitializeAsync()
@@ -147,7 +171,19 @@ public class AiGeneratorTests : IClassFixture<AiGeneratorTests.Fixture>
                 .GetDownloadSizes()
                 .With(generationRequestId: ImageGenerationsResponse.GenerationRequestId, index: 3)
                 .ExecuteAsync();
+            
+            GetGeneratedImageVariationsResponse = await  ApiClient
+                .GetApiClientWithResourceOwnerCredentials(ApiKey, ApiSecret, UserName, UserPassword)
+                .GetGeneratedImageVariations()
+                .With(generationRequestId: ImageGenerationsResponse.GenerationRequestId, index: 3, new GenerationVariationsRequest
+                {
+                    Notes = "API SDK Integration Test",
+                    ProductId = ProductId
+                })
+                .ExecuteAsync();
         }
+
+        public ImageGenerationsReadyResponse GetGeneratedImageVariationsResponse { get; private set; }
 
         public GeneratedDownloadSizesResponse GetDownloadSizesResponse { get; private set; }
 

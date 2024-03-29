@@ -678,4 +678,16 @@ public class ApiClient
     {
         return AiGenerator.GetDownloadSizes.GetInstance(_credentials, _baseUrl, _customHandler);
     }
+
+    // TODO - Naming?
+    /// <summary>
+    ///     Get variations on a generated image
+    /// </summary>
+    /// <returns>
+    ///     The <see cref="GetGeneratedImageVariations" />.
+    /// </returns>
+    public GetGeneratedImageVariations GetGeneratedImageVariations()
+    {
+        return AiGenerator.GetGeneratedImageVariations.GetInstance(_credentials, _baseUrl, _customHandler);
+    }
 }
