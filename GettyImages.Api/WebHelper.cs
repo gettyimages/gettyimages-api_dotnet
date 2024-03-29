@@ -143,15 +143,13 @@ internal class WebHelper
     {
         return await RetryOnUnauthorizedAction(Action);
 
-        // TODO - DRY with PostQueryRawHttpResponseMessageAsync?  
         async Task<HttpResponseMessage> Action()
         {
             using var client = new HttpClient(await GetHandlersAsync(headerParameters));
             var uri = _baseAddress + path;
             var requestUri = new UriBuilder(uri) { Query = BuildQuery(queryParameters) }.Uri;
 
-            var result = await client.PutAsyncWithRetryPolicy(requestUri, bodyParameter);
-            return result;
+            return await client.PutAsyncWithRetryPolicy(requestUri, bodyParameter);
         }
     }
 

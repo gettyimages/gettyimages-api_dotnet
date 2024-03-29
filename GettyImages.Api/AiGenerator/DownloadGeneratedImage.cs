@@ -24,7 +24,6 @@ public class DownloadGeneratedImage : ApiRequest
     public DownloadGeneratedImage With(string generationRequestId, int index,
         GeneratedImageDownloadRequest downloadRequest)
     {
-        // TODO - DRY with GetGeneratedImageDownload.With/Path - Extract to base class?  
         Path = $"/ai/image-generations/{generationRequestId}/images/{index}/download";
         BodyParameter = downloadRequest;
         return this;
@@ -35,7 +34,6 @@ public class DownloadGeneratedImage : ApiRequest
         return ExecuteAsync(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(45));
     }
 
-    // TODO - Generalize with other Put/Post polling request starts?
     public async Task<DownloadGeneratedImageReadyResponse> ExecuteAsync(TimeSpan pollDelay, TimeSpan timeout)
     {
         var helper = new WebHelper(Credentials, BaseUrl, _customHandler);
