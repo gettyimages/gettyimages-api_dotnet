@@ -6,7 +6,7 @@ using GettyImages.Api.Models;
 
 namespace GettyImages.Api.AiGenerator;
 
-// TODO - Naming?
+// TODO - Naming? "GenerateImages"?
 // TODO - Generalize: CallAndPollApiRequest
 public class ImageGenerations : ApiRequest
 {
