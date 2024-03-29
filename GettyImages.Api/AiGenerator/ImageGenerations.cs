@@ -5,7 +5,6 @@ using GettyImages.Api.Models;
 
 namespace GettyImages.Api.AiGenerator;
 
-// TODO - Naming? "GenerateImages"?
 public class ImageGenerations : ImageGenerationsApiRequest
 {
     private ImageGenerations(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(

@@ -6,7 +6,6 @@ using Xunit;
 
 namespace IntegrationTests;
 
-// TODO - README for secrets
 /// <summary>
 /// The AI Generator operations are more complex than the other operations in the API.
 /// Locally-run integration tests are warranted to ensure that the operations are functioning as expected.
@@ -217,10 +216,8 @@ public class AiGeneratorTests : IClassFixture<AiGeneratorTests.Fixture>
 
         public DownloadGeneratedImageReadyResponse DownloadGeneratedImageResponse { get; private set; }
 
-        // TODO - Naming is confusing
         public ImageGenerationsReadyResponse GetGeneratedImagesResponse { get; private set; }
 
-        // TODO - Naming is confusing
         public ImageGenerationsReadyResponse ImageGenerationsResponse { get; private set; }
 
         public Task DisposeAsync()

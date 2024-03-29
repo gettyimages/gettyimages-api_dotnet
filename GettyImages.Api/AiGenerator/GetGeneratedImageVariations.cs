@@ -6,7 +6,6 @@ using GettyImages.Api.Models;
 
 namespace GettyImages.Api.AiGenerator;
 
-// TODO - Naming
 public class GetGeneratedImageVariations : ImageGenerationsApiRequest
 {
     private GetGeneratedImageVariations(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(

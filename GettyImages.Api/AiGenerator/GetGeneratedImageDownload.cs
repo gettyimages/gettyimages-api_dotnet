@@ -5,7 +5,6 @@ using GettyImages.Api.Models;
 
 namespace GettyImages.Api.AiGenerator;
 
-// TODO - Naming?
 public class GetGeneratedImageDownload : PolledPathApiRequest<DownloadGeneratedImageReadyResponse>
 {
     private GetGeneratedImageDownload(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(

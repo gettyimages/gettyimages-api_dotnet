@@ -619,7 +619,6 @@ public class ApiClient
         return Api.Customers.Customers.GetInstance(_credentials, _baseUrl, _customHandler);
     }
     
-// TODO - Naming?
     /// <summary>
     ///     Generate images
     /// </summary>
@@ -631,9 +630,8 @@ public class ApiClient
         return AiGenerator.ImageGenerations.GetInstance(_credentials, _baseUrl, _customHandler);
     }
     
-// TODO - Naming?
     /// <summary>
-    ///     Get generated images
+    ///     Get generated images after using <see cref="ImageGenerations"/>
     /// </summary>
     /// <returns>
     ///     The <see cref="AiGenerator.GetGeneratedImages" />.
@@ -643,7 +641,6 @@ public class ApiClient
         return AiGenerator.GetGeneratedImages.GetInstance(_credentials, _baseUrl, _customHandler);
     }
     
-// TODO - Naming?
     /// <summary>
     ///     Get generated image download
     /// </summary>
@@ -655,7 +652,6 @@ public class ApiClient
         return AiGenerator.GetGeneratedImageDownload.GetInstance(_credentials, _baseUrl, _customHandler);
     }
 
-    // TODO - Naming?
     /// <summary>
     ///     Download a generated image
     /// </summary>
@@ -667,7 +663,6 @@ public class ApiClient
         return AiGenerator.DownloadGeneratedImage.GetInstance(_credentials, _baseUrl, _customHandler);
     }
 
-    // TODO - Naming?
     /// <summary>
     ///     Get download sizes for a generated image
     /// </summary>
@@ -679,7 +674,6 @@ public class ApiClient
         return AiGenerator.GetDownloadSizes.GetInstance(_credentials, _baseUrl, _customHandler);
     }
 
-    // TODO - Naming?
     /// <summary>
     ///     Get variations on a generated image
     /// </summary>
@@ -691,7 +685,6 @@ public class ApiClient
         return AiGenerator.GetGeneratedImageVariations.GetInstance(_credentials, _baseUrl, _customHandler);
     }
     
-    // TODO - Naming?
     /// <summary>
     ///     Redownload a generated image
     /// </summary>
@@ -703,4 +696,3 @@ public class ApiClient
         return AiGenerator.GeneratedImageRedownload.GetInstance(_credentials, _baseUrl, _customHandler);
     }
 }
-
