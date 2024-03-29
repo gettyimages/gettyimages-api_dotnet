@@ -8,35 +8,34 @@ using GettyImages.Api.Models;
 namespace GettyImages.Api.AiGenerator;
 
 // TODO - Naming?
-public class GetGeneratedImages : ApiRequest
+public class GetGeneratedImageDownload : ApiRequest
 {
-    private GetGeneratedImages(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(
+    private GetGeneratedImageDownload(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(
         customHandler)
     {
         Credentials = credentials;
         BaseUrl = baseUrl;
     }
 
-    public new Task<ImageGenerationsReadyResponse> ExecuteAsync()
+    internal static GetGeneratedImageDownload GetInstance(Credentials credentials, string baseUrl,
+        DelegatingHandler customHandler)
+    {
+        return new GetGeneratedImageDownload(credentials, baseUrl, customHandler);
+    }
+
+    public GetGeneratedImageDownload With(string generationRequestId, int index)
+    {
+        Path = $"/ai/image-generations/{generationRequestId}/images/{index}/download";
+        return this;
+    }
+
+    public new Task<DownloadGeneratedImageReadyResponse> ExecuteAsync()
     {
         return ExecuteAsync(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(45));
     }
 
-    internal static GetGeneratedImages GetInstance(Credentials credentials, string baseUrl,
-        DelegatingHandler customHandler)
-    {
-        return new GetGeneratedImages(credentials, baseUrl, customHandler);
-    }
-
-    public GetGeneratedImages WithGenerationRequestId(string generationRequestId)
-    {
-        if (string.IsNullOrWhiteSpace(generationRequestId))
-            throw new ArgumentException("Value cannot be null or whitespace.", nameof(generationRequestId));
-        Path = $"/ai/image-generations/{generationRequestId}";
-        return this;
-    }
-
-    public async Task<ImageGenerationsReadyResponse> ExecuteAsync(TimeSpan pollDelay, TimeSpan timeout)
+    // TODO - DRY with GetGeneratedImages.ExecuteAsync
+    public async Task<DownloadGeneratedImageReadyResponse> ExecuteAsync(TimeSpan pollDelay, TimeSpan timeout)
     {
         var helper = new WebHelper(Credentials, BaseUrl, _customHandler);
 
@@ -69,6 +68,6 @@ public class GetGeneratedImages : ApiRequest
 
         await httpResponseMessage.HandleResponseAsync();
 
-        return await httpResponseMessage.GetContentHandleResponseAsync<ImageGenerationsReadyResponse>();
+        return await httpResponseMessage.GetContentHandleResponseAsync<DownloadGeneratedImageReadyResponse>();
     }
 }

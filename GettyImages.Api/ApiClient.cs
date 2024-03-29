@@ -619,6 +619,7 @@ public class ApiClient
         return Api.Customers.Customers.GetInstance(_credentials, _baseUrl, _customHandler);
     }
     
+// TODO - Naming?
     /// <summary>
     ///     Generate images
     /// </summary>
@@ -630,6 +631,7 @@ public class ApiClient
         return AiGenerator.ImageGenerations.GetInstance(_credentials, _baseUrl, _customHandler);
     }
     
+// TODO - Naming?
     /// <summary>
     ///     Get generated images
     /// </summary>
@@ -639,5 +641,17 @@ public class ApiClient
     public GetGeneratedImages GetGeneratedImages()
     {
         return AiGenerator.GetGeneratedImages.GetInstance(_credentials, _baseUrl, _customHandler);
+    }
+    
+// TODO - Naming?
+    /// <summary>
+    ///     Get generated image download
+    /// </summary>
+    /// <returns>
+    ///     The <see cref="AiGenerator.GetGeneratedImageDownload" />.
+    /// </returns>
+    public GetGeneratedImageDownload GetGeneratedImageDownload()
+    {
+        return AiGenerator.GetGeneratedImageDownload.GetInstance(_credentials, _baseUrl, _customHandler);
     }
 }
