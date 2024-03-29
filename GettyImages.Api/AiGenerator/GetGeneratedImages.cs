@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Net;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.AiGenerator;
 
 // TODO - Naming?
-public class GetGeneratedImages : ApiRequest
+public class GetGeneratedImages : PolledPathApiRequest<ImageGenerationsReadyResponse>
 {
     private GetGeneratedImages(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(
         customHandler)
@@ -34,41 +32,5 @@ public class GetGeneratedImages : ApiRequest
             throw new ArgumentException("Value cannot be null or whitespace.", nameof(generationRequestId));
         Path = $"/ai/image-generations/{generationRequestId}";
         return this;
-    }
-
-    public async Task<ImageGenerationsReadyResponse> ExecuteAsync(TimeSpan pollDelay, TimeSpan timeout)
-    {
-        var helper = new WebHelper(Credentials, BaseUrl, _customHandler);
-
-        HttpResponseMessage httpResponseMessage;
-
-        try
-        {
-            var cancellationTokenWithTimeout = new CancellationTokenSource(timeout);
-            // TODO - Can we use Polly instead of half-rolling our own timeout logic?
-
-            var loopDelay = TimeSpan.Zero;
-
-            do
-            {
-                await Task.Delay(loopDelay, cancellationTokenWithTimeout.Token);
-
-                // TODO - Can we utilize GeneratedImages.WithGenerationRequestId? 
-
-                httpResponseMessage = await helper.GetRawHttpResponseMessageAsync(BuildQuery(QueryParameters),
-                    path: Path, BuildHeaders(HeaderParameters), cancellationTokenWithTimeout.Token);
-                loopDelay = pollDelay;
-            } while (httpResponseMessage.StatusCode == HttpStatusCode.Accepted);
-
-            cancellationTokenWithTimeout.Token.ThrowIfCancellationRequested();
-        }
-        catch (OperationCanceledException)
-        {
-            throw new SdkException("Call timed out", HttpStatusCode.GatewayTimeout);
-        }
-
-        await httpResponseMessage.HandleResponseAsync();
-
-        return await httpResponseMessage.GetContentHandleResponseAsync<ImageGenerationsReadyResponse>();
     }
 }
