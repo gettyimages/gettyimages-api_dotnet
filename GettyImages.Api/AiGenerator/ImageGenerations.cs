@@ -23,7 +23,7 @@ public class ImageGenerations : ApiRequest
         return new ImageGenerations(credentials, baseUrl, customHandler);
     }
 
-    public ImageGenerations WithDownloadDetails(ImageGenerationsRequest value)
+    public ImageGenerations With(ImageGenerationsRequest value)
     {
         BodyParameter = value;
         return this;
