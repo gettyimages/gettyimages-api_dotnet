@@ -7,7 +7,7 @@ using GettyImages.Api.Models;
 namespace GettyImages.Api.AiGenerator;
 
 // TODO - Naming
-public class GetGeneratedImageVariations : ApiRequest
+public class GetGeneratedImageVariations : ImageGenerationsApiRequest
 {
     private GetGeneratedImageVariations(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(
         customHandler)
@@ -32,26 +32,5 @@ public class GetGeneratedImageVariations : ApiRequest
         Path = $"/ai/image-generations/{generationRequestId}/images/{index}/variations";
         BodyParameter = generationVariationsRequest;
         return this;
-    }
-
-    // TODO - Generalize
-    public async Task<ImageGenerationsReadyResponse> ExecuteAsync(TimeSpan pollDelay, TimeSpan timeout)
-    {
-        var helper = new WebHelper(Credentials, BaseUrl, _customHandler);
-
-        var httpResponseMessage = await helper.PostQueryRawHttpResponseMessageAsync(BuildQuery(QueryParameters),
-            path: Path, BuildHeaders(HeaderParameters), BuildBody());
-
-        await httpResponseMessage.HandleResponseAsync();
-
-        if (httpResponseMessage.StatusCode == HttpStatusCode.Accepted)
-        {
-            var generationRequestId = httpResponseMessage.GetContentHandleResponseAsync<ImageGenerationsPendingResponse>().Result.GenerationRequestId;
-            var generatedImages = GetGeneratedImages.GetInstance(Credentials, BaseUrl, _customHandler).WithGenerationRequestId(generationRequestId);
-            return await generatedImages.ExecuteAsync(pollDelay, timeout);
-        }
-
-        await httpResponseMessage.HandleResponseAsync();
-        return await httpResponseMessage.GetContentHandleResponseAsync<ImageGenerationsReadyResponse>();
     }
 }

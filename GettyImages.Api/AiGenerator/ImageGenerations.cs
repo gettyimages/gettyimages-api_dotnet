@@ -1,5 +1,4 @@
 using System;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using GettyImages.Api.Models;
@@ -7,14 +6,14 @@ using GettyImages.Api.Models;
 namespace GettyImages.Api.AiGenerator;
 
 // TODO - Naming? "GenerateImages"?
-// TODO - Generalize: CallAndPollApiRequest
-public class ImageGenerations : ApiRequest
+public class ImageGenerations : ImageGenerationsApiRequest
 {
     private ImageGenerations(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(
         customHandler)
     {
         Credentials = credentials;
         BaseUrl = baseUrl;
+        Path = "/ai/image-generations";
     }
 
     internal static ImageGenerations GetInstance(Credentials credentials, string baseUrl,
@@ -32,26 +31,5 @@ public class ImageGenerations : ApiRequest
     public new Task<ImageGenerationsReadyResponse> ExecuteAsync()
     {
         return ExecuteAsync(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(45));
-    }
-
-    // TODO - Generalize
-    public async Task<ImageGenerationsReadyResponse> ExecuteAsync(TimeSpan pollDelay, TimeSpan timeout)
-    {
-        var helper = new WebHelper(Credentials, BaseUrl, _customHandler);
-
-        var httpResponseMessage = await helper.PostQueryRawHttpResponseMessageAsync(BuildQuery(QueryParameters),
-            path: "/ai/image-generations", BuildHeaders(HeaderParameters), BuildBody());
-
-        await httpResponseMessage.HandleResponseAsync();
-
-        if (httpResponseMessage.StatusCode == HttpStatusCode.Accepted)
-        {
-            var generationRequestId = httpResponseMessage.GetContentHandleResponseAsync<ImageGenerationsPendingResponse>().Result.GenerationRequestId;
-            var generatedImages = GetGeneratedImages.GetInstance(Credentials, BaseUrl, _customHandler).WithGenerationRequestId(generationRequestId);
-            return await generatedImages.ExecuteAsync(pollDelay, timeout);
-        }
-
-        await httpResponseMessage.HandleResponseAsync();
-        return await httpResponseMessage.GetContentHandleResponseAsync<ImageGenerationsReadyResponse>();
     }
 }
