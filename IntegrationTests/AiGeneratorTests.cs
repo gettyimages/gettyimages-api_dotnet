@@ -81,6 +81,30 @@ public class AiGeneratorTests : IClassFixture<AiGeneratorTests.Fixture>
         _fixture.GetGeneratedImageDownloadResponse.Url.Should().NotBeNullOrEmpty();
     }
 
+    [Fact]
+    public void GetDownloadSizesResponse_DownloadSizes()
+    {
+        _fixture.GetDownloadSizesResponse.DownloadSizes.Length.Should().BePositive();
+    }
+
+    [Fact]
+    public void GetDownloadSizesResponse_SizeName()
+    {
+        _fixture.GetDownloadSizesResponse.DownloadSizes[0].SizeName.Should().NotBeNullOrEmpty();
+    }
+
+    [Fact]
+    public void GetDownloadSizesResponse_Height()
+    {
+        _fixture.GetDownloadSizesResponse.DownloadSizes[0].Height.Should().BePositive();
+    }
+
+    [Fact]
+    public void GetDownloadSizesResponse_Width()
+    {
+        _fixture.GetDownloadSizesResponse.DownloadSizes[0].Width.Should().BePositive();
+    }
+
     public class Fixture : BaseFixture, IAsyncLifetime
     {
         public async Task InitializeAsync()
@@ -117,7 +141,15 @@ public class AiGeneratorTests : IClassFixture<AiGeneratorTests.Fixture>
                 .GetGeneratedImageDownload()
                 .With(ImageGenerationsResponse.GenerationRequestId, 2)
                 .ExecuteAsync();
+            
+            GetDownloadSizesResponse = await  ApiClient
+                .GetApiClientWithResourceOwnerCredentials(ApiKey, ApiSecret, UserName, UserPassword)
+                .GetDownloadSizes()
+                .With(generationRequestId: ImageGenerationsResponse.GenerationRequestId, index: 3)
+                .ExecuteAsync();
         }
+
+        public GeneratedDownloadSizesResponse GetDownloadSizesResponse { get; private set; }
 
         public DownloadGeneratedImageReadyResponse GetGeneratedImageDownloadResponse { get; private set; }
 
