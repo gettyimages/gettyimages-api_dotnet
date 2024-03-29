@@ -150,7 +150,8 @@ internal class WebHelper
             var uri = _baseAddress + path;
             var requestUri = new UriBuilder(uri) { Query = BuildQuery(queryParameters) }.Uri;
 
-            return await client.PutAsyncWithRetryPolicy(requestUri, bodyParameter);
+            var result = await client.PutAsyncWithRetryPolicy(requestUri, bodyParameter);
+            return result;
         }
     }
 

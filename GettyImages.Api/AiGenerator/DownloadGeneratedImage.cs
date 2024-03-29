@@ -22,10 +22,11 @@ public class DownloadGeneratedImage : ApiRequest
     }
     
     
-    public DownloadGeneratedImage With(string generationRequestId, int index)
+    public DownloadGeneratedImage With(string generationRequestId, int index, GeneratedImageDownloadRequest downloadRequest)
     {
         // TODO - DRY with GetGeneratedImageDownload.With/Path - Extract to base class?  
         Path = $"/ai/image-generations/{generationRequestId}/images/{index}/download";
+        BodyParameter = downloadRequest;
         return this;
     }
     

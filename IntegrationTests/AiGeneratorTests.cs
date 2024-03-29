@@ -6,11 +6,16 @@ using Xunit;
 
 namespace IntegrationTests;
 
-public class GenerateImagesTests : IClassFixture<GenerateImagesTests.Fixture>
+// TODO - README for secrets
+/// <summary>
+/// The AI Generator operations are more complex than the other operations in the API.
+/// Locally-run integration tests are warranted to ensure that the operations are functioning as expected.
+/// </summary>
+public class AiGeneratorTests : IClassFixture<AiGeneratorTests.Fixture>
 {
     private readonly Fixture _fixture;
 
-    public GenerateImagesTests(Fixture fixture)
+    public AiGeneratorTests(Fixture fixture)
     {
         _fixture = fixture;
     }
@@ -33,7 +38,7 @@ public class GenerateImagesTests : IClassFixture<GenerateImagesTests.Fixture>
         _fixture.ImageGenerationsResponse.Results.Length.Should().BePositive();
     }
 
-    
+
     [Fact]
     public void GetGeneratedImagesResponse_GenerationRequestIdReturned()
     {
@@ -50,6 +55,30 @@ public class GenerateImagesTests : IClassFixture<GenerateImagesTests.Fixture>
     public void GetGeneratedImagesResponse_MultipleResultsArePresent()
     {
         _fixture.GetGeneratedImagesResponse.Results.Length.Should().BePositive();
+    }
+
+    [Fact]
+    public void DownloadGeneratedImageResponse_GeneratedAssetId()
+    {
+        _fixture.DownloadGeneratedImageResponse.GeneratedAssetId.Should().NotBeNullOrEmpty();
+    }
+
+    [Fact]
+    public void DownloadGeneratedImageResponse_Url()
+    {
+        _fixture.DownloadGeneratedImageResponse.Url.Should().NotBeNullOrEmpty();
+    }
+
+    [Fact]
+    public void GetGeneratedImageDownloadResponse_GeneratedAssetId()
+    {
+        _fixture.GetGeneratedImageDownloadResponse.GeneratedAssetId.Should().NotBeNullOrEmpty();
+    }
+
+    [Fact]
+    public void GetGeneratedImageDownloadResponse_Url()
+    {
+        _fixture.GetGeneratedImageDownloadResponse.Url.Should().NotBeNullOrEmpty();
     }
 
     public class Fixture : BaseFixture, IAsyncLifetime
@@ -71,15 +100,28 @@ public class GenerateImagesTests : IClassFixture<GenerateImagesTests.Fixture>
                 })
                 .ExecuteAsync();
 
-            if (ImageGenerationsResponse != null && ImageGenerationsResponse.GenerationRequestId != null)
-            {
-                GetGeneratedImagesResponse = await ApiClient
-                    .GetApiClientWithResourceOwnerCredentials(ApiKey, ApiSecret, UserName, UserPassword)
-                    .GetGeneratedImages()
-                    .WithGenerationRequestId(ImageGenerationsResponse.GenerationRequestId)
-                    .ExecuteAsync();
-            }
+            GetGeneratedImagesResponse = await ApiClient
+                .GetApiClientWithResourceOwnerCredentials(ApiKey, ApiSecret, UserName, UserPassword)
+                .GetGeneratedImages()
+                .WithGenerationRequestId(ImageGenerationsResponse.GenerationRequestId)
+                .ExecuteAsync();
+
+            DownloadGeneratedImageResponse = await ApiClient
+                .GetApiClientWithResourceOwnerCredentials(ApiKey, ApiSecret, UserName, UserPassword)
+                .DownloadGeneratedImage()
+                .With(ImageGenerationsResponse.GenerationRequestId, 2, new GeneratedImageDownloadRequest{SizeName = ImageGenerationsSize.FourK})
+                .ExecuteAsync();
+
+            GetGeneratedImageDownloadResponse = await ApiClient
+                .GetApiClientWithResourceOwnerCredentials(ApiKey, ApiSecret, UserName, UserPassword)
+                .GetGeneratedImageDownload()
+                .With(ImageGenerationsResponse.GenerationRequestId, 2)
+                .ExecuteAsync();
         }
+
+        public DownloadGeneratedImageReadyResponse GetGeneratedImageDownloadResponse { get; private set; }
+
+        public DownloadGeneratedImageReadyResponse DownloadGeneratedImageResponse { get; private set; }
 
         // TODO - Naming is confusing
         public ImageGenerationsReadyResponse GetGeneratedImagesResponse { get; private set; }
