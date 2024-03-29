@@ -21,14 +21,15 @@ public class DownloadGeneratedImage : ApiRequest
         return new DownloadGeneratedImage(credentials, baseUrl, customHandler);
     }
 
-    public DownloadGeneratedImage With(string generationRequestId, int index, GeneratedImageDownloadRequest downloadRequest)
+    public DownloadGeneratedImage With(string generationRequestId, int index,
+        GeneratedImageDownloadRequest downloadRequest)
     {
         // TODO - DRY with GetGeneratedImageDownload.With/Path - Extract to base class?  
         Path = $"/ai/image-generations/{generationRequestId}/images/{index}/download";
         BodyParameter = downloadRequest;
         return this;
     }
-    
+
     public new Task<DownloadGeneratedImageReadyResponse> ExecuteAsync()
     {
         return ExecuteAsync(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(45));
@@ -46,7 +47,8 @@ public class DownloadGeneratedImage : ApiRequest
 
         if (httpResponseMessage.StatusCode == HttpStatusCode.Accepted)
         {
-            var getGeneratedImageDownload = GetGeneratedImageDownload.GetInstance(Credentials, BaseUrl, _customHandler).WithPath(Path);
+            var getGeneratedImageDownload = GetGeneratedImageDownload.GetInstance(Credentials, BaseUrl, _customHandler)
+                .WithPath(Path);
             return await getGeneratedImageDownload.ExecuteAsync(pollDelay, timeout);
         }
 

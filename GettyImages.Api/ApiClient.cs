@@ -657,7 +657,7 @@ public class ApiClient
 
     // TODO - Naming?
     /// <summary>
-    ///     Download a generate image
+    ///     Download a generated image
     /// </summary>
     /// <returns>
     ///     The <see cref="AiGenerator.DownloadGeneratedImage" />.
@@ -690,4 +690,17 @@ public class ApiClient
     {
         return AiGenerator.GetGeneratedImageVariations.GetInstance(_credentials, _baseUrl, _customHandler);
     }
+    
+    // TODO - Naming?
+    /// <summary>
+    ///     Redownload a generated image
+    /// </summary>
+    /// <returns>
+    ///     The <see cref="GeneratedImageRedownload" />.
+    /// </returns>
+    public GeneratedImageRedownload GeneratedImageRedownload()
+    {
+        return AiGenerator.GeneratedImageRedownload.GetInstance(_credentials, _baseUrl, _customHandler);
+    }
 }
+

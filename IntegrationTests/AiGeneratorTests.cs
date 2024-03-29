@@ -82,6 +82,18 @@ public class AiGeneratorTests : IClassFixture<AiGeneratorTests.Fixture>
     }
 
     [Fact]
+    public void RedownloadGeneratedImageResponse_GeneratedAssetId()
+    {
+        _fixture.RedownloadGeneratedImageResponse.GeneratedAssetId.Should().NotBeNullOrEmpty();
+    }
+
+    [Fact]
+    public void RedownloadGeneratedImageResponse_Url()
+    {
+        _fixture.RedownloadGeneratedImageResponse.Url.Should().NotBeNullOrEmpty();
+    }
+
+    [Fact]
     public void GetDownloadSizesResponse_DownloadSizes()
     {
         _fixture.GetDownloadSizesResponse.DownloadSizes.Length.Should().BePositive();
@@ -160,6 +172,18 @@ public class AiGeneratorTests : IClassFixture<AiGeneratorTests.Fixture>
                 .With(ImageGenerationsResponse.GenerationRequestId, 2, new GeneratedImageDownloadRequest{SizeName = ImageGenerationsSize.FourK})
                 .ExecuteAsync();
 
+            RedownloadGeneratedImageResponse = await ApiClient
+                .GetApiClientWithResourceOwnerCredentials(ApiKey, ApiSecret, UserName, UserPassword)
+                .GeneratedImageRedownload()
+                .With(new GeneratedImageRedownloadRequest
+                {
+                    GeneratedAssetId = DownloadGeneratedImageResponse.GeneratedAssetId,
+                    ProductId = ProductId,
+                    SizeName = ImageGenerationsSize.FourK,
+                    Notes = "API SDK Integration Test"
+                })
+                .ExecuteAsync();
+
             GetGeneratedImageDownloadResponse = await ApiClient
                 .GetApiClientWithResourceOwnerCredentials(ApiKey, ApiSecret, UserName, UserPassword)
                 .GetGeneratedImageDownload()
@@ -182,6 +206,8 @@ public class AiGeneratorTests : IClassFixture<AiGeneratorTests.Fixture>
                 })
                 .ExecuteAsync();
         }
+
+        public DownloadGeneratedImageReadyResponse RedownloadGeneratedImageResponse { get; set; }
 
         public ImageGenerationsReadyResponse GetGeneratedImageVariationsResponse { get; private set; }
 
