@@ -21,15 +21,12 @@ public abstract class PolledPathApiRequest<TExecuteResponse> : ApiRequest
         try
         {
             var cancellationTokenWithTimeout = new CancellationTokenSource(timeout);
-            // TODO - Can we use Polly instead of half-rolling our own timeout logic?
 
             var loopDelay = TimeSpan.Zero;
 
             do
             {
                 await Task.Delay(loopDelay, cancellationTokenWithTimeout.Token);
-
-                // TODO - Can we utilize GeneratedImages.WithGenerationRequestId? 
 
                 httpResponseMessage = await helper.GetRawHttpResponseMessageAsync(BuildQuery(QueryParameters),
                     path: Path, BuildHeaders(HeaderParameters), cancellationTokenWithTimeout.Token);
