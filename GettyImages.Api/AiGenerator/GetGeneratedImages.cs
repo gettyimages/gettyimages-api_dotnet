@@ -27,8 +27,6 @@ public class GetGeneratedImages : PolledPathApiRequest<ImageGenerationsReadyResp
 
     public GetGeneratedImages WithGenerationRequestId(string generationRequestId)
     {
-        if (string.IsNullOrWhiteSpace(generationRequestId))
-            throw new ArgumentException("Value cannot be null or whitespace.", nameof(generationRequestId));
         Path = $"/ai/image-generations/{generationRequestId}";
         return this;
     }
