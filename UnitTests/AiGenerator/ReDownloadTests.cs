@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 using System.Threading.Tasks;
 using FluentAssertions;
 using GettyImages.Api;
@@ -10,8 +9,6 @@ namespace UnitTests.AiGenerator;
 
 public class ReDownloadTests : IAsyncLifetime
 {
-    // TODO POST /v3/ai/redownloads
-    // Re-download a previously downloaded item
     private redownload_request? _requestPayload;
     private string _absoluteUri;
 

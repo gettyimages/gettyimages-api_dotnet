@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
 using GettyImages.Api;
 using Xunit;
@@ -8,7 +7,6 @@ namespace UnitTests.AiGenerator;
 
 public class GetGeneratedImageDownloadTests : IAsyncLifetime
 {
-    // TODO GET /v3/ai/image-generations/{generationRequestId}/images/{index}/download
     private string _absoluteUri;
 
     public async Task InitializeAsync()
