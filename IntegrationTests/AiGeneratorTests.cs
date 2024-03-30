@@ -146,7 +146,7 @@ public class AiGeneratorTests : IClassFixture<AiGeneratorTests.Fixture>
         {
             ImageGenerationsResponse = await ApiClient
                 .GetApiClientWithResourceOwnerCredentials(ApiKey, ApiSecret, UserName, UserPassword)
-                .ImageGenerations()
+                .GenerateImages()
                 .WithImageGenerationsRequest(new ImageGenerationsRequest
                 {
                     Prompt = "a prompt",
@@ -197,7 +197,7 @@ public class AiGeneratorTests : IClassFixture<AiGeneratorTests.Fixture>
             
             GetGeneratedImageVariationsResponse = await  ApiClient
                 .GetApiClientWithResourceOwnerCredentials(ApiKey, ApiSecret, UserName, UserPassword)
-                .GetGeneratedImageVariations()
+                .GeneratedImageVariations()
                 .With(generationRequestId: ImageGenerationsResponse.GenerationRequestId, index: 3, new GenerationVariationsRequest
                 {
                     Notes = "API SDK Integration Test",

@@ -17,7 +17,7 @@ public class GetVariationsTests : IAsyncLifetime
     {
         var testHandler = TestUtil.CreateTestHandler();
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-            .GetGeneratedImageVariations()
+            .GeneratedImageVariations()
             .With(generationRequestId: "A6503762-4A4B-4434-8445-2C1335A95A78", index: 2,
                 new GenerationVariationsRequest
                 {

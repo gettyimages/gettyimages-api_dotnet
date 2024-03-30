@@ -16,7 +16,7 @@ public class GenerateImagesTests : IAsyncLifetime
     {
         var testHandler = TestUtil.CreateTestHandler();
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-            .ImageGenerations()
+            .GenerateImages()
             .WithImageGenerationsRequest(new ImageGenerationsRequest
             {
                 Prompt = "a prompt",

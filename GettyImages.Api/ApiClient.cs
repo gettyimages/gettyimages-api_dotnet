@@ -623,15 +623,15 @@ public class ApiClient
     ///     Generate images
     /// </summary>
     /// <returns>
-    ///     The <see cref="AiGenerator.ImageGenerations" />.
+    ///     The <see cref="AiGenerator.GenerateImages" />.
     /// </returns>
-    public ImageGenerations ImageGenerations()
+    public GenerateImages GenerateImages()
     {
-        return AiGenerator.ImageGenerations.GetInstance(_credentials, _baseUrl, _customHandler);
+        return AiGenerator.GenerateImages.GetInstance(_credentials, _baseUrl, _customHandler);
     }
     
     /// <summary>
-    ///     Get generated images after using <see cref="ImageGenerations"/>
+    ///     Get generated images after using <see cref="GenerateImages"/>
     /// </summary>
     /// <returns>
     ///     The <see cref="AiGenerator.GetGeneratedImages" />.
@@ -667,7 +667,7 @@ public class ApiClient
     ///     Get download sizes for a generated image
     /// </summary>
     /// <returns>
-    ///     The <see cref="GetDownloadSizes" />.
+    ///     The <see cref="AiGenerator.GetDownloadSizes" />.
     /// </returns>
     public GetDownloadSizes GetDownloadSizes()
     {
@@ -678,18 +678,18 @@ public class ApiClient
     ///     Get variations on a generated image
     /// </summary>
     /// <returns>
-    ///     The <see cref="GetGeneratedImageVariations" />.
+    ///     The <see cref="AiGenerator.GeneratedImageVariations" />.
     /// </returns>
-    public GetGeneratedImageVariations GetGeneratedImageVariations()
+    public GeneratedImageVariations GeneratedImageVariations()
     {
-        return AiGenerator.GetGeneratedImageVariations.GetInstance(_credentials, _baseUrl, _customHandler);
+        return AiGenerator.GeneratedImageVariations.GetInstance(_credentials, _baseUrl, _customHandler);
     }
     
     /// <summary>
     ///     Redownload a generated image
     /// </summary>
     /// <returns>
-    ///     The <see cref="GeneratedImageRedownload" />.
+    ///     The <see cref="GettyImages.Api.AiGenerator.GeneratedImageRedownload" />.
     /// </returns>
     public GeneratedImageRedownload GeneratedImageRedownload()
     {

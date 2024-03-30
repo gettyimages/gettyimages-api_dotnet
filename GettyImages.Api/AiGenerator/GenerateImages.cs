@@ -5,9 +5,9 @@ using GettyImages.Api.Models;
 
 namespace GettyImages.Api.AiGenerator;
 
-public class ImageGenerations : ImageGenerationsApiRequest
+public class GenerateImages : ImageGenerationsApiRequest
 {
-    private ImageGenerations(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(
+    private GenerateImages(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(
         customHandler)
     {
         Credentials = credentials;
@@ -15,13 +15,13 @@ public class ImageGenerations : ImageGenerationsApiRequest
         Path = "/ai/image-generations";
     }
 
-    internal static ImageGenerations GetInstance(Credentials credentials, string baseUrl,
+    internal static GenerateImages GetInstance(Credentials credentials, string baseUrl,
         DelegatingHandler customHandler)
     {
-        return new ImageGenerations(credentials, baseUrl, customHandler);
+        return new GenerateImages(credentials, baseUrl, customHandler);
     }
 
-    public ImageGenerations WithImageGenerationsRequest(ImageGenerationsRequest value)
+    public GenerateImages WithImageGenerationsRequest(ImageGenerationsRequest value)
     {
         BodyParameter = value;
         return this;
