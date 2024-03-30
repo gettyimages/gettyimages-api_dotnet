@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -11,22 +12,22 @@ namespace GettyImages.Api;
 // https://stackoverflow.com/a/59061296/208990
 public class JsonEnumMemberStringEnumConverter : JsonConverterFactory
 {
-    private readonly JsonNamingPolicy? namingPolicy;
-    private readonly bool allowIntegerValues;
-    private readonly JsonStringEnumConverter baseConverter;
+    private readonly JsonNamingPolicy? _namingPolicy;
+    private readonly bool _allowIntegerValues;
+    private readonly JsonStringEnumConverter _baseConverter;
 
-    public JsonEnumMemberStringEnumConverter() : this(null, true)
+    public JsonEnumMemberStringEnumConverter() : this(null)
     {
     }
 
     public JsonEnumMemberStringEnumConverter(JsonNamingPolicy? namingPolicy = null, bool allowIntegerValues = true)
     {
-        this.namingPolicy = namingPolicy;
-        this.allowIntegerValues = allowIntegerValues;
-        baseConverter = new JsonStringEnumConverter(namingPolicy, allowIntegerValues);
+        _namingPolicy = namingPolicy;
+        _allowIntegerValues = allowIntegerValues;
+        _baseConverter = new JsonStringEnumConverter(namingPolicy, allowIntegerValues);
     }
 
-    public override bool CanConvert(Type typeToConvert) => baseConverter.CanConvert(typeToConvert);
+    public override bool CanConvert(Type typeToConvert) => _baseConverter.CanConvert(typeToConvert);
 
     public override JsonConverter CreateConverter(Type typeToConvert, JsonSerializerOptions options)
     {
@@ -37,33 +38,33 @@ public class JsonEnumMemberStringEnumConverter : JsonConverterFactory
         var dictionary = query.ToDictionary(p => p.Item1, p => p.Item2);
         if (dictionary.Count > 0)
         {
-            return new JsonStringEnumConverter(new DictionaryLookupNamingPolicy(dictionary, namingPolicy),
-                allowIntegerValues).CreateConverter(typeToConvert, options);
+            return new JsonStringEnumConverter(new DictionaryLookupNamingPolicy(dictionary, _namingPolicy),
+                _allowIntegerValues).CreateConverter(typeToConvert, options);
         }
 
-        return baseConverter.CreateConverter(typeToConvert, options);
+        return _baseConverter.CreateConverter(typeToConvert, options);
     }
 
 
     public class JsonNamingPolicyDecorator : JsonNamingPolicy
     {
-        readonly JsonNamingPolicy? underlyingNamingPolicy;
+        private readonly JsonNamingPolicy? _underlyingNamingPolicy;
 
         public JsonNamingPolicyDecorator(JsonNamingPolicy? underlyingNamingPolicy) =>
-            this.underlyingNamingPolicy = underlyingNamingPolicy;
+            _underlyingNamingPolicy = underlyingNamingPolicy;
 
-        public override string ConvertName(string name) => underlyingNamingPolicy?.ConvertName(name) ?? name;
+        public override string ConvertName(string name) => _underlyingNamingPolicy?.ConvertName(name) ?? name;
     }
 
     internal class DictionaryLookupNamingPolicy : JsonNamingPolicyDecorator
     {
-        readonly Dictionary<string, string> dictionary;
+        private readonly Dictionary<string, string> _dictionary;
 
         public DictionaryLookupNamingPolicy(Dictionary<string, string> dictionary,
             JsonNamingPolicy? underlyingNamingPolicy) : base(underlyingNamingPolicy) =>
-            this.dictionary = dictionary ?? throw new ArgumentNullException();
+            _dictionary = dictionary ?? throw new ArgumentNullException();
 
         public override string ConvertName(string name) =>
-            dictionary.TryGetValue(name, out var value) ? value : base.ConvertName(name);
+            _dictionary.TryGetValue(name, out var value) ? value : base.ConvertName(name);
     }
 }
