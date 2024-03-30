@@ -147,7 +147,7 @@ public class AiGeneratorTests : IClassFixture<AiGeneratorTests.Fixture>
             ImageGenerationsResponse = await ApiClient
                 .GetApiClientWithResourceOwnerCredentials(ApiKey, ApiSecret, UserName, UserPassword)
                 .ImageGenerations()
-                .With(new ImageGenerationsRequest
+                .WithImageGenerationsRequest(new ImageGenerationsRequest
                 {
                     Prompt = "a prompt",
                     Mood = ImageGenerationsMood.Dramatic,

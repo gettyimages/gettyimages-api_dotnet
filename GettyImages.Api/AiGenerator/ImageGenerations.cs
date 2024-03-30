@@ -21,7 +21,7 @@ public class ImageGenerations : ImageGenerationsApiRequest
         return new ImageGenerations(credentials, baseUrl, customHandler);
     }
 
-    public ImageGenerations With(ImageGenerationsRequest value)
+    public ImageGenerations WithImageGenerationsRequest(ImageGenerationsRequest value)
     {
         BodyParameter = value;
         return this;
