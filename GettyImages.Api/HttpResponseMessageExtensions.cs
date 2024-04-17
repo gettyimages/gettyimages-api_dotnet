@@ -13,7 +13,7 @@ internal static class HttpResponseMessageExtensions
         }
     }
 
-    internal static async Task<T> GetContentHandleResponseAsync<T>(this HttpResponseMessage httpResponse)
+    internal static async Task<T> HandleGetContentResponseAsync<T>(this HttpResponseMessage httpResponse)
     {
         if (!httpResponse.IsSuccessStatusCode)
         {

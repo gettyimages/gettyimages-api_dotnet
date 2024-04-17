@@ -42,6 +42,6 @@ public abstract class PolledPathApiRequest<TExecuteResponse> : ApiRequest
 
         await httpResponseMessage.HandleResponseAsync();
 
-        return await httpResponseMessage.GetContentHandleResponseAsync<TExecuteResponse>();
+        return await httpResponseMessage.HandleGetContentResponseAsync<TExecuteResponse>();
     }
 }

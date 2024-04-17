@@ -51,6 +51,6 @@ public class DownloadGeneratedImage : ApiRequest
         }
 
         await httpResponseMessage.HandleResponseAsync();
-        return await httpResponseMessage.GetContentHandleResponseAsync<DownloadGeneratedImageReadyResponse>();
+        return await httpResponseMessage.HandleGetContentResponseAsync<DownloadGeneratedImageReadyResponse>();
     }
 }

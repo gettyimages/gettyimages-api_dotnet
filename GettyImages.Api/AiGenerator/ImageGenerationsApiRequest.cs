@@ -23,12 +23,12 @@ public abstract class ImageGenerationsApiRequest : ApiRequest
 
         if (httpResponseMessage.StatusCode == HttpStatusCode.Accepted)
         {
-            var generationRequestId = httpResponseMessage.GetContentHandleResponseAsync<ImageGenerationsPendingResponse>().Result.GenerationRequestId;
+            var generationRequestId = httpResponseMessage.HandleGetContentResponseAsync<ImageGenerationsPendingResponse>().Result.GenerationRequestId;
             var generatedImages = GetGeneratedImages.GetInstance(Credentials, BaseUrl, _customHandler).WithGenerationRequestId(generationRequestId);
             return await generatedImages.ExecuteAsync(pollDelay, timeout);
         }
 
         await httpResponseMessage.HandleResponseAsync();
-        return await httpResponseMessage.GetContentHandleResponseAsync<ImageGenerationsReadyResponse>();
+        return await httpResponseMessage.HandleGetContentResponseAsync<ImageGenerationsReadyResponse>();
     }
 }
