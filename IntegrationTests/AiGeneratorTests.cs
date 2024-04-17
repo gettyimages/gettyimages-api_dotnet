@@ -22,122 +22,122 @@ public class AiGeneratorTests : IClassFixture<AiGeneratorTests.Fixture>
     [Fact]
     public void ImageGenerationsResponse_GenerationRequestIdReturned()
     {
-        _fixture.ImageGenerationsResponse.GenerationRequestId.Should().NotBeNullOrEmpty();
+        _fixture.ImageGenerationsResponse?.GenerationRequestId.Should().NotBeNullOrEmpty();
     }
 
     [Fact]
     public void ImageGenerationsResponse_ResultsArePresent()
     {
-        _fixture.ImageGenerationsResponse.Results.Should().NotBeNullOrEmpty();
+        _fixture.ImageGenerationsResponse?.Results.Should().NotBeNullOrEmpty();
     }
 
     [Fact]
     public void ImageGenerationsResponse_MultipleResultsArePresent()
     {
-        _fixture.ImageGenerationsResponse.Results.Length.Should().BePositive();
+        _fixture.ImageGenerationsResponse?.Results.Length.Should().BePositive();
     }
 
 
     [Fact]
     public void GetGeneratedImagesResponse_GenerationRequestIdReturned()
     {
-        _fixture.GetGeneratedImagesResponse.GenerationRequestId.Should().NotBeNullOrEmpty();
+        _fixture.GetGeneratedImagesResponse?.GenerationRequestId.Should().NotBeNullOrEmpty();
     }
 
     [Fact]
     public void GetGeneratedImagesResponse_ResultsArePresent()
     {
-        _fixture.GetGeneratedImagesResponse.Results.Should().NotBeNullOrEmpty();
+        _fixture.GetGeneratedImagesResponse?.Results.Should().NotBeNullOrEmpty();
     }
 
     [Fact]
     public void GetGeneratedImagesResponse_MultipleResultsArePresent()
     {
-        _fixture.GetGeneratedImagesResponse.Results.Length.Should().BePositive();
+        _fixture.GetGeneratedImagesResponse?.Results.Length.Should().BePositive();
     }
 
     [Fact]
     public void DownloadGeneratedImageResponse_GeneratedAssetId()
     {
-        _fixture.DownloadGeneratedImageResponse.GeneratedAssetId.Should().NotBeNullOrEmpty();
+        _fixture.DownloadGeneratedImageResponse?.GeneratedAssetId.Should().NotBeNullOrEmpty();
     }
 
     [Fact]
     public void DownloadGeneratedImageResponse_Url()
     {
-        _fixture.DownloadGeneratedImageResponse.Url.Should().NotBeNullOrEmpty();
+        _fixture.DownloadGeneratedImageResponse?.Url.Should().NotBeNullOrEmpty();
     }
 
     [Fact]
     public void GetGeneratedImageDownloadResponse_GeneratedAssetId()
     {
-        _fixture.GetGeneratedImageDownloadResponse.GeneratedAssetId.Should().NotBeNullOrEmpty();
+        _fixture.GetGeneratedImageDownloadResponse?.GeneratedAssetId.Should().NotBeNullOrEmpty();
     }
 
     [Fact]
     public void GetGeneratedImageDownloadResponse_Url()
     {
-        _fixture.GetGeneratedImageDownloadResponse.Url.Should().NotBeNullOrEmpty();
+        _fixture.GetGeneratedImageDownloadResponse?.Url.Should().NotBeNullOrEmpty();
     }
 
     [Fact]
     public void RedownloadGeneratedImageResponse_GeneratedAssetId()
     {
-        _fixture.RedownloadGeneratedImageResponse.GeneratedAssetId.Should().NotBeNullOrEmpty();
+        _fixture.RedownloadGeneratedImageResponse?.GeneratedAssetId.Should().NotBeNullOrEmpty();
     }
 
     [Fact]
     public void RedownloadGeneratedImageResponse_Url()
     {
-        _fixture.RedownloadGeneratedImageResponse.Url.Should().NotBeNullOrEmpty();
+        _fixture.RedownloadGeneratedImageResponse?.Url.Should().NotBeNullOrEmpty();
     }
 
     [Fact]
     public void GetDownloadSizesResponse_DownloadSizes()
     {
-        _fixture.GetDownloadSizesResponse.DownloadSizes.Length.Should().BePositive();
+        _fixture.GetDownloadSizesResponse?.DownloadSizes.Length.Should().BePositive();
     }
 
     [Fact]
     public void GetDownloadSizesResponse_SizeName()
     {
-        _fixture.GetDownloadSizesResponse.DownloadSizes[0].SizeName.Should().NotBeNullOrEmpty();
+        _fixture.GetDownloadSizesResponse?.DownloadSizes[0].SizeName.Should().NotBeNullOrEmpty();
     }
 
     [Fact]
     public void GetDownloadSizesResponse_Height()
     {
-        _fixture.GetDownloadSizesResponse.DownloadSizes[0].Height.Should().BePositive();
+        _fixture.GetDownloadSizesResponse?.DownloadSizes[0].Height.Should().BePositive();
     }
 
     [Fact]
     public void GetDownloadSizesResponse_Width()
     {
-        _fixture.GetDownloadSizesResponse.DownloadSizes[0].Width.Should().BePositive();
+        _fixture.GetDownloadSizesResponse?.DownloadSizes[0].Width.Should().BePositive();
     }
 
     [Fact]
     public void GetGeneratedImageVariationsResponse_GenerationRequestId()
     {
-        _fixture.GetGeneratedImageVariationsResponse.GenerationRequestId.Should().NotBeNullOrEmpty();
+        _fixture.GetGeneratedImageVariationsResponse?.GenerationRequestId.Should().NotBeNullOrEmpty();
     }
 
     [Fact]
     public void GetGeneratedImageVariationsResponse_Results()
     {
-        _fixture.GetGeneratedImageVariationsResponse.Results.Length.Should().BePositive();
+        _fixture.GetGeneratedImageVariationsResponse?.Results.Length.Should().BePositive();
     }
 
     [Fact]
     public void GetGeneratedImageVariationsResponse_Results_Url()
     {
-        _fixture.GetGeneratedImageVariationsResponse.Results[1].Url.Should().NotBeNullOrEmpty();
+        _fixture.GetGeneratedImageVariationsResponse?.Results[1].Url.Should().NotBeNullOrEmpty();
     }
 
     [Fact]
     public void GetGeneratedImageVariationsResponse_Results_Index()
     {
-        _fixture.GetGeneratedImageVariationsResponse.Results[1].Index.Should().BePositive();
+        _fixture.GetGeneratedImageVariationsResponse?.Results[1].Index.Should().BePositive();
     }
 
     public class Fixture : BaseFixture, IAsyncLifetime
@@ -206,19 +206,19 @@ public class AiGeneratorTests : IClassFixture<AiGeneratorTests.Fixture>
                 .ExecuteAsync();
         }
 
-        public DownloadGeneratedImageReadyResponse RedownloadGeneratedImageResponse { get; set; }
+        public DownloadGeneratedImageReadyResponse? RedownloadGeneratedImageResponse { get; private set; }
 
-        public ImageGenerationsReadyResponse GetGeneratedImageVariationsResponse { get; private set; }
+        public ImageGenerationsReadyResponse? GetGeneratedImageVariationsResponse { get; private set; }
 
-        public GeneratedDownloadSizesResponse GetDownloadSizesResponse { get; private set; }
+        public GeneratedDownloadSizesResponse? GetDownloadSizesResponse { get; private set; }
 
-        public DownloadGeneratedImageReadyResponse GetGeneratedImageDownloadResponse { get; private set; }
+        public DownloadGeneratedImageReadyResponse? GetGeneratedImageDownloadResponse { get; private set; }
 
-        public DownloadGeneratedImageReadyResponse DownloadGeneratedImageResponse { get; private set; }
+        public DownloadGeneratedImageReadyResponse? DownloadGeneratedImageResponse { get; private set; }
 
-        public ImageGenerationsReadyResponse GetGeneratedImagesResponse { get; private set; }
+        public ImageGenerationsReadyResponse? GetGeneratedImagesResponse { get; private set; }
 
-        public ImageGenerationsReadyResponse ImageGenerationsResponse { get; private set; }
+        public ImageGenerationsReadyResponse? ImageGenerationsResponse { get; private set; }
 
         public Task DisposeAsync()
         {

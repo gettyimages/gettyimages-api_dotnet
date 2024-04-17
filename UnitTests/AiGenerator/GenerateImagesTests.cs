@@ -9,7 +9,7 @@ namespace UnitTests.AiGenerator;
 
 public class GenerateImagesTests : IAsyncLifetime
 {
-    private image_generations_request? _requestPayload;
+    private image_generations_request _requestPayload;
     private string _absoluteUri;
 
     public async Task InitializeAsync()
