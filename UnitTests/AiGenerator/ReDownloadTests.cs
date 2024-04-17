@@ -9,7 +9,7 @@ namespace UnitTests.AiGenerator;
 
 public class ReDownloadTests : IAsyncLifetime
 {
-    private redownload_request? _requestPayload;
+    private redownload_request _requestPayload;
     private string _absoluteUri;
 
     public async Task InitializeAsync()

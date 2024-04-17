@@ -10,7 +10,7 @@ namespace UnitTests.AiGenerator;
 public class GetVariationsTests : IAsyncLifetime
 {
     // Get variations on a generated image
-    private image_variations_request? _requestPayload;
+    private image_variations_request _requestPayload;
     private string _absoluteUri;
 
     public async Task InitializeAsync()
