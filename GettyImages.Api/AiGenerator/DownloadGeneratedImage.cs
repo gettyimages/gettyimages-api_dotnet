@@ -39,7 +39,7 @@ public class DownloadGeneratedImage : ApiRequest
         var helper = new WebHelper(Credentials, BaseUrl, _customHandler);
 
         var httpResponseMessage = await helper.PutQueryRawHttpResponseMessageAsync(BuildQuery(QueryParameters),
-            path: Path, BuildHeaders(HeaderParameters), BuildBody());
+            Path, BuildHeaders(HeaderParameters), BuildBody());
 
         await httpResponseMessage.HandleResponseAsync();
 
