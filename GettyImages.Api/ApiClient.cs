@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using GettyImages.Api.AiGenerator;
 using GettyImages.Api.Artists;
 using GettyImages.Api.AssetChanges;
 using GettyImages.Api.AssetLicensing;
@@ -616,5 +617,82 @@ public class ApiClient
     public Customers.Customers Customers()
     {
         return Api.Customers.Customers.GetInstance(_credentials, _baseUrl, _customHandler);
+    }
+    
+    /// <summary>
+    ///     Generate images
+    /// </summary>
+    /// <returns>
+    ///     The <see cref="AiGenerator.GenerateImages" />.
+    /// </returns>
+    public GenerateImages GenerateImages()
+    {
+        return AiGenerator.GenerateImages.GetInstance(_credentials, _baseUrl, _customHandler);
+    }
+    
+    /// <summary>
+    ///     Get generated images after using <see cref="GenerateImages"/>
+    /// </summary>
+    /// <returns>
+    ///     The <see cref="AiGenerator.GetGeneratedImages" />.
+    /// </returns>
+    public GetGeneratedImages GetGeneratedImages()
+    {
+        return AiGenerator.GetGeneratedImages.GetInstance(_credentials, _baseUrl, _customHandler);
+    }
+    
+    /// <summary>
+    ///     Get generated image download
+    /// </summary>
+    /// <returns>
+    ///     The <see cref="AiGenerator.GetGeneratedImageDownload" />.
+    /// </returns>
+    public GetGeneratedImageDownload GetGeneratedImageDownload()
+    {
+        return AiGenerator.GetGeneratedImageDownload.GetInstance(_credentials, _baseUrl, _customHandler);
+    }
+
+    /// <summary>
+    ///     Download a generated image
+    /// </summary>
+    /// <returns>
+    ///     The <see cref="AiGenerator.DownloadGeneratedImage" />.
+    /// </returns>
+    public DownloadGeneratedImage DownloadGeneratedImage()
+    {
+        return AiGenerator.DownloadGeneratedImage.GetInstance(_credentials, _baseUrl, _customHandler);
+    }
+
+    /// <summary>
+    ///     Get download sizes for a generated image
+    /// </summary>
+    /// <returns>
+    ///     The <see cref="AiGenerator.GetDownloadSizes" />.
+    /// </returns>
+    public GetDownloadSizes GetDownloadSizes()
+    {
+        return AiGenerator.GetDownloadSizes.GetInstance(_credentials, _baseUrl, _customHandler);
+    }
+
+    /// <summary>
+    ///     Get variations on a generated image
+    /// </summary>
+    /// <returns>
+    ///     The <see cref="AiGenerator.GeneratedImageVariations" />.
+    /// </returns>
+    public GeneratedImageVariations GeneratedImageVariations()
+    {
+        return AiGenerator.GeneratedImageVariations.GetInstance(_credentials, _baseUrl, _customHandler);
+    }
+    
+    /// <summary>
+    ///     Redownload a generated image
+    /// </summary>
+    /// <returns>
+    ///     The <see cref="GettyImages.Api.AiGenerator.GeneratedImageRedownload" />.
+    /// </returns>
+    public GeneratedImageRedownload GeneratedImageRedownload()
+    {
+        return AiGenerator.GeneratedImageRedownload.GetInstance(_credentials, _baseUrl, _customHandler);
     }
 }

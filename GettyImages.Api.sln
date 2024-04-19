@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2005
@@ -6,6 +6,10 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GettyImages.Api", "GettyImages.Api\GettyImages.Api.csproj", "{55C35278-5DFB-4311-81E3-60D7E56BA687}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{43AAE394-9CC3-4639-96B6-B1B82E2D1F63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{728A6DAC-E9FF-4665-81DB-66B79FDE56BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{96A77C69-4332-4720-AFCB-09694D809BB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,11 +25,19 @@ Global
 		{43AAE394-9CC3-4639-96B6-B1B82E2D1F63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43AAE394-9CC3-4639-96B6-B1B82E2D1F63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43AAE394-9CC3-4639-96B6-B1B82E2D1F63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{728A6DAC-E9FF-4665-81DB-66B79FDE56BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{728A6DAC-E9FF-4665-81DB-66B79FDE56BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{728A6DAC-E9FF-4665-81DB-66B79FDE56BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{728A6DAC-E9FF-4665-81DB-66B79FDE56BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3E88B1EC-034C-47D1-A396-2D3B627442AD}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{728A6DAC-E9FF-4665-81DB-66B79FDE56BB} = {96A77C69-4332-4720-AFCB-09694D809BB2}
+		{43AAE394-9CC3-4639-96B6-B1B82E2D1F63} = {96A77C69-4332-4720-AFCB-09694D809BB2}
 	EndGlobalSection
 EndGlobal
