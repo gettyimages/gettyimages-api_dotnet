@@ -32,7 +32,7 @@ public class Downloads : ApiRequest<GetDownloadsResponse>
 
     public Downloads WithEndDate(string value)
     {
-        AddQueryParameter(Constants.EndDateKey, value);
+        AddQueryParameter(Constants.DateToKey, value);
         return this;
     }
 
@@ -56,7 +56,7 @@ public class Downloads : ApiRequest<GetDownloadsResponse>
 
     public Downloads WithStartDate(string value)
     {
-        AddQueryParameter(Constants.StartDateKey, value);
+        AddQueryParameter(Constants.DateFromKey, value);
         return this;
     }
 

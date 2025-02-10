@@ -93,7 +93,7 @@ public class SearchImagesEditorial : ApiRequest<SearchEditorialImagesResponse>
 
     public SearchImagesEditorial WithEndDate(string value)
     {
-        AddQueryParameter(Constants.EndDateKey, value);
+        AddQueryParameter(Constants.DateToKey, value);
         return this;
     }
 
@@ -202,7 +202,7 @@ public class SearchImagesEditorial : ApiRequest<SearchEditorialImagesResponse>
 
     public SearchImagesEditorial WithStartDate(string value)
     {
-        AddQueryParameter(Constants.StartDateKey, value);
+        AddQueryParameter(Constants.DateFromKey, value);
         return this;
     }
 
@@ -223,7 +223,7 @@ public class SearchImagesEditorial : ApiRequest<SearchEditorialImagesResponse>
         AddQueryParameter(Constants.FacetMaxCountKey, value);
         return this;
     }
-    
+
     public SearchImagesEditorial IncludeKeywords()
     {
         AddResponseField("keywords");
