@@ -152,7 +152,7 @@ public class SearchImagesEditorialTests
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/editorial");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("end_date=2015-04-01");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("date_to=2015-04-01");
     }
 
     [Fact]
@@ -395,7 +395,7 @@ public class SearchImagesEditorialTests
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("search/images/editorial");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("phrase=cat");
-        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("start_date=2015-04-01");
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("date_from=2015-04-01");
     }
 
     [Fact]

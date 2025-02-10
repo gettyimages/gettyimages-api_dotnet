@@ -26,7 +26,6 @@ internal static class Constants
     public const string EditorialSegmentKey = "editorial_segment";
     public const string EditorialVideoKey = "editorial_video_types";
     public const string EmbedContentOnlyKey = "embed_content_only";
-    public const string EndDateKey = "end_date";
     public const string EntityUriKey = "entity_uris";
     public const string EthnicityKey = "ethnicity";
     public const string EventIdsKey = "event_ids";
@@ -68,7 +67,6 @@ internal static class Constants
     public const string SortOrderKey = "sort_order";
     public const string LocationKey = "specific_locations";
     public const string SpecificPeopleKey = "specific_people";
-    public const string StartDateKey = "start_date";
     public const string ReleaseStatus = "release_status";
     public const string UseTeamCredits = "use_team_credits";
     public const string UseTimeKey = "use_time";
