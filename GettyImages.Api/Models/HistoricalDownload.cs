@@ -19,4 +19,5 @@ public class HistoricalDownload
     public User User { get; set; }
     public string SizeName { get; set; }
     public Dimensions Dimensions { get; set; }
+    public string LicenseModel { get; set; }
 }
