@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
+using System.Threading.Tasks;
 using GettyImages.Api;
 using GettyImages.Api.Search;
 using Xunit;
@@ -25,7 +26,7 @@ public class HeadersTests
     }
 
     [Fact]
-    public async void HeadersHandlerTest()
+    public async Task HeadersHandlerTest()
     {
         var h = new KeyValuePair<string, string>("Accept-Language", "fr");
         IEnumerable<KeyValuePair<string, string>> header = new List<KeyValuePair<string, string>> { h };
@@ -34,7 +35,7 @@ public class HeadersTests
 
         try
         {
-            await headerHandler.SendAsync(request, new CancellationToken());
+            await headerHandler.SendAsync(request, CancellationToken.None);
         }
         catch (InvalidOperationException)
         {
