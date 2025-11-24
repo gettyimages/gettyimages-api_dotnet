@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Threading.Tasks;
-using FluentAssertions;
+using AwesomeAssertions;
 using GettyImages.Api;
 using Xunit;
 

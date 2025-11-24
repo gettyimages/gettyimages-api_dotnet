@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using FluentAssertions;
+using AwesomeAssertions;
 using GettyImages.Api;
 using GettyImages.Api.Models;
 using Xunit;

@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using FluentAssertions;
+using AwesomeAssertions;
 using GettyImages.Api;
 using GettyImages.Api.Models;
 using Xunit;

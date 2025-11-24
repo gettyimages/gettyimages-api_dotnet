@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web;
-using FluentAssertions;
+using AwesomeAssertions;
 using GettyImages.Api;
 using Xunit;
 
