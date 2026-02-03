@@ -19,7 +19,7 @@ public class Orders : ApiRequest<GetOrderDetailsResponse>
         return new Orders(credentials, baseUrl, customHandler);
     }
 
-    public Orders WithId(int value)
+    public Orders WithId(long value)
     {
         Path = $"/orders/{value}";
         return this;

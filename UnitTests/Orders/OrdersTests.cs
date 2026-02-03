@@ -17,4 +17,15 @@ public class OrdersTests
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("orders/1234");
     }
+
+    [Fact]
+    public async Task OrdersBasicWithMaxValue()
+    {
+        var testHandler = TestUtil.CreateTestHandler();
+
+        await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
+            .Orders().WithId(long.MaxValue).ExecuteAsync();
+
+        testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("orders/9223372036854775807");
+    }
 }
