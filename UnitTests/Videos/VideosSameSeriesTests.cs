@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using AwesomeAssertions;
 using GettyImages.Api;
 using System.Diagnostics;
 using System.Threading.Tasks;

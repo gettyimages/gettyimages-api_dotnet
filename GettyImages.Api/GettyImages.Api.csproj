@@ -9,7 +9,7 @@
         <Product>Getty Images API SDK</Product>
         <Title>Getty Images API SDK</Title>
         <Description>Allows easy integration with the Getty Images API.</Description>
-        <Copyright>Copyright © 2014 - 2018 Getty Images</Copyright>
+        <Copyright>Copyright © 2014 - 2025 Getty Images</Copyright>
         <PackageTags>Getty Images Videos API SDK GettyImages Photo Photos Search Creative Editorial Artist Embed</PackageTags>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageProjectUrl>https://github.com/gettyimages/gettyimages-api_dotnet</PackageProjectUrl>
@@ -20,8 +20,7 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Polly.Extensions.Http" Version="3.0.0" />
-        <PackageReference Include="System.Memory" Version="4.5.5" />
-        <PackageReference Include="System.Text.Json" Version="8.0.5" />
+        <PackageReference Include="System.Text.Json" Version="10.0.0" />
     </ItemGroup>
     <ItemGroup>
         <None Include="../LICENSE" Pack="true" PackagePath="" />
