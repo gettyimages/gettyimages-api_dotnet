@@ -16,7 +16,7 @@ public class OrdersTests
         var testHandler = TestUtil.CreateTestHandler();
 
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
-            .Orders().WithId(1234).ExecuteAsync();
+            .Orders().WithId("1234").ExecuteAsync();
 
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("orders/1234");
     }
