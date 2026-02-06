@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+
 using AwesomeAssertions;
+
 using GettyImages.Api;
 using GettyImages.Api.Models;
+
 using Xunit;
 
 namespace UnitTests.Usage;

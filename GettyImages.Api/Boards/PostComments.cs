@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Boards;
@@ -12,7 +13,7 @@ public class PostComments : ApiRequest<CreateCommentResponse>
         Method = "POST";
     }
 
-    
+
 
     internal static PostComments GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
     {

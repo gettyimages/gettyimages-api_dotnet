@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+
 using GettyImages.Api.AiGenerator;
 using GettyImages.Api.Artists;
 using GettyImages.Api.AssetChanges;
@@ -189,7 +190,7 @@ public class ApiClient
     {
         return Search.SearchVideosCreativeByImage.GetInstance(_credentials, _baseUrl, _customHandler);
     }
-    
+
     /// <summary>
     ///     Search for editorial videos
     /// </summary>
@@ -618,7 +619,7 @@ public class ApiClient
     {
         return Api.Customers.Customers.GetInstance(_credentials, _baseUrl, _customHandler);
     }
-    
+
     /// <summary>
     ///     Generate images
     /// </summary>
@@ -629,7 +630,7 @@ public class ApiClient
     {
         return AiGenerator.GenerateImages.GetInstance(_credentials, _baseUrl, _customHandler);
     }
-    
+
     /// <summary>
     ///     Get generated images after using <see cref="GenerateImages"/>
     /// </summary>
@@ -640,7 +641,7 @@ public class ApiClient
     {
         return AiGenerator.GetGeneratedImages.GetInstance(_credentials, _baseUrl, _customHandler);
     }
-    
+
     /// <summary>
     ///     Get generated image download
     /// </summary>
@@ -684,7 +685,7 @@ public class ApiClient
     {
         return AiGenerator.GeneratedImageVariations.GetInstance(_credentials, _baseUrl, _customHandler);
     }
-    
+
     /// <summary>
     ///     Redownload a generated image
     /// </summary>

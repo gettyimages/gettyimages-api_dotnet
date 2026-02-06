@@ -1,6 +1,9 @@
 ﻿using System.Threading.Tasks;
+
 using AwesomeAssertions;
+
 using GettyImages.Api;
+
 using Xunit;
 
 namespace UnitTests.AiGenerator;

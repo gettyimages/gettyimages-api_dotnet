@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
+
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Videos;
@@ -7,7 +8,7 @@ namespace GettyImages.Api.Videos;
 public class Videos : ApiRequest<GetVideosDetailsResponse>
 {
     private readonly List<string> _videoIds = new();
-    
+
 
     private Videos(Credentials credentials, string baseUrl, DelegatingHandler customHandler) : base(customHandler)
     {
@@ -15,7 +16,7 @@ public class Videos : ApiRequest<GetVideosDetailsResponse>
         BaseUrl = baseUrl;
         Method = "GET";
         Path = "/videos";
-        
+
         AddResponseFields(new[]
         {
             "id", "allowed_use", "artist", "asset_family", "call_for_image", "caption", "city", "clip_length",
@@ -34,7 +35,7 @@ public class Videos : ApiRequest<GetVideosDetailsResponse>
 
     public Videos WithId(string value)
     {
-        AddIds(new []{ value });
+        AddIds(new[] { value });
         return this;
     }
 
@@ -49,7 +50,7 @@ public class Videos : ApiRequest<GetVideosDetailsResponse>
         AddHeaderParameter(Constants.AcceptLanguage, value);
         return this;
     }
-    
+
     public Videos IncludeKeywords()
     {
         AddResponseField("keywords");

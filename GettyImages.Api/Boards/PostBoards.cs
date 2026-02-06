@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Boards;
@@ -17,7 +18,7 @@ public class PostBoards : ApiRequest<CreateBoardResponse>
     {
         return new PostBoards(credentials, baseUrl, customHandler);
     }
-    
+
     public PostBoards WithNewBoard(BoardInfo value)
     {
         BodyParameter = value;

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
@@ -17,7 +17,8 @@
         <RepositoryUrl>https://github.com/gettyimages/gettyimages-api_dotnet</RepositoryUrl>
         <RepositoryType>GitHub</RepositoryType>
         <LangVersion>10</LangVersion>
-    </PropertyGroup>
+      <UserSecretsId>eec9e98c-cfa1-4b8e-9a21-8d46bf4b996e</UserSecretsId>
+  </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Polly.Extensions.Http" Version="3.0.0" />
         <PackageReference Include="System.Text.Json" Version="10.0.0" />

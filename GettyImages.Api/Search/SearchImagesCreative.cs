@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
+
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Search;
 
 public class SearchImagesCreative : ApiRequest<SearchCreativeImagesResponse>
 {
-    protected List<string> DefaultResponseFields = new ()
+    protected List<string> DefaultResponseFields = new()
     {
         "allowed_use", "alternative_ids", "artist", "asset_family", "call_for_image", "caption", "collection_code",
         "collection_id", "collection_name", "color_type", "comp", "copyright", "date_camera_shot", "date_created",

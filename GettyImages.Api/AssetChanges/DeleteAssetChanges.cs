@@ -10,7 +10,7 @@ public class DeleteAssetChanges : ApiRequest
         Credentials = credentials;
         BaseUrl = baseUrl;
         Method = "DELETE";
-        
+
     }
 
     internal static DeleteAssetChanges GetInstance(Credentials credentials, string baseUrl,

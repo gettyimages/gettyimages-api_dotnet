@@ -1,6 +1,9 @@
 ﻿using System.Threading.Tasks;
+
 using AwesomeAssertions;
+
 using GettyImages.Api;
+
 using Xunit;
 
 namespace UnitTests.AiGenerator;
@@ -14,7 +17,7 @@ public class GetGeneratedImageDownloadTests : IAsyncLifetime
         var testHandler = TestUtil.CreateTestHandler();
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
             .GetGeneratedImageDownload()
-            .With(generationRequestId: "CD9C0632-732C-4F8D-9F96-420B07985B50" , index: 2)
+            .With(generationRequestId: "CD9C0632-732C-4F8D-9F96-420B07985B50", index: 2)
             .ExecuteAsync();
 
         _absoluteUri = testHandler.Request.RequestUri!.AbsoluteUri;

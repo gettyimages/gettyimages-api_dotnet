@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using AwesomeAssertions;
+
 using GettyImages.Api;
+
 using Xunit;
 
 namespace UnitTests.Videos;

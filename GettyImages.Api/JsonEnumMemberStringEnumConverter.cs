@@ -31,11 +31,11 @@ public class JsonEnumMemberStringEnumConverter : JsonConverterFactory
 
     public override JsonConverter CreateConverter(Type typeToConvert, JsonSerializerOptions options)
     {
-        var query = from field in typeToConvert.GetFields(BindingFlags.Public | BindingFlags.Static)
-            let attr = field.GetCustomAttribute<EnumMemberAttribute>()
-            where attr != null && attr.Value != null
-            select (field.Name, attr.Value);
-        var dictionary = query.ToDictionary(p => p.Item1, p => p.Item2);
+        var query = typeToConvert.GetFields(BindingFlags.Public | BindingFlags.Static)
+            .Select(field => new { field, attr = field.GetCustomAttribute<EnumMemberAttribute>() })
+            .Where(t => t.attr != null && t.attr.Value != null)
+            .Select(t => (t.field.Name, t.attr.Value));
+        var dictionary = query.ToDictionary(p => p.Name, p => p.Value);
         if (dictionary.Count > 0)
         {
             return new JsonStringEnumConverter(new DictionaryLookupNamingPolicy(dictionary, _namingPolicy),

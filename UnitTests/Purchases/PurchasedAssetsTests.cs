@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web;
+
 using AwesomeAssertions;
+
 using GettyImages.Api;
+
 using Xunit;
 
 namespace UnitTests.Purchases;

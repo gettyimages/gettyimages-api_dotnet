@@ -1,7 +1,10 @@
 ﻿using System.Diagnostics;
 using System.Threading.Tasks;
+
 using AwesomeAssertions;
+
 using GettyImages.Api;
+
 using Xunit;
 
 namespace UnitTests.Videos;
@@ -22,7 +25,7 @@ public class VideosSimilarTests
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("videos/882449540/similar");
     }
 
-    
+
     [Fact]
     public async Task VideosSimilarWithPage()
     {

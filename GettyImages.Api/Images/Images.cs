@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
+
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Images;
@@ -32,7 +33,7 @@ public class Images : ApiRequest<GetImagesDetailsResponse>
 
     public Images WithId(string value)
     {
-        AddIds(new []{ value });
+        AddIds(new[] { value });
         return this;
     }
 
@@ -47,7 +48,7 @@ public class Images : ApiRequest<GetImagesDetailsResponse>
         AddHeaderParameter(Constants.AcceptLanguage, value);
         return this;
     }
-    
+
     public Images IncludeKeywords()
     {
         AddResponseField("keywords");

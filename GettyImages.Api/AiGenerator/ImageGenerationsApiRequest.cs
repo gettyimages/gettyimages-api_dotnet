@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.AiGenerator;
@@ -11,7 +12,7 @@ public abstract class ImageGenerationsApiRequest : ApiRequest
     protected ImageGenerationsApiRequest(DelegatingHandler customHandler) : base(customHandler)
     {
     }
-    
+
     public async Task<ImageGenerationsReadyResponse> ExecuteAsync(TimeSpan pollDelay, TimeSpan timeout)
     {
         var helper = new WebHelper(Credentials, BaseUrl, _customHandler);

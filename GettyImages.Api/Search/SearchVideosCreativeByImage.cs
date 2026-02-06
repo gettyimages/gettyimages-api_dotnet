@@ -4,6 +4,7 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Search;
@@ -122,7 +123,7 @@ public class SearchVideosCreativeByImage : ApiRequest<SearchCreativeVideosByImag
         AddQueryParameter("exclude_editorial_use_only", true);
         return this;
     }
-    
+
     public SearchVideosCreativeByImage IncludeKeywords()
     {
         AddResponseField("keywords");

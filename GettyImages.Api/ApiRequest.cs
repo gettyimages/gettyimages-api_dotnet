@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api;
@@ -393,7 +394,7 @@ public class ApiRequest
 
     protected void AddResponseField(string value)
     {
-        AddResponseFields(new []{ value });
+        AddResponseFields(new[] { value });
     }
 
     protected void AddResponseFields(IEnumerable<string> values)
@@ -657,7 +658,7 @@ public class ApiRequest
             QueryParameters[Constants.IdsKey] = ids.ToList();
         }
     }
-    
+
     protected void AddIds(IEnumerable<int> values)
     {
         if (!QueryParameters.ContainsKey(Constants.IdsKey))
@@ -671,5 +672,5 @@ public class ApiRequest
             QueryParameters[Constants.IdsKey] = ids.ToList();
         }
     }
-    
+
 }
