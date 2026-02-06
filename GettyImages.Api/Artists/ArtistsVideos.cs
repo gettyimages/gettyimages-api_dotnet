@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Artists;
@@ -12,7 +13,7 @@ public class ArtistsVideos : ApiRequest<SearchVideosByArtistResponse>
         BaseUrl = baseUrl;
         Method = "GET";
         Path = "/artists/videos";
-        
+
         AddResponseFields(new[]
         {
             "id", "allowed_use", "alternative_ids", "artist", "asset_family", "asset_type", "call_for_image",
@@ -54,7 +55,7 @@ public class ArtistsVideos : ApiRequest<SearchVideosByArtistResponse>
         AddQueryParameter(Constants.PageSizeKey, value);
         return this;
     }
-    
+
     public ArtistsVideos IncludeKeywords()
     {
         AddResponseField("keywords");

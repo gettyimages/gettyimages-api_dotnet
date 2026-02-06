@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Usage;
@@ -11,7 +12,7 @@ public class UsageBatches : ApiRequest<ReportUsageBatchResponse>
         BaseUrl = baseUrl;
         Method = "PUT";
     }
-    
+
     internal static UsageBatches GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
     {
         return new UsageBatches(credentials, baseUrl, customHandler);

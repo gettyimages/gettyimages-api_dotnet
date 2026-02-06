@@ -6,7 +6,7 @@ public class GetSimilarVideosResponse
 {
     public int ResultCount { get; set; }
     public SimilarVideo[] Videos { get; set; }
-   
+
 }
 
 public class SimilarVideo
@@ -44,5 +44,5 @@ public class SimilarVideo
     public string ShotSpeed { get; set; }
     public string Source { get; set; }
     public string Title { get; set; }
-    
+
 }

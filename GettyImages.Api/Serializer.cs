@@ -8,8 +8,8 @@ public static class Serializer
 {
     private static readonly JsonSerializerOptions JsonSerializerOptions = new()
     {
-        PropertyNamingPolicy = new JsonSnakeCaseNamingPolicy(),
-        Converters = { new JsonEnumMemberStringEnumConverter() }
+        PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
+        Converters = { new JsonEnumMemberStringEnumConverter(JsonNamingPolicy.SnakeCaseLower) }
     };
 
     public static T Deserialize<T>(string requestString)

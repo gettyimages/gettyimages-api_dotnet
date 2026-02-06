@@ -1,6 +1,9 @@
 ﻿using System.Threading.Tasks;
+
 using AwesomeAssertions;
+
 using GettyImages.Api;
+
 using Xunit;
 
 namespace UnitTests.Artists;
@@ -18,7 +21,7 @@ public class ArtistsVideosTests
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artists/videos");
         testHandler.Request.RequestUri.AbsoluteUri.Should().Contain("artist_name=roman+makhmutov");
     }
-    
+
     [Fact]
     public async Task SearchForVideosByArtistWithPage()
     {

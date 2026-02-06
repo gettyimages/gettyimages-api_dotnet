@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.AiGenerator;

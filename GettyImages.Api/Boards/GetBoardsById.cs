@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Boards;
@@ -11,7 +12,7 @@ public class GetBoardsById : ApiRequest<GetBoardDetailsResponse>
         Credentials = credentials;
         BaseUrl = baseUrl;
         Method = "GET";
-        
+
     }
 
     internal static GetBoardsById GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)

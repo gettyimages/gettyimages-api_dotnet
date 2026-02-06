@@ -1,7 +1,9 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+
 using GettyImages.Api;
+
 using Xunit;
 
 namespace UnitTests.WebHelper;

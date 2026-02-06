@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+
 using GettyImages.Api;
 using GettyImages.Api.Search;
+
 using Xunit;
 
 namespace UnitTests.HeaderAndBody;

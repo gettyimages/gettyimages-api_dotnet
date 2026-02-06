@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
+
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Events;
@@ -28,7 +29,7 @@ public class Events : ApiRequest<GetEventsResponse>
 
     public Events WithId(int value)
     {
-        AddIds(new []{ value });
+        AddIds(new[] { value });
         return this;
     }
 
