@@ -13,14 +13,14 @@ public class Orders : ApiRequest<GetOrderDetailsResponse>
         Method = "GET";
     }
 
-    protected int id { get; set; }
+    protected string id { get; set; }
 
     internal static Orders GetInstance(Credentials credentials, string baseUrl, DelegatingHandler customHandler)
     {
         return new Orders(credentials, baseUrl, customHandler);
     }
 
-    public Orders WithId(int value)
+    public Orders WithId(string value)
     {
         Path = $"/orders/{value}";
         return this;
