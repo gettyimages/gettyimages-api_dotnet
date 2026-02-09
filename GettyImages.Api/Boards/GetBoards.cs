@@ -1,5 +1,7 @@
 ﻿using System.Net.Http;
+
 using GettyImages.Api.Models;
+
 using BoardRelationship = GettyImages.Api.Models.BoardRelationship;
 
 namespace GettyImages.Api.Boards;

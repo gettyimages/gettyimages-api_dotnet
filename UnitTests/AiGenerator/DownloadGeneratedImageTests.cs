@@ -1,8 +1,11 @@
 ﻿using System.Net.Http.Json;
 using System.Threading.Tasks;
+
 using AwesomeAssertions;
+
 using GettyImages.Api;
 using GettyImages.Api.Models;
+
 using Xunit;
 
 namespace UnitTests.AiGenerator;
@@ -17,7 +20,7 @@ public class DownloadGeneratedImageTests : IAsyncLifetime
         var testHandler = TestUtil.CreateTestHandler();
         await ApiClient.GetApiClientWithClientCredentials("apiKey", "apiSecret", testHandler)
             .DownloadGeneratedImage()
-            .With(generationRequestId: "A6503762-4A4B-4434-8445-2C1335A95A78" , index: 2, 
+            .With(generationRequestId: "A6503762-4A4B-4434-8445-2C1335A95A78", index: 2,
                 new GeneratedImageDownloadRequest
                 {
                     SizeName = ImageGenerationsSize.FourK,
@@ -60,7 +63,7 @@ public class DownloadGeneratedImageTests : IAsyncLifetime
     {
         return Task.CompletedTask;
     }
-    
+
     public class download_generated_image_request
     {
         public string notes { get; set; }

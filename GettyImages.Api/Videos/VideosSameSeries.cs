@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Videos;
@@ -50,7 +51,7 @@ public class VideosSameSeries : ApiRequest<GetSimilarVideosResponse>
         AddQueryParameter(Constants.PageSizeKey, value);
         return this;
     }
-    
+
     public VideosSameSeries IncludeKeywords()
     {
         AddResponseField("keywords");
@@ -62,5 +63,5 @@ public class VideosSameSeries : ApiRequest<GetSimilarVideosResponse>
         AddResponseField("largest_downloads");
         return this;
     }
-    
+
 }

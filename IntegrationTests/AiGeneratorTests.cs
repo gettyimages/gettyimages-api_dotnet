@@ -1,7 +1,10 @@
 using System.Threading.Tasks;
+
 using AwesomeAssertions;
+
 using GettyImages.Api;
 using GettyImages.Api.Models;
+
 using Xunit;
 
 namespace IntegrationTests;
@@ -168,7 +171,7 @@ public class AiGeneratorTests : IClassFixture<AiGeneratorTests.Fixture>
             DownloadGeneratedImageResponse = await ApiClient
                 .GetApiClientWithResourceOwnerCredentials(ApiKey, ApiSecret, UserName, UserPassword)
                 .DownloadGeneratedImage()
-                .With(ImageGenerationsResponse.GenerationRequestId, 2, new GeneratedImageDownloadRequest{SizeName = ImageGenerationsSize.FourK})
+                .With(ImageGenerationsResponse.GenerationRequestId, 2, new GeneratedImageDownloadRequest { SizeName = ImageGenerationsSize.FourK })
                 .ExecuteAsync();
 
             RedownloadGeneratedImageResponse = await ApiClient
@@ -188,14 +191,14 @@ public class AiGeneratorTests : IClassFixture<AiGeneratorTests.Fixture>
                 .GetGeneratedImageDownload()
                 .With(ImageGenerationsResponse.GenerationRequestId, 2)
                 .ExecuteAsync();
-            
-            GetDownloadSizesResponse = await  ApiClient
+
+            GetDownloadSizesResponse = await ApiClient
                 .GetApiClientWithResourceOwnerCredentials(ApiKey, ApiSecret, UserName, UserPassword)
                 .GetDownloadSizes()
                 .With(generationRequestId: ImageGenerationsResponse.GenerationRequestId, index: 3)
                 .ExecuteAsync();
-            
-            GetGeneratedImageVariationsResponse = await  ApiClient
+
+            GetGeneratedImageVariationsResponse = await ApiClient
                 .GetApiClientWithResourceOwnerCredentials(ApiKey, ApiSecret, UserName, UserPassword)
                 .GeneratedImageVariations()
                 .With(generationRequestId: ImageGenerationsResponse.GenerationRequestId, index: 3, new GenerationVariationsRequest

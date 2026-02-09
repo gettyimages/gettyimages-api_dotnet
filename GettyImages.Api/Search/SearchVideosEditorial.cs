@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
+
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Search;
@@ -30,7 +31,7 @@ public class SearchVideosEditorial : ApiRequest<SearchEditorialVideosResponse>
         return new SearchVideosEditorial(credentials, baseUrl, customHandler);
     }
 
-   public SearchVideosEditorial WithAcceptLanguage(string value)
+    public SearchVideosEditorial WithAcceptLanguage(string value)
     {
         AddHeaderParameter(Constants.AcceptLanguage, value);
         return this;

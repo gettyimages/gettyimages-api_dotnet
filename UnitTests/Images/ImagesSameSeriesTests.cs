@@ -1,6 +1,9 @@
-﻿using AwesomeAssertions;
+﻿using System.Threading.Tasks;
+
+using AwesomeAssertions;
+
 using GettyImages.Api;
-using System.Threading.Tasks;
+
 using Xunit;
 
 namespace UnitTests.Images

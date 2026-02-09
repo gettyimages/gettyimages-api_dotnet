@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.AiGenerator;
@@ -24,7 +25,7 @@ public class GeneratedImageVariations : ImageGenerationsApiRequest
     {
         return new GeneratedImageVariations(credentials, baseUrl, customHandler);
     }
-    
+
     public GeneratedImageVariations With(string generationRequestId, int index, GenerationVariationsRequest generationVariationsRequest)
     {
         Path = $"/ai/image-generations/{generationRequestId}/images/{index}/variations";

@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+
 using GettyImages.Api.Models;
 
 namespace GettyImages.Api.Artists;
@@ -50,7 +51,7 @@ public class ArtistsImages : ApiRequest<SearchImagesByArtistResponse>
         AddQueryParameter(Constants.PageSizeKey, value);
         return this;
     }
-    
+
     public ArtistsImages IncludeKeywords()
     {
         AddResponseField("keywords");
